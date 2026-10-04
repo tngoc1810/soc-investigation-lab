@@ -1,0 +1,297 @@
+{
+  "validated_at": "2026-10-04T16:30:46.4389907Z",
+  "version": "3.0.0",
+  "head_sha": "22f1e932515c5d06172acd22bf6a9d7cd17bc02e",
+  "run_id": 37216927897,
+  "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37216927897",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "backend",
+      "conclusion": "success",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37216927897/job/111479226730",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Prepare independent evidence collections",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify pinned native Loki ingestion and actual LogQL responses",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "sigma",
+      "conclusion": "success",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37216927897/job/111479226848",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install -r requirements-validation.txt",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python scripts/validate_sigma.py",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "regression (windows-latest, 3.11)",
+      "conclusion": "success",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37216927897/job/111479226874",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run regression tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify published evidence checksums",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run documented demo",
+          "conclusion": "success"
+        },
+        {
+          "name": "Rebuild and verify public EVTX cases on Windows",
+          "conclusion": "success"
+        },
+        {
+          "name": "Evaluate checked-in scenario corpus",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "regression (ubuntu-latest, 3.12)",
+      "conclusion": "success",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37216927897/job/111479226879",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run regression tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify published evidence checksums",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run documented demo",
+          "conclusion": "success"
+        },
+        {
+          "name": "Rebuild and verify public EVTX cases on Windows",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Evaluate checked-in scenario corpus",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "regression (ubuntu-latest, 3.11)",
+      "conclusion": "success",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37216927897/job/111479226889",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run regression tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify published evidence checksums",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run documented demo",
+          "conclusion": "success"
+        },
+        {
+          "name": "Rebuild and verify public EVTX cases on Windows",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Evaluate checked-in scenario corpus",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "regression (windows-latest, 3.12)",
+      "conclusion": "success",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37216927897/job/111479226921",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run regression tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify published evidence checksums",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run documented demo",
+          "conclusion": "success"
+        },
+        {
+          "name": "Rebuild and verify public EVTX cases on Windows",
+          "conclusion": "success"
+        },
+        {
+          "name": "Evaluate checked-in scenario corpus",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "scope": "Actual GitHub run over the release code commit: four OS/Python jobs, separate Sigma parser and independent pinned native Loki replay. Grafana rendering was verified locally."
+}

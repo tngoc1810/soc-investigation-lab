@@ -10,7 +10,7 @@ These artifacts were produced on 2026-10-04. Public EVTX, inert constructed reco
 
 The browser exercise uses constructed case 005. `build_operations.py` creates four initial decisions and nine chain anchors. The interface then attached Security 4698 record 110 with an explicit reason, producing revision 5, ten anchors and a new exclusive export. Actor labels describe the exercise; they do not authenticate a person.
 
-[workflow-validation.json](workflow-validation.json) records the ZIP digest and audit anchor. [The reviewed packet](reviewed-bundle/report.md) is its verified unpacked content; the ZIP stays local. Its manifest checks the files. A database owner can rewrite and reseal history, so these hashes are relative integrity against retained anchors, not digital signatures.
+[workflow-validation.json](workflow-validation.json) records the ZIP digest and audit anchor. [The reviewed packet](reviewed-bundle/report.md) is its verified unpacked content. The same ten-record synthetic ZIP is attached to [release v3.0.0](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.0); a fresh download matched its SHA-256. Its manifest checks the files. A database owner can rewrite and reseal history, so these hashes are relative integrity against retained anchors, not digital signatures.
 
 ## Actual Loki and Grafana
 
@@ -31,3 +31,9 @@ The browser exercise uses constructed case 005. `build_operations.py` creates fo
 - [local-collector-validation.json](local-collector-validation.json): 20 existing System records privately collected/imported with original XML. Only counts and hashes are public. This validates acquisition, not attack detection.
 
 The [historical v2 gallery](../advanced/README.md) retains the held-out errors and the baseline's higher F1. Use [the runbook](../../docs/RUNBOOK_V3.md) to reproduce current work and [the validation record](../../docs/VALIDATION.md) for CI status. The root checksum inventory covers these artifacts. A source hash identifies received bytes, not source authenticity.
+
+## Release and independent CI
+
+All six jobs passed in [run 37216927897](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37216927897) over code commit `22f1e932515c5d06172acd22bf6a9d7cd17bc02e`. [ci-validation.json](ci-validation.json) retains job/step results. [ci-backend-validation.json](ci-backend-validation.json) checks the actual downloaded Loki artifact against all five expected counts and the adapter source bytes. [release-validation.json](release-validation.json) records the tested tag target, reviewed asset and verified download hash.
+
+![Published public release](screenshots/04-github-release.jpg)
