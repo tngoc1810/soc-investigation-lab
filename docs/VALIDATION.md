@@ -1,4 +1,4 @@
-# Validation record — 2026-10-04
+# Validation record â€” 2026-10-04
 
 ## Version 2 reconstruction and evaluation
 
@@ -6,7 +6,7 @@ The local suite now has 55 passing regression tests, including GUID/session isol
 
 Twenty checked-in scenarios separate 12 development variants from eight held-out variants. The latter produce TP=2, FP=1, TN=3 and FN=2 for the graph policy. Precision is 66.7%, recall 50.0% and F1 57.1%. The username/time ablation yields TP=4, FP=3, TN=1, FN=0 and a higher F1 of 72.7%. All outcomes are published. This is a small synthetic regression corpus, not production accuracy.
 
-The browser was checked for stage-to-original-record lookup, process selection, public graph reconstruction and evaluation results. Three fresh Python 3.11 workers measured loading/reconstruction of the actual 2,511-event collection; details and input hashes are in evidence/advanced/benchmark.json. No large-scale throughput or live SOC latency is claimed. The full v2 GitHub run will be recorded after it finishes.
+The browser was checked for stage-to-original-record lookup, process selection, public graph reconstruction and evaluation results. Three fresh Python 3.11 workers measured loading/reconstruction of the actual 2,511-event collection; details and input hashes are in evidence/advanced/benchmark.json. No large-scale throughput or live SOC latency is claimed. Version 2 code commit c213b0734507c4c391baa32c8cc0827f26a6ebfd passed all five jobs in [run 37208393024](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37208393024): 55 tests, evidence checksums and corpus evaluation on Windows/Ubuntu with Python 3.11/3.12; public-EVTX plus advanced replay on both Windows jobs; separate Sigma parsing. Captured step results are in evidence/advanced/ci-validation.json.
 
 The v1 measurements below remain historical snapshots. They use another input and measure ingest/analyze rather than v2 graph reconstruction.
 

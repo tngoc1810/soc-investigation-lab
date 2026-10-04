@@ -4,9 +4,10 @@
   "files": {
     "evidence/advanced/benchmark.json": "5819464661ff9e29a8398d77d9b51f8c78cad601da3c811b3b519f3091f927d4",
     "evidence/advanced/chain-investigation.json": "0b921dcc796a585f1cef0b311c7000ee4497a8310c386a3487d99aaa2bbf72f9",
+    "evidence/advanced/ci-validation.json": "e5b62cf79db2a134ef884ab1e7aa04e8156154f61024ce3555794a1dbc095a18",
     "evidence/advanced/evaluation.json": "564f0aad89635e06f8e538a381d7633fe287e15a71c92643df98c9b3231e2645",
     "evidence/advanced/public-process-graph.json": "5149bb2e9d00289a4fd39572ba4fb7abb16bcd036569a47e41a18efb58ba6eb1",
-    "evidence/advanced/README.md": "d441a03e289299a77b797336f27f8e366f6279d7cc87eba2c562aa4a9a183d13",
+    "evidence/advanced/README.md": "990b249f1b50d0de4b6cb75820aef7f8f584a984d66318e225ecf0c527552c02",
     "evidence/advanced/replay-validation.json": "ba1628fe948a55e650082e8cfc81a76fcc125338d9611280db33c495bcfea46e",
     "evidence/advanced/screenshots/01-chain-reconstruction.jpg": "8e230ad48a8b6783f689a6852048986714b76804de5e734b03d0d2d60cad5b61",
     "evidence/advanced/screenshots/02-evaluation.jpg": "116f613f9d6f5014bdf58e82ce22a2cc47afa9116d0198fac93ac5380f465278",

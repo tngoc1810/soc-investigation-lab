@@ -36,6 +36,8 @@ The baseline is a deliberately weak username/time-only ablation, not the release
 
 Evaluation normalizes virtual channel arrays from each checked-in scenario. Its source hashes cover their canonical sorted-key JSON serialization, and source-line values are positions within those virtual channels. They are not EVTX hashes or physical lines in the pretty-printed scenario file. The corpus inventory separately hashes the actual scenario-file bytes. The investigated SQLite cases use physical JSONL line references and imported-file hashes as before.
 
+Some variants intentionally reuse observable events: approved-admin intent ambiguity and reordered/duplicate metamorphic tests. Split separation therefore does not imply feature-level independence. The current implementation also scans the collection for each successful authentication candidate; success-heavy workloads can approach quadratic work. Only the published small collection was timed. Indexing session/candidate lookups and evaluating independent collections are concrete follow-on engineering tasks.
+
 ## API and UI boundary
 
 The explorer remains localhost-only and read-only. Original-record lookup uses a parameterized query on a SQLite mode=ro connection that is explicitly closed after each request. The case ID selects a configured database; a record UID cannot request another case's event. Commands/XML are rendered as text. No IOC is resolved and no historical command is executed.

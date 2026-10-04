@@ -21,6 +21,6 @@ These are genuine screenshots of the working localhost explorer, not renders of 
 - replay-validation.json: expected collection counts and topology from the actual build.
 - benchmark.json: three fresh processes loading and reconstructing the 2,511-event generated collection; maximum worker peak working set 28.83 MiB and median loading/reconstruction 0.048 seconds on this workload, not total laptop/browser memory.
 - test-results.txt: actual regression runner output.
-- ci-validation.json: remote validation results, added after the release run completes.
+- ci-validation.json: five successful remote jobs and executed step results for the v2 code commit.
 
 The 20 isolated corpus files, intent labels and checksummed inventory live in data/corpus. They are inert fixtures; no attack commands were executed. Related templates and public held-out labels limit the evaluation's generality. Original public EVTX remains a pinned local download. The root evidence/checksums.json inventories the published snapshots.
