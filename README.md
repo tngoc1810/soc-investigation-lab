@@ -2,7 +2,7 @@
 
 An evidence-first Windows investigation portfolio built for a SOC internship and an 8 GB laptop. The initial release processes logs offline with Python's standard library and SQLite. No VM, Docker stack or SIEM server is required for the quickstart.
 
-**Status: working foundation, not a completed internship portfolio.** One public EVTX case has been investigated, and four learning milestones remain. Rule matches are review leads; incident verdicts are written by an analyst.
+**Status: working foundation, not a completed internship portfolio.** One public EVTX case has been investigated; additional case studies and SIEM practice remain. Rule matches are review leads; incident verdicts are written by an analyst.
 
 ## Start here
 

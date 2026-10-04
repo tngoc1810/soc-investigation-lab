@@ -10,6 +10,7 @@ This document reports local checks, not production SOC performance. The code and
 - Public sample with the initial seven single-event rules: WIN-004 matched once.
 - Public sample after adding WIN-008: WIN-004 and WIN-008 matched once each.
 - Existing report bundles were rejected instead of overwritten.
+- [GitHub Actions run 37200425663](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37200425663) passed all four matrix jobs on commit 01496ca5db33026badea001e6dd0485b4707d1ad: Windows and Ubuntu, Python 3.11 and 3.12. Each ran the 21 tests and documented synthetic demo.
 
 Tests cover atomic rollback, original-evidence preservation, byte-identical reimport, timezone normalization, UTF-8/BOM handling, physical line references, record-ID collisions, provider/channel checks, CSV formula neutralization, legitimate commands that still alert, raw-event search, rule validation, correlation-window boundaries and separation of host/user/IP/domain/logon type/source. They use inert, generated records. A passing test does not mean arbitrary public EVTX data or every command-line variant is supported.
 
@@ -17,7 +18,6 @@ The initial rules lacked a Sysmon schtasks creation check. WIN-005 required Secu
 
 ## Not yet measured or verified
 
-- GitHub Actions: configured for Windows/Linux with Python 3.11/3.12, not yet run remotely.
 - Peak RAM and throughput on the user's laptop.
 - Precision/recall against a representative labeled dataset.
 - SIEM ingestion, search and live detection latency.

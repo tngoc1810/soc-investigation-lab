@@ -1,0 +1,20 @@
+{
+  "validation_date": "2026-10-04",
+  "analysis_code_commit": "01496ca5db33026badea001e6dd0485b4707d1ad",
+  "sample_catalog_id": "public-mshta-task",
+  "source_evtx_sha256": "fb5679aec77dc45a35902f705b513811dfea0f2f93c9c8503464a20270c3222f",
+  "local_export_jsonl_sha256": "ed4ca4495a28b76afca39aa837dae4cfb8524e019714b494b5160d4fec7421b4",
+  "event_count": 8,
+  "initial_rule_counts_without_WIN_008": {"WIN-004": 1},
+  "final_rule_counts": {"WIN-004": 1, "WIN-008": 1},
+  "event_id_counts": {"1": 4, "3": 3, "11": 1},
+  "ci_run": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37200425663",
+  "ci_matrix_result": "four jobs passed: Windows/Ubuntu, Python 3.11/3.12; synthetic regression/demo only",
+  "limitations": [
+    "Public historical lab sample; not a production incident",
+    "EVTX export integration checked locally on Windows; not exercised by the CI matrix",
+    "No operational precision, recall, MTTD or live-response claim",
+    "Task execution and payload content not established",
+    "Network payload timestamps differ from System/TimeCreated"
+  ]
+}
