@@ -9,6 +9,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from soclab.query import run_query
+from soclab import __version__
 
 EXPECTED = {
     "case-001": (8, {"WIN-004":1,"WIN-008":1}),
@@ -44,7 +45,7 @@ def main():
     source_digest=hashlib.sha256()
     for path in sorted((ROOT/"soclab").glob("*.py")):
         source_digest.update(path.name.encode());source_digest.update(path.read_bytes())
-    result={"validation_date":"2026-10-04","version":"1.0.0","run_id":index["run_id"],
+    result={"validation_date":"2026-10-04","version":__version__,"run_id":index["run_id"],
             "engine_source_sha256":source_digest.hexdigest(),"cases":records,
             "supplement":{"event_count":295,"rule_counts":m["findings_by_rule"],"scope":"Independent dataset, not joined to the primary authentication case"},
             "primary_events":sum(c["event_count"] for c in records),"public_events_including_supplement":3867,

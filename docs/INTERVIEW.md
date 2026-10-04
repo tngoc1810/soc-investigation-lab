@@ -20,3 +20,8 @@
 18. What changed your interpretation of the quoted PowerShell expression, and what is still unknown?
 19. How can an attacker fit the exact backup context without changing the command line?
 20. What does the worker peak working set measure, and why is it not a guarantee about total RAM or a live SOC workload?
+21. What specifically authorizes two source files to participate in the same investigation?
+22. How do zero logon GUIDs, repeated process GUIDs and missing parents affect your joins?
+23. Why does your held-out graph detector have lower F1 than the temporal baseline?
+24. Why are scenario-level synthetic labels insufficient to claim production precision/recall?
+25. How do exact overlapping observations differ from changed content at the same record ID?

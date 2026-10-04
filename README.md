@@ -2,9 +2,19 @@
 
 A Windows security investigation portfolio that runs on a small laptop. The lab turns public EVTX evidence into searchable events, detection leads and analyst decisions. It uses Python and SQLite locally, with a read-only browser interface for reviewing the work.
 
-**Version 1.0 — complete offline casebook.** Four case studies, 12 detection hypotheses, portable rule/query references and reproducible evidence. Live SIEM backend validation is outside this release.
+**Version 2.0 — evidence reconstruction and detection evaluation.** Five case studies, an explicit source-scope policy, interactive process graphs, explainable five-stage investigation leads and a versioned 20-scenario evaluation corpus. Live SIEM backend validation remains outside this release.
 
-![Case explorer](evidence/screenshots/01-mshta-findings.jpg)
+![Multi-source reconstruction](evidence/advanced/screenshots/01-chain-reconstruction.jpg)
+
+## What changed in v2?
+
+The new engine asks whether authentication and process activity actually belong together. A collection manifest approves exact source hashes. Nonzero logon GUIDs bind a selected process to a successful session; process GUIDs bind its activity and observed ancestry. Contradictory creation records, unavailable parents and missing telemetry remain visible rather than becoming guessed relationships.
+
+The case explorer lets a reviewer select a process or investigation stage and open its complete original event with source hash and line. Public case 001 now has an observed four-process graph. The new constructed case has three explicitly related sources, three process nodes and one five-stage lead among 2,511 events.
+
+Evaluation publishes all 20 scenarios, labels, confusion matrices, false positives and false negatives. On the eight held-out synthetic variants, identity reconstruction yields precision 66.7% and recall 50.0%. It avoids several username/time-only false joins but misses incomplete collections; the temporal baseline has a higher held-out F1. The project documents that trade-off instead of presenting specificity as universal superiority. These tiny related fixtures are not production accuracy measurements.
+
+Read the [engineering design](docs/ENGINEERING_V2.md), [multi-source investigation](cases/005-multisource-chain/report.md) and [v2 evidence gallery](evidence/advanced/README.md).
 
 ## What is in the casebook?
 
@@ -14,8 +24,9 @@ A Windows security investigation portfolio that runs on a small laptop. The lab 
 | [002 — Authentication burst](cases/002-authentication/report.md) | 3,561 public failed-logon records; independent 295-record credential-use supplement | Investigate the concentration; do not invent a successful logon or join unrelated incidents |
 | [003 — PowerShell code or data?](cases/003-powershell-string/report.md) | 3 public script/module records | The expression appears quoted and printed; hold the execution verdict |
 | [004 — Context tuning](cases/004-context-tuning/report.md) | 4 labeled, inert synthetic records | Keep one expected-context match visible while preserving review of changed-context variants |
+| [005 — Session-to-process reconstruction](cases/005-multisource-chain/report.md) | 2,511 constructed events across three explicitly related sources | Escalate the five-stage lead; preserve missing-link and authorized-admin counterexamples |
 
-The primary four cases contain 3,576 events. Including the independent supplement, 3,867 public records and four synthetic records were processed. Counts describe separate datasets, not a single attack.
+The five primary cases contain 6,087 events. Including the independent supplement, the lab processes 3,867 public records and 2,515 constructed records. Counts describe separate datasets, not a single attack. The 2,500 background fixture records are search noise, not a scale benchmark.
 
 ## Run it on Windows
 
@@ -25,6 +36,8 @@ Python 3.11+ and Windows PowerShell are sufficient. The core has no third-party 
 python -m unittest discover -s tests -v
 ./scripts/reproduce.ps1
 python scripts/verify_portfolio.py
+python scripts/build_advanced.py
+python scripts/verify_advanced.py
 python -m soclab serve
 ~~~
 
@@ -38,6 +51,12 @@ python -m soclab analyze --db output/demo/evidence.sqlite --out output/demo/run-
 ~~~
 
 Expected: 19 synthetic events and eight review findings. Attack-looking commands are inert strings. The legitimate backup example intentionally alerts.
+
+The synthetic evaluation is portable too:
+
+~~~sh
+python -m soclab evaluate --out output/evaluation.json
+~~~
 
 ## Follow an investigation
 
@@ -57,6 +76,8 @@ Replace RUN_ID with the value in output/portfolio/index.json. Searching zero 462
 
 Nine event rules cover selected PowerShell, mshta, certutil, task, registry and audit-log-clear observables. Three bounded authentication hypotheses cover failures followed by success, failure-only bursts, and multi-account explicit credential use. Conditions, telemetry requirements, false positives and blind spots live next to the rule logic.
 
+CHAIN-001 is the thirteenth hypothesis, implemented in investigation.py. It requires matching failure/success identity, a session-linked risky process, initiated process-linked network activity and an observed descendant task-creation command. Its source scope is explicit. A chain remains a review lead; a missing chain is not a benign verdict. Use `python -m soclab investigate --db DB --scope data/scenarios/chain-collection.json --out NEW_FILE` for a standalone reconstruction.
+
 Authentication grouping is source-scoped by default. Host, account/domain, source IP and logon type are kept separate where required; overlapping exports are not silently deduplicated. The new credential rules use ten records/accounts in five minutes with a cooldown. A 4648 event does not mean authentication failed.
 
 Context tuning annotates an exact match rather than deleting it. The case-004 baseline has four findings; the context profile retains all four and leaves three in the review queue. A matching path/command cannot verify the script's current content, which remains an explicit blind spot.
@@ -66,12 +87,13 @@ The executable format is custom JSON. [Three separate Sigma rules and SIEM query
 ## Evidence and checks
 
 - [Evidence gallery](evidence/README.md): genuine browser captures, query results and checksums.
-- [Validation record](docs/VALIDATION.md): 36 regression tests, public EVTX replay and known limits.
+- [Validation record](docs/VALIDATION.md): 55 regression tests, public EVTX replay, graph/corpus expectations and known limits.
 - [Benchmark](evidence/benchmark.json): three isolated Windows worker runs on the 3,561-event file; maximum measured process peak working set 21.86 MiB. This is not total laptop RAM or a large-scale capacity claim.
 - [Data schema](docs/DATA_SCHEMA.md): source integrity, timestamp handling and field conventions.
+- [V2 reconstruction benchmark](evidence/advanced/benchmark.json): fresh-process loading and reconstruction, with input and engine hashes; separate from the v1 ingest/analyze workload.
 - [Triage playbook](playbooks/windows-triage.md) and [six-minute demo outline](docs/DEMO_SCRIPT.md).
 
-The GitHub workflow runs tests/demo on Windows and Ubuntu with Python 3.11/3.12, replays public EVTX on the Windows runners, and parses Sigma in a separate job.
+The GitHub workflow runs tests/demo and the corpus evaluator on Windows/Ubuntu with Python 3.11/3.12. Windows jobs additionally replay public EVTX, build all five investigation artifacts and verify the reviewed public process topology. Sigma parsing remains a separate job.
 
 ## Learn and present it
 

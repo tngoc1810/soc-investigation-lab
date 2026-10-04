@@ -1,5 +1,7 @@
 # Six-minute reviewer walkthrough
 
+For v2, lead with case 005: show the five stage references, explain the explicit source scope and click mshta to inspect the GUID-linked connection. Open an original event. Then use public case 001 to show that the graph also reconstructs real EVTX evidence. Finish on Evaluation: explain one wrong-join counterexample, one missing-telemetry false negative and why the stricter policy's held-out F1 is lower. The older case-by-case outline below remains useful for deeper discussion.
+
 This script accompanies the working local explorer and captured evidence gallery. It is a walkthrough outline, not a claim that a video has already been recorded by the applicant.
 
 ## 0:00–0:40 — Goal and architecture

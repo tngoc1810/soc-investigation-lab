@@ -1,0 +1,57 @@
+{
+  "version": "2.0.0",
+  "run_id": "release-v2",
+  "new_case_events": 2511,
+  "new_case_base_findings": {
+    "AUTH-001": 1,
+    "WIN-004": 1,
+    "WIN-008": 1,
+    "WIN-005": 1
+  },
+  "process_nodes": 3,
+  "observed_parent_edges": 2,
+  "complete_chain_leads": 1,
+  "evaluation": {
+    "dev": {
+      "identity_graph": {
+        "tp": 2,
+        "fp": 1,
+        "tn": 8,
+        "fn": 1,
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "f1": 0.6666666666666666
+      },
+      "temporal_baseline": {
+        "tp": 3,
+        "fp": 5,
+        "tn": 4,
+        "fn": 0,
+        "precision": 0.375,
+        "recall": 1.0,
+        "f1": 0.5454545454545454
+      }
+    },
+    "holdout": {
+      "identity_graph": {
+        "tp": 2,
+        "fp": 1,
+        "tn": 3,
+        "fn": 2,
+        "precision": 0.6666666666666666,
+        "recall": 0.5,
+        "f1": 0.5714285714285714
+      },
+      "temporal_baseline": {
+        "tp": 4,
+        "fp": 3,
+        "tn": 1,
+        "fn": 0,
+        "precision": 0.5714285714285714,
+        "recall": 1.0,
+        "f1": 0.7272727272727273
+      }
+    }
+  },
+  "scope": "Constructed experiment and public graphs; offline only"
+}

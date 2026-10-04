@@ -1,5 +1,7 @@
 # Lộ trình học từ project đã hoàn thành
 
+Bản 2.0 bổ sung case nhiều nguồn, process graph tương tác, kiểm tra biên source/GUID và bộ đối chứng 20 kịch bản. Sau sáu buổi nền tảng, học docs/ENGINEERING_V2.md và case 005 để giải thích các quyết định tương quan, duplicate evidence, collection gaps và trade-off precision/recall. Báo cáo lỗi detection là một phần của project, không phải phần được giấu khỏi demo.
+
 Bản 1.0 đã có bốn báo cáo điều tra, log EVTX công khai có nguồn và hash, pipeline Python/SQLite, 12 detection, giao diện đọc bằng chứng, ảnh chụp thực tế, 36 regression tests và số liệu đo trên máy. Bạn có thể chạy lại bằng scripts/reproduce.ps1. Phần xây dựng được hỗ trợ bởi Codex; phần hiểu, phản biện và trình bày trong phỏng vấn cần bạn tự thực hành.
 
 ## Sáu buổi học trong chat

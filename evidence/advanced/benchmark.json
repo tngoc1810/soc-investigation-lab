@@ -1,0 +1,35 @@
+{
+  "python": "3.11.5",
+  "platform": "Windows",
+  "runs": [
+    {
+      "events": 2511,
+      "nodes": 3,
+      "chains": 1,
+      "load_and_reconstruct_seconds": 0.048463200000696816,
+      "peak_working_set_bytes": 30228480,
+      "engine_sha256": "9874104f0e9a6948f10469ed995c2b531745d7cc86027d8227d3decb491a6e60"
+    },
+    {
+      "events": 2511,
+      "nodes": 3,
+      "chains": 1,
+      "load_and_reconstruct_seconds": 0.043085099998279475,
+      "peak_working_set_bytes": 30154752,
+      "engine_sha256": "9874104f0e9a6948f10469ed995c2b531745d7cc86027d8227d3decb491a6e60"
+    },
+    {
+      "events": 2511,
+      "nodes": 3,
+      "chains": 1,
+      "load_and_reconstruct_seconds": 0.07780129999446217,
+      "peak_working_set_bytes": 30023680,
+      "engine_sha256": "9874104f0e9a6948f10469ed995c2b531745d7cc86027d8227d3decb491a6e60"
+    }
+  ],
+  "db_sha256": "05d55181b7dc3225f2dec473ae9e8cc9da863f8e0cc2c6db7657f5e5544dc098",
+  "scope_sha256": "5ce880e533f989855205ea4a8cfd6d962667a2487124865d41a316c8430f86c2",
+  "median_load_and_reconstruct_seconds": 0.048463200000696816,
+  "max_peak_working_set_mib": 28.83,
+  "scope": "Three fresh processes on this Windows host. Includes loading and graph/chain reconstruction of 2511 synthetic events; not browser RAM, total laptop RAM, live latency or production scale."
+}

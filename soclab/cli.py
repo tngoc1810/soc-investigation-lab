@@ -31,6 +31,12 @@ def main(argv=None) -> int:
     p.add_argument("--credential-threshold", type=int, default=10)
     p.add_argument("--credential-window", type=int, default=300)
     p.add_argument("--context", type=Path, help="Exact context allowlist; matching findings remain auditable")
+    p = sub.add_parser("investigate", help="Build a source-scoped process graph and explainable investigation chains")
+    p.add_argument("--db", type=Path, required=True)
+    p.add_argument("--scope", type=Path, required=True)
+    p.add_argument("--out", type=Path, required=True)
+    p = sub.add_parser("evaluate", help="Evaluate scenario-level review labels on the synthetic development/holdout corpus")
+    p.add_argument("--out", type=Path, default=Path("output/evaluation.json"))
     p = sub.add_parser("search", help="Search original events, not only alert matches")
     p.add_argument("--db", type=Path, required=True)
     p.add_argument("--host")
@@ -55,6 +61,13 @@ def main(argv=None) -> int:
             print(json.dumps({k: manifest[k] for k in ("event_count", "finding_count", "findings_by_rule", "processing_seconds", "verdict")}, indent=2))
         elif args.command == "query":
             print(json.dumps(run_query(args.db, args.name), ensure_ascii=False, indent=2))
+        elif args.command == "investigate":
+            from .investigation import write_investigation
+            result = write_investigation(args.db, args.scope, args.out)
+            print(json.dumps({k: result[k] for k in ("raw_events", "unique_observations", "duplicate_observations", "chains", "candidates")}, indent=2))
+        elif args.command == "evaluate":
+            from .corpus import write_evaluation
+            print(json.dumps(write_evaluation(args.out)["metrics"], indent=2))
         elif args.command == "serve":
             from .webapp import serve
             serve(args.index, args.port)

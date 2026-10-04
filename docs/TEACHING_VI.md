@@ -68,4 +68,6 @@ Benchmark đo process xử lý offline, không đo MTTD. MTTD trong một hệ t
 
 ## Chuẩn bị phỏng vấn
 
+Với bản 2.0, học thêm case 005 sau sáu buổi trên. Mở Reconstruction, chọn mshta, đối chiếu LogonGuid với event 4624 rồi dùng ProcessGuid để tìm network event. Giải thích vì sao ba file được ghép trong case này nhưng các case công khai vẫn độc lập. Trong Evaluation, tự chọn một FP và một FN, chỉ rõ engine biết gì, thiếu gì và vì sao F1 của baseline lại cao hơn. Đây là phần cần phản biện, không phải học thuộc một con số accuracy.
+
 Chọn hai case bạn hiểu rõ, giải thích theo thứ tự: câu hỏi → evidence → giả thuyết thay thế → quyết định → thiếu gì → cải thiện rule. Thừa nhận phần được Codex hỗ trợ và nêu việc bạn đã kiểm tra/thay đổi sau đó. Nhà tuyển dụng có thể hỏi rất cụ thể một event; hiểu bằng chứng sẽ hữu ích hơn học thuộc report.

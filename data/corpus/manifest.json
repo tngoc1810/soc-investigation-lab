@@ -1,0 +1,126 @@
+{
+  "unit": "isolated synthetic scenario",
+  "labels": "constructed review intent; never passed to the engine",
+  "cases": [
+    {
+      "id": "D01",
+      "split": "dev",
+      "path": "data/corpus/D01.json",
+      "sha256": "9eb084b1b789b99994129cd74657f89424be9934291f28eac07849aa24f02872"
+    },
+    {
+      "id": "D02",
+      "split": "dev",
+      "path": "data/corpus/D02.json",
+      "sha256": "861d8e9aaa5a2a0944c5e0cec4b77849370d0319b5ccdd83595b52cbff27e699"
+    },
+    {
+      "id": "D03",
+      "split": "dev",
+      "path": "data/corpus/D03.json",
+      "sha256": "2b018e8edf68cffbc1efc24744467e925a8c2477ab842b89503508baecd3966f"
+    },
+    {
+      "id": "D04",
+      "split": "dev",
+      "path": "data/corpus/D04.json",
+      "sha256": "88ec4c10bc6772fbc7ad635bde82f4deebc16efc32cac5825d8cf7de64423169"
+    },
+    {
+      "id": "D05",
+      "split": "dev",
+      "path": "data/corpus/D05.json",
+      "sha256": "9064f7c5438cf5fbf9bb992ffa72fddab2679f7b5c4620c1c64f3d6b42c7b00c"
+    },
+    {
+      "id": "D06",
+      "split": "dev",
+      "path": "data/corpus/D06.json",
+      "sha256": "5d787016a2296907f816888b86afb37d2bb9a7d89db20b583c2fb3fde8c11b4e"
+    },
+    {
+      "id": "D07",
+      "split": "dev",
+      "path": "data/corpus/D07.json",
+      "sha256": "684a34c8564d73157851f3116a968a379f5d697702172c80f27b5a2e90ae5ede"
+    },
+    {
+      "id": "D08",
+      "split": "dev",
+      "path": "data/corpus/D08.json",
+      "sha256": "dcdb36ba9eb59f0b24011a0fcf47c09eaa5e38a920b6d64b858c253c0751d4b6"
+    },
+    {
+      "id": "D09",
+      "split": "dev",
+      "path": "data/corpus/D09.json",
+      "sha256": "307f703feb3d93b9483ed420d351b2373a48530bc96c076b895e1f9e23cc32ae"
+    },
+    {
+      "id": "D10",
+      "split": "dev",
+      "path": "data/corpus/D10.json",
+      "sha256": "f258ec88c594d7c2ed0a75d129dcc6e9eea7139445388803d67f017022464bf4"
+    },
+    {
+      "id": "D11",
+      "split": "dev",
+      "path": "data/corpus/D11.json",
+      "sha256": "074479319e154e4aec396d9934e4ca81a756d0689703d54ed44f5a5a856cf8b8"
+    },
+    {
+      "id": "D12",
+      "split": "dev",
+      "path": "data/corpus/D12.json",
+      "sha256": "95a7fc2c56f6036c03a0c1298dc2a3e6882f3af0f25fd41fd8878427b5da5cd6"
+    },
+    {
+      "id": "H01",
+      "split": "holdout",
+      "path": "data/corpus/H01.json",
+      "sha256": "73ecb3ed2814bea5f385de5f989eff3afd99b9f4733e842d6a56c7c0d23c9d5e"
+    },
+    {
+      "id": "H02",
+      "split": "holdout",
+      "path": "data/corpus/H02.json",
+      "sha256": "e9fe73aa43e9faee971a5b0eeac2775c9ef6514ec6964b413f9487dab6f1e4c6"
+    },
+    {
+      "id": "H03",
+      "split": "holdout",
+      "path": "data/corpus/H03.json",
+      "sha256": "0d4918224884ae31ef962e453d1e19b1bee01b555ced7acb0edfa89574b8d502"
+    },
+    {
+      "id": "H04",
+      "split": "holdout",
+      "path": "data/corpus/H04.json",
+      "sha256": "1b5e235124fc074cac0a6437e10e22a4bd69fa4aecc06c38d80614bcc5c9e545"
+    },
+    {
+      "id": "H05",
+      "split": "holdout",
+      "path": "data/corpus/H05.json",
+      "sha256": "2de3aaae0d923bc17a44d3b008c51f79cb053b59e5d51c25973a914fcd72ea07"
+    },
+    {
+      "id": "H06",
+      "split": "holdout",
+      "path": "data/corpus/H06.json",
+      "sha256": "02276755e8693c8026e966445f9840d73068bcf1f95accce320b7a91ae635b95"
+    },
+    {
+      "id": "H07",
+      "split": "holdout",
+      "path": "data/corpus/H07.json",
+      "sha256": "b76c1ec11d160c95a656934e424fe4d8260382a91dd2c7816683b58882553a50"
+    },
+    {
+      "id": "H08",
+      "split": "holdout",
+      "path": "data/corpus/H08.json",
+      "sha256": "5ba01a2fe0c99b40bdbf23b7be9fe912c2e460ca8fe29a91666b80692530e6a6"
+    }
+  ]
+}

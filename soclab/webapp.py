@@ -1,8 +1,10 @@
 """A localhost-only evidence viewer; it is not a SIEM or an incident response service."""
 
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from contextlib import closing
 from itertools import islice
 import json
+import sqlite3
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
@@ -24,7 +26,7 @@ def build_handler(index_path: Path):
     root = Path(__file__).resolve().parents[1]
     index = case_index(index_path)
     cases = {case["id"]: case for case in index["cases"]}
-    assets = {"/": ("index.html", "text/html"), "/styles.css": ("styles.css", "text/css"), "/app.js": ("app.js", "text/javascript")}
+    assets = {"/": ("index.html", "text/html"), "/styles.css": ("styles.css", "text/css"), "/app.js": ("app.js", "text/javascript"), "/investigation.js": ("investigation.js", "text/javascript")}
 
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, *args):
@@ -57,13 +59,21 @@ def build_handler(index_path: Path):
                     for case in cases.values():
                         manifest = json.loads((root / case["analysis"] / "manifest.json").read_text(encoding="utf-8"))
                         result.append({**{k: case[k] for k in ("id", "title", "kind", "verdict", "report")}, "manifest": manifest})
-                    return self.respond(200, {"version": __version__, "run_id": index["run_id"], "cases": result, "note": index["note"]})
+                    return self.respond(200, {"version": __version__, "run_id": index.get("advanced_run_id", index["run_id"]), "cases": result, "note": index["note"]})
+                if url.path == "/api/evaluation":
+                    if "evaluation" not in index:
+                        return self.respond(404, {"error": "run scripts/build_advanced.py first"})
+                    return self.respond(200, json.loads((root / index["evaluation"]).read_text(encoding="utf-8")))
                 case = cases.get(params.get("case", [""])[0])
                 if case is None:
                     return self.respond(404, {"error": "unknown case"})
                 if url.path == "/api/findings":
                     path = root / case["analysis"] / "findings.jsonl"
                     return self.respond(200, [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line])
+                if url.path == "/api/investigation":
+                    if "investigation" not in case:
+                        return self.respond(404, {"error": "run scripts/build_advanced.py first"})
+                    return self.respond(200, json.loads((root / case["investigation"]).read_text(encoding="utf-8")))
                 if url.path == "/api/events":
                     limit = int(params.get("limit", ["50"])[0])
                     if not 1 <= limit <= 200:
@@ -71,10 +81,20 @@ def build_handler(index_path: Path):
                     eid = params.get("event_id", [None])[0]
                     events = iter_events(root / case["db"], event_id=int(eid) if eid else None, term=params.get("term", [None])[0])
                     return self.respond(200, list(islice(events, limit)))
+                if url.path == "/api/event":
+                    uid = params.get("uid", [""])[0]
+                    if len(uid) != 64 or any(c not in "0123456789abcdef" for c in uid):
+                        raise ValueError("invalid event UID")
+                    db = (root / case["db"]).resolve()
+                    with closing(sqlite3.connect(db.as_uri()+"?mode=ro", uri=True)) as conn:
+                        row = conn.execute("SELECT original_json,source_sha256,source_line,event_uid FROM events WHERE event_uid=?", (uid,)).fetchone()
+                    if row is None:
+                        return self.respond(404, {"error": "event not in this case"})
+                    return self.respond(200, {"original":json.loads(row[0]),"source_sha256":row[1],"source_line":row[2],"event_uid":row[3]})
                 if url.path == "/api/report":
                     return self.respond(200, {"markdown": (root / case["report"]).read_text(encoding="utf-8")})
                 return self.respond(404, {"error": "not found"})
-            except (ValueError, OSError, KeyError) as exc:
+            except (ValueError, OSError, KeyError, sqlite3.Error) as exc:
                 return self.respond(400, {"error": str(exc)})
 
     return Handler

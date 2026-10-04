@@ -5,7 +5,7 @@ const $ = id => document.getElementById(id);
 function el(tag, text, cls) { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; }
 async function api(path) { const response = await fetch(path); const result = await response.json(); if (!response.ok) throw Error(result.error || response.statusText); return result; }
 function error(err) { $('error').textContent = err.message; $('error').classList.remove('hidden'); }
-function showView(view) { state.view = view; for (const name of ['findings','events','report']) $(name+'-view').classList.toggle('hidden', name !== view); document.querySelectorAll('[data-view]').forEach(b => { b.classList.toggle('active', b.dataset.view === view); b.setAttribute('aria-selected', String(b.dataset.view === view)); }); }
+function showView(view) { state.view = view; for (const name of ['findings','events','report','graph','evaluation']) $(name+'-view').classList.toggle('hidden', name !== view); document.querySelectorAll('[data-view]').forEach(b => { b.classList.toggle('active', b.dataset.view === view); b.setAttribute('aria-selected', String(b.dataset.view === view)); }); }
 function metric(label, number, hint) { const box = el('div', undefined, 'metric'); box.append(el('small', label), el('strong', number.toLocaleString()), el('span', hint)); return box; }
 function renderFindings(findings) {
   $('findings').replaceChildren();
@@ -49,25 +49,30 @@ async function loadEvents() {
 }
 async function selectCase(id) {
   const request = ++caseRequest; ++eventRequest;
+  ++detailRequest;
   state.selected = state.cases.find(c => c.id === id); const c=state.selected;
   $('findings').replaceChildren(el('p','Loading this case’s evidence…')); $('events').replaceChildren(); $('report').textContent='Loading this case’s report…';
+  renderGraph(null);
   document.querySelectorAll('#case-nav button').forEach(b=>b.classList.toggle('selected',b.dataset.case===id));
   $('case-kind').textContent=c.id.toUpperCase()+' / '+c.kind.toUpperCase(); $('case-title').textContent=c.title; $('verdict').textContent=c.verdict;
   $('case-summary').textContent=c.manifest.event_count.toLocaleString()+' events · '+c.manifest.finding_count+' findings · source hashes recorded · analyst assessment separate from detector output';
-  $('source-note').textContent='Analysis '+state.runId+' · '+c.kind+' · '+c.manifest.sources.length+' source file';
+  $('source-note').textContent='Analysis '+state.runId+' · '+c.kind+' · '+c.manifest.sources.length+' source file(s)';
   $('term').value=''; $('event-id').value='';
-  const [findings, report] = await Promise.all([api('/api/findings?case='+id),api('/api/report?case='+id)]);
+  const [findings, report, graph] = await Promise.all([api('/api/findings?case='+id),api('/api/report?case='+id),api('/api/investigation?case='+id).catch(()=>null)]);
   if (request !== caseRequest || id !== state.selected.id) return;
-  renderFindings(findings); $('report').textContent=report.markdown; await loadEvents();
+  renderFindings(findings);renderGraph(graph); $('report').textContent=report.markdown; await loadEvents();
 }
 async function init() {
   const data = await api('/api/cases'); state.cases=data.cases; state.runId=data.run_id;
   $('version').textContent='v'+data.version; $('run-id').textContent=data.run_id;
   const total=state.cases.reduce((a,c)=>a+c.manifest.event_count,0), leads=state.cases.reduce((a,c)=>a+c.manifest.finding_count,0);
-  $('metrics').append(metric('CASE STUDIES',state.cases.length,'3 public cases + 1 synthetic experiment'),metric('PRIMARY EVENTS',total,'Independent datasets; supplement excluded'),metric('DETECTION LEADS',leads,'Includes retained context matches'),metric('RULES',12,'9 event rules + 3 correlations'));
+  const publicCases=state.cases.filter(c=>c.kind==='Public EVTX').length;
+  $('metrics').append(metric('CASE STUDIES',state.cases.length,publicCases+' public cases + '+(state.cases.length-publicCases)+' constructed experiments'),metric('PRIMARY EVENTS',total,'Independent datasets; supplement excluded'),metric('EVENT / AUTH LEADS',leads,'Chain leads shown separately in reconstruction'),metric('HYPOTHESES',13,'9 event + 3 auth + 1 multi-stage chain'));
+  for (const [view,label] of [['graph','Reconstruction'],['evaluation','Evaluation']]){const b=el('button',label);b.dataset.view=view;b.setAttribute('role','tab');b.setAttribute('aria-selected','false');document.querySelector('.tabbar').append(b);}
   for(const c of state.cases) { const button=el('button');button.dataset.case=c.id;button.append(el('span',c.id.toUpperCase()),el('div',c.title));button.addEventListener('click',()=>selectCase(c.id).catch(error));$('case-nav').append(button); }
   document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
   $('filters').addEventListener('submit',event=>{event.preventDefault();loadEvents().catch(error);});
+  api('/api/evaluation').then(renderEvaluation).catch(err=>{$('evaluation-scope').textContent=err.message;});
   await selectCase(state.cases[0].id);
 }
 init().catch(error);

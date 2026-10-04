@@ -26,8 +26,13 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          $PSNativeCommandUseErrorActionPreference = $true
           ./scripts/reproduce.ps1 -RunId ci
           python scripts/verify_portfolio.py
+          python scripts/build_advanced.py --run-id ci-advanced
+          python scripts/verify_advanced.py
+      - name: Evaluate checked-in scenario corpus
+        run: python -m soclab evaluate --out output/evaluation.json
   sigma:
     runs-on: ubuntu-latest
     steps:

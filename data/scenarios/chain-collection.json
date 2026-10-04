@@ -1,0 +1,10 @@
+{
+  "id": "CASE-005-synthetic-collection",
+  "collection_reason": "Security, Sysmon and background fixtures generated together; explicit scope is limited to these three exact sources.",
+  "kind": "synthetic",
+  "source_sha256": [
+    "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+    "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+    "6d5bcfc49f313e1a3dc732b496c565ff36923e6902622c43e2632bc98b4466cb"
+  ]
+}

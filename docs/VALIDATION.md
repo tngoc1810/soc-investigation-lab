@@ -1,5 +1,15 @@
 # Validation record — 2026-10-04
 
+## Version 2 reconstruction and evaluation
+
+The local suite now has 55 passing regression tests, including GUID/session isolation, ambiguous process records, duplicate exports, missing telemetry, cycles, corpus-integrity validation and full original-event lookup. The new explicit-scope collection has 2,511 synthetic events, three process nodes, two parent edges, four event/auth findings and one complete five-stage review lead. Public case 001 reconstructs four observed processes and three parent edges without inventing authentication context.
+
+Twenty checked-in scenarios separate 12 development variants from eight held-out variants. The latter produce TP=2, FP=1, TN=3 and FN=2 for the graph policy. Precision is 66.7%, recall 50.0% and F1 57.1%. The username/time ablation yields TP=4, FP=3, TN=1, FN=0 and a higher F1 of 72.7%. All outcomes are published. This is a small synthetic regression corpus, not production accuracy.
+
+The browser was checked for stage-to-original-record lookup, process selection, public graph reconstruction and evaluation results. Three fresh Python 3.11 workers measured loading/reconstruction of the actual 2,511-event collection; details and input hashes are in evidence/advanced/benchmark.json. No large-scale throughput or live SOC latency is claimed. The full v2 GitHub run will be recorded after it finishes.
+
+The v1 measurements below remain historical snapshots. They use another input and measure ingest/analyze rather than v2 graph reconstruction.
+
 Version 1.0 is an offline investigation casebook. These results describe the checked datasets and this implementation; they are not measurements of a production SOC. Development and initial analysis used Codex assistance.
 
 ## Executed locally

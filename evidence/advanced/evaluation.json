@@ -1,0 +1,422 @@
+{
+  "schema_version": 1,
+  "engine_sha256": "9874104f0e9a6948f10469ed995c2b531745d7cc86027d8227d3decb491a6e60",
+  "corpus_manifest_sha256": "d5022f3cfda7566fff4635bc4349e17b742853a26defd70b1d0cea4cc6b1c8b3",
+  "unit": "scenario-level need-for-review on constructed intent labels",
+  "scope": "20 synthetic scenarios, 12 development / 8 held-out variants. Not field precision/recall; related template families and small sample limit generalization. Holdout is versioned public evidence, not a secret benchmark.",
+  "baseline_description": "Username/time-only correlation ablation; not the released v1 detector",
+  "selection": "Fixed threshold 5, auth window 600s, chain window 900s declared before evaluation. No threshold optimization on holdout.",
+  "metrics": {
+    "dev": {
+      "identity_graph": {
+        "tp": 2,
+        "fp": 1,
+        "tn": 8,
+        "fn": 1,
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "f1": 0.6666666666666666
+      },
+      "temporal_baseline": {
+        "tp": 3,
+        "fp": 5,
+        "tn": 4,
+        "fn": 0,
+        "precision": 0.375,
+        "recall": 1.0,
+        "f1": 0.5454545454545454
+      }
+    },
+    "holdout": {
+      "identity_graph": {
+        "tp": 2,
+        "fp": 1,
+        "tn": 3,
+        "fn": 2,
+        "precision": 0.6666666666666666,
+        "recall": 0.5,
+        "f1": 0.5714285714285714
+      },
+      "temporal_baseline": {
+        "tp": 4,
+        "fp": 3,
+        "tn": 1,
+        "fn": 0,
+        "precision": 0.5714285714285714,
+        "recall": 1.0,
+        "f1": 0.7272727272727273
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "D01",
+      "split": "dev",
+      "variant": "complete",
+      "expected_review": true,
+      "rationale": "Full observable chain requiring review",
+      "predicted_review": true,
+      "temporal_baseline": true,
+      "event_count": 11,
+      "chain_count": 1,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "a2a8747ba2fed29c1e0579e5b1df0d63506a575cae35d145b3949d9fedd2c185"
+      ],
+      "missing": []
+    },
+    {
+      "id": "D02",
+      "split": "dev",
+      "variant": "powershell",
+      "expected_review": true,
+      "rationale": "Encoded host argument in the same session",
+      "predicted_review": true,
+      "temporal_baseline": true,
+      "event_count": 11,
+      "chain_count": 1,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "4435d65f43bf528de1e5403d62c4c78be29f6a7399c8d16f6992f38ac31b27cc"
+      ],
+      "missing": []
+    },
+    {
+      "id": "D03",
+      "split": "dev",
+      "variant": "different-host",
+      "expected_review": false,
+      "rationale": "Same names/GUID text on different hosts must not join",
+      "predicted_review": false,
+      "temporal_baseline": true,
+      "event_count": 11,
+      "chain_count": 0,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "2104d9ef1a8bfa6cb29c57a4581b99878bdc2f57b7c1b08445ca6f5bf8399fe2"
+      ],
+      "missing": [
+        [
+          "risky process with matching host, logon GUID and domain-qualified user"
+        ]
+      ]
+    },
+    {
+      "id": "D04",
+      "split": "dev",
+      "variant": "different-user",
+      "expected_review": false,
+      "rationale": "Process belongs to another account",
+      "predicted_review": false,
+      "temporal_baseline": false,
+      "event_count": 11,
+      "chain_count": 0,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "4985dbfff3b5137bb3bf6f4dafd70f1ae603ad7d109ad927018a6c4bc00c5b19"
+      ],
+      "missing": [
+        [
+          "risky process with matching host, logon GUID and domain-qualified user"
+        ]
+      ]
+    },
+    {
+      "id": "D05",
+      "split": "dev",
+      "variant": "different-domain",
+      "expected_review": false,
+      "rationale": "Same account name in another domain",
+      "predicted_review": false,
+      "temporal_baseline": true,
+      "event_count": 11,
+      "chain_count": 0,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "97c70c38fd5720889fe5e2d054a4d4bed264887a4b80943e6579fbaa2efa42fc"
+      ],
+      "missing": [
+        [
+          "risky process with matching host, logon GUID and domain-qualified user"
+        ]
+      ]
+    },
+    {
+      "id": "D06",
+      "split": "dev",
+      "variant": "different-session",
+      "expected_review": false,
+      "rationale": "Valid different logon GUID",
+      "predicted_review": false,
+      "temporal_baseline": true,
+      "event_count": 11,
+      "chain_count": 0,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "bb1fd3efca71b18eec52fb73afb2034386d21bc0476bcd5b8166449ac376b1cb"
+      ],
+      "missing": [
+        [
+          "risky process with matching host, logon GUID and domain-qualified user"
+        ]
+      ]
+    },
+    {
+      "id": "D07",
+      "split": "dev",
+      "variant": "late",
+      "expected_review": false,
+      "rationale": "Process activity outside declared window",
+      "predicted_review": false,
+      "temporal_baseline": false,
+      "event_count": 11,
+      "chain_count": 0,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "5d2e8589f5dccdd82fb47f972f047fd3cfc295f800371560edc2091da84390b5"
+      ],
+      "missing": [
+        [
+          "risky process with matching host, logon GUID and domain-qualified user"
+        ]
+      ]
+    },
+    {
+      "id": "D08",
+      "split": "dev",
+      "variant": "no-failures",
+      "expected_review": false,
+      "rationale": "Only normal successful authentication",
+      "predicted_review": false,
+      "temporal_baseline": false,
+      "event_count": 6,
+      "chain_count": 0,
+      "source_sha256": [
+        "bc6efb584d4639d45e1c39faeb5fd2eb7afbe0bfa88bc31b282c2387e201ec1d",
+        "a2a8747ba2fed29c1e0579e5b1df0d63506a575cae35d145b3949d9fedd2c185"
+      ],
+      "missing": []
+    },
+    {
+      "id": "D09",
+      "split": "dev",
+      "variant": "file-argument",
+      "expected_review": false,
+      "rationale": "Encoded marker after -File is a script argument",
+      "predicted_review": false,
+      "temporal_baseline": false,
+      "event_count": 11,
+      "chain_count": 0,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "a5dc0412660686ad8784276e4ee6f1e279e0551879eed1abbe245807e7123563"
+      ],
+      "missing": [
+        [
+          "risky process with matching host, logon GUID and domain-qualified user"
+        ]
+      ]
+    },
+    {
+      "id": "D10",
+      "split": "dev",
+      "variant": "different-ip",
+      "expected_review": false,
+      "rationale": "Failures and success come from different IPs",
+      "predicted_review": false,
+      "temporal_baseline": true,
+      "event_count": 11,
+      "chain_count": 0,
+      "source_sha256": [
+        "44bcaa9ff25bc34ed754e97375322ab732d1e75c00384f0ee734838dab56ed96",
+        "a2a8747ba2fed29c1e0579e5b1df0d63506a575cae35d145b3949d9fedd2c185"
+      ],
+      "missing": []
+    },
+    {
+      "id": "D11",
+      "split": "dev",
+      "variant": "no-network",
+      "expected_review": true,
+      "rationale": "Known constructed attack intent; connection telemetry omitted",
+      "predicted_review": false,
+      "temporal_baseline": true,
+      "event_count": 10,
+      "chain_count": 0,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "b645a912a701d90a26789bdc49dfa2a2ea2be2cb0e5175fe7865996d5927499f"
+      ],
+      "missing": [
+        [
+          "initiated network activity for the risky process"
+        ]
+      ]
+    },
+    {
+      "id": "D12",
+      "split": "dev",
+      "variant": "authorized-admin",
+      "expected_review": false,
+      "rationale": "Known approved test; identical observable chain is ambiguous",
+      "predicted_review": true,
+      "temporal_baseline": true,
+      "event_count": 11,
+      "chain_count": 1,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "a2a8747ba2fed29c1e0579e5b1df0d63506a575cae35d145b3949d9fedd2c185"
+      ],
+      "missing": []
+    },
+    {
+      "id": "H01",
+      "split": "holdout",
+      "variant": "reordered",
+      "expected_review": true,
+      "rationale": "Shuffled input lines, chronological evidence unchanged",
+      "predicted_review": true,
+      "temporal_baseline": true,
+      "event_count": 11,
+      "chain_count": 1,
+      "source_sha256": [
+        "2b4eeb596a45da6dd65803a678bd81378c455dbb8d508c9d39462c24abe93ed0",
+        "f69f82cea448709a2d82081e501dcf3d4f53c58398185ccb5b7bc67121617214"
+      ],
+      "missing": []
+    },
+    {
+      "id": "H02",
+      "split": "holdout",
+      "variant": "duplicate",
+      "expected_review": true,
+      "rationale": "Overlapping export observations must not inflate evidence",
+      "predicted_review": true,
+      "temporal_baseline": true,
+      "event_count": 22,
+      "chain_count": 1,
+      "source_sha256": [
+        "d051d752e02fa662e0294a44df7d25145de11794b1cfee97f3cd376b601c9702",
+        "b296453bc555ff88d2166d62a41cc8a5620280a93d3203f7980ac723343717ab"
+      ],
+      "missing": []
+    },
+    {
+      "id": "H03",
+      "split": "holdout",
+      "variant": "zero-guid",
+      "expected_review": true,
+      "rationale": "Known constructed attack intent; success GUID unavailable",
+      "predicted_review": false,
+      "temporal_baseline": true,
+      "event_count": 11,
+      "chain_count": 0,
+      "source_sha256": [
+        "24240672ed1ddcc1119f9851f4141e0f5b597423efab614e0f4ad0bdba7bb93c",
+        "a2a8747ba2fed29c1e0579e5b1df0d63506a575cae35d145b3949d9fedd2c185"
+      ],
+      "missing": [
+        [
+          "nonzero logon GUID",
+          "risky process with matching host, logon GUID and domain-qualified user"
+        ]
+      ]
+    },
+    {
+      "id": "H04",
+      "split": "holdout",
+      "variant": "no-task",
+      "expected_review": true,
+      "rationale": "Known constructed attack intent; descendant event omitted",
+      "predicted_review": false,
+      "temporal_baseline": true,
+      "event_count": 10,
+      "chain_count": 0,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "4e1948a8da6ee04740dd1cc6201f85c1cb2a1e61555eee44a5a907d1c557f94f"
+      ],
+      "missing": [
+        [
+          "observed descendant task-creation process"
+        ]
+      ]
+    },
+    {
+      "id": "H05",
+      "split": "holdout",
+      "variant": "authorized-admin",
+      "expected_review": false,
+      "rationale": "Approved full-chain test remains a false positive",
+      "predicted_review": true,
+      "temporal_baseline": true,
+      "event_count": 11,
+      "chain_count": 1,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "a2a8747ba2fed29c1e0579e5b1df0d63506a575cae35d145b3949d9fedd2c185"
+      ],
+      "missing": []
+    },
+    {
+      "id": "H06",
+      "split": "holdout",
+      "variant": "orphan",
+      "expected_review": false,
+      "rationale": "Same session, task parent never observed",
+      "predicted_review": false,
+      "temporal_baseline": true,
+      "event_count": 11,
+      "chain_count": 0,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "6fb58bac64624b63ef8af72fb4dd7d2f7d3995918e1b0397cca3a8e3bb46e52d"
+      ],
+      "missing": [
+        [
+          "observed descendant task-creation process"
+        ]
+      ]
+    },
+    {
+      "id": "H07",
+      "split": "holdout",
+      "variant": "changed-logon-id",
+      "expected_review": false,
+      "rationale": "GUID copied but explicit logon IDs conflict",
+      "predicted_review": false,
+      "temporal_baseline": true,
+      "event_count": 11,
+      "chain_count": 0,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "532080be6f4369c61ec6e885c818aacd4ba19b83eb771491e475eb0d35ade19e"
+      ],
+      "missing": [
+        [
+          "risky process with matching host, logon GUID and domain-qualified user"
+        ]
+      ]
+    },
+    {
+      "id": "H08",
+      "split": "holdout",
+      "variant": "spoof-provider",
+      "expected_review": false,
+      "rationale": "Provider does not establish Sysmon telemetry",
+      "predicted_review": false,
+      "temporal_baseline": false,
+      "event_count": 11,
+      "chain_count": 0,
+      "source_sha256": [
+        "4977a07139e14b4d3a6f66ef79e0a18a8920a4eafe20fca9f880201dd08ea7b0",
+        "6dad24564f28235f13fc747bb667806a4cdf6162d37d44c716bf329d5b23aa19"
+      ],
+      "missing": [
+        [
+          "risky process with matching host, logon GUID and domain-qualified user"
+        ]
+      ]
+    }
+  ]
+}
