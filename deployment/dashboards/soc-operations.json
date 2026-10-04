@@ -1,0 +1,20 @@
+{
+  "uid": "soclab-operations",
+  "title": "SOC Operations Lab — replayed evidence",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": false,
+  "tags": ["soclab", "synthetic-replay"],
+  "timezone": "utc",
+  "refresh": "",
+  "time": {"from":"now-30m", "to":"now"},
+  "templating":{"list":[{"name":"replay_run","label":"Replay run","type":"textbox","query":"release-v3-verified","current":{"text":"release-v3-verified","value":"release-v3-verified"},"options":[],"hide":0}]},
+  "panels": [
+    {"id":1,"type":"text","title":"Collection boundary","gridPos":{"x":0,"y":0,"w":24,"h":4},"options":{"mode":"markdown","content":"**Constructed case 005 · replay_now**\n\nLoki receives records at replay time. `original_timestamp`, `event_uid`, source SHA-256 and source line retain the original evidence anchors. These are safe lab records, not a live compromise. Query results are leads for analyst review. Task creation is separate from proof of task execution."}},
+    {"id":2,"type":"stat","title":"Failed logons · replay window","gridPos":{"x":0,"y":4,"w":8,"h":4},"datasource":{"type":"loki","uid":"soclab-loki"},"targets":[{"refId":"A","expr":"sum(count_over_time({job=\"soclab\",case_id=\"case-005\",mode=\"replay_now\",replay_run=\"$replay_run\"} | json | event_id = 4625 [30m]))","queryType":"instant"}],"options":{"reduceOptions":{"calcs":["lastNotNull"],"fields":"","values":false},"textMode":"value"}},
+    {"id":3,"type":"stat","title":"Process creation records","gridPos":{"x":8,"y":4,"w":8,"h":4},"datasource":{"type":"loki","uid":"soclab-loki"},"targets":[{"refId":"A","expr":"sum(count_over_time({job=\"soclab\",case_id=\"case-005\",mode=\"replay_now\",replay_run=\"$replay_run\"} | json | event_id = 1 [30m]))","queryType":"instant"}],"options":{"reduceOptions":{"calcs":["lastNotNull"],"fields":"","values":false},"textMode":"value"}},
+    {"id":4,"type":"stat","title":"Task registration records · not execution","gridPos":{"x":16,"y":4,"w":8,"h":4},"datasource":{"type":"loki","uid":"soclab-loki"},"targets":[{"refId":"A","expr":"sum(count_over_time({job=\"soclab\",case_id=\"case-005\",mode=\"replay_now\",replay_run=\"$replay_run\"} | json | event_id = 4698 [30m]))","queryType":"instant"}],"options":{"reduceOptions":{"calcs":["lastNotNull"],"fields":"","values":false},"textMode":"value"}},
+    {"id":5,"type":"logs","title":"Processes and initiated connections · pivot by GUID","gridPos":{"x":0,"y":8,"w":24,"h":10},"datasource":{"type":"loki","uid":"soclab-loki"},"targets":[{"refId":"A","expr":"{job=\"soclab\",case_id=\"case-005\",mode=\"replay_now\",replay_run=\"$replay_run\"} | json | event_id = 1 or event_id = 3","queryType":"range"}],"options":{"showTime":true,"showLabels":false,"showCommonLabels":false,"wrapLogMessage":true,"prettifyLogMessage":true,"enableLogDetails":true,"sortOrder":"Ascending","dedupStrategy":"none"}},
+    {"id":6,"type":"logs","title":"Authentication sequence · original timestamps retained","gridPos":{"x":0,"y":18,"w":24,"h":9},"datasource":{"type":"loki","uid":"soclab-loki"},"targets":[{"refId":"A","expr":"{job=\"soclab\",case_id=\"case-005\",mode=\"replay_now\",replay_run=\"$replay_run\"} | json | event_id = 4625 or event_id = 4624","queryType":"range"}],"options":{"showTime":true,"wrapLogMessage":true,"prettifyLogMessage":true,"enableLogDetails":true,"sortOrder":"Ascending","dedupStrategy":"none"}}
+  ]
+}

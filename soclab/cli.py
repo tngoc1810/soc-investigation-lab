@@ -52,6 +52,26 @@ def main(argv=None) -> int:
     p = sub.add_parser("serve", help="Open the local, read-only case explorer")
     p.add_argument("--index", type=Path, default=Path("output/portfolio/index.json"))
     p.add_argument("--port", type=int, default=8765)
+    p.add_argument("--operations-db", type=Path, help="Enable analyst case decisions in a separate local database")
+    p = sub.add_parser("case", help="Manage analyst decisions separately from source evidence")
+    p.add_argument("action", choices=("list", "show", "update", "export"))
+    p.add_argument("--workspace", type=Path, default=Path("output/operations/cases.sqlite"))
+    p.add_argument("--id")
+    p.add_argument("--revision", type=int)
+    p.add_argument("--target")
+    p.add_argument("--verdict")
+    p.add_argument("--actor", default="local-analyst")
+    p.add_argument("--rationale")
+    p.add_argument("--out", type=Path, default=Path("output/operations/exports"))
+    p = sub.add_parser("hunt", help="Execute eight fixed read-only investigation hypotheses")
+    p.add_argument("--db", type=Path, required=True)
+    p.add_argument("--out", type=Path, required=True)
+    p = sub.add_parser("forensics", help="Reconstruct complete PowerShell 4104 blocks without executing them")
+    p.add_argument("--db", type=Path, required=True)
+    p.add_argument("--out", type=Path, required=True)
+    p = sub.add_parser("decode", help="Decode a supported PowerShell encoded host argument as text")
+    p.add_argument("--command-file", type=Path, required=True)
+    p.add_argument("--out", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         if args.command == "ingest":
@@ -70,7 +90,28 @@ def main(argv=None) -> int:
             print(json.dumps(write_evaluation(args.out)["metrics"], indent=2))
         elif args.command == "serve":
             from .webapp import serve
-            serve(args.index, args.port)
+            serve(args.index, args.port, args.operations_db)
+        elif args.command == "case":
+            from .operations import list_cases, get_case, update_case, export_case
+            if args.action == "list": result = list_cases(args.workspace)
+            elif args.action == "show": result = get_case(args.workspace, args.id)
+            elif args.action == "export": result = export_case(args.workspace, args.id, args.out)
+            else: result = update_case(args.workspace, args.id, revision=args.revision, action="transition" if args.target else "note", target=args.target, verdict=args.verdict, actor=args.actor, rationale=args.rationale)
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+        elif args.command in ("hunt", "forensics", "decode"):
+            if args.command == "hunt":
+                from .hunting import run_hunts
+                result = run_hunts(args.db)
+            elif args.command == "forensics":
+                from .forensics import reconstruct
+                result = reconstruct(iter_events(args.db))
+            else:
+                from .forensics import decode_command
+                result = decode_command(args.command_file.read_text(encoding="utf-8-sig"))
+            args.out.parent.mkdir(parents=True, exist_ok=True)
+            with args.out.open("x", encoding="utf-8", newline="\n") as stream:
+                stream.write(json.dumps(result, indent=2, ensure_ascii=False)+"\n")
+            print(f"Wrote {args.command} artifact: {args.out}")
         else:
             if args.limit < 1:
                 raise ValueError("--limit must be positive")

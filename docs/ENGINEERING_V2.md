@@ -1,5 +1,7 @@
 # Reconstruction and evaluation design
 
+This document preserves the v2 design and measurements. [Version 3](ENGINEERING_V3.md) adds backend replay, static forensics, case operations and indexed correlation; historical v2 evidence remains unchanged.
+
 The v2 engine addresses two mistakes: merging unrelated evidence because names are similar, and treating a detection demonstration as proof of general accuracy. It reconstructs selected relationships and publishes failures against a reviewed corpus.
 
 ## Collection boundary

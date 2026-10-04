@@ -1,5 +1,7 @@
 # Hướng dẫn học project từ đầu
 
+Bản v3 có thêm Loki/Grafana chạy thật, hunt notebook, static forensics và case workspace. [MASTERCLASS_VI.md](MASTERCLASS_VI.md) nối các phần đó thành 10 mô-đun có bài tập. Các buổi dưới đây giữ vai trò nền tảng về bằng chứng và tư duy điều tra.
+
 Project đã được xây dựng và kiểm chứng dưới dạng casebook offline. Phần học dưới đây giúp bạn hiểu các quyết định, chạy lại bằng chứng và trình bày trong phỏng vấn. Không cần học thuộc toàn bộ code trước khi bắt đầu.
 
 ## Buổi 1 — Hiểu luồng dữ liệu

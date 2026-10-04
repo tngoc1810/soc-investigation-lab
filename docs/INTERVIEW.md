@@ -25,3 +25,14 @@
 23. Why does your held-out graph detector have lower F1 than the temporal baseline?
 24. Why are scenario-level synthetic labels insufficient to claim production precision/recall?
 25. How do exact overlapping observations differ from changed content at the same record ID?
+
+26. Why did an accepted historical Loki push initially return no query results? How did you verify the fix?
+27. Why keep GUIDs, account names and command lines out of stream labels?
+28. What is at-least-once delivery, and which failures would require a durable queue?
+29. How do replay timestamps differ from original timestamps? Why filter one replay run?
+30. What does a failed revision check protect? Does the actor field authenticate anyone?
+31. Which audit edits are detected, and what can a database owner still rewrite?
+32. Why export a reviewed revision exclusively and retain its anchor independently?
+33. Why leave missing/conflicting script fragments incomplete? Does a command AST establish execution?
+34. How does the source database remain unchanged during reads? What does the Windows rename retry preserve?
+35. What exactly was included in the backend RAM snapshot, and why is it not a ceiling?

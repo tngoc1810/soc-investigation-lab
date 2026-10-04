@@ -1,5 +1,7 @@
 # Evidence gallery — original casebook snapshots
 
+[Version 3 operations and real backend evidence](operations/README.md) is the current gallery. The base replay validation was refreshed with v3; the screenshots below remain historical.
+
 [Version 2 reconstruction and evaluation evidence](advanced/README.md) includes the new graph screenshots and corpus outcomes. The screenshots below preserve the original v1 interface; structured base-case validation has been refreshed with the v2 replay.
 
 These are genuine browser screenshots of the local case explorer after the underlying SQLite and detection bundles were produced. They were captured on 2026-10-04 with run release-v1-final. They are not images of a commercial SIEM, an EDR console or a production SOC. The fourth case is clearly labeled as a synthetic experiment.

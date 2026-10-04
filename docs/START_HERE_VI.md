@@ -1,5 +1,7 @@
 # Bài 01 — Từ alert đến bằng chứng
 
+Đây là bài nền tảng để bắt đầu học trong chat. Bản hiện tại là v3: xem [10 mô-đun đầy đủ](MASTERCLASS_VI.md) và [runbook dựng toàn bộ lab](RUNBOOK_V3.md) sau khi hiểu cách truy một finding về event gốc.
+
 Mục tiêu: sau buổi đầu, bạn giải thích được alert nói gì, không nói gì, và tìm lại được event gốc. Dự kiến 60–90 phút, có thể chia nhỏ.
 
 ## 1. Chạy demo

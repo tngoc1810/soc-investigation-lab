@@ -24,6 +24,29 @@ RULES = ROOT / "rules/windows.json"
 
 
 class ExtendedTests(unittest.TestCase):
+    def test_windows_sharing_retry_publishes_whole_bundle_and_preserves_errors(self):
+        import os
+        from unittest.mock import patch
+        db = self.root / "events.sqlite"
+        ingest(ROOT / "data/fixtures/demo.jsonl", db)
+        denied = PermissionError("Windows sharing/access failure")
+        denied.winerror = 5
+        rename = os.rename
+        with patch("os.rename", side_effect=[denied, None]) as mocked, patch("time.sleep"):
+            # The second call performs the real rename so assertions inspect files.
+            def publish(source, target):
+                if mocked.call_count == 1:
+                    raise denied
+                return rename(source, target)
+            mocked.side_effect = publish
+            analyze(db, RULES, self.root / "retried")
+        self.assertTrue((self.root / "retried/manifest.json").is_file())
+        with patch("os.rename", side_effect=denied), patch("time.sleep"):
+            with self.assertRaises(PermissionError):
+                analyze(db, RULES, self.root / "failed")
+        self.assertFalse((self.root / "failed").exists())
+        self.assertFalse(list(self.root.glob(".soclab-build-*")))
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

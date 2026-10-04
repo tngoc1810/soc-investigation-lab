@@ -24,6 +24,7 @@ def write(path, value):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--run-id',default='v2-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S'))
+    parser.add_argument('--publish-evidence',action='store_true',help='Explicitly refresh the historical advanced evidence directory')
     args=parser.parse_args()
     if not args.run_id or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_' for c in args.run_id):
         parser.error('run-id needs simple letters/numbers/hyphens/underscores')
@@ -69,11 +70,14 @@ def main():
     evaluation_path=bundle/'evaluation.json';evaluation=write_evaluation(evaluation_path)
     index.update(cases=legacy,advanced_run_id=args.run_id,evaluation=str(evaluation_path.relative_to(ROOT)).replace('\\','/'))
     write(index_path,index)
-    summary={'version':'2.0.0','run_id':args.run_id,'new_case_events':manifest['event_count'],'new_case_base_findings':manifest['findings_by_rule'],
+    from soclab import __version__
+    summary={'version':__version__,'run_id':args.run_id,'new_case_events':manifest['event_count'],'new_case_base_findings':manifest['findings_by_rule'],
              'process_nodes':len(result['nodes']),'observed_parent_edges':len(result['edges']),'complete_chain_leads':len(result['chains']),
              'evaluation':evaluation['metrics'],'scope':'Constructed experiment and public graphs; offline only'}
-    write(ROOT/'evidence/advanced/replay-validation.json',summary)
-    write(ROOT/'evidence/advanced/evaluation.json',evaluation)
+    write(bundle/'replay-validation.json',summary)
+    if args.publish_evidence:
+        write(ROOT/'evidence/advanced/replay-validation.json',summary)
+        write(ROOT/'evidence/advanced/evaluation.json',evaluation)
     print(json.dumps(summary,indent=2))
 
 

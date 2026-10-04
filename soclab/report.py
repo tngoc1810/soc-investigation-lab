@@ -165,5 +165,17 @@ def analyze(db: Path, rules_path: Path, output: Path, **settings) -> dict:
     with TemporaryDirectory(prefix=".soclab-build-", dir=output.parent) as temporary:
         staged = Path(temporary) / "bundle"
         manifest = _analyze_into(db, rules_path, staged, **settings)
-        os.rename(staged, output)
+        # Antivirus/sync readers can briefly hold newly closed files on Windows.
+        # Retry only sharing/access failures; never replace an existing bundle.
+        from time import sleep
+        for attempt in range(5):
+            if output.exists():
+                raise ValueError("output bundle already exists; choose a new output directory")
+            try:
+                os.rename(staged, output)
+                break
+            except PermissionError as exc:
+                if getattr(exc, "winerror", None) not in (5, 32, 33) or attempt == 4:
+                    raise
+                sleep(0.1 * 2**attempt)
     return manifest

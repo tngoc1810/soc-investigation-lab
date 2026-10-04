@@ -5,6 +5,8 @@
 *.json text eol=lf
 *.jsonl text eol=lf
 *.yml text eol=lf
+*.yaml text eol=lf
+*.ini text eol=lf
 *.toml text eol=lf
 *.txt text eol=lf
 *.html text eol=lf
@@ -15,3 +17,6 @@
 *.spl text eol=lf
 .gitattributes text eol=lf
 .gitignore text eol=lf
+
+# Preserve byte-exact generated report content from the reviewed export.
+evidence/operations/reviewed-bundle/report.md whitespace=-blank-at-eof

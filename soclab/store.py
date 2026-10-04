@@ -100,7 +100,8 @@ def iter_events(db: Path, *, host=None, user=None, start=None, end=None, event_i
     if clauses:
         query += " WHERE " + " AND ".join(clauses)
     query += " ORDER BY timestamp, source_sha256, source_line"
-    with closing(connect(db)) as conn:
+    with closing(sqlite3.connect(Path(db).resolve().as_uri()+"?mode=ro", uri=True)) as conn:
+        conn.row_factory = sqlite3.Row
         for row in conn.execute(query, parameters):
             event = dict(row)
             event["event_data"] = json.loads(event["event_data"])
@@ -114,5 +115,6 @@ def iter_events(db: Path, *, host=None, user=None, start=None, end=None, event_i
 
 
 def sources(db: Path) -> list[dict]:
-    with closing(connect(db)) as conn:
+    with closing(sqlite3.connect(Path(db).resolve().as_uri()+"?mode=ro", uri=True)) as conn:
+        conn.row_factory = sqlite3.Row
         return [dict(row) for row in conn.execute("SELECT * FROM sources ORDER BY sha256")]

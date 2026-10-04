@@ -1,8 +1,8 @@
 {
   "validation_date": "2026-10-04",
-  "version": "2.0.0",
-  "run_id": "release-v2-base",
-  "engine_source_sha256": "4acc68fbefc653e1e6be9ff11d723f37452be37a3d13ce4af08909a8359d8d70",
+  "version": "3.0.0",
+  "run_id": "release-v3-final-base",
+  "engine_source_sha256": "235fe8b485a7531c1073439aedc577e8da4c43096ee3e03f83b1f464122ed8a4",
   "cases": [
     {
       "case": "case-001",

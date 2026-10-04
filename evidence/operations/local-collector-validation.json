@@ -1,0 +1,21 @@
+{
+  "kind": "actual read-only local host collection",
+  "channel": "System",
+  "event_count": 20,
+  "source_sha256": "5643afe8996cd6050e13728c029247c5b32cdd856aa66cd4a3d0a404303a5b33",
+  "events_by_id": {
+    "134": 1,
+    "16": 3,
+    "44": 6,
+    "10016": 1,
+    "7045": 1,
+    "47": 4,
+    "2": 1,
+    "5": 1,
+    "43": 1,
+    "19": 1
+  },
+  "original_xml_retained": true,
+  "collector_sha256": "191ddc5891bea2992c3eb252c9315921409e3987dd7eaa7fa8d4b0e236064609",
+  "scope": "Existing operational records only; no attack stimulus. Raw records, hostname, users, paths and messages remain private and are excluded from GitHub and screenshots."
+}

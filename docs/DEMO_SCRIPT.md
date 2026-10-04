@@ -1,29 +1,29 @@
-# Six-minute reviewer walkthrough
+# Six-minute reviewer walkthrough: version 3
 
-For v2, lead with case 005: show the five stage references, explain the explicit source scope and click mshta to inspect the GUID-linked connection. Open an original event. Then use public case 001 to show that the graph also reconstructs real EVTX evidence. Finish on Evaluation: explain one wrong-join counterexample, one missing-telemetry false negative and why the stricter policy's held-out F1 is lower. The older case-by-case outline below remains useful for deeper discussion.
+This is a walkthrough outline for the working lab, not a claim that the applicant has already recorded a video. Use the actual source labels and acknowledge Codex assistance. Keep the backend replay run and absolute time range visible.
 
-This script accompanies the working local explorer and captured evidence gallery. It is a walkthrough outline, not a claim that a video has already been recorded by the applicant.
+## 0:00–0:40 — Scope and design
 
-## 0:00–0:40 — Goal and architecture
+Show the evidence-to-case diagram. Explain public EVTX versus constructed case 005, SQLite source anchors, separate analyst decisions and bounded Loki replay. The native services run on loopback without a VM; the measured resource snapshot excludes the browser and Windows.
 
-Explain that this is an offline Windows SOC investigation lab designed for a small laptop. The pipeline preserves original events, hashes inputs, stores them in SQLite and separates detections from analyst decisions. Identify public versus synthetic sources and the assistance used.
+## 0:40–1:50 — Reconstruct and challenge a chain
 
-## 0:40–1:50 — Case 001
+Open case 005 Reconstruction. Trace failed logons, a matching success, session-linked mshta, its initiated connection and the observed descendant task command. Open an original event and explain its UID/source hash/physical line. Compare public case 001, which has a real observed process graph but no supplied authentication session. Distinguish task creation, registration and execution.
 
-Open mshta findings, then the event timeline. Show the cmd/rundll32/mshta/schtasks process GUID relationships and the task-file artifact. Explain why the task command plus artifact does not confirm task execution. Show why a Security 4698 rule could not operate on a Sysmon-only file, and how WIN-008 fills the observable gap.
+## 1:50–2:40 — Query the actual backend
 
-## 1:50–2:50 — Case 002
+Open the Grafana replay dashboard with the reviewed run and absolute UTC bounds. Show 5 failed logons, 3 process creations and 1 registration. Original timestamps remain in the JSON fields. Open backend-validation.json: a successful POST was insufficient, so the validator checked actual LogQL results for all five historical counts and a source-UID pivot. Explain the historical index/lookback failure and fix.
 
-Show the 3,561 failed logons and the ten-record threshold evidence. Search Event ID 4624; distinguish no success in the export from no success anywhere. Explain burst versus failure-to-success detection. Mention that the 4648 supplement is another dataset and does not contain authentication outcomes.
+## 2:40–3:30 — Hunt and inspect a counterexample
 
-## 2:50–3:50 — Case 003
+Show the hunt notebook's four failed-logon groups totaling 3,561. The independent 4648 supplement has 294 records and 41 distinct targets but does not establish outcomes. For case 003, show the quoted script and the actual AST with no command/member-invocation nodes. Use the constructed fragment results to explain why missing/conflicting blocks remain incomplete; parsing and decoding never execute the text.
 
-Show the outer quoting in ScriptBlockText and the Out-Default input object. A keyword match found the text, but the evidence supports a more cautious conclusion. Explain the safe AST experiment and what extra telemetry would resolve the session's behavior.
+## 3:30–4:40 — Make a reviewable decision
 
-## 3:50–4:50 — Case 004
+Open Case operations. Show the triage/investigation/escalation rationale, then the later Security 4698 attachment and its narrower claim: registration observed, execution still unproven. Inspect revision 5, ten anchors, the audit anchor and reviewed packet. Explain stale-revision protection, exclusive export and why a hash chain does not authenticate an actor or stop a database owner from resealing history. Demonstrate only a meaningful new decision; do not add filler notes merely to get another export.
 
-Show the exact expected backup context and the changed user/command variants. Compare four baseline findings to three review findings plus one retained context match. Discuss the script-content blind spot and why the system never deletes the original detection.
+## 4:40–6:00 — Defend validation and limits
 
-## 4:50–6:00 — Validation and limits
+Show the 75-test logs, real backend responses, CI run and workload-specific indexing benchmark. Finish on Evaluation: the graph policy misses incomplete telemetry, and the weak temporal baseline has higher held-out F1. Twenty related constructed scenarios are a regression corpus, not production accuracy. Explain one wrong join, one missed chain and the next evidence you would request. Proposals to contain a host are not executed response actions.
 
-Open regression results, Sigma parser results, SQLite query outputs and benchmark measurements. Explain the limited datasets, lack of live SIEM/backend validation and why processing duration is not MTTD. Close with one concrete improvement: fragment-aware script-block handling, trustworthy script-content checks or actual SIEM field mapping validation.
+The case reports support deeper discussion. Use INTERVIEW.md to rehearse without memorizing a tool list, and MASTERCLASS_VI.md to build your own understanding before presenting the work.

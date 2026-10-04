@@ -1,0 +1,12 @@
+{
+  "published_at": "2026-10-04T15:49:09.384836+00:00",
+  "run_id": "release-v3-reviewed",
+  "case_id": "cb9fe31a1d974805b59694f462ec2be7",
+  "source_case": "case-005",
+  "status": "escalated",
+  "revision": 5,
+  "evidence_count": 10,
+  "audit_anchor_sha256": "00e46dec31b9853037a240973b56ac6fb3d74463af08ff7a3898d99a45f51a92",
+  "zip_sha256": "e6c20807292b07761bd6f220cc16d3ed9844d4c7e6ccce8a86301e41166e6bb3",
+  "scope": "Actual local workflow and browser attachment over constructed case-005 evidence. Published directory is the verified content of the local ZIP; raw private host records are excluded."
+}

@@ -5,6 +5,7 @@ The caller must explicitly approve all source hashes as one collection scenario.
 """
 
 from collections import Counter, defaultdict
+from bisect import bisect_left, bisect_right
 import hashlib
 import json
 from pathlib import Path
@@ -157,23 +158,41 @@ def investigate(events, scope, *, threshold=5, auth_window=600, chain_window=900
             if child == ancestor: return True
         return False
     chains, candidates = [], []
+    # Index once; a successful logon must not rescan every unrelated event.
+    failure_index, session_index, task_index = defaultdict(list), defaultdict(list), defaultdict(list)
+    for e in events:
+        if is_security(e, 4625):
+            identity = auth_key(e, True)
+            if identity is not None: failure_index[identity].append(e)
+        if is_sysmon(e, 1) and task_creation(e):
+            child, seen = e["event_uid"], set()
+            while child in parent_of and child not in seen:
+                seen.add(child); child = parent_of[child]
+                task_index[child].append(e)
+    failure_times = {key:[seconds(e) for e in records] for key,records in failure_index.items()}
+    for key, node in by_key.items():
+        e = creates[key][0]
+        if node["risk_marker"]:
+            d = e["event_data"]
+            session_index[(key[0], guid(d.get("LogonGuid")), d.get("User", "").casefold())].append(node)
     for success in events:
         if not is_security(success, 4624) or success["event_data"].get("LogonType") not in ("3", "10"):
             continue
         identity = auth_key(success, True)
         if identity is None: continue
-        failures = [e for e in events if is_security(e, 4625) and auth_key(e, True) == identity and 0 <= seconds(success)-seconds(e) <= auth_window]
+        times = failure_times.get(identity, [])
+        at = seconds(success)
+        failures = failure_index.get(identity, [])[bisect_left(times, at-auth_window):bisect_right(times, at)]
         if len(failures) < threshold: continue
         logon = guid(success["event_data"].get("LogonGuid"))
         missing = []
         sd = success["event_data"]
         expected_user = (sd["TargetDomainName"] + "\\" + sd["TargetUserName"]).casefold()
         linked = []
-        for key, node in by_key.items():
-            e = creates[key][0]; d = e["event_data"]
-            if key[0] != success["host"].casefold() or not logon or guid(d.get("LogonGuid")) != logon:
-                continue
-            if d.get("User", "").casefold() != expected_user or not 0 <= seconds(e)-seconds(success) <= chain_window:
+        eligible = session_index.get((success["host"].casefold(), logon, expected_user), []) if logon else []
+        for node in eligible:
+            e = creates[(node["host"].casefold(), node["guid"])][0]; d = e["event_data"]
+            if not 0 <= seconds(e)-seconds(success) <= chain_window:
                 continue
             if sd.get("TargetLogonId") and d.get("LogonId") and sd["TargetLogonId"].casefold() != d["LogonId"].casefold():
                 continue
@@ -184,7 +203,7 @@ def investigate(events, scope, *, threshold=5, auth_window=600, chain_window=900
         for node in linked:
             executable = creates[(node["host"].casefold(), node["guid"])][0]
             network = [a for a in node["activity"] if a["evidence"]["event_id"] == 3 and 0 <= seconds_from_ref(a["evidence"])-seconds(success) <= chain_window and a["fields"].get("Initiated", "").casefold() == "true"]
-            tasks = [e for e in events if is_sysmon(e, 1) and task_creation(e) and e["event_uid"] in parent_of and descendant(e["event_uid"], node["id"]) and 0 <= seconds(e)-seconds(success) <= chain_window]
+            tasks = [e for e in task_index.get(node["id"], []) if 0 <= seconds(e)-seconds(success) <= chain_window]
             if network and tasks:
                 complete = True
                 stages = [{"name": "Repeated failures", "evidence": [reference(e) for e in failures[-threshold:]]},

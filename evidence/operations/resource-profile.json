@@ -1,0 +1,29 @@
+{
+  "measured_at": "2026-10-04T16:19:33.2757171Z",
+  "scope": "Snapshot after actual backend and Grafana dashboard queries. Includes main processes and the Loki datasource helper. Excludes browser, OS and unrelated processes; individual peaks are not a simultaneous aggregate peak.",
+  "gomemlimit": "128MiB Go heap-management target, not an RSS cap",
+  "processes": [
+    {
+      "Name": "loki-windows-amd64",
+      "Role": "main",
+      "PID": 26432,
+      "WorkingSetMiB": 78.98,
+      "PeakWorkingSetMiB": 143.63
+    },
+    {
+      "Name": "grafana",
+      "Role": "main",
+      "PID": 7748,
+      "WorkingSetMiB": 57.41,
+      "PeakWorkingSetMiB": 224.23
+    },
+    {
+      "Name": "gpx_grafana-loki-datasource_windows_amd64",
+      "Role": "grafana-plugin",
+      "PID": 22952,
+      "WorkingSetMiB": 15.02,
+      "PeakWorkingSetMiB": 24.78
+    }
+  ],
+  "total_current_working_set_mib": 151.41
+}

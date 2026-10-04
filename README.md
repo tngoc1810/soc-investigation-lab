@@ -1,12 +1,37 @@
 # SOC Investigation & Detection Validation Lab
 
-A Windows security investigation portfolio that runs on a small laptop. The lab turns public EVTX evidence into searchable events, detection leads and analyst decisions. It uses Python and SQLite locally, with a read-only browser interface for reviewing the work.
+A Windows SOC portfolio built around evidence, investigation and analyst decisions. Python and SQLite preserve the source records; a local case workspace records the review; a real Loki backend supports LogQL queries. Native Grafana provides a separate replay dashboard. The core runs without Docker or virtual machines.
 
-**Version 2.0 — evidence reconstruction and detection evaluation.** Five case studies, an explicit source-scope policy, interactive process graphs, explainable five-stage investigation leads and a versioned 20-scenario evaluation corpus. Live SIEM backend validation remains outside this release.
+**Version 3.0 — evidence-to-case operations.** Five case studies, 13 detection hypotheses, a 20-scenario evaluation corpus, 48 executed hunt queries, PowerShell fragment reconstruction and native AST inspection, a revisioned analyst workflow, immutable evidence exports, and actual localhost Loki validation. This is a portfolio lab, not a commercial SIEM or a production SOC deployment.
 
-![Multi-source reconstruction](evidence/advanced/screenshots/01-chain-reconstruction.jpg)
+![Native Grafana dashboard over a verified synthetic replay](evidence/operations/screenshots/03-grafana-backend.jpg)
+
+## What can a reviewer verify?
+
+| Skill | Concrete work | Evidence |
+| --- | --- | --- |
+| Log engineering | Pinned EVTX acquisition, native export, atomic ingest, source and record anchors | [Replay validation](evidence/portfolio-validation.json) |
+| Backend investigation | 6,087 historical records counted on Loki; exact UID pivots; eleven synthetic records replayed for the dashboard | [Actual API responses](evidence/operations/backend-validation.json) |
+| Threat hunting | Eight hypotheses executed across five cases and an independent credential supplement | [Hunt notebook](docs/HUNT_NOTEBOOK.md) and [results](evidence/operations/hunts.json) |
+| Windows forensics | Session/process GUID joins; complete/gapped/conflicting 4104 reconstruction; bounded Base64 decoding; parse-only native AST | [Forensics case study](docs/POWERSHELL_FORENSICS.md) |
+| Detection engineering | Transparent false positives, false negatives, context exceptions and an explicit source-scope policy | [Evaluation](evidence/advanced/evaluation.json) |
+| Case handling | Triage, investigation, escalation, later evidence attachment, audit chain and checked export | [Reviewed packet](evidence/operations/reviewed-bundle/report.md) |
+| Software engineering | Regression tests, local HTTP write protection, optimistic revisions, CI backend checks | [Validation record](docs/VALIDATION.md) |
+| Performance analysis | Released v2 versus indexed v3, six fresh processes, identical result digest | [Measured benchmark](evidence/operations/indexing-benchmark.json) |
+
+[The current evidence gallery](evidence/operations/README.md) includes the case-workflow screenshots, audit/export packet, actual backend responses and measured resource scope.
+
+The important part is explaining a defensible decision from original evidence. The reports distinguish task creation, task registration and task execution; failed authentication and successful access; suspicious text and an executed operation.
+
+## Start the complete lab
+
+Follow the [Windows runbook](docs/RUNBOOK_V3.md) for the complete replay, case workspace and native Loki/Grafana setup. Backend runtimes are pinned to official downloads and checked by SHA-256. They run on loopback, outside OneDrive and the repository, and can be stopped independently of the core investigation tools.
+
+The [v3 design](docs/ENGINEERING_V3.md) explains the transport, decision/audit model, resource choices and failure modes. The [Vietnamese learning path](docs/MASTERCLASS_VI.md) turns the project into exercises and an interview demonstration.
 
 ## What changed in v2?
+
+The reconstruction and evaluation work below remains part of v3. The [v2 evidence gallery](evidence/advanced/README.md) is a historical release snapshot; current operations evidence lives in `evidence/operations`.
 
 The new engine asks whether authentication and process activity actually belong together. A collection manifest approves exact source hashes. Nonzero logon GUIDs bind a selected process to a successful session; process GUIDs bind its activity and observed ancestry. Contradictory creation records, unavailable parents and missing telemetry remain visible rather than becoming guessed relationships.
 
@@ -30,7 +55,7 @@ The five primary cases contain 6,087 events. Including the independent supplemen
 
 ## Run it on Windows
 
-Python 3.11+ and Windows PowerShell are sufficient. The core has no third-party Python dependencies. Run from the repository root:
+Python 3.11+ and Windows PowerShell are sufficient for the core. The core has no third-party Python dependencies. Run from the repository root:
 
 ~~~powershell
 python -m unittest discover -s tests -v
@@ -38,10 +63,12 @@ python -m unittest discover -s tests -v
 python scripts/verify_portfolio.py
 python scripts/build_advanced.py
 python scripts/verify_advanced.py
-python -m soclab serve
+python scripts/build_operations.py --run-id practice-01
+python scripts/verify_operations.py --run-id practice-01
+python -m soclab serve --operations-db output/operations/practice-01/cases.sqlite
 ~~~
 
-Open http://127.0.0.1:8765. The explorer binds only to localhost and offers findings, raw-event search and analyst reports. It does not perform endpoint actions. The replay downloads four small pinned public EVTX files, checks their SHA-256, exports each source and builds fresh independent analysis bundles. Choose a new RunId for another explicit replay; evidence/report files are never silently overwritten.
+Open http://127.0.0.1:8765. The explorer offers findings, raw-event search, process reconstruction, evaluation, a hunt notebook and case operations. Source evidence stays read-only; analyst decisions use a separate database. Omit `--operations-db` for a read-only viewer. The replay downloads four small pinned public EVTX files, checks their SHA-256 and builds fresh independent analysis bundles. Choose new run IDs for another explicit replay; exports do not silently replace reviewed evidence.
 
 A quick synthetic-only demo also works on Linux/macOS:
 
@@ -87,13 +114,13 @@ The executable format is custom JSON. [Three separate Sigma rules and SIEM query
 ## Evidence and checks
 
 - [Evidence gallery](evidence/README.md): genuine browser captures, query results and checksums.
-- [Validation record](docs/VALIDATION.md): 55 regression tests, public EVTX replay, graph/corpus expectations and known limits.
+- [Validation record](docs/VALIDATION.md): regression tests, actual backend queries, static inspection, workflow exports and known limits.
 - [Benchmark](evidence/benchmark.json): three isolated Windows worker runs on the 3,561-event file; maximum measured process peak working set 21.86 MiB. This is not total laptop RAM or a large-scale capacity claim.
 - [Data schema](docs/DATA_SCHEMA.md): source integrity, timestamp handling and field conventions.
 - [V2 reconstruction benchmark](evidence/advanced/benchmark.json): fresh-process loading and reconstruction, with input and engine hashes; separate from the v1 ingest/analyze workload.
 - [Triage playbook](playbooks/windows-triage.md) and [six-minute demo outline](docs/DEMO_SCRIPT.md).
 
-The GitHub workflow runs tests/demo and the corpus evaluator on Windows/Ubuntu with Python 3.11/3.12. Windows jobs additionally replay public EVTX, build all five investigation artifacts and verify the reviewed public process topology. Sigma parsing remains a separate job.
+The GitHub workflow runs tests/demo and the corpus evaluator on Windows/Ubuntu with Python 3.11/3.12. Windows jobs also replay public EVTX, verify graph/corpus expectations, execute the operations exercise and parse the public PowerShell text. Separate jobs parse Sigma and install a pinned native Loki binary to execute the backend assertions. Grafana browser QA and the private local System collection are recorded as local checks.
 
 ## Learn and present it
 

@@ -1,0 +1,73 @@
+{
+  "version": "3.0.0",
+  "base_run": "release-v3-final-base",
+  "advanced_run": "release-v3-final-graph",
+  "engine_source_sha256": "235fe8b485a7531c1073439aedc577e8da4c43096ee3e03f83b1f464122ed8a4",
+  "primary_events": 6087,
+  "independent_supplement_events": 295,
+  "advanced": {
+    "version": "3.0.0",
+    "run_id": "release-v3-final-graph",
+    "new_case_events": 2511,
+    "new_case_base_findings": {
+      "AUTH-001": 1,
+      "WIN-004": 1,
+      "WIN-008": 1,
+      "WIN-005": 1
+    },
+    "process_nodes": 3,
+    "observed_parent_edges": 2,
+    "complete_chain_leads": 1,
+    "evaluation": {
+      "dev": {
+        "identity_graph": {
+          "tp": 2,
+          "fp": 1,
+          "tn": 8,
+          "fn": 1,
+          "precision": 0.6666666666666666,
+          "recall": 0.6666666666666666,
+          "f1": 0.6666666666666666
+        },
+        "temporal_baseline": {
+          "tp": 3,
+          "fp": 5,
+          "tn": 4,
+          "fn": 0,
+          "precision": 0.375,
+          "recall": 1.0,
+          "f1": 0.5454545454545454
+        }
+      },
+      "holdout": {
+        "identity_graph": {
+          "tp": 2,
+          "fp": 1,
+          "tn": 3,
+          "fn": 2,
+          "precision": 0.6666666666666666,
+          "recall": 0.5,
+          "f1": 0.5714285714285714
+        },
+        "temporal_baseline": {
+          "tp": 4,
+          "fp": 3,
+          "tn": 1,
+          "fn": 0,
+          "precision": 0.5714285714285714,
+          "recall": 1.0,
+          "f1": 0.7272727272727273
+        }
+      }
+    },
+    "scope": "Constructed experiment and public graphs; offline only"
+  },
+  "fresh_initial_workflow": {
+    "status": "escalated",
+    "revision": 4,
+    "evidence_count": 9,
+    "audit_anchor_sha256": "7bafc3ecb532f8326339b09b0474a7f6a6631fd669020986c380ba0ec1f08468"
+  },
+  "hunt_queries_executed": 48,
+  "scope": "Fresh native Windows replay and independent expectation verifiers passed. Initial workflow has 4 decisions/9 anchors; published browser-reviewed packet separately has 5 decisions/10 anchors. V2 historical evidence unchanged."
+}

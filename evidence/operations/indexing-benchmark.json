@@ -1,0 +1,68 @@
+{
+  "baseline_commit": "c213b0734507c4c391baa32c8cc0827f26a6ebfd",
+  "baseline_file_sha256": "9874104f0e9a6948f10469ed995c2b531745d7cc86027d8227d3decb491a6e60",
+  "indexed_file_sha256": "e7340711026806ada2a23e93f94fca2f13448ef7815752deb8941632dc5973e3",
+  "accounts": 200,
+  "trials": [
+    {
+      "engine": "v2",
+      "seconds": 1.6795203000074252,
+      "peak_process_working_set_mib": 21.8359375,
+      "result_sha256": "cd9753060dada8c6b92669c7e440deb27690d0fa0f3c691b5f00856dd99aeee6",
+      "events": 1200,
+      "incomplete_candidates": 200,
+      "complete_chains": 0
+    },
+    {
+      "engine": "v2",
+      "seconds": 0.9711493000068003,
+      "peak_process_working_set_mib": 21.22265625,
+      "result_sha256": "cd9753060dada8c6b92669c7e440deb27690d0fa0f3c691b5f00856dd99aeee6",
+      "events": 1200,
+      "incomplete_candidates": 200,
+      "complete_chains": 0
+    },
+    {
+      "engine": "v2",
+      "seconds": 1.5335495000035735,
+      "peak_process_working_set_mib": 20.578125,
+      "result_sha256": "cd9753060dada8c6b92669c7e440deb27690d0fa0f3c691b5f00856dd99aeee6",
+      "events": 1200,
+      "incomplete_candidates": 200,
+      "complete_chains": 0
+    },
+    {
+      "engine": "v3",
+      "seconds": 0.04693620000034571,
+      "peak_process_working_set_mib": 21.29296875,
+      "result_sha256": "cd9753060dada8c6b92669c7e440deb27690d0fa0f3c691b5f00856dd99aeee6",
+      "events": 1200,
+      "incomplete_candidates": 200,
+      "complete_chains": 0
+    },
+    {
+      "engine": "v3",
+      "seconds": 0.04551539999374654,
+      "peak_process_working_set_mib": 20.921875,
+      "result_sha256": "cd9753060dada8c6b92669c7e440deb27690d0fa0f3c691b5f00856dd99aeee6",
+      "events": 1200,
+      "incomplete_candidates": 200,
+      "complete_chains": 0
+    },
+    {
+      "engine": "v3",
+      "seconds": 0.03192900000431109,
+      "peak_process_working_set_mib": 21.28515625,
+      "result_sha256": "cd9753060dada8c6b92669c7e440deb27690d0fa0f3c691b5f00856dd99aeee6",
+      "events": 1200,
+      "incomplete_candidates": 200,
+      "complete_chains": 0
+    }
+  ],
+  "median_seconds": {
+    "v2": 1.5335495000035735,
+    "v3": 0.04551539999374654
+  },
+  "speedup_on_this_workload": 33.69298084196274,
+  "scope": "Six fresh Python processes. Synthetic auth-heavy workload; identical output digest. Timing covers investigate(), memory covers the whole child process. Not backend, browser, live throughput, or a general speed guarantee."
+}

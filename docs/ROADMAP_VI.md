@@ -1,5 +1,7 @@
 # Lộ trình học từ project đã hoàn thành
 
+Bản 3.0 đã triển khai backend Loki/Grafana cục bộ, 48 lượt hunt SQL, script fragment/native AST, case workflow có revision/audit và export kiểm tra hash. Học theo [MASTERCLASS_VI.md](MASTERCLASS_VI.md), dựng lại bằng [RUNBOOK_V3.md](RUNBOOK_V3.md) và đối chiếu [bằng chứng thực thi](../evidence/operations/README.md). Các đoạn v1/v2 dưới đây mô tả tiến trình của project.
+
 Bản 2.0 bổ sung case nhiều nguồn, process graph tương tác, kiểm tra biên source/GUID và bộ đối chứng 20 kịch bản. Sau sáu buổi nền tảng, học docs/ENGINEERING_V2.md và case 005 để giải thích các quyết định tương quan, duplicate evidence, collection gaps và trade-off precision/recall. Báo cáo lỗi detection là một phần của project, không phải phần được giấu khỏi demo.
 
 Bản 1.0 đã có bốn báo cáo điều tra, log EVTX công khai có nguồn và hash, pipeline Python/SQLite, 12 detection, giao diện đọc bằng chứng, ảnh chụp thực tế, 36 regression tests và số liệu đo trên máy. Bạn có thể chạy lại bằng scripts/reproduce.ps1. Phần xây dựng được hỗ trợ bởi Codex; phần hiểu, phản biện và trình bày trong phỏng vấn cần bạn tự thực hành.
@@ -28,6 +30,6 @@ Không cần cài nhiều máy ảo để bắt đầu. Đọc báo cáo, chạy
 
 ## Mở rộng sau này
 
-Khi có quyền truy cập một SIEM, chuyển hai detection sang backend đó, kiểm tra field mapping và lưu kết quả thực thi được phép chia sẻ. KQL/SPL trong repo hiện là tham chiếu; SQLite đã được chạy thật. Video demo và trải nghiệm SIEM trực tiếp là phần mở rộng, không phải bằng chứng đã có trong bản 1.0.
+Loki/LogQL đã chạy thật trong bản v3. KQL/SPL vẫn là tham chiếu; khi có quyền truy cập các nền tảng tương ứng, kiểm tra field mapping và lưu kết quả được phép chia sẻ. Thu thập endpoint liên tục, phân tích packet và video tự trình bày vẫn là phần mở rộng.
 
 Chất lượng phỏng vấn đến từ khả năng bảo vệ kết luận và thừa nhận giới hạn. Repo giúp bạn có dữ liệu cụ thể để luyện điều đó.

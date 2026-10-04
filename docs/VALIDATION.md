@@ -1,8 +1,20 @@
 # Validation record â€” 2026-10-04
 
+## Version 3: current local validation
+
+Python 3.11.5 and 3.12.11 each passed 75 tests. Captured output is in [test-results.txt](../evidence/operations/test-results.txt). Tests include static fragment/decode boundaries, evidence-preserving read-only access, bounded Windows publish retry, stale revisions, illegal closure, unknown evidence, modified audit/tail state, exclusive export checksums and real HTTP cross-origin/CSRF/body-limit handling.
+
+A fresh native Windows replay (`release-v3-final-base` plus `release-v3-final-graph`) matched all reviewed public and synthetic counts. The five primary collections contain 6,087 events; the independent 295-record credential supplement stays separate. The fresh operations verifier matched 48 executed hunts, three fragment groups, one complete reconstruction, four initial decisions/nine anchors and every export checksum. The browser exercise then independently demonstrated a later 4698 attachment: revision 5, ten anchors, retained audit anchor and a new export.
+
+Loki 3.7.8 actually ingested all five historical primary collections and returned their exact counts, a UID/source-hash pivot and reviewed event-type counts for eleven replay-now records. Grafana 13.2.3 returned healthy database/datasource checks and displayed 5 failed logons, 3 process creations and 1 registration on the selected synthetic replay. [Actual responses and screenshots](../evidence/operations/README.md) preserve those observations. Native parse-only inspection on PowerShell 7.6.5 and Windows PowerShell 5.1.26100.9444 found zero command/member-invocation nodes and zero errors in the public quoted expression. Reconstructed and decoded inert fixtures each contain one command AST.
+
+The private collector read/imported 20 existing System records and retained their original XML. Only aggregate counts and hashes are published; these records do not establish attack detection. A backend working-set snapshot includes Loki, Grafana and its Loki helper at 151.41 MiB combined. It excludes browser/OS memory and does not establish a peak or ceiling. The indexed-correlation comparison uses 1,200 constructed auth records and 200 candidates, three fresh workers per version, identical result digests: median v2 1.534 s, v3 0.046 s. This improvement is specific to that workload.
+
+The v3 six-job GitHub workflow is prepared; its release-commit run is recorded after remote execution below. The v2 and v1 results remain historical snapshots. The held-out v2 errors and higher baseline F1 remain visible; new engineering features do not turn that small corpus into production accuracy.
+
 ## Version 2 reconstruction and evaluation
 
-The local suite now has 55 passing regression tests, including GUID/session isolation, ambiguous process records, duplicate exports, missing telemetry, cycles, corpus-integrity validation and full original-event lookup. The new explicit-scope collection has 2,511 synthetic events, three process nodes, two parent edges, four event/auth findings and one complete five-stage review lead. Public case 001 reconstructs four observed processes and three parent edges without inventing authentication context.
+The historical v2 local suite had 55 passing regression tests, including GUID/session isolation, ambiguous process records, duplicate exports, missing telemetry, cycles, corpus-integrity validation and full original-event lookup. The new explicit-scope collection has 2,511 synthetic events, three process nodes, two parent edges, four event/auth findings and one complete five-stage review lead. Public case 001 reconstructs four observed processes and three parent edges without inventing authentication context.
 
 Twenty checked-in scenarios separate 12 development variants from eight held-out variants. The latter produce TP=2, FP=1, TN=3 and FN=2 for the graph policy. Precision is 66.7%, recall 50.0% and F1 57.1%. The username/time ablation yields TP=4, FP=3, TN=1, FN=0 and a higher F1 of 72.7%. All outcomes are published. This is a small synthetic regression corpus, not production accuracy.
 
@@ -36,6 +48,6 @@ Version 1.0 commit 8f5161f176a9407feb2b02be2c10babb1d5d6851 passed all five jobs
 
 ## Limits that remain
 
-Precision and recall on a representative labeled population, live SIEM ingestion/latency, backend KQL/SPL behavior, arbitrary command-line obfuscation and collection authenticity are unmeasured. A task-creation lead does not prove task execution. A failure-only export does not prove that no success occurred elsewhere. Exact context matching does not verify a script's contents.
+Precision and recall on a representative labeled population, continuous endpoint-to-backend latency, KQL/SPL behavior, arbitrary command-line obfuscation and collection authenticity remain unmeasured. V3 validates bounded replay ingestion and actual Loki/LogQL responses, not continuous endpoint monitoring. A task-creation lead does not prove task execution. A failure-only export does not prove that no success occurred elsewhere. Exact context matching does not verify a script's contents.
 
 Case reports preserve these distinctions. Blank learning-log and incident templates are exercises for the learner, not missing investigation reports.

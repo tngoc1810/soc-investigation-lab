@@ -1,0 +1,18 @@
+{
+  "limitation": "AST presence does not prove execution: unreachable code, functions and conditions need context.",
+  "parsed_only": true,
+  "commands": [
+    {
+      "line": 1,
+      "text": "Write-Output 'inert command AST fixture'",
+      "name": "Write-Output"
+    }
+  ],
+  "string_literals": [
+    "Write-Output",
+    "inert command AST fixture"
+  ],
+  "member_invocations": [],
+  "parse_errors": [],
+  "powershell_version": "7.6.5"
+}

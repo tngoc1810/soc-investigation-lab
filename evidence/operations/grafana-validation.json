@@ -1,0 +1,68 @@
+{
+  "validated_at": "2026-10-04T16:19:38.269565+00:00",
+  "grafana_health": {
+    "database": "ok",
+    "version": "13.2.3",
+    "commit": "90ffed056f0884267356c12a0eeb72a022af53f1"
+  },
+  "datasource_health": {
+    "message": "Data source successfully connected.",
+    "status": "OK"
+  },
+  "dashboard_uid": "soclab-operations",
+  "panels": [
+    {
+      "title": "Collection boundary",
+      "type": "text",
+      "expressions": []
+    },
+    {
+      "title": "Failed logons \u00b7 replay window",
+      "type": "stat",
+      "expressions": [
+        "sum(count_over_time({job=\"soclab\",case_id=\"case-005\",mode=\"replay_now\",replay_run=\"$replay_run\"} | json | event_id = 4625 [30m]))"
+      ]
+    },
+    {
+      "title": "Process creation records",
+      "type": "stat",
+      "expressions": [
+        "sum(count_over_time({job=\"soclab\",case_id=\"case-005\",mode=\"replay_now\",replay_run=\"$replay_run\"} | json | event_id = 1 [30m]))"
+      ]
+    },
+    {
+      "title": "Task registration records \u00b7 not execution",
+      "type": "stat",
+      "expressions": [
+        "sum(count_over_time({job=\"soclab\",case_id=\"case-005\",mode=\"replay_now\",replay_run=\"$replay_run\"} | json | event_id = 4698 [30m]))"
+      ]
+    },
+    {
+      "title": "Processes and initiated connections \u00b7 pivot by GUID",
+      "type": "logs",
+      "expressions": [
+        "{job=\"soclab\",case_id=\"case-005\",mode=\"replay_now\",replay_run=\"$replay_run\"} | json | event_id = 1 or event_id = 3"
+      ]
+    },
+    {
+      "title": "Authentication sequence \u00b7 original timestamps retained",
+      "type": "logs",
+      "expressions": [
+        "{job=\"soclab\",case_id=\"case-005\",mode=\"replay_now\",replay_run=\"$replay_run\"} | json | event_id = 4625 or event_id = 4624"
+      ]
+    }
+  ],
+  "browser_check": {
+    "method": "Actual CUA accessibility observation and unedited viewport screenshot",
+    "run_id": "release-v3-verified",
+    "from": "2026-10-04T15:16:14.091Z",
+    "to": "2026-10-04T15:18:14.091Z",
+    "observed_values": {
+      "failed_logons": 5,
+      "process_creations": 3,
+      "task_registrations": 1
+    },
+    "screenshot": "evidence/operations/screenshots/03-grafana-backend.jpg"
+  },
+  "scope": "Authenticated API provisioning/health checks plus actual browser rendering over synthetic replay. Not live endpoint monitoring."
+}

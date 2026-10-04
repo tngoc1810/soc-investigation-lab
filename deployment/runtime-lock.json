@@ -1,0 +1,16 @@
+{
+  "loki": {
+    "version": "3.7.8",
+    "url": "https://github.com/grafana/loki/releases/download/v3.7.8/loki-windows-amd64.exe.zip",
+    "sha256": "622efc553df799ebb022c2e6c4b45792f726c54b008cb65126b99ae67be3a827",
+    "format": "zip",
+    "source": "https://github.com/grafana/loki/releases/tag/v3.7.8"
+  },
+  "grafana": {
+    "version": "13.2.3",
+    "url": "https://dl.grafana.com/grafana/release/13.2.3/grafana_13.2.3_36482603486_windows_amd64.tar.gz",
+    "sha256": "dafe883a7c15543c6d6710b868eb8b4053353441ce7ceacf150942b8de3960f0",
+    "format": "tar.gz",
+    "source": "https://grafana.com/grafana/download?edition=oss&platform=windows"
+  }
+}
