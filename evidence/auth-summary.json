@@ -1,0 +1,50 @@
+[
+  {
+    "host": "DESKTOP-M5SN04R",
+    "event_id": 4625,
+    "target_user": "Administrator",
+    "target_domain": ".",
+    "source_ip": "192.168.198.149",
+    "logon_type": "3",
+    "substatus": "0xc000006a",
+    "event_count": 3558,
+    "first_seen": "2016-09-19T16:50:06.513129Z",
+    "last_seen": "2016-09-19T16:52:49.399674Z"
+  },
+  {
+    "host": "DESKTOP-M5SN04R",
+    "event_id": 4625,
+    "target_user": "Administrator",
+    "target_domain": ".",
+    "source_ip": "192.168.198.149",
+    "logon_type": "3",
+    "substatus": "0xc0000072",
+    "event_count": 1,
+    "first_seen": "2016-09-19T16:50:08.000663Z",
+    "last_seen": "2016-09-19T16:50:08.000663Z"
+  },
+  {
+    "host": "DESKTOP-M5SN04R",
+    "event_id": 4625,
+    "target_user": "Administrator",
+    "target_domain": "lXMrIIDU",
+    "source_ip": "192.168.198.149",
+    "logon_type": "3",
+    "substatus": "0xc0000072",
+    "event_count": 1,
+    "first_seen": "2016-09-19T16:50:08.042778Z",
+    "last_seen": "2016-09-19T16:50:08.042778Z"
+  },
+  {
+    "host": "DESKTOP-M5SN04R",
+    "event_id": 4625,
+    "target_user": "JcDfcZTc",
+    "target_domain": ".",
+    "source_ip": "192.168.198.149",
+    "logon_type": "3",
+    "substatus": "0xc0000064",
+    "event_count": 1,
+    "first_seen": "2016-09-19T16:50:06.477878Z",
+    "last_seen": "2016-09-19T16:50:06.477878Z"
+  }
+]

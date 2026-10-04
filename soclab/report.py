@@ -7,6 +7,8 @@ from time import perf_counter
 
 from . import __version__
 from .detections import AUTH_RULE, detect, load_rules
+from .correlation import BURST_RULE, EXPLICIT_RULE, credential_leads
+from .context import annotate, load_context
 from .store import iter_events, sources
 
 
@@ -22,10 +24,11 @@ def csv_cell(value):
     return value
 
 
-def analyze(db: Path, rules_path: Path, output: Path, *, threshold=5, window_seconds=600, cross_source=False) -> dict:
+def _analyze_into(db: Path, rules_path: Path, output: Path, *, threshold=5, window_seconds=600, cross_source=False, credential_threshold=10, credential_window=300, context_path=None) -> dict:
     started = perf_counter()
     rules = load_rules(rules_path)
-    if threshold < 1 or window_seconds < 1:
+    context = load_context(context_path)
+    if threshold < 1 or window_seconds < 1 or credential_threshold < 2 or credential_window < 1:
         raise ValueError("threshold and window_seconds must be positive")
     if not Path(db).is_file():
         raise ValueError("database does not exist; ingest evidence first")
@@ -37,11 +40,16 @@ def analyze(db: Path, rules_path: Path, output: Path, *, threshold=5, window_sec
         raise ValueError("output bundle already exists; choose a new output directory")
     counts = {}
     findings_count = 0
+    status_counts = {}
     with (output / "findings.jsonl").open("w", encoding="utf-8") as stream:
-        for alert in detect(iter_events(db), rules, threshold=threshold, window_seconds=window_seconds, cross_source=cross_source):
+        from itertools import chain
+        alerts = chain(detect(iter_events(db), rules, threshold=threshold, window_seconds=window_seconds, cross_source=cross_source), credential_leads(iter_events(db), threshold=credential_threshold, window_seconds=credential_window, cross_source=cross_source))
+        for alert in alerts:
+            alert = annotate(alert, context)
             stream.write(json.dumps(alert, ensure_ascii=False) + "\n")
             counts[alert["rule_id"]] = counts.get(alert["rule_id"], 0) + 1
             findings_count += 1
+            status_counts[alert["status"]] = status_counts.get(alert["status"], 0) + 1
     total = 0
     with (output / "timeline.csv").open("w", encoding="utf-8", newline="") as stream:
         writer = csv.writer(stream)
@@ -67,10 +75,15 @@ def analyze(db: Path, rules_path: Path, output: Path, *, threshold=5, window_sec
         "event_count": total,
         "finding_count": findings_count,
         "findings_by_rule": counts,
+        "findings_by_status": status_counts,
+        "context_sha256": hashlib.sha256(Path(context_path).read_bytes()).hexdigest() if context_path else None,
         "auth_rule": AUTH_RULE,
         "auth_threshold": threshold,
         "auth_window_seconds": window_seconds,
         "cross_source_auth_correlation": cross_source,
+        "credential_rules": [BURST_RULE, EXPLICIT_RULE],
+        "credential_threshold": credential_threshold,
+        "credential_window_seconds": credential_window,
         "processing_seconds": round(perf_counter() - started, 6),
         "verdict": "unassessed",
         "limitations": [
@@ -84,6 +97,7 @@ def analyze(db: Path, rules_path: Path, output: Path, *, threshold=5, window_sec
     }
     write_json(output / "manifest.json", manifest)
     rule_lines = "\n".join(f"- {rule}: {count}" for rule, count in sorted(counts.items())) or "- No rule matches. This does not establish that activity was safe."
+    review_count = status_counts.get("needs_review", 0)
     notes = f"""# Analyst case notes — DRAFT / UNASSESSED
 
 ## Intake
@@ -91,7 +105,7 @@ def analyze(db: Path, rules_path: Path, output: Path, *, threshold=5, window_sec
 - Case ID: TODO
 - Dataset origin and scenario: TODO
 - Scope and collection gaps: TODO
-- Events: {total}; findings requiring review: {findings_count}
+- Events: {total}; total retained findings: {findings_count}; findings requiring review: {review_count}
 - All timeline timestamps are UTC.
 
 ## Rule matches
@@ -137,4 +151,19 @@ Describe tuning, positive and benign regression tests, and residual blind spots.
 Distinguish observations from assumptions. Do not infer a complete attack chain from isolated samples.
 """
     (output / "case-notes.md").write_text(notes, encoding="utf-8")
+    return manifest
+
+
+def analyze(db: Path, rules_path: Path, output: Path, **settings) -> dict:
+    """Publish an entire bundle atomically; failures leave no partial final bundle."""
+    import os
+    from tempfile import TemporaryDirectory
+    output = Path(output)
+    if output.exists():
+        raise ValueError("output bundle already exists; choose a new output directory")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory(prefix=".soclab-build-", dir=output.parent) as temporary:
+        staged = Path(temporary) / "bundle"
+        manifest = _analyze_into(db, rules_path, staged, **settings)
+        os.rename(staged, output)
     return manifest

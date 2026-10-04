@@ -1,0 +1,11 @@
+// Reference query for the WindowsEvent table; not executed in a live Sentinel workspace.
+// Select a historical range explicitly when replaying the 2019 sample.
+WindowsEvent
+| where TimeGenerated between (datetime(2019-05-21T15:30:00Z) .. datetime(2019-05-21T15:40:00Z))
+| where Provider =~ "Microsoft-Windows-Sysmon" and EventID == 1
+| where EventLog =~ "Microsoft-Windows-Sysmon/Operational"
+| extend Image = tostring(EventData.Image), CommandLine = tostring(EventData.CommandLine),
+         ParentImage = tostring(EventData.ParentImage), ProcessGuid = tostring(EventData.ProcessGuid)
+| where Image endswith @"\mshta.exe"
+| where CommandLine contains "http://" or CommandLine contains "https://"
+| project TimeGenerated, Computer, Image, CommandLine, ParentImage, ProcessGuid

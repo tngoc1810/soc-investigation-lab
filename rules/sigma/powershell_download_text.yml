@@ -1,0 +1,30 @@
+title: SOC Lab PowerShell Download And Evaluate Text
+id: 8c9a3e19-2ea5-4ce8-a153-bd38ad02a003
+status: experimental
+description: Review script-block download/evaluation tokens. Quoted text and fragmented blocks need analyst review.
+author: SOC Investigation Lab (Codex-assisted)
+date: 2026-10-04
+references:
+  - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging?view=powershell-5.1
+logsource:
+  product: windows
+  category: ps_script
+  definition: Requires PowerShell script block logging
+detection:
+  selection_download:
+    ScriptBlockText|contains:
+      - downloadstring
+      - downloadfile
+      - invoke-webrequest
+  selection_evaluate:
+    ScriptBlockText|contains:
+      - iex
+      - invoke-expression
+  condition: selection_download and selection_evaluate
+falsepositives:
+  - Quoted examples and training strings
+  - Authorized download workflows
+level: medium
+tags:
+  - attack.execution
+  - attack.t1059.001

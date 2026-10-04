@@ -1,0 +1,73 @@
+"use strict";
+let state = { cases: [], selected: null, view: 'findings' };
+let caseRequest = 0, eventRequest = 0;
+const $ = id => document.getElementById(id);
+function el(tag, text, cls) { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; }
+async function api(path) { const response = await fetch(path); const result = await response.json(); if (!response.ok) throw Error(result.error || response.statusText); return result; }
+function error(err) { $('error').textContent = err.message; $('error').classList.remove('hidden'); }
+function showView(view) { state.view = view; for (const name of ['findings','events','report']) $(name+'-view').classList.toggle('hidden', name !== view); document.querySelectorAll('[data-view]').forEach(b => { b.classList.toggle('active', b.dataset.view === view); b.setAttribute('aria-selected', String(b.dataset.view === view)); }); }
+function metric(label, number, hint) { const box = el('div', undefined, 'metric'); box.append(el('small', label), el('strong', number.toLocaleString()), el('span', hint)); return box; }
+function renderFindings(findings) {
+  $('findings').replaceChildren();
+  if (!findings.length) { $('findings').append(el('p', 'No matches. Check telemetry and collection gaps before concluding activity was safe.')); return; }
+  for (const f of findings) {
+    const card = el('article', undefined, 'finding'), head = el('div', undefined, 'finding-head');
+    head.append(el('span', f.rule_id, 'rule-id'), el('h4', f.title), el('span', f.status === 'context_allowlisted' ? 'CONTEXT ALLOWLISTED · RETAINED' : 'NEEDS REVIEW', 'state'));
+    card.append(head, el('p', f.reason));
+    const first = f.evidence[0], row = el('div', undefined, 'evidence-row');
+    row.append(el('span', first.host), el('b', first.timestamp), el('span', f.evidence.length+' evidence record(s)'), el('span', f.attack.join(' · ')));
+    card.append(row);
+    const selectedKeys = ['Image','CommandLine','ParentImage','User','TargetUserName','IpAddress','LogonType','ScriptBlockText'];
+    const preview = Object.fromEntries(selectedKeys.filter(k=>first.event_data[k]).map(k=>[k,first.event_data[k]]));
+    const raw = el('code', JSON.stringify(preview, null, 2), 'raw-preview'); card.append(raw);
+    const details = el('details'); details.append(el('summary', 'Evidence references & limitations'));
+    for (const e of f.evidence) details.append(el('p', 'Record '+e.record_id+' · source line '+e.source_line+' · SHA-256 '+e.source_sha256));
+    details.append(el('code',JSON.stringify(first.event_data,null,2),'raw-preview'));
+    for (const limit of f.limitations) details.append(el('p', limit));
+    if (f.context) details.append(el('p', f.context.reason+' '+f.context.caution));
+    card.append(details); $('findings').append(card);
+  }
+}
+async function loadEvents() {
+  const id = state.selected.id, request = ++eventRequest;
+  const params = new URLSearchParams({case:id,limit:'50'});
+  if ($('term').value) params.set('term',$('term').value);
+  if ($('event-id').value) params.set('event_id',$('event-id').value);
+  const events = await api('/api/events?'+params);
+  if (request !== eventRequest || id !== state.selected.id) return;
+  $('events').replaceChildren();
+  $('event-count').textContent = events.length+' records shown (up to 50) · all timestamps use System/TimeCreated in UTC · search includes non-alerting events';
+  for (const e of events) {
+    const row = el('tr'), time = el('td', e.timestamp), host = el('td', e.host), kind = el('td', String(e.event_id)), fields = el('td');
+    time.append(el('small','Record '+e.record_id+' · line '+e.source_line)); host.append(el('small',e.channel));
+    const d = e.event_data;
+    const keys = ['Image','CommandLine','User','TargetUserName','IpAddress','LogonType','SubStatus','TaskName','ScriptBlockText','DestinationIp','DestinationPort'];
+    let text = keys.filter(k=>d[k]).map(k=>k+': '+d[k]).join('\n');
+    if (!text) text = JSON.stringify(d);
+    fields.append(el('code',text)); row.append(time,host,kind,fields); $('events').append(row);
+  }
+}
+async function selectCase(id) {
+  const request = ++caseRequest; ++eventRequest;
+  state.selected = state.cases.find(c => c.id === id); const c=state.selected;
+  $('findings').replaceChildren(el('p','Loading this case’s evidence…')); $('events').replaceChildren(); $('report').textContent='Loading this case’s report…';
+  document.querySelectorAll('#case-nav button').forEach(b=>b.classList.toggle('selected',b.dataset.case===id));
+  $('case-kind').textContent=c.id.toUpperCase()+' / '+c.kind.toUpperCase(); $('case-title').textContent=c.title; $('verdict').textContent=c.verdict;
+  $('case-summary').textContent=c.manifest.event_count.toLocaleString()+' events · '+c.manifest.finding_count+' findings · source hashes recorded · analyst assessment separate from detector output';
+  $('source-note').textContent='Analysis '+state.runId+' · '+c.kind+' · '+c.manifest.sources.length+' source file';
+  $('term').value=''; $('event-id').value='';
+  const [findings, report] = await Promise.all([api('/api/findings?case='+id),api('/api/report?case='+id)]);
+  if (request !== caseRequest || id !== state.selected.id) return;
+  renderFindings(findings); $('report').textContent=report.markdown; await loadEvents();
+}
+async function init() {
+  const data = await api('/api/cases'); state.cases=data.cases; state.runId=data.run_id;
+  $('version').textContent='v'+data.version; $('run-id').textContent=data.run_id;
+  const total=state.cases.reduce((a,c)=>a+c.manifest.event_count,0), leads=state.cases.reduce((a,c)=>a+c.manifest.finding_count,0);
+  $('metrics').append(metric('CASE STUDIES',state.cases.length,'3 public cases + 1 synthetic experiment'),metric('PRIMARY EVENTS',total,'Independent datasets; supplement excluded'),metric('DETECTION LEADS',leads,'Includes retained context matches'),metric('RULES',12,'9 event rules + 3 correlations'));
+  for(const c of state.cases) { const button=el('button');button.dataset.case=c.id;button.append(el('span',c.id.toUpperCase()),el('div',c.title));button.addEventListener('click',()=>selectCase(c.id).catch(error));$('case-nav').append(button); }
+  document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+  $('filters').addEventListener('submit',event=>{event.preventDefault();loadEvents().catch(error);});
+  await selectCase(state.cases[0].id);
+}
+init().catch(error);

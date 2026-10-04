@@ -1,0 +1,3 @@
+# Optional Sigma parser checks; the core lab has no third-party dependencies.
+pysigma==1.5.1
+PyYAML==6.0.3

@@ -1,0 +1,7 @@
+index=soc_lab sourcetype="soclab:json"
+| spath path=event_data.Image output=Image
+| spath path=event_data.CommandLine output=CommandLine
+| spath path=event_data.ParentImage output=ParentImage
+| where lower(provider)="microsoft-windows-sysmon" AND lower(channel)="microsoft-windows-sysmon/operational" AND event_id=1
+| where like(lower(Image), "%\\mshta.exe") AND (like(lower(CommandLine), "%http://%") OR like(lower(CommandLine), "%https://%"))
+| table timestamp host record_id Image CommandLine ParentImage

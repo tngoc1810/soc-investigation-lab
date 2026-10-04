@@ -1,0 +1,30 @@
+title: SOC Lab Mshta Remote URL Execution
+id: 8c9a3e19-2ea5-4ce8-a153-bd38ad02a001
+status: experimental
+description: Review mshta process creation containing a remote HTTP URL. This does not prove a successful download.
+author: SOC Investigation Lab (Codex-assisted)
+date: 2026-10-04
+references:
+  - https://attack.mitre.org/techniques/T1218/005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_image:
+    Image|endswith: '\mshta.exe'
+  selection_url:
+    CommandLine|contains:
+      - 'http://'
+      - 'https://'
+  condition: selection_image and selection_url
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Authorized legacy HTA workflows
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218.005

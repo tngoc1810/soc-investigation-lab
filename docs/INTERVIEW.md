@@ -15,3 +15,8 @@
 13. How would you measure precision, recall and latency, and why have you not claimed those production metrics?
 14. What can your offline lab demonstrate, and which skills require SIEM/live SOC practice?
 15. Which parts did you independently investigate or implement, and which used Codex/community assistance?
+16. Why did the failure-only collection trigger AUTH-002 but not AUTH-001?
+17. Why do 41 target accounts in 4648 records suggest a lead rather than prove password spraying?
+18. What changed your interpretation of the quoted PowerShell expression, and what is still unknown?
+19. How can an attacker fit the exact backup context without changing the command line?
+20. What does the worker peak working set measure, and why is it not a guarantee about total RAM or a live SOC workload?

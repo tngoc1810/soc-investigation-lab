@@ -1,0 +1,29 @@
+title: SOC Lab Scheduled Task Creation With Script Interpreter Text
+id: 8c9a3e19-2ea5-4ce8-a153-bd38ad02a002
+status: experimental
+description: Task-creation command with script interpreter text; verify the resulting task object and intended use.
+author: SOC Investigation Lab (Codex-assisted)
+date: 2026-10-04
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\schtasks.exe'
+    CommandLine|contains: ' /create '
+  selection_script:
+    CommandLine|contains:
+      - powershell
+      - pwsh
+      - wscript
+      - cscript
+      - mshta
+  condition: selection and selection_script
+falsepositives:
+  - Scripted backup and deployment tasks
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1053.005

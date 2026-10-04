@@ -1,66 +1,31 @@
-# Lộ trình xây portfolio SOC intern
+# Lộ trình học từ project đã hoàn thành
 
-Thời lượng dự kiến: 8–10 tuần, 10–12 giờ/tuần. Điều chỉnh theo kiến thức đầu vào. Ưu tiên hoàn thành bằng chứng và khả năng giải thích trước khi tăng số công cụ.
+Bản 1.0 đã có bốn báo cáo điều tra, log EVTX công khai có nguồn và hash, pipeline Python/SQLite, 12 detection, giao diện đọc bằng chứng, ảnh chụp thực tế, 36 regression tests và số liệu đo trên máy. Bạn có thể chạy lại bằng scripts/reproduce.ps1. Phần xây dựng được hỗ trợ bởi Codex; phần hiểu, phản biện và trình bày trong phỏng vấn cần bạn tự thực hành.
 
-## Hiện trạng
+## Sáu buổi học trong chat
 
-Đã có pipeline local, dữ liệu mô phỏng, exporter EVTX, 8 rule đơn sự kiện, 1 rule tương quan đăng nhập, regression tests và một case EVTX công khai được phân tích mẫu. Đây là nền móng; bạn cần tự điều tra, ghi lại lựa chọn và bảo vệ kết luận để biến thành portfolio của mình.
+Theo docs/TEACHING_VI.md, mỗi buổi gồm giải thích, thao tác trên case và câu hỏi kiểm tra:
 
-## Tuần 1 — Hiểu bằng chứng
+1. Event, alert và incident; truy một finding về sự kiện gốc.
+2. Process tree, ProcessGuid, mshta và scheduled task; tách bằng chứng tạo task khỏi bằng chứng thực thi.
+3. Authentication: 4625, Status/SubStatus, cửa sổ thời gian và ý nghĩa khác nhau của 4648.
+4. PowerShell: nhận diện chuỗi văn bản, script block và giới hạn của token matching.
+5. Tuning: ngoại lệ có điều kiện, giữ lại finding và kiểm tra tình huống gần giống.
+6. SQL, kiểm thử và trình bày project; giải thích phạm vi đo RAM và những gì chưa biết.
 
-- Học event provider/channel/Event ID, record ID, UTC và EventData.
-- Chạy demo; truy ngược một alert về dòng JSONL gốc và dữ liệu trong SQLite.
-- Hoàn thành bài đầu trong START_HERE_VI.md, giải thích vì sao một command backup hợp lệ vẫn alert.
-- Deliverable: learning log và một trang phân tích độc lập có evidence references.
+Không cần cài nhiều máy ảo để bắt đầu. Đọc báo cáo, chạy SQLite và viewer trên máy 8 GB RAM trước; thời gian học tùy kiến thức hiện tại.
 
-## Tuần 2 — Process và script
+## Những việc bạn nên tự làm trước khi đưa vào CV
 
-- Phân biệt PID với ProcessGuid; tìm parent-child cùng host/scenario.
-- Đọc command line, PowerShell script block, Windows path và user context.
-- Tự dựng lại case mshta trước khi đối chiếu report mẫu; ghi timestamp lệch và telemetry thiếu.
-- Deliverable: timeline và bản report do bạn sửa/viết, có ít nhất một giả thuyết thay thế.
+- Chạy lại ít nhất một case và đối chiếu record ID, dòng nguồn, timestamp và hash.
+- Viết learning/LOG.md bằng lời của bạn, ghi cả chỗ bạn chưa đồng ý hoặc chưa hiểu.
+- Thay một ngưỡng correlation và dự đoán kết quả trước khi chạy.
+- Giải thích một false positive và dữ liệu cần thu thập để ra quyết định.
+- Luyện demo 6 phút theo docs/DEMO_SCRIPT.md và trả lời docs/INTERVIEW.md.
+- Dùng CV bullet trong docs/PORTFOLIO_NOTES.md sau khi hiểu công việc; nói rõ vai trò của công cụ hỗ trợ khi được hỏi.
 
-## Tuần 3–4 — Authentication investigation
+## Mở rộng sau này
 
-- Học 4624/4625, logon type, target/subject account, Status/SubStatus và source IP.
-- Chọn bộ dữ liệu có mô tả kịch bản; ghi log cần có và log thực tế có.
-- Kiểm tra repeated-failure-to-success, stale credentials, NAT và khác biệt giữa guessing/spraying.
-- Deliverable: case 002 và bảng test ngưỡng/window; không kết luận account compromise chỉ từ count.
+Khi có quyền truy cập một SIEM, chuyển hai detection sang backend đó, kiểm tra field mapping và lưu kết quả thực thi được phép chia sẻ. KQL/SPL trong repo hiện là tham chiếu; SQLite đã được chạy thật. Video demo và trải nghiệm SIEM trực tiếp là phần mở rộng, không phải bằng chứng đã có trong bản 1.0.
 
-## Tuần 5 — Persistence investigation
-
-- Đọc task XML, trigger, principal, service và Run key; chọn một cơ chế để làm sâu.
-- Phân biệt lệnh tạo task, task artifact và bằng chứng task thực thi.
-- Liên kết telemetry bổ sung nếu cùng dataset; kiểm tra hoạt động quản trị hợp lệ.
-- Deliverable: case 003, collection checklist và response proposal có rollback/recovery checks.
-
-## Tuần 6 — False positive và detection validation
-
-- Chọn một rule, lập positive/benign/lookalike test trước khi tuning.
-- Viết lý do ngoại lệ; giới hạn theo executable/path/host context nếu có bằng chứng.
-- Chạy lại cả positive và benign tests; ghi việc tuning làm mất tín hiệu nào.
-- Deliverable: case 004, before/after table và regression test có ý nghĩa.
-
-## Tuần 7–8 — SIEM, triage và escalation
-
-- Thực hành trên lab SIEM sẵn có qua trình duyệt hoặc máy được cấp; chọn một nền tảng theo điều kiện truy cập.
-- Học field mapping, time filters, event search, aggregation và correlation query.
-- Viết lại ít nhất hai detection thành truy vấn của nền tảng; lưu câu truy vấn và evidence output được phép chia sẻ.
-- Deliverable: playbook triage, mẫu escalation ticket và phần so sánh offline/SIEM.
-
-## Tuần 9–10 — Đóng gói và bảo vệ
-
-- Đảm bảo người khác chạy lại được từng case với nguồn và hash rõ ràng.
-- Viết README/CV bullet tiếng Anh đúng những việc đã thực hiện; ghi đóng góp và công cụ hỗ trợ.
-- Quay video 5–7 phút từ alert đến quyết định; luyện trả lời các câu hỏi trong INTERVIEW.md.
-- Deliverable: bốn case hoàn chỉnh, validation table, video và learning log.
-
-## Tiêu chuẩn hoàn thành
-
-- [ ] Bốn case có bằng chứng, giả thuyết thay thế, quyết định và giới hạn.
-- [ ] Ít nhất hai case có nhiều loại event liên kết được trong cùng kịch bản.
-- [ ] Một case đóng/giữ chờ vì ngữ cảnh hợp lệ hoặc thiếu bằng chứng.
-- [ ] Detection có positive và benign regression tests, nguồn/attribution rõ ràng.
-- [ ] Có trải nghiệm query/triage trên một SIEM và mô tả đúng giới hạn quyền truy cập.
-- [ ] Có số liệu đo thật cùng cách đo và phạm vi.
-- [ ] Bạn giải thích được code, rule, evidence và tradeoff mà không phụ thuộc vào report mẫu.
+Chất lượng phỏng vấn đến từ khả năng bảo vệ kết luận và thừa nhận giới hạn. Repo giúp bạn có dữ liệu cụ thể để luyện điều đó.

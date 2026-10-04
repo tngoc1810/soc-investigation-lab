@@ -1,27 +1,31 @@
 # Validation record — 2026-10-04
 
-This document reports local checks, not production SOC performance. The code and initial analysis were prepared with Codex assistance; the learner's independent investigation work remains a separate deliverable.
+Version 1.0 is an offline investigation casebook. These results describe the checked datasets and this implementation; they are not measurements of a production SOC. Development and initial analysis used Codex assistance.
 
 ## Executed locally
 
-- Python 3.12.11 and Python 3.11.5: all 21 unittest regression tests passed on each interpreter.
-- Synthetic demo: 19 events, 8 findings, analyst verdict unassessed.
-- Public EVTX: original SHA-256 matched data/catalog.json; native Windows exporter read 8 events.
-- Public sample with the initial seven single-event rules: WIN-004 matched once.
-- Public sample after adding WIN-008: WIN-004 and WIN-008 matched once each.
-- Existing report bundles were rejected instead of overwritten.
-- [GitHub Actions run 37200425663](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37200425663) passed all four matrix jobs on commit 01496ca5db33026badea001e6dd0485b4707d1ad: Windows and Ubuntu, Python 3.11 and 3.12. Each ran the 21 tests and documented synthetic demo.
+- Python 3.11.5 and 3.12.11: all 36 regression tests passed on each interpreter. Captured output is in evidence/test-results.txt.
+- Synthetic demo: 19 events and 8 findings.
+- Four portfolio cases: 3,576 events and 8 findings. After context annotation, 7 findings need review and 1 retains an explicit synthetic context annotation.
+- Public EVTX collections, including the separate explicit-credentials supplement: 3,867 events. Every original download matched its pinned size and SHA-256 before native Windows export.
+- Executed SQLite pivots: one remote-mshta process, 3,561 failed logons with no 4624 in that collection, and three PowerShell records.
+- Three Sigma references parsed with pySigma 1.5.1, including their detection conditions. No SIEM backend conversion or live execution is claimed.
+- A safe native PowerShell experiment produced a string-expression AST and printed inert text. It did not download or execute a payload.
+- The local browser displayed all four cases, original event fields and reports. Five genuine screenshots are published in evidence/screenshots.
+- Three isolated benchmark workers processed the 3,561-event authentication export. Median ingest was 1.266 seconds, median analysis 0.346 seconds, and maximum measured worker peak working set 21.86 MiB. See evidence/benchmark.json for interpreter, input hash and all runs. This is one small workload, not total laptop RAM or a scale test.
 
-Tests cover atomic rollback, original-evidence preservation, byte-identical reimport, timezone normalization, UTF-8/BOM handling, physical line references, record-ID collisions, provider/channel checks, CSV formula neutralization, legitimate commands that still alert, raw-event search, rule validation, correlation-window boundaries and separation of host/user/IP/domain/logon type/source. They use inert, generated records. A passing test does not mean arbitrary public EVTX data or every command-line variant is supported.
+Tests cover atomic import rollback, original-event retention, physical line references, timezone and encoding behavior, source separation, provider checks, CSV formula neutralization, correlation boundaries, distinct-target counting, context constraints and finding retention. They also check read-only queries, atomic report output, HTTP host validation and unsupported request limits. Fixtures are inert. Assertions distinguish quoted PowerShell text from an executable-looking sample while admitting that a substring detector can alert on both.
 
-The initial rules lacked a Sysmon schtasks creation check. WIN-005 required Security 4698, which this dataset does not contain. WIN-008 adds a different observable; it does not make WIN-005 work without its required telemetry. Legitimate scripted task creation also matches and remains subject to context review.
+Run `./scripts/reproduce.ps1 -RunId your-run` on Windows, then `python scripts/verify_portfolio.py`. The verifier checks reviewed counts, source hashes, context statuses and executed query expectations. Export byte hashes can differ across PowerShell serializer versions; pinned original EVTX checksums are the download anchors.
 
-## Not yet measured or verified
+## GitHub validation
 
-- Peak RAM and throughput on the user's laptop.
-- Precision/recall against a representative labeled dataset.
-- SIEM ingestion, search and live detection latency.
-- Completeness of an attack chain or successful payload/task execution.
-- Robustness to obfuscation, Unicode/whitespace variants and log tampering.
+The bootstrap commit 01496ca5db33026badea001e6dd0485b4707d1ad passed four matrix jobs in [run 37200425663](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37200425663), when the suite contained 21 tests.
 
-Do not put production metrics or a completed four-case portfolio claim on a CV based on this bootstrap release.
+The version 1.0 workflow adds 36-test runs on Windows/Ubuntu with Python 3.11/3.12, actual public-EVTX replay on both Windows jobs, and a separate Sigma parser job. The full release run will be recorded here after GitHub finishes it.
+
+## Limits that remain
+
+Precision and recall on a representative labeled population, live SIEM ingestion/latency, backend KQL/SPL behavior, arbitrary command-line obfuscation and collection authenticity are unmeasured. A task-creation lead does not prove task execution. A failure-only export does not prove that no success occurred elsewhere. Exact context matching does not verify a script's contents.
+
+Case reports preserve these distinctions. Blank learning-log and incident templates are exercises for the learner, not missing investigation reports.

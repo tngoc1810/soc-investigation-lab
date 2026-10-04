@@ -1,19 +1,21 @@
 <# Download only the pinned evidence sample; verify SHA-256 before use. #>
 [CmdletBinding()]
 param(
-    [ValidateSet('public-mshta-task')][string]$Sample = 'public-mshta-task',
+    [string]$Sample = 'public-mshta-task',
     [string]$OutputDirectory = 'data/raw/public'
 )
 $ErrorActionPreference = 'Stop'
 $taskCatalogPath = Join-Path (Split-Path -Parent $PSScriptRoot) 'data/catalog.json'
 $taskCatalog = Get-Content -LiteralPath $taskCatalogPath -Raw | ConvertFrom-Json
 $taskSample = $taskCatalog.$Sample
+if ($null -eq $taskSample) { throw 'Unknown sample ID; choose an entry from data/catalog.json' }
 $taskDirectory = [System.IO.Path]::GetFullPath($OutputDirectory)
 [System.IO.Directory]::CreateDirectory($taskDirectory) | Out-Null
 $taskTarget = Join-Path $taskDirectory $taskSample.filename
 if (Test-Path -LiteralPath $taskTarget) {
     $taskExistingHash = (Get-FileHash -LiteralPath $taskTarget -Algorithm SHA256).Hash.ToLowerInvariant()
     if ($taskExistingHash -ne $taskSample.sha256) { throw 'Existing sample hash differs; evidence was not overwritten' }
+    if ((Get-Item -LiteralPath $taskTarget).Length -ne $taskSample.size_bytes) { throw 'Existing EVTX size differs' }
     Write-Output 'Verified existing pinned sample.'
     return
 }

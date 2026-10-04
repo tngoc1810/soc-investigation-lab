@@ -8,8 +8,47 @@
     "size_bytes": 69632,
     "sha256": "fb5679aec77dc45a35902f705b513811dfea0f2f93c9c8503464a20270c3222f",
     "expected_event_count": 8,
-    "expected_rule_counts": {"WIN-004": 1, "WIN-008": 1},
+    "expected_rule_counts": {
+      "WIN-004": 1,
+      "WIN-008": 1
+    },
     "kind": "public attack-sample EVTX, historical lab evidence",
     "license_note": "Original data is not redistributed here. Consult source repositories and their terms before redistribution."
+  },
+  "public-auth-guessing": {
+    "repository": "https://github.com/Yamato-Security/hayabusa-sample-evtx",
+    "upstream_origin": "https://github.com/sans-blue-team/DeepBlueCLI",
+    "commit": "0845333ecb4afcf64c55c6e10946383f168f308c",
+    "path": "DeepBlueCLI/smb-password-guessing-security.evtx",
+    "filename": "auth-guessing.evtx",
+    "size_bytes": 3215360,
+    "sha256": "19202585fe053e7b0acf43458dec26957c16a2ddb6f87a21f5f85e6cba98b89c",
+    "expected_event_count": 3561,
+    "kind": "public historical lab evidence",
+    "license_note": "Fetched locally; original files are not redistributed here."
+  },
+  "public-explicit-credentials": {
+    "repository": "https://github.com/Yamato-Security/hayabusa-sample-evtx",
+    "upstream_origin": "https://github.com/sans-blue-team/DeepBlueCLI",
+    "commit": "0845333ecb4afcf64c55c6e10946383f168f308c",
+    "path": "DeepBlueCLI/password-spray.evtx",
+    "filename": "auth-spray.evtx",
+    "size_bytes": 1118208,
+    "sha256": "de910e6c86476db2898d8b5f22201c7505a52c90d6a3b03f9362eebe8f242029",
+    "expected_event_count": 295,
+    "kind": "public historical lab evidence",
+    "license_note": "Fetched locally; original files are not redistributed here."
+  },
+  "public-powershell-string": {
+    "repository": "https://github.com/Yamato-Security/hayabusa-sample-evtx",
+    "upstream_origin": "https://github.com/JPCERTCC/EVTX-to-MITRE-Attack",
+    "commit": "0845333ecb4afcf64c55c6e10946383f168f308c",
+    "path": "EVTX-to-MITRE-Attack/TA0002-Execution/T1059.001-PowerShell/ID4103-4104-Payload download via PowerShell.evtx",
+    "filename": "powershell-download.evtx",
+    "size_bytes": 69632,
+    "sha256": "76da739520ecfb51c0bc93a5856ff45c0cd5e038114826fee30790f92fce0fca",
+    "expected_event_count": 3,
+    "kind": "public historical lab evidence",
+    "license_note": "Fetched locally; original files are not redistributed here."
   }
 }

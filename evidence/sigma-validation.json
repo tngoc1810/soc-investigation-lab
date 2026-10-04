@@ -1,0 +1,30 @@
+{
+  "validator": "pySigma",
+  "rules": [
+    {
+      "file": "mshta_remote.yml",
+      "id": "8c9a3e19-2ea5-4ce8-a153-bd38ad02a001",
+      "condition": [
+        "selection_image and selection_url"
+      ],
+      "result": "parsed"
+    },
+    {
+      "file": "powershell_download_text.yml",
+      "id": "8c9a3e19-2ea5-4ce8-a153-bd38ad02a003",
+      "condition": [
+        "selection_download and selection_evaluate"
+      ],
+      "result": "parsed"
+    },
+    {
+      "file": "schtasks_script.yml",
+      "id": "8c9a3e19-2ea5-4ce8-a153-bd38ad02a002",
+      "condition": [
+        "selection and selection_script"
+      ],
+      "result": "parsed"
+    }
+  ],
+  "scope": "Schema/condition parsing; no live backend execution"
+}

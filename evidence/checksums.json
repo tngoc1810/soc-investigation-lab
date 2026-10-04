@@ -1,0 +1,20 @@
+{
+  "algorithm": "SHA-256",
+  "scope": "Published evidence snapshot; does not authenticate original host collection. Regenerated local runs can differ.",
+  "files": {
+    "evidence/auth-summary.json": "bd9f5c93bff77b4e63792d662160c4076f57b6a7f744934ca5f4381602f0b97e",
+    "evidence/benchmark.json": "4c4b150488e7b7d52380dd4e886266f45850f8305c658cb6a372d4f03ef4ccdb",
+    "evidence/literal-check.txt": "14ce4c0d6e108612ac2124e2d2f8bc46c919713fdb7d1c43285dfa868f890819",
+    "evidence/mshta-query.json": "5a0d5f3bba4a58b75815513dc01a648824c2e4da4b70bf5cf904fdda611ec850",
+    "evidence/portfolio-validation.json": "ab5de9c73ef0eb22cbc4e0c89a01e687bf9bd32fb88734676ffec15ab7757c35",
+    "evidence/powershell-query.json": "7e244fea253426d7aa51b34eb0bc724f64b9f6b019cf7b7e0d7f65a85a29d7d9",
+    "evidence/README.md": "5f302c92cbec13322adac9b6bd4a8dee16e94dcea8a5e2cea918bb04ddc291c9",
+    "evidence/screenshots/01-mshta-findings.jpg": "1154c3a4fbac76a2453d017d6cbd6ba5d79fab208d79f5a5eb3cf550e6258264",
+    "evidence/screenshots/02-auth-failure-burst.jpg": "939be53dc9343f30b3771685a36a77dd634081f62bd1a5a748dde6d0cff30040",
+    "evidence/screenshots/02b-no-success-in-collection.jpg": "131b8af447331632e2db4a71d0a4108337e6cd0cf5eddcb2d09cac3fb72c9b82",
+    "evidence/screenshots/03-powershell-events.jpg": "1db623b870368844b956e310fbc09a9c860ae5815d8667c58d1d37ffbd6ccea8",
+    "evidence/screenshots/04-context-tuning.jpg": "738756b4634280696f242043dccb40f2bee20b2250f3bc390ca391c14a8f6cd2",
+    "evidence/sigma-validation.json": "44a81d914ee8618c879ba55924a53b1a810a7e3fd1e98a12bb5c609f4f8df18c",
+    "evidence/test-results.txt": "e72af8b6ab9a15018043657aae2d2c7c504ba5ef1f551b36c17465c29a628b1a"
+  }
+}

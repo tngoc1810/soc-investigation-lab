@@ -1,0 +1,40 @@
+{
+  "validation_date": "2026-10-04",
+  "python": "3.11.5",
+  "platform": "Windows",
+  "source_sha256": "f313a4c96b39e3fa8ffb4c61a99461996b3f22c4c4108ef981ba257d1470cedc",
+  "source_bytes": 8214719,
+  "runs": [
+    {
+      "event_count": 3561,
+      "findings_by_rule": {
+        "AUTH-002": 1
+      },
+      "ingest_seconds": 0.442365,
+      "analyze_seconds": 0.369275,
+      "peak_working_set_bytes": 22917120
+    },
+    {
+      "event_count": 3561,
+      "findings_by_rule": {
+        "AUTH-002": 1
+      },
+      "ingest_seconds": 2.264618,
+      "analyze_seconds": 0.345691,
+      "peak_working_set_bytes": 22474752
+    },
+    {
+      "event_count": 3561,
+      "findings_by_rule": {
+        "AUTH-002": 1
+      },
+      "ingest_seconds": 1.266099,
+      "analyze_seconds": 0.334952,
+      "peak_working_set_bytes": 22462464
+    }
+  ],
+  "median_ingest_seconds": 1.266099,
+  "median_analyze_seconds": 0.345691,
+  "max_peak_working_set_mib": 21.86,
+  "scope": "Three fresh isolated processes on this Windows host; includes Python, SQLite and output generation. Not total laptop RAM, live latency or a large-scale guarantee."
+}

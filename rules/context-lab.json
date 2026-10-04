@@ -1,0 +1,15 @@
+[
+  {
+    "id": "CTX-LAB-004",
+    "rule_id": "WIN-002",
+    "reason": "Exact synthetic backup scenario approved by the fixture specification; keep matching evidence visible.",
+    "change_reference": "SYNTHETIC-CHANGE-004",
+    "equals": {
+      "host": "WS-TUNING-LAB",
+      "event_data.User": "LAB\\backup.svc",
+      "event_data.Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "event_data.CommandLine": "powershell.exe -ExecutionPolicy Bypass -File C:\\Lab\\backup.ps1",
+      "event_data.ParentImage": "C:\\Windows\\System32\\taskeng.exe"
+    }
+  }
+]

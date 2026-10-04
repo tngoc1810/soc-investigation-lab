@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SOC Investigation Lab · Case Explorer</title><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script></head>
+<body>
+<aside><a class="brand" href="/" aria-label="SOC Lab home"><span class="brand-mark">S</span><span>SOC / LAB<small>INVESTIGATION WORKSPACE</small></span></a><div class="nav-label">CASEBOOK</div><nav id="case-nav" aria-label="Cases"></nav><div class="aside-bottom"><span class="live-dot"></span> LOCAL · READ ONLY<p>Historical evidence and clearly labeled lab fixtures. No endpoint actions.</p></div></aside>
+<main>
+<header><div class="breadcrumb">PORTFOLIO <span>/</span> EVIDENCE EXPLORER</div><div class="header-state"><span class="live-dot"></span> Offline analysis <span id="version"></span></div></header>
+<section class="hero"><div><div class="eyebrow">WINDOWS SECURITY OPERATIONS</div><h1>Follow the evidence.</h1><p>Four investigations. Different outcomes. Every finding traces back to a source event.</p></div><div class="hero-tag">INDEPENDENT DATASETS<small id="run-id">Loading analysis…</small></div></section>
+<section id="metrics" class="metrics" aria-label="Portfolio metrics"></section>
+<section class="case-heading"><div><div class="eyebrow" id="case-kind"></div><h2 id="case-title">Loading case…</h2><p id="case-summary"></p></div><span class="verdict" id="verdict"></span></section>
+<div class="tabbar" role="tablist" aria-label="Investigation views"><button class="active" role="tab" aria-selected="true" data-view="findings">Findings</button><button role="tab" aria-selected="false" data-view="events">Event timeline</button><button role="tab" aria-selected="false" data-view="report">Analyst report</button></div>
+<section id="findings-view" class="view"><div class="section-bar"><h3>Detection leads</h3><span>Rule matches require context review</span></div><div id="findings"></div></section>
+<section id="events-view" class="view hidden"><form id="filters"><label>Search original evidence<input id="term" placeholder="Command, account, GUID or destination"></label><label>Event ID<input id="event-id" placeholder="e.g. 4625" inputmode="numeric"></label><button type="submit">Search events</button></form><p id="event-count" class="muted"></p><div class="table-wrap"><table><thead><tr><th>UTC / RECORD</th><th>HOST / CHANNEL</th><th>EVENT</th><th>OBSERVED FIELDS</th></tr></thead><tbody id="events"></tbody></table></div></section>
+<section id="report-view" class="view hidden"><div class="section-bar"><h3>Analyst assessment</h3><span>Report text from the repository</span></div><pre id="report"></pre></section>
+<footer><span id="source-note">Loading source provenance…</span><span>Evidence first. Conclusions second.</span></footer>
+<div id="error" role="alert" class="hidden"></div>
+</main></body></html>

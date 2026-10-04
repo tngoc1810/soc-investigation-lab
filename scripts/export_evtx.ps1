@@ -59,7 +59,7 @@ try {
                     record_id = [long]$taskSystem.SelectSingleNode('e:EventRecordID', $taskNs).InnerText
                     event_data = $taskData
                     original_xml = $taskXmlText
-                    provenance = @{ evtx_filename = [System.IO.Path]::GetFileName($taskInput); evtx_sha256 = $taskHash }
+                    provenance = [ordered]@{ evtx_filename = [System.IO.Path]::GetFileName($taskInput); evtx_sha256 = $taskHash }
                 }
                 $taskWriter.WriteLine(($taskObject | ConvertTo-Json -Depth 20 -Compress))
                 $taskCount++

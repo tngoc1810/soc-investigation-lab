@@ -1,0 +1,86 @@
+{
+  "validation_date": "2026-10-04",
+  "version": "1.0.0",
+  "run_id": "release-v1-final",
+  "engine_source_sha256": "c57af6469ceab619e911924874ae3f97961db090b84ae40b0e2fb178fff8b9f7",
+  "cases": [
+    {
+      "case": "case-001",
+      "dataset_kind": "Public EVTX",
+      "event_count": 8,
+      "rule_counts": {
+        "WIN-004": 1,
+        "WIN-008": 1
+      },
+      "status_counts": {
+        "needs_review": 2
+      },
+      "source_jsonl_sha256": [
+        "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c"
+      ],
+      "rules_sha256": "6a06c615073021ae971b854e864b5ebcc924629e6ebfacbec0c099410a365338",
+      "result": "matched reviewed expectations"
+    },
+    {
+      "case": "case-002",
+      "dataset_kind": "Public EVTX",
+      "event_count": 3561,
+      "rule_counts": {
+        "AUTH-002": 1
+      },
+      "status_counts": {
+        "needs_review": 1
+      },
+      "source_jsonl_sha256": [
+        "f313a4c96b39e3fa8ffb4c61a99461996b3f22c4c4108ef981ba257d1470cedc"
+      ],
+      "rules_sha256": "6a06c615073021ae971b854e864b5ebcc924629e6ebfacbec0c099410a365338",
+      "result": "matched reviewed expectations"
+    },
+    {
+      "case": "case-003",
+      "dataset_kind": "Public EVTX",
+      "event_count": 3,
+      "rule_counts": {
+        "WIN-009": 1
+      },
+      "status_counts": {
+        "needs_review": 1
+      },
+      "source_jsonl_sha256": [
+        "6600320605ea89b7a354be24e839d146b2a82d5783ae7ad67b207bedfec5b920"
+      ],
+      "rules_sha256": "6a06c615073021ae971b854e864b5ebcc924629e6ebfacbec0c099410a365338",
+      "result": "matched reviewed expectations"
+    },
+    {
+      "case": "case-004",
+      "dataset_kind": "Synthetic experiment",
+      "event_count": 4,
+      "rule_counts": {
+        "WIN-002": 3,
+        "WIN-001": 1
+      },
+      "status_counts": {
+        "context_allowlisted": 1,
+        "needs_review": 3
+      },
+      "source_jsonl_sha256": [
+        "d907c25a6a0ab6a9ca78bae43fc633cdde7e3c470e1e985c607c5b213b8ed490"
+      ],
+      "rules_sha256": "6a06c615073021ae971b854e864b5ebcc924629e6ebfacbec0c099410a365338",
+      "result": "matched reviewed expectations"
+    }
+  ],
+  "supplement": {
+    "event_count": 295,
+    "rule_counts": {
+      "WIN-007": 1,
+      "AUTH-003": 2
+    },
+    "scope": "Independent dataset, not joined to the primary authentication case"
+  },
+  "primary_events": 3576,
+  "public_events_including_supplement": 3867,
+  "scope": "Exact historical and constructed datasets; no production performance claim"
+}

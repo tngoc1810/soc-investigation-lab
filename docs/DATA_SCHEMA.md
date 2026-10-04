@@ -30,6 +30,12 @@ Fields are top-level schema names or event_data.NAME. Missing fields fail that c
 
 AUTH-001 is implemented separately in detections.py; its full metadata and numeric parameters are recorded in each analysis manifest. It retains the latest threshold failures per active key, not every failure in the source. Evidence proves at least that threshold, not an exact total attempt count.
 
+AUTH-002 counts failed network logons in a bounded window using host, target identity/domain, source IP, logon type and source-file scope. AUTH-003 counts distinct targets in explicit-credential events, grouped by subject identity, target domain/server, host, IP and source. Event 4648 is credential use, not proof of failed authentication or password reuse. Repeated windows use a per-key cooldown; see correlation.py and the recorded parameters.
+
+Context annotations use the separate exact-match profile in rules/context-lab.json. Every constrained field must match. The annotation records its reason and change reference while retaining the finding and evidence. It is a queue-priority hint, not a benign verdict or script-integrity check.
+
+Report bundles are built in a temporary sibling directory and renamed into a new destination only after every output succeeds. An existing destination is rejected. Failed analysis does not publish a partial bundle.
+
 ## Reproducibility boundary
 
 manifest.json records tool version, rule file hash, source hashes, event count, rule counts and correlation parameters. Record the Git commit alongside results after committing your analysis. Processing duration and absolute local paths vary across runs. JSONL byte hashes may vary across PowerShell serializer versions even when the original EVTX is identical; the pinned original EVTX SHA-256 is the stable download check.

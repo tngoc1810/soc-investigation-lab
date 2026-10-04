@@ -1,0 +1,10 @@
+// Reference aggregation; fixed bins differ from the engine's sliding window and cooldown.
+WindowsEvent
+| where TimeGenerated between (datetime(2016-09-19T16:45:00Z) .. datetime(2016-09-19T17:00:00Z))
+| where Provider =~ "Microsoft-Windows-Security-Auditing" and EventLog =~ "Security" and EventID == 4625
+| extend TargetUser = tostring(EventData.TargetUserName), TargetDomain = tostring(EventData.TargetDomainName),
+         SourceIP = tostring(EventData.IpAddress), LogonType = tostring(EventData.LogonType)
+| where LogonType in ("3", "10") and isnotempty(SourceIP) and SourceIP !in ("-", "127.0.0.1", "::1")
+| summarize Failures = count(), FirstSeen = min(TimeGenerated), LastSeen = max(TimeGenerated)
+    by Computer, TargetUser, TargetDomain, SourceIP, LogonType, bin(TimeGenerated, 5m)
+| where Failures >= 10
