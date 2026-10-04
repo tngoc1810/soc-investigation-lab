@@ -1,0 +1,21 @@
+# Local evidence can contain hostnames, users, command lines and secrets.
+data/raw/
+data/local/
+output/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.evtx
+*.zip
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.DS_Store
+Thumbs.db

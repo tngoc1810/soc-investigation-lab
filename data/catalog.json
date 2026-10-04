@@ -1,0 +1,15 @@
+{
+  "public-mshta-task": {
+    "repository": "https://github.com/Yamato-Security/hayabusa-sample-evtx",
+    "upstream_origin": "https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES",
+    "commit": "0845333ecb4afcf64c55c6e10946383f168f308c",
+    "path": "EVTX-ATTACK-SAMPLES/Execution/exec_persist_rundll32_mshta_scheduledtask_sysmon_1_3_11.evtx",
+    "filename": "mshta-scheduledtask.evtx",
+    "size_bytes": 69632,
+    "sha256": "fb5679aec77dc45a35902f705b513811dfea0f2f93c9c8503464a20270c3222f",
+    "expected_event_count": 8,
+    "expected_rule_counts": {"WIN-004": 1, "WIN-008": 1},
+    "kind": "public attack-sample EVTX, historical lab evidence",
+    "license_note": "Original data is not redistributed here. Consult source repositories and their terms before redistribution."
+  }
+}

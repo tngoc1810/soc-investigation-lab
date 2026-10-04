@@ -1,0 +1,104 @@
+[
+  {
+    "id": "WIN-001", "title": "PowerShell encoded-command switch", "severity": "medium", "attack": ["T1059.001", "T1027"],
+    "rationale": "An encoded command can conceal script content; recover and inspect the command and process context.",
+    "false_positives": ["Legitimate deployment or management scripts using encoded commands"],
+    "limitations": ["Simple substring matching; aliases, abbreviations and whitespace variants can evade detection", "Requires Sysmon process creation with CommandLine and Image", "Encoding alone does not prove malicious intent"],
+    "conditions": [
+      {"field": "provider", "op": "equals", "value": "Microsoft-Windows-Sysmon"},
+      {"field": "channel", "op": "equals", "value": "Microsoft-Windows-Sysmon/Operational"},
+      {"field": "event_id", "op": "equals", "value": 1},
+      {"field": "event_data.Image", "op": "endswith_any", "value": ["\\powershell.exe", "\\pwsh.exe"]},
+      {"field": "event_data.CommandLine", "op": "contains_any", "value": [" -enc ", " -encodedcommand ", " -e "]}
+    ]
+  },
+  {
+    "id": "WIN-002", "title": "PowerShell execution-policy bypass switch", "severity": "low", "attack": ["T1059.001"],
+    "rationale": "Review policy-bypass execution in its user and parent-process context.",
+    "false_positives": ["Software deployment", "Administrator automation"],
+    "limitations": ["Bypass is not inherently malicious and execution policy is not a security boundary", "Simple command-line variants only"],
+    "conditions": [
+      {"field": "provider", "op": "equals", "value": "Microsoft-Windows-Sysmon"},
+      {"field": "channel", "op": "equals", "value": "Microsoft-Windows-Sysmon/Operational"},
+      {"field": "event_id", "op": "equals", "value": 1},
+      {"field": "event_data.Image", "op": "endswith_any", "value": ["\\powershell.exe", "\\pwsh.exe"]},
+      {"field": "event_data.CommandLine", "op": "contains_any", "value": ["-executionpolicy bypass", "-ep bypass"]}
+    ]
+  },
+  {
+    "id": "WIN-003", "title": "Certutil file decoding", "severity": "medium", "attack": ["T1140"],
+    "rationale": "Decoding can stage a payload; inspect input/output artifacts and subsequent execution.",
+    "false_positives": ["Certificate operations", "Legitimate encoding/decoding exercises"],
+    "limitations": ["Decode intent is not a malware verdict", "Does not verify output file content", "Simple command-line matching"],
+    "conditions": [
+      {"field": "provider", "op": "equals", "value": "Microsoft-Windows-Sysmon"},
+      {"field": "channel", "op": "equals", "value": "Microsoft-Windows-Sysmon/Operational"},
+      {"field": "event_id", "op": "equals", "value": 1},
+      {"field": "event_data.Image", "op": "endswith_any", "value": ["\\certutil.exe"]},
+      {"field": "event_data.CommandLine", "op": "contains_any", "value": [" -decode ", " -decodehex "]}
+    ]
+  },
+  {
+    "id": "WIN-004", "title": "Mshta with a remote URL or inline script", "severity": "high", "attack": ["T1218.005"],
+    "rationale": "Review script execution through mshta, destination context and follow-on processes.",
+    "false_positives": ["Legacy HTA applications and internal administration"],
+    "limitations": ["Local HTA payloads without these strings are not covered", "Does not establish successful network access"],
+    "conditions": [
+      {"field": "provider", "op": "equals", "value": "Microsoft-Windows-Sysmon"},
+      {"field": "channel", "op": "equals", "value": "Microsoft-Windows-Sysmon/Operational"},
+      {"field": "event_id", "op": "equals", "value": 1},
+      {"field": "event_data.Image", "op": "endswith_any", "value": ["\\mshta.exe"]},
+      {"field": "event_data.CommandLine", "op": "contains_any", "value": ["http://", "https://", "javascript:", "vbscript:"]}
+    ]
+  },
+  {
+    "id": "WIN-005", "title": "New scheduled task containing a script interpreter", "severity": "medium", "attack": ["T1053.005"],
+    "rationale": "Inspect task XML, trigger, principal, executable and author; verify the task's purpose.",
+    "false_positives": ["Backup jobs", "Software deployment and administrator scripts"],
+    "limitations": ["Security 4698 requires appropriate auditing", "TaskContent may be absent", "Keywords can appear in descriptions and arguments", "Non-script task persistence is not covered"],
+    "conditions": [
+      {"field": "provider", "op": "equals", "value": "Microsoft-Windows-Security-Auditing"},
+      {"field": "channel", "op": "equals", "value": "Security"},
+      {"field": "event_id", "op": "equals", "value": 4698},
+      {"field": "event_data.TaskContent", "op": "contains_any", "value": ["powershell", "pwsh", "wscript", "cscript", "mshta"]}
+    ]
+  },
+  {
+    "id": "WIN-006", "title": "Run-key value set to a script interpreter", "severity": "medium", "attack": ["T1547.001"],
+    "rationale": "A script interpreter in a logon autorun value warrants artifact and author verification.",
+    "false_positives": ["User logon automation", "Legitimate installed software"],
+    "limitations": ["Run-key path matching is narrow", "Executable-only autoruns are not covered", "Value set does not prove execution or attacker ownership"],
+    "conditions": [
+      {"field": "provider", "op": "equals", "value": "Microsoft-Windows-Sysmon"},
+      {"field": "channel", "op": "equals", "value": "Microsoft-Windows-Sysmon/Operational"},
+      {"field": "event_id", "op": "equals", "value": 13},
+      {"field": "event_data.TargetObject", "op": "contains_any", "value": ["\\software\\microsoft\\windows\\currentversion\\run\\", "\\software\\microsoft\\windows\\currentversion\\runonce\\"]},
+      {"field": "event_data.Details", "op": "contains_any", "value": ["powershell", "pwsh", "wscript", "cscript", "mshta"]}
+    ]
+  },
+  {
+    "id": "WIN-007", "title": "Windows Security audit log cleared", "severity": "high", "attack": ["T1070.001"],
+    "rationale": "Verify the operator and reason for clearing the audit log and preserve remaining evidence.",
+    "false_positives": ["Authorized maintenance", "Training lab reset"],
+    "limitations": ["Clearing alone does not establish malicious intent", "Does not cover deletion of other logs or missing events"],
+    "conditions": [
+      {"field": "provider", "op": "equals", "value": "Microsoft-Windows-Eventlog"},
+      {"field": "channel", "op": "equals", "value": "Security"},
+      {"field": "event_id", "op": "equals", "value": 1102}
+    ]
+  },
+  {
+    "id": "WIN-008", "title": "Schtasks creation targeting a script interpreter", "severity": "medium", "attack": ["T1053.005"],
+    "rationale": "Review the task-creation command, process ancestry and resulting task artifact; a command alone does not prove task creation succeeded.",
+    "false_positives": ["Authorized scripted task deployment", "Backup and inventory tasks"],
+    "limitations": ["Requires Sysmon 1, Image and CommandLine", "Keywords may occur in task names or arguments", "Does not cover task creation through APIs or COM", "Does not establish successful task registration or execution"],
+    "conditions": [
+      {"field": "provider", "op": "equals", "value": "Microsoft-Windows-Sysmon"},
+      {"field": "channel", "op": "equals", "value": "Microsoft-Windows-Sysmon/Operational"},
+      {"field": "event_id", "op": "equals", "value": 1},
+      {"field": "event_data.Image", "op": "endswith_any", "value": ["\\schtasks.exe"]},
+      {"field": "event_data.CommandLine", "op": "contains_any", "value": [" /create "]},
+      {"field": "event_data.CommandLine", "op": "contains_any", "value": ["powershell", "pwsh", "wscript", "cscript", "mshta"]}
+    ]
+  }
+]

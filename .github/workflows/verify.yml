@@ -1,0 +1,22 @@
+name: Verify evidence pipeline
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  regression:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.11', '3.12']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Run regression tests
+        run: python -m unittest discover -s tests -v
+      - name: Run documented demo
+        run: |
+          python -m soclab ingest data/fixtures/demo.jsonl --db output/demo/evidence.sqlite
+          python -m soclab analyze --db output/demo/evidence.sqlite --out output/demo/run-01
