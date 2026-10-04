@@ -26,6 +26,7 @@ The following search returns zero 4624 events in the supplied collection. It doe
 
 ## Structured evidence
 
+- ci-validation.json: five successful GitHub jobs with executed step results.
 - portfolio-validation.json: counts, source hashes and executable query checks.
 - benchmark.json: three isolated worker runs and measured peak working set.
 - sigma-validation.json: actual pySigma parse results.

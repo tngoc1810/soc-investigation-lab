@@ -22,7 +22,7 @@ Run `./scripts/reproduce.ps1 -RunId your-run` on Windows, then `python scripts/v
 
 The bootstrap commit 01496ca5db33026badea001e6dd0485b4707d1ad passed four matrix jobs in [run 37200425663](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37200425663), when the suite contained 21 tests.
 
-The version 1.0 workflow adds 36-test runs on Windows/Ubuntu with Python 3.11/3.12, actual public-EVTX replay on both Windows jobs, and a separate Sigma parser job. The full release run will be recorded here after GitHub finishes it.
+Version 1.0 commit 8f5161f176a9407feb2b02be2c10babb1d5d6851 passed all five jobs in [run 37203029300](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37203029300): 36-test runs on Windows/Ubuntu with Python 3.11/3.12, published-evidence checksums, actual public-EVTX replay on both Windows jobs, and a separate Sigma parser job. Job and step results are captured in evidence/ci-validation.json.
 
 ## Limits that remain
 
