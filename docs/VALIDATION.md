@@ -1,5 +1,13 @@
 # Validation record â€” 2026-10-04
 
+## Version 4: operational pilot
+
+Both local Python 3.11.5 and 3.12.11 passed 100 tests, including sixteen new operational tests for cross-batch authentication, scope isolation, deduplication, transactional capacity rejection, durable retries, abandoned leases, dead-letter/redrive, revisioned closure, audit tampering, recovery of cross-database case linkage, full review packet validation and snapshot/restore boundaries.
+
+The constructed operations exercise imported 19 records in two batches, skipped one overlap and generated eight leads. A real localhost HTTP server returned 503; a fresh Python process confirmed 19 pending records. Recovery preserved the exact persisted payloads/timestamps and actual pinned Loki returned all 19 UIDs. Snapshot/restore retained the queue, alert history and linked case. The browser independently assigned, triaged, investigated and closed a labeled backup false positive, retained all five audit entries, downloaded its packet with the expected SHA-256 and verified the verdict after reload.
+
+The native bounded worker read 60 real records across repeated System/PowerShell polls, retaining 60 original XML objects. All 60 remained held privately. Six text-rule matches remained unreviewed; collection/development scripts can themselves appear in PowerShell telemetry. Security/Sysmon were unavailable in this session. Raw host records were moved with retained hashes/cursors to the private Windows runtime cache outside Git/OneDrive; only aggregate proof is published. See [v4 artifacts](../evidence/live/README.md), [design limits](ENGINEERING_V4.md) and [operator runbook](RUNBOOK_V4.md).
+
 ## Version 3.0.1: adversarial review
 
 Both local Python 3.11.5 and 3.12.11 passed 84 tests. The first six new adversarial tests failed against the unchanged v3.0.0 code (five failures and one error). Nine new tests now cover coherent committed-read snapshots, failed atomic exports, audited board state, restored packet integrity, inventory completeness, channel/provider boundaries, early input caps, malformed HTTP headers and backend redirects.

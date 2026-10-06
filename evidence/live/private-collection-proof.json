@@ -1,0 +1,46 @@
+{
+  "validated_at": "2026-10-06T15:05:39.188605+00:00",
+  "method": "Three finite native worker cycles plus verified cursor resumption after moving the workspace outside OneDrive",
+  "collected_records": 60,
+  "channels": {
+    "Microsoft-Windows-PowerShell/Operational": 39,
+    "System": 21
+  },
+  "original_xml_retained": 60,
+  "held_private": 60,
+  "backend_delivered": 0,
+  "unreviewed_rule_matches": {
+    "WIN-009": 6
+  },
+  "source_batch_hashes": [
+    {
+      "source_sha256": "0f1d8e133d2ae6e2782acecbe915e8e0a55b6cbb6c759d06986dc729c56a80a8",
+      "records": 1
+    },
+    {
+      "source_sha256": "158f7fa335e060f02f38c70c7dfb0910b697ceb63087f146f7808f92490d2b5f",
+      "records": 9
+    },
+    {
+      "source_sha256": "2d1c0f0aa7c164862300fefa89eaced4bdca8e0a64603000436e5a1d73dfa917",
+      "records": 10
+    },
+    {
+      "source_sha256": "317c0e481c4a361dbd009796f71a36597cde94630ec1e589197d64ea79b3a747",
+      "records": 20
+    },
+    {
+      "source_sha256": "5ee41f340d01b91f37cceb96263a6a2fba751e2fed1d2c452c2e575c880d6f4b",
+      "records": 20
+    }
+  ],
+  "private_storage": "Windows LOCALAPPDATA/SOCInvestigationLab/live/operational-pilot (including physical package-cache resolution); outside OneDrive and Git",
+  "resumed_after_migration": true,
+  "coverage": {
+    "System": "readable",
+    "PowerShell Operational": "readable",
+    "Security": "unavailable in this session (permission or channel access)",
+    "Sysmon Operational": "unavailable in this session"
+  },
+  "scope": "Aggregate proof only. Raw XML, accounts, hostname, script text and event UIDs remain in private runtime storage. Six rule matches are unreviewed leads. Collection scripts can themselves appear in PowerShell telemetry. Worker was finite, not an installed service."
+}

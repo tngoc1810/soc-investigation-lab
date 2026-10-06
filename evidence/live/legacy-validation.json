@@ -1,0 +1,12 @@
+{
+  "run_id": "v4-final-base",
+  "graph_run": "v4-final-graph",
+  "operations_run": "v4-final-operations",
+  "primary_records": 6087,
+  "independent_supplement_records": 295,
+  "hunts": 48,
+  "scope": "Fresh Windows replay; final verifier completion recorded alongside CI validation.",
+  "verified_at": "2026-10-06T15:15:27.994778+00:00",
+  "result": "All replay, graph, operations and native parse-only AST verifiers completed successfully",
+  "engine_source_sha256": "4b78f04f3d119f7adf7898c0dcf3d840a67d41ffb6260d2acc923ab6f085674e"
+}

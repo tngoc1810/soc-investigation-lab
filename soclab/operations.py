@@ -94,14 +94,17 @@ def _append(conn, case, action, actor, rationale):
     conn.execute("INSERT INTO audit VALUES (?,?,?,?,?)", (case["id"], case["revision"], canonical(payload).decode(), previous, digest))
 
 
-def create_case(path, *, source_case, evidence_db, uids, title, severity="high", actor="demo-analyst", rationale):
+def create_case(path, *, source_case, evidence_db, uids, title, severity="high", actor="demo-analyst", rationale, case_id=None):
     title, actor, rationale = text(title, "title", 160), text(actor, "actor", 80), text(rationale, "rationale")
     source_case = text(source_case, "source case", 80)
     if severity not in ("low", "medium", "high", "critical"):
         raise ValueError("invalid severity")
     evidence = anchors(evidence_db, uids)
     now = datetime.now(timezone.utc).isoformat()
-    case = {"id":uuid.uuid4().hex, "source_case":source_case, "title":title, "severity":severity,
+    if case_id is None: case_id=uuid.uuid4().hex
+    if not isinstance(case_id,str) or len(case_id)!=32 or any(c not in '0123456789abcdef' for c in case_id):
+        raise ValueError('case ID must contain 32 lowercase hex characters')
+    case = {"id":case_id, "source_case":source_case, "title":title, "severity":severity,
             "status":"new", "revision":1, "verdict":None, "created_at":now, "updated_at":now, "evidence":evidence}
     with closing(connect(path)) as conn, conn:
         conn.execute("BEGIN IMMEDIATE")

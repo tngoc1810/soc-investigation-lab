@@ -1,14 +1,37 @@
-# SOC Investigation & Detection Validation Lab
+# SOC Investigation & Operations Lab
 
-A Windows SOC portfolio built around evidence, investigation and analyst decisions. Python and SQLite preserve the source records; a local case workspace records the review; a real Loki backend supports LogQL queries. Native Grafana provides a separate replay dashboard. The core runs without Docker or virtual machines.
+A Windows SOC operations pilot built around collection, durable delivery, explainable detection and analyst decisions. Python and SQLite preserve original records and checkpoints; a local console supports assigned alerts, review targets, audited case linkage and recovery. Optional native Loki/Grafana provide real backend queries. The core runs without Docker or virtual machines, with the default mutable Windows workspace outside OneDrive.
 
 [Download v3.0.1](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.1) · [v3.0.1 six-job CI: passed](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718) · [Retained v3.0.0 reviewed packet](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.0)
 
-**Version 3.0.1 — evidence-to-case operations, reviewed under failure.** Five case studies, 13 detection hypotheses, a 20-scenario evaluation corpus, 48 executed hunt queries, PowerShell fragment reconstruction and native AST inspection, a revisioned analyst workflow, immutable evidence exports, and actual localhost Loki validation. This is a portfolio lab, not a commercial SIEM or a production SOC deployment.
+**Version 4 — an operational path alongside the casebook.** Incremental Windows polling, content deduplication, a transactional checkpoint/outbox, leases and backoff, retained dead letters, scheduled detections across batches, alert assignment and closure, complete review packets, verified snapshot/restore and aggregate metrics. This is a working single-host pilot with explicit deployment limits.
 
-![Native Grafana dashboard over a verified synthetic replay](evidence/operations/screenshots/03-grafana-backend.jpg)
+![Operations console over a constructed authentication exercise](evidence/live/screenshots/01-operations-console.jpg)
 
-The [6 October quality review](docs/QUALITY_REVIEW.md) documents concurrency, failed-export, telemetry-boundary and HTTP faults found and fixed. Both local Python versions pass 84 tests. [Fresh replay evidence](evidence/quality-review/README.md) includes actual backend responses and a byte-identical restored reviewed packet.
+The [v4 engineering design](docs/ENGINEERING_V4.md), [Windows operations runbook](docs/RUNBOOK_V4.md) and [executed evidence gallery](evidence/live/README.md) describe the complete flow. Local Python 3.11 and 3.12 each pass 100 tests. A real HTTP 503 exercise preserves 19 queued records across a fresh process; actual Loki recovery returns all 19 UIDs. Native collection read 60 real System/PowerShell records over repeated polls, preserving their XML and keeping all private records local.
+
+## Operate the pilot
+
+From a source checkout on Windows:
+
+```powershell
+python -m soclab live run --channels System --seconds 3600 --interval 10
+# In a second terminal:
+python -m soclab live serve --port 8766
+```
+
+Open http://127.0.0.1:8766. The default private workspace is `%LOCALAPPDATA%/SOCInvestigationLab/live/default`. Add other channels only when available and readable. Private native records remain held locally; synthetic delivery uses a separate workspace. This session could read System and PowerShell Operational; Security/Sysmon were unavailable. A missing channel or an empty alert queue does not establish a safe endpoint.
+
+For a public reproducible exercise:
+
+```powershell
+python scripts/validate_live.py --run-id my-v4-demo --out output/my-v4-demo-validation.json
+python -m soclab live serve --workspace output/live/my-v4-demo --port 8766
+```
+
+Use `--backend` on the validator after starting the pinned native Loki runtime to verify actual delivery. Without that flag the success destination is an explicit acceptance test double; the HTTP 503 and restart exercise still execute. The [Vietnamese operations demo](docs/OPERATIONS_DEMO_VI.md) explains the decisions to practice.
+
+The earlier investigation work remains: five independent cases, thirteen offline hypotheses, 48 hunt executions, GUID/session reconstruction, static PowerShell forensics and a transparent 20-scenario evaluation corpus. Read the [v3.0.1 failure-path review](docs/QUALITY_REVIEW.md) for the earlier repairs and retained evidence.
 
 ## What can a reviewer verify?
 
@@ -23,11 +46,11 @@ The [6 October quality review](docs/QUALITY_REVIEW.md) documents concurrency, fa
 | Software engineering | Regression tests, local HTTP write protection, optimistic revisions, CI backend checks | [Validation record](docs/VALIDATION.md) |
 | Performance analysis | Released v2 versus indexed v3, six fresh processes, identical result digest | [Measured benchmark](evidence/operations/indexing-benchmark.json) |
 
-[The current evidence gallery](evidence/operations/README.md) includes the case-workflow screenshots, audit/export packet, actual backend responses and measured resource scope.
+[The historical v3 evidence gallery](evidence/operations/README.md) includes the case-workflow screenshots, audit/export packet, actual backend responses and measured resource scope.
 
 The important part is explaining a defensible decision from original evidence. The reports distinguish task creation, task registration and task execution; failed authentication and successful access; suspicious text and an executed operation.
 
-## Start the complete lab
+## Run the historical investigation and backend lab
 
 Follow the [Windows runbook](docs/RUNBOOK_V3.md) for the complete replay, case workspace and native Loki/Grafana setup. Backend runtimes are pinned to official downloads and checked by SHA-256. They run on loopback, outside OneDrive and the repository, and can be stopped independently of the core investigation tools.
 
@@ -35,7 +58,7 @@ The [v3 design](docs/ENGINEERING_V3.md) explains the transport, decision/audit m
 
 ## What changed in v2?
 
-The reconstruction and evaluation work below remains part of v3. The [v2 evidence gallery](evidence/advanced/README.md) is a historical release snapshot; current operations evidence lives in `evidence/operations`.
+The reconstruction and evaluation work below remains part of v3. The [v2 evidence gallery](evidence/advanced/README.md) is a historical release snapshot; v3 operations evidence lives in `evidence/operations`; current pilot evidence lives in `evidence/live`.
 
 The new engine asks whether authentication and process activity actually belong together. A collection manifest approves exact source hashes. Nonzero logon GUIDs bind a selected process to a successful session; process GUIDs bind its activity and observed ancestry. Contradictory creation records, unavailable parents and missing telemetry remain visible rather than becoming guessed relationships.
 

@@ -36,6 +36,8 @@ jobs:
           python scripts/verify_operations.py --run-id ci-operations
       - name: Evaluate checked-in scenario corpus
         run: python -m soclab evaluate --out output/evaluation.json
+      - name: Verify operational outage, restart, case export and snapshot recovery
+        run: python scripts/validate_live.py --run-id ci-live --out output/live-validation.json
   sigma:
     runs-on: ubuntu-latest
     steps:
@@ -66,10 +68,13 @@ jobs:
           try {
             ./scripts/runtime.ps1 -Action Start -Component Loki
             python scripts/validate_backend.py --run-id ci-backend --out output/backend-validation.json
+            python scripts/validate_live.py --backend --run-id ci-live-backend --out output/live-backend-validation.json
           } finally {
             ./scripts/runtime.ps1 -Action Stop
           }
       - uses: actions/upload-artifact@v4
         with:
           name: actual-loki-responses
-          path: output/backend-validation.json
+          path: |
+            output/backend-validation.json
+            output/live-backend-validation.json

@@ -72,9 +72,57 @@ def main(argv=None) -> int:
     p = sub.add_parser("decode", help="Decode a supported PowerShell encoded host argument as text")
     p.add_argument("--command-file", type=Path, required=True)
     p.add_argument("--out", type=Path, required=True)
+    p = sub.add_parser('live', help='Operate the durable single-host collection and alert pilot')
+    p.add_argument('action', choices=('init','ingest','detect','drain','retry','status','alerts','review','promote','export','snapshot','restore','collect','run','serve'))
+    from .live import default_workspace
+    p.add_argument('--workspace', type=Path, default=default_workspace())
+    p.add_argument('--source', type=Path)
+    p.add_argument('--out',type=Path)
+    p.add_argument('--scope', default='synthetic-demo')
+    p.add_argument('--kind', choices=('synthetic','private_host'), default='synthetic')
+    p.add_argument('--id')
+    p.add_argument('--revision',type=int)
+    p.add_argument('--actor',default='local-analyst')
+    p.add_argument('--reason')
+    p.add_argument('--owner')
+    p.add_argument('--target')
+    p.add_argument('--verdict')
+    p.add_argument('--channel',choices=('System','Security','Microsoft-Windows-Sysmon/Operational','Microsoft-Windows-PowerShell/Operational'),default='System')
+    p.add_argument('--channels',nargs='+',choices=('System','Security','Microsoft-Windows-Sysmon/Operational','Microsoft-Windows-PowerShell/Operational'),help='Channels for the run worker; uses --channel if omitted')
+    p.add_argument('--seconds',type=int,default=0,help='0: one cycle; otherwise run for at most this many seconds')
+    p.add_argument('--interval',type=int,default=10)
+    p.add_argument('--port',type=int,default=8766)
     args = parser.parse_args(argv)
     try:
-        if args.command == "ingest":
+        if args.command == 'live':
+            from . import live
+            if args.action=='init':
+                with live.connect(args.workspace) as conn: result={'initialized':True,'workspace':str(args.workspace)}
+            elif args.action=='ingest':
+                if not args.source: raise ValueError('--source is required')
+                result=live.ingest_batch(args.workspace,args.source,scope=args.scope,kind=args.kind)
+            elif args.action=='detect': result=live.run_detection(args.workspace,scope=args.scope)
+            elif args.action=='drain': result=live.drain(args.workspace)
+            elif args.action=='retry': result=live.retry_now(args.workspace,actor=args.actor,reason=args.reason)
+            elif args.action=='status': result=live.status(args.workspace)
+            elif args.action=='alerts': result=live.list_alerts(args.workspace)
+            elif args.action=='review': result=live.update_alert(args.workspace,args.id,revision=args.revision,actor=args.actor,reason=args.reason,target=args.target,owner=args.owner,verdict=args.verdict)
+            elif args.action=='promote': result=live.promote_case(args.workspace,args.id,actor=args.actor,reason=args.reason)
+            elif args.action=='export': result=live.export_review(args.workspace,args.id)
+            elif args.action=='snapshot':
+                if not args.out: raise ValueError('--out is required')
+                result=live.snapshot(args.workspace,args.out)
+            elif args.action=='restore':
+                if not args.source: raise ValueError('--source snapshot ZIP is required')
+                result=live.restore_snapshot(args.source,args.workspace)
+            elif args.action in ('collect','run'):
+                from .collector import poll,worker
+                result=poll(args.workspace,channel=args.channel) if args.action=='collect' else worker(args.workspace,channels=tuple(args.channels or [args.channel]),seconds=args.seconds,interval=args.interval)
+            else:
+                from .liveweb import serve
+                serve(args.workspace,args.port); return 0
+            print(json.dumps(result,ensure_ascii=False,indent=2))
+        elif args.command == "ingest":
             print(json.dumps(ingest(args.source, args.db), indent=2))
         elif args.command == "analyze":
             manifest = analyze(args.db, args.rules, args.out, threshold=args.auth_threshold, window_seconds=args.auth_window_seconds, cross_source=args.cross_source_auth, credential_threshold=args.credential_threshold, credential_window=args.credential_window, context_path=args.context)
