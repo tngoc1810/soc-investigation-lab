@@ -1,0 +1,37 @@
+{
+  "version": "4.0.0",
+  "verified_at": "2026-10-06T15:23:31.770476+00:00",
+  "run_id": 37486773710,
+  "code_commit": "581db0fce5221c663d483f1381ab6492e3ebcf00",
+  "artifact_id": 11423741971,
+  "artifact_name": "actual-loki-responses",
+  "downloaded_zip_sha256": "d55432e1e6988c8b6022144742d05674773e0df28ffca990166f9bb6baec688b",
+  "github_artifact_digest_verified": true,
+  "exact_two_file_inventory_verified": true,
+  "source_hashes_match_tested_git_blobs": true,
+  "historical_counts": {
+    "case-001": 8,
+    "case-002": 3561,
+    "case-003": 3,
+    "case-004": 4,
+    "case-005": 2511
+  },
+  "live_records": 19,
+  "live_unique_uids": 19,
+  "cross_batch_authentication_anchors": 6,
+  "fresh_process_pending": 19,
+  "exact_payload_preserved": true,
+  "response_sha256": {
+    "backend-validation.json": "711ebb7eec3c5fff5685558886efcafbc742232cfbf3f3b8463b0b72141b92bd",
+    "live-backend-validation.json": "1f7a9ec1e55bc03fd6b93a9a225eda927576d79a27df44144681c07a438a20c3"
+  },
+  "scope": "Independent CI artifact downloaded and checked; exact response JSON retained in adjacent files.",
+  "all_five_uid_queries_and_source_line_identities_checked": true,
+  "dashboard_counts": {
+    "4625": 5,
+    "4624": 1,
+    "1": 3,
+    "3": 1,
+    "4698": 1
+  }
+}

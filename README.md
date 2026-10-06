@@ -2,13 +2,13 @@
 
 A Windows SOC operations pilot built around collection, durable delivery, explainable detection and analyst decisions. Python and SQLite preserve original records and checkpoints; a local console supports assigned alerts, review targets, audited case linkage and recovery. Optional native Loki/Grafana provide real backend queries. The core runs without Docker or virtual machines, with the default mutable Windows workspace outside OneDrive.
 
-[Download v3.0.1](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.1) · [v3.0.1 six-job CI: passed](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718) · [Retained v3.0.0 reviewed packet](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.0)
+[Download v4.0.0 and reviewed packets](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v4.0.0) · [v4 six-job CI: passed](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37486773710) · [Retained v3.0.0 reviewed packet](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.0)
 
 **Version 4 — an operational path alongside the casebook.** Incremental Windows polling, content deduplication, a transactional checkpoint/outbox, leases and backoff, retained dead letters, scheduled detections across batches, alert assignment and closure, complete review packets, verified snapshot/restore and aggregate metrics. This is a working single-host pilot with explicit deployment limits.
 
 ![Operations console over a constructed authentication exercise](evidence/live/screenshots/01-operations-console.jpg)
 
-The [v4 engineering design](docs/ENGINEERING_V4.md), [Windows operations runbook](docs/RUNBOOK_V4.md) and [executed evidence gallery](evidence/live/README.md) describe the complete flow. Local Python 3.11 and 3.12 each pass 100 tests. A real HTTP 503 exercise preserves 19 queued records across a fresh process; actual Loki recovery returns all 19 UIDs. Native collection read 60 real System/PowerShell records over repeated polls, preserving their XML and keeping all private records local.
+The [v4 engineering design](docs/ENGINEERING_V4.md), [Windows operations runbook](docs/RUNBOOK_V4.md) and [executed evidence gallery](evidence/live/README.md) describe the complete flow. Local Python 3.11 and 3.12 each pass 100 tests; all six independent CI jobs passed on Windows/Linux, including real Loki delivery. A real HTTP 503 exercise preserves 19 queued records across a fresh process; actual Loki recovery returns all 19 UIDs. Native collection read 60 real System/PowerShell records over repeated polls, preserving their XML and keeping all private records local.
 
 ## Operate the pilot
 

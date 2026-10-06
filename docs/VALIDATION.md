@@ -1,4 +1,4 @@
-# Validation record â€” 2026-10-04
+# Validation record — updated 2026-10-06
 
 ## Version 4: operational pilot
 
@@ -7,6 +7,12 @@ Both local Python 3.11.5 and 3.12.11 passed 100 tests, including sixteen new ope
 The constructed operations exercise imported 19 records in two batches, skipped one overlap and generated eight leads. A real localhost HTTP server returned 503; a fresh Python process confirmed 19 pending records. Recovery preserved the exact persisted payloads/timestamps and actual pinned Loki returned all 19 UIDs. Snapshot/restore retained the queue, alert history and linked case. The browser independently assigned, triaged, investigated and closed a labeled backup false positive, retained all five audit entries, downloaded its packet with the expected SHA-256 and verified the verdict after reload.
 
 The native bounded worker read 60 real records across repeated System/PowerShell polls, retaining 60 original XML objects. All 60 remained held privately. Six text-rule matches remained unreviewed; collection/development scripts can themselves appear in PowerShell telemetry. Security/Sysmon were unavailable in this session. Raw host records were moved with retained hashes/cursors to the private Windows runtime cache outside Git/OneDrive; only aggregate proof is published. See [v4 artifacts](../evidence/live/README.md), [design limits](ENGINEERING_V4.md) and [operator runbook](RUNBOOK_V4.md).
+
+Code commit `581db0fce5221c663d483f1381ab6492e3ebcf00` passed all six jobs in [run 37486773710](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37486773710). Each Windows/Linux Python 3.11/3.12 matrix job ran the 100-test suite and operational outage/recovery validator; Windows also rebuilt the legacy EVTX/graph/operations pipeline. Separate Sigma and native Loki jobs passed. The downloaded two-file CI artifact matched GitHub's SHA-256 digest, all five historical counts/UID queries and source-line identities, eleven dashboard records, and nineteen live-exercise records. Every reported Python source hash matched the tested Git blobs. [Step attestations](../evidence/live/ci-validation.json), [artifact verification](../evidence/live/ci-backend-validation.json) and full adjacent responses retain the checks.
+
+The [v4.0.0 release](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v4.0.0) points to that tested code commit. Both synthetic review ZIPs were uploaded, downloaded again and matched their exact local SHA-256 ([release verification](../evidence/live/release-validation.json)). A later documentation-only commit records these results. The final legacy replay also passed ([legacy validation](../evidence/live/legacy-validation.json)).
+
+An idle working-set snapshot of Loki, Grafana, its helper and the two Python viewers totaled 145.51 MiB ([resource profile](../evidence/live/resource-profile.json)). This excludes browser/OS and transient workers; it is neither peak nor total-machine memory usage.
 
 ## Version 3.0.1: adversarial review
 

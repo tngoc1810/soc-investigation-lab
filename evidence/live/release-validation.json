@@ -1,0 +1,27 @@
+{
+  "version": "4.0.0",
+  "verified_at": "2026-10-06T15:24:15.5687999Z",
+  "release_id": 404879405,
+  "url": "https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v4.0.0",
+  "tag": "v4.0.0",
+  "code_commit": "581db0fce5221c663d483f1381ab6492e3ebcf00",
+  "draft": false,
+  "prerelease": false,
+  "assets": [
+    {
+      "name": "authentication-reviewed-r5.zip",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/releases/download/v4.0.0/authentication-reviewed-r5.zip",
+      "size": 8746,
+      "sha256": "545bab8eb28a8db507fc51a53e1d13b724413a19b78a10d52dddeebc477d801f",
+      "download_verified": true
+    },
+    {
+      "name": "backup-false-positive-reviewed-r5.zip",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/releases/download/v4.0.0/backup-false-positive-reviewed-r5.zip",
+      "size": 7373,
+      "sha256": "85a3702a0c245bd336eec49bf1f4c618b246fa46d5bf7476d891495dc535a1f9",
+      "download_verified": true
+    }
+  ],
+  "scope": "Both uploaded packets contain constructed exercise records and self-declared analyst decisions. No private host logs or snapshots uploaded."
+}

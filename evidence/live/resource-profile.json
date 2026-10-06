@@ -1,0 +1,39 @@
+{
+  "validated_at": "2026-10-06T15:22:08.9371006Z",
+  "version": "4.0.0",
+  "method": "Get-Process working-set snapshot of owned native backend components and verified soclab viewer listeners",
+  "components": [
+    {
+      "component": "loki-windows-amd64",
+      "role": "main",
+      "working_set_mib": 97.66,
+      "peak_working_set_mib": 125.24
+    },
+    {
+      "component": "grafana",
+      "role": "main",
+      "working_set_mib": 31.85,
+      "peak_working_set_mib": 222.27
+    },
+    {
+      "component": "gpx_grafana-loki-datasource_windows_amd64",
+      "role": "grafana-plugin",
+      "working_set_mib": 4.59,
+      "peak_working_set_mib": 24.43
+    },
+    {
+      "component": "historical-casebook",
+      "role": "loopback Python viewer",
+      "working_set_mib": 2.21,
+      "peak_working_set_mib": 23.77
+    },
+    {
+      "component": "operations-console",
+      "role": "loopback Python viewer",
+      "working_set_mib": 9.2,
+      "peak_working_set_mib": 24.83
+    }
+  ],
+  "combined_working_set_mib": 145.51,
+  "scope": "Idle snapshot after executed validation. Excludes browser, OS, collector worker and transient validation processes. Component peaks are not simultaneous. No total-machine or peak-memory ceiling is claimed."
+}

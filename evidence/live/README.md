@@ -10,6 +10,12 @@ The [engineering design](../../docs/ENGINEERING_V4.md) and [runbook](../../docs/
 | [Local test output](test-results.txt) | Full suites on Python 3.11 and 3.12 |
 | [Test metadata](test-validation.json) | Interpreter versions, test counts and exit codes |
 
+## Independent CI and release
+
+All six jobs passed on the tested v4 code commit: [step results](ci-validation.json), [downloaded artifact verification](ci-backend-validation.json), [historical Loki responses](ci-backend-responses.json), and [operational Loki responses](ci-live-responses.json). The CI operational exercise uses its own constructed run, separate from local validation and browser screenshots.
+
+[Release verification](release-validation.json) records both synthetic packet downloads and their exact SHA-256. [Legacy pipeline validation](legacy-validation.json) retains the fresh casebook/graph/hunt checks. [Resource snapshot](resource-profile.json) scopes the measured native backend/viewer working sets; it is not a total-machine RAM guarantee.
+
 ## Operations console
 
 ![Live operations console showing an audited synthetic authentication lead](screenshots/01-operations-console.jpg)
