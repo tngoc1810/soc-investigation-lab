@@ -47,8 +47,9 @@ def build_handler(index_path: Path, operations_db=None):
             self.wfile.write(body)
 
         def do_GET(self):
-            host = self.headers.get("Host", "").split(":")[0]
-            if host not in ("localhost", "127.0.0.1"):
+            host = self.headers.get("Host", "")
+            port = self.server.server_port
+            if len(self.headers.get_all("Host", [])) != 1 or host not in (f"localhost:{port}", f"127.0.0.1:{port}"):
                 return self.respond(403, {"error": "localhost access only"})
             url = urlparse(self.path)
             params = parse_qs(url.query)
@@ -60,8 +61,10 @@ def build_handler(index_path: Path, operations_db=None):
                     from .operations import list_cases
                     return self.respond(200, {"enabled":operations_db is not None, "csrf":csrf if operations_db else None, "cases":list_cases(operations_db) if operations_db else []})
                 if url.path == "/api/operations/case" and operations_db:
-                    from .operations import get_case
-                    return self.respond(200, get_case(operations_db, params.get("id", [""])[0]))
+                    from .operations import get_case, reviewed_export
+                    result = get_case(operations_db, params.get("id", [""])[0])
+                    result["export"] = reviewed_export(result, Path(operations_db).parent / "exports")
+                    return self.respond(200, result)
                 if url.path == "/api/operations/download" and operations_db:
                     name = params.get("file", [""])[0]
                     import re
@@ -120,9 +123,9 @@ def build_handler(index_path: Path, operations_db=None):
             # This is a single-user loopback workspace, not multi-user authentication.
             host = self.headers.get("Host", "")
             port = self.server.server_port
-            if host not in (f"127.0.0.1:{port}", f"localhost:{port}") or self.headers.get("Origin") != "http://"+host:
+            if len(self.headers.get_all("Host", [])) != 1 or len(self.headers.get_all("Origin", [])) != 1 or host not in (f"127.0.0.1:{port}", f"localhost:{port}") or self.headers.get("Origin") != "http://"+host:
                 return self.respond(403, {"error":"same-origin localhost requests required"})
-            if not operations_db or not secrets.compare_digest(self.headers.get("X-SOC-CSRF", ""), csrf):
+            if not operations_db or len(self.headers.get_all("X-SOC-CSRF", [])) != 1 or not secrets.compare_digest(self.headers.get("X-SOC-CSRF", "").encode("utf-8"), csrf.encode("ascii")):
                 return self.respond(403, {"error":"workspace disabled or invalid CSRF token"})
             try:
                 if self.headers.get("Transfer-Encoding") or self.headers.get("Content-Type", "").split(";")[0] != "application/json":
@@ -133,7 +136,10 @@ def build_handler(index_path: Path, operations_db=None):
                 if not 1 <= length <= 65536:
                     raise ValueError("request body must be 1..65536 bytes")
                 self.connection.settimeout(10)
-                data = json.loads(self.rfile.read(length))
+                try:
+                    data = json.loads(self.rfile.read(length))
+                except RecursionError:
+                    raise ValueError("JSON nesting exceeds the request parser limit") from None
                 if not isinstance(data, dict):
                     raise ValueError("request must be an object")
                 from .operations import create_case, update_case, export_case

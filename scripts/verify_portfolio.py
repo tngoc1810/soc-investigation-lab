@@ -1,6 +1,7 @@
 """Check independently recorded case expectations, queries and reproducible evidence."""
 
 import hashlib
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 import subprocess
@@ -45,7 +46,7 @@ def main():
     source_digest=hashlib.sha256()
     for path in sorted((ROOT/"soclab").glob("*.py")):
         source_digest.update(path.name.encode());source_digest.update(path.read_bytes())
-    result={"validation_date":"2026-10-04","version":__version__,"run_id":index["run_id"],
+    result={"validation_date":datetime.now(timezone.utc).date().isoformat(),"version":__version__,"run_id":index["run_id"],
             "engine_source_sha256":source_digest.hexdigest(),"cases":records,
             "supplement":{"event_count":295,"rule_counts":m["findings_by_rule"],"scope":"Independent dataset, not joined to the primary authentication case"},
             "primary_events":sum(c["event_count"] for c in records),"public_events_including_supplement":3867,

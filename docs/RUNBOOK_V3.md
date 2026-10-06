@@ -97,3 +97,7 @@ Loki alone is enough for backend validation. Stop it before starting the full pa
 | Audit check fails | Preserve the workspace and independently retained export; do not reseal or silently replace the chain |
 
 The launcher checks PID and executable path before stopping a process. It does not install a service, change the firewall or register automatic startup. Source SQLite and original acquisition files remain the investigation anchors if a backend instance needs to be rebuilt.
+
+## Reviewed export recovery in v3.0.1
+
+Reloading a case restores its existing download link after full payload validation against the audited revision. Exporting the same revision still refuses to overwrite an existing packet. Failed writes leave no partial final ZIP. The export directory must support hard links (NTFS on the local Windows run). Follow the source-checkout workflow above; installation of a wheel alone does not supply the repository fixtures or web assets.

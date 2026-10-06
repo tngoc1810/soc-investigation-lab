@@ -70,7 +70,7 @@ if ($Action -eq 'Start') {
     foreach ($taskPort in $taskPorts) {
         if (Get-NetTCPConnection -State Listen -LocalPort $taskPort -ErrorAction SilentlyContinue) { throw "Port $taskPort is already in use" }
     }
-    $taskLoki = Get-ChildItem -LiteralPath (Join-Path $taskRuntime 'loki') -Filter 'loki-windows-amd64.exe' -Recurse | Select-Object -First 1
+    $taskLoki = if ('loki' -in $taskNames) { Get-ChildItem -LiteralPath (Join-Path $taskRuntime 'loki') -Filter 'loki-windows-amd64.exe' -Recurse | Select-Object -First 1 } else { $null }
     $taskGrafana = if ('grafana' -in $taskNames) { Get-ChildItem -LiteralPath (Join-Path $taskRuntime 'grafana') -Filter 'grafana.exe' -Recurse | Select-Object -First 1 } else { $null }
     if (('loki' -in $taskNames -and -not $taskLoki) -or ('grafana' -in $taskNames -and -not $taskGrafana)) { throw 'Run runtime.ps1 -Action Install first' }
     if ('grafana' -in $taskNames) {
@@ -96,8 +96,8 @@ if ($Action -eq 'Start') {
     Copy-Item -LiteralPath (Join-Path $taskRoot 'deployment/loki.yaml') -Destination (Join-Path $taskRuntime 'loki.yaml') -Force
     $taskPreviousMemoryLimit = $env:GOMEMLIMIT
     $env:GOMEMLIMIT = '128MiB'
+    $taskEntries = @()
     try {
-        $taskEntries = @()
         if ('loki' -in $taskNames) {
         $taskLokiProcess = Start-Process -FilePath $taskLoki.FullName -ArgumentList '-config.file=loki.yaml' -WorkingDirectory $taskRuntime -WindowStyle Hidden -RedirectStandardOutput (Join-Path $taskRuntime 'loki.stdout.log') -RedirectStandardError (Join-Path $taskRuntime 'loki.stderr.log') -PassThru
         $taskEntries += @{id=$taskLokiProcess.Id;path=$taskLoki.FullName}
@@ -109,6 +109,14 @@ if ($Action -eq 'Start') {
         $taskEntries += @{id=$taskGrafanaProcess.Id;path=$taskGrafana.FullName}
         }
         [System.IO.File]::WriteAllText($taskState,($taskEntries | ConvertTo-Json),[System.Text.UTF8Encoding]::new($false))
+    } catch {
+        # A failure launching the second component must not orphan the first.
+        foreach ($taskOwned in (Get-TaskProcesses $taskEntries)) {
+            $taskProcess = Get-Process -Id $taskOwned.process.Id -ErrorAction SilentlyContinue
+            if ($taskProcess -and $taskProcess.Path -eq $taskOwned.path) { Stop-Process -Id $taskProcess.Id }
+        }
+        [System.IO.File]::WriteAllText($taskState,'[]',[System.Text.UTF8Encoding]::new($false))
+        throw
     } finally { $env:GOMEMLIMIT = $taskPreviousMemoryLimit }
     $taskHealth = @()
     if ('loki' -in $taskNames) { $taskHealth += 'http://127.0.0.1:3100/ready' }

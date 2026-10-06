@@ -1,0 +1,6 @@
+{
+  "scenario": "Real pinned Loki launch followed by injected Grafana launch failure",
+  "outcome": "Exception propagated; first component stopped; PID state cleared",
+  "scope": "Local Windows lifecycle fault injection, not a backend performance test",
+  "validated_at": "2026-10-06T14:03:57.4247276Z"
+}

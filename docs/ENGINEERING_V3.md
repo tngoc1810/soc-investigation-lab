@@ -26,7 +26,7 @@ The private collector is deliberately separate. Its original XML, hostname, acco
 
 ## Actual backend, bounded scope
 
-`soclab/loki.py` uses the standard library and accepts only a plain localhost HTTP origin. It pushes batches of at most 500 events; the default is 250. HTTP requests have a timeout and up to three attempts for selected transient failures. A transport retry is at-least-once delivery. This implementation has no durable delivery queue or exactly-once guarantee.
+`soclab/loki.py` uses the standard library and accepts only a plain localhost HTTP origin. HTTP redirects are rejected so an accepted localhost origin cannot redirect the request to another destination. It pushes batches of at most 500 events; the default is 250. HTTP requests have a timeout and up to three attempts for selected transient failures. A transport retry is at-least-once delivery. This implementation has no durable delivery queue or exactly-once guarantee.
 
 The stream labels are job, case ID, dataset kind, replay mode and replay run. Commands, accounts, IPs and GUIDs stay in JSON fields. Run IDs distinguish experiments but still create new streams; the design is appropriate for a few deliberate portfolio replays, not an unbounded fleet or continuously generated run IDs. Source SHA-256, physical source line and event UID let the analyst pivot back to SQLite. The backend JSON is a normalized view, not a replacement for EVTX acquisition files.
 
@@ -58,7 +58,7 @@ Core event iteration and source listing use SQLite URI read-only mode. Inspectin
 
 ## Analyst decisions and concurrency
 
-Source evidence databases stay read-only in the web routes. A separate SQLite database stores operations cases and their audit rows. A case starts at revision 1. Every note, transition or evidence attachment needs the current revision; a stale update fails rather than overwriting another decision. Mutations use an immediate transaction so concurrent requests cannot both commit from the same revision.
+Source evidence databases stay read-only in the web routes. A separate SQLite database stores operations cases and their audit rows. A case starts at revision 1. Every note, transition or evidence attachment needs the current revision; a stale update fails rather than overwriting another decision. Mutations use an immediate transaction so concurrent requests cannot both commit from the same revision. In v3.0.1, case-detail and board reads also use one explicit read transaction; case state and its audit cannot come from different committed revisions. The board verifies the audit before displaying each case.
 
 The allowed path is new → triaged → investigating → escalated, with closure from investigating/escalated and a return from escalated to investigating. Closing requires a rationale and one of three explicit verdicts: confirmed within the lab, expected activity or insufficient evidence. Closed cases cannot receive new evidence or be reopened through this small implementation. Notes can add a later clarification without changing the closure verdict.
 
@@ -70,7 +70,7 @@ Each audit payload includes the case ID, sequence, action, actor, rationale, tim
 
 The audit is append-only through the application API. The database owner can still edit the file, delete a tail and rewrite the case, or reseal an entire history. An independently retained export anchor helps detect later divergence. Hashing is relative integrity, not a digital signature or collection authenticity.
 
-Exports use exclusive file creation and a revision-specific ZIP name. They contain case state, audit history, original retained event objects, an analyst report and a file-hash manifest. Fixed ZIP metadata makes identical input content deterministic. A later export cannot silently overwrite the same reviewed revision. EVTX bytes must still be retained separately; the packet's JSON and source references do not reconstruct the acquisition file.
+Exports use a revision-specific ZIP name. In v3.0.1, a complete ZIP is staged and closed before an exclusive hard link publishes it in the destination directory. The filesystem must support hard links. A failed ZIP write leaves no partial final packet. Reload restores a retained download link only after checking its exact file set and every payload against the audited snapshot. They contain case state, audit history, original retained event objects, an analyst report and a file-hash manifest. Fixed ZIP metadata makes identical input content deterministic. A later export cannot silently overwrite the same reviewed revision. EVTX bytes must still be retained separately; the packet's JSON and source references do not reconstruct the acquisition file.
 
 The published example contains only synthetic case-005 evidence. The reproducible script creates the initial four decisions and nine chain anchors. A subsequent browser check attaches Security 4698 record 110, yielding revision 5 and ten anchors. The two exports represent different review stages, not a changed earlier packet.
 
@@ -84,7 +84,7 @@ This protects the intended localhost browser flow from ordinary cross-origin wri
 
 Version 2 rescanned all events for each successful logon and rescanned tasks for each risky process. Version 3 builds identity/time, session and ancestor/task indexes once. Binary search finds the relevant failure window. This reduces repeated unrelated scans while preserving the source-scope, domain, IP, logon type, nonzero GUID and temporal checks.
 
-Six fresh processes compared the released v2 file with v3 on 1,200 constructed auth records and 200 incomplete candidates. All six produced the same result digest. The recorded medians are approximately 1.53 s and 0.046 s. This demonstrates the targeted improvement on an auth-heavy workload; it does not promise that every case is 33 times faster. Large failure windows can still require large output lists, and graph reconstruction remains capped at 100,000 events.
+Six fresh processes compared the released v2 file with v3 on 1,200 constructed auth records and 200 incomplete candidates. All six produced the same result digest. The recorded medians are approximately 1.53 s and 0.046 s. This demonstrates the targeted improvement on an auth-heavy workload; it does not promise that every case is 33 times faster. Large failure windows can still require large output lists. Graph reconstruction is capped at 100,000 events; v3.0.1 enforces this cap while reading, before sorting or materializing an oversized iterable. The fresh 6 October comparison measured 0.332 s versus 0.0137 s (24.2×); see the dated [review](QUALITY_REVIEW.md).
 
 ## Limits and next engineering decisions
 

@@ -5,7 +5,7 @@ import json
 import re
 import time
 from urllib.parse import urlencode, urlparse
-from urllib.request import Request, urlopen
+from urllib.request import Request, build_opener, HTTPRedirectHandler
 from urllib.error import HTTPError, URLError
 
 
@@ -27,19 +27,25 @@ def flatten(event):
     return result
 
 
+class NoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        raise HTTPError(req.full_url, code, "backend redirects are not allowed", headers, fp)
+
+
 class Loki:
     def __init__(self, endpoint="http://127.0.0.1:3100", *, timeout=20):
         url = urlparse(endpoint)
         if url.scheme != "http" or url.hostname not in ("127.0.0.1", "localhost") or url.path not in ("", "/") or url.username or url.password or url.query or url.fragment:
             raise ValueError("Loki endpoint must be a plain localhost HTTP origin")
         self.endpoint, self.timeout = endpoint.rstrip("/"), timeout
+        self.transport = build_opener(NoRedirect())
 
     def request(self, path, payload=None):
         raw = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode() if payload is not None else None
         request = Request(self.endpoint + path, data=raw, headers={"Content-Type":"application/json"})
         for attempt in range(3):
             try:
-                with urlopen(request, timeout=self.timeout) as response:
+                with self.transport.open(request, timeout=self.timeout) as response:
                     body = response.read(16_000_001)
                     if len(body) > 16_000_000:
                         raise ValueError("backend response exceeds 16 MB")

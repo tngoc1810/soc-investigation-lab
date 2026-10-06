@@ -83,12 +83,14 @@ def scoped_events(events, scope):
         raise ValueError("invalid approved SHA-256")
     if len(set(approved)) != len(approved):
         raise ValueError("scenario needs unique approved source hashes")
-    events = sorted(events, key=lambda e: (e["timestamp"], e["source_sha256"], e["source_line"]))
+    from itertools import islice
+    events = list(islice(events, 100_001))
+    if len(events) > 100_000:
+        raise ValueError("investigation graph is limited to 100000 events per scenario")
+    events.sort(key=lambda e: (e["timestamp"], e["source_sha256"], e["source_line"]))
     actual = {e["source_sha256"] for e in events}
     if actual != set(approved):
         raise ValueError("observed sources differ from the explicitly approved scenario")
-    if len(events) > 100_000:
-        raise ValueError("investigation graph is limited to 100000 events per scenario")
     canonical, aliases = {}, {}
     for event in events:
         semantic = {k: event[k] for k in ("timestamp", "host", "provider", "channel", "event_id", "record_id", "event_data")}
@@ -238,7 +240,7 @@ def write_investigation(db, scope_path, output):
     from .store import iter_events
     output = Path(output)
     if output.exists(): raise ValueError("investigation output already exists")
-    result = investigate(list(iter_events(db)), json.loads(Path(scope_path).read_text(encoding="utf-8")))
+    result = investigate(iter_events(db), json.loads(Path(scope_path).read_text(encoding="utf-8")))
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, indent=2, ensure_ascii=False)+"\n", encoding="utf-8", newline="\n")
     return result

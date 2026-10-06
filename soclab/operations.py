@@ -145,19 +145,25 @@ def update_case(path, case_id, *, revision, action, actor, rationale, target=Non
 
 def list_cases(path):
     with closing(connect(path)) as conn:
-        return [_case(conn, row[0]) for row in conn.execute("SELECT id FROM cases ORDER BY created_at DESC")]
+        conn.execute("BEGIN")
+        result = []
+        for row in conn.execute("SELECT id FROM cases ORDER BY created_at DESC"):
+            result.append(_audit(conn, row[0])[-1]["payload"]["snapshot"])
+        return result
 
 
 def get_case(path, case_id):
     with closing(connect(path)) as conn:
+        # All reads must share a snapshot, even if another connection commits.
+        conn.execute("BEGIN")
         case = _case(conn, case_id)
         entries = _audit(conn, case_id)
         return {"case":case, "audit":entries, "anchor_sha256":entries[-1]["sha256"], "integrity":"verified against current local chain; retain export anchor independently"}
 
 
-def export_case(path, case_id, output_dir):
-    result = get_case(path, case_id)
+def _export_files(result):
     case = result["case"]
+    case_id = case["id"]
     files = {"case.json":canonical(case)+b"\n", "audit.json":canonical(result["audit"])+b"\n",
              "evidence.jsonl":b"".join(canonical(record)+b"\n" for record in case["evidence"])}
     lines = [f"# {case['title']}", "", f"Status: {case['status']} | severity: {case['severity']} | revision: {case['revision']}", "",
@@ -170,13 +176,45 @@ def export_case(path, case_id, output_dir):
                 "files":{name:hashlib.sha256(data).hexdigest() for name, data in files.items()},
                 "limitations":["Relative integrity, not a digital signature", "Retained event JSON is an export, not the original EVTX bytes", "Source SHA-256 references require separately retained acquisition files"]}
     files["manifest.json"] = canonical(manifest)+b"\n"
+    return files, manifest
+
+
+def reviewed_export(result, output_dir):
+    case = result["case"]
+    output = Path(output_dir) / f"case-{case['id']}-r{case['revision']}.zip"
+    if not output.exists():
+        return None
+    files, manifest = _export_files(result)
+    try:
+        with zipfile.ZipFile(output) as archive:
+            if sorted(archive.namelist()) != sorted(files):
+                raise ValueError("reviewed export file inventory differs")
+            for name, data in files.items():
+                if archive.read(name) != data:
+                    raise ValueError("reviewed export does not match this audited revision")
+    except zipfile.BadZipFile:
+        raise ValueError("reviewed export is not a complete ZIP") from None
+    return {"file":output.name, "sha256":hashlib.sha256(output.read_bytes()).hexdigest(), "manifest":manifest}
+
+
+def export_case(path, case_id, output_dir):
+    result = get_case(path, case_id)
+    case = result["case"]
+    files, manifest = _export_files(result)
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     output = output_dir / f"case-{case_id}-r{case['revision']}.zip"
     # Exclusive creation prevents a later export from replacing a reviewed bundle.
-    with output.open("xb") as stream, zipfile.ZipFile(stream, "w", compression=zipfile.ZIP_DEFLATED) as archive:
-        for name, data in files.items():
-            info = zipfile.ZipInfo(name, (2026, 1, 1, 0, 0, 0))
-            info.compress_type = zipfile.ZIP_DEFLATED
-            archive.writestr(info, data)
+    import os
+    from tempfile import TemporaryDirectory
+    # Publish only a closed ZIP. A hard link atomically refuses an existing name.
+    # No failed build can leave a partially written final revision behind.
+    with TemporaryDirectory(prefix=".soclab-export-", dir=output_dir) as temporary:
+        staged = Path(temporary) / "bundle.zip"
+        with zipfile.ZipFile(staged, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+            for name, data in files.items():
+                info = zipfile.ZipInfo(name, (2026, 1, 1, 0, 0, 0))
+                info.compress_type = zipfile.ZIP_DEFLATED
+                archive.writestr(info, data)
+        os.link(staged, output)
     return {"file":output.name, "sha256":hashlib.sha256(output.read_bytes()).hexdigest(), "manifest":manifest}

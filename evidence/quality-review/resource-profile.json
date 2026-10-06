@@ -1,0 +1,28 @@
+{
+  "measured_at": "2026-10-06T14:16:43.6794454Z",
+  "processes": [
+    {
+      "Name": "loki-windows-amd64",
+      "Role": "main",
+      "PID": 24956,
+      "WorkingSetMiB": 104.38,
+      "PeakWorkingSetMiB": 125.24
+    },
+    {
+      "Name": "grafana",
+      "Role": "main",
+      "PID": 21924,
+      "WorkingSetMiB": 49.4,
+      "PeakWorkingSetMiB": 222.27
+    },
+    {
+      "Name": "gpx_grafana-loki-datasource_windows_amd64",
+      "Role": "grafana-plugin",
+      "PID": 32204,
+      "WorkingSetMiB": 9.33,
+      "PeakWorkingSetMiB": 24.43
+    }
+  ],
+  "total_working_set_mib": 163.11,
+  "scope": "Current working-set snapshot after replay and browser verification. Includes Loki, Grafana and its managed Loki helper. Excludes browser, OS and other apps; not a peak or memory ceiling."
+}

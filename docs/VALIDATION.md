@@ -1,6 +1,14 @@
 # Validation record â€” 2026-10-04
 
-## Version 3: current local validation
+## Version 3.0.1: adversarial review
+
+Both local Python 3.11.5 and 3.12.11 passed 84 tests. The first six new adversarial tests failed against the unchanged v3.0.0 code (five failures and one error). Nine new tests now cover coherent committed-read snapshots, failed atomic exports, audited board state, restored packet integrity, inventory completeness, channel/provider boundaries, early input caps, malformed HTTP headers and backend redirects.
+
+The fresh Windows replay, graph and operations checks passed: 6,087 primary events, a separate 295-record supplement and 48 hunt executions. Actual pinned Loki responses matched historical counts and evidence pivots. Grafana displayed 5/3/1 for the selected synthetic replay. Reloading and downloading the old reviewed revision-5 packet preserved its exact SHA-256. A native second-component launch failure left no newly owned Loki process. See the [detailed review](QUALITY_REVIEW.md) and [fresh artifacts](../evidence/quality-review/README.md).
+
+The new six-worker comparison produced identical result digests, with medians 0.332 s for released v2 and 0.0137 s for current v3 (about 24.2× on this constructed workload). The earlier benchmark remains a dated observation. Detection evaluation results and their limitations are unchanged.
+
+## Version 3.0.0: historical validation
 
 Python 3.11.5 and 3.12.11 each passed 75 tests. Captured output is in [test-results.txt](../evidence/operations/test-results.txt). Tests include static fragment/decode boundaries, evidence-preserving read-only access, bounded Windows publish retry, stale revisions, illegal closure, unknown evidence, modified audit/tail state, exclusive export checksums and real HTTP cross-origin/CSRF/body-limit handling.
 

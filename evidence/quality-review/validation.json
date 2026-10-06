@@ -1,0 +1,31 @@
+{
+  "reviewed_at": "2026-10-06T14:05:52.484192+00:00",
+  "baseline_commit": "3a5d742837cbe7694e05fd04c2d74509fb33c579",
+  "baseline_version": "3.0.0",
+  "baseline_first_six_regressions": {
+    "tests": 6,
+    "failures": 5,
+    "errors": 1,
+    "scope": "New adversarial tests executed before fixes against the unchanged v3.0.0 implementation; three later integrity/recovery tests were added after that baseline run."
+  },
+  "local_final_runs": [
+    {
+      "python": "Python 3.11.5",
+      "suite": "84 tests in 8.195s",
+      "exit_code": 0
+    },
+    {
+      "python": "Python 3.12.11",
+      "suite": "84 tests in 8.745s",
+      "exit_code": 0
+    }
+  ],
+  "scope": "Regression and adversarial behavior on inert fixtures. No production SOC accuracy claim.",
+  "engine_source_sha256": "f11cfba40c35d6c67a8b4445eb0650b58471326acaafd5a9d057e6e960e2e5e2",
+  "fresh_base_run": "quality-20261006-base",
+  "fresh_graph_run": "quality-20261006-graph",
+  "operations_run": "quality-20261006-operations",
+  "primary_records": 6087,
+  "independent_supplement_records": 295,
+  "hunts_executed": 48
+}
