@@ -4,6 +4,9 @@ This folder records a fresh adversarial review and replay. The [review report](.
 
 | Artifact | Scope |
 | --- | --- |
+| [CI steps](ci-validation.json) | Six successful jobs on tested code commit 7953a84 |
+| [CI backend checks](ci-backend-validation.json) | Downloaded artifact hashes, released transport hash, five collection counts and UID pivots |
+| [CI backend responses](ci-backend-responses.json) | Actual independent runner LogQL responses |
 | [Validation metadata](validation.json) | Six tests before fixes: five failures/one error; final 84-test suites on two local interpreters; fresh collection and hunt counts |
 | [Test output](test-results.txt) | Actual full-suite subprocess output |
 | [Runtime failure](runtime-failure.json) | Real Loki launch followed by an injected Grafana launch failure; owned-process cleanup |

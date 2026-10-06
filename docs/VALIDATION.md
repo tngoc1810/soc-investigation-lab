@@ -8,6 +8,8 @@ The fresh Windows replay, graph and operations checks passed: 6,087 primary even
 
 The new six-worker comparison produced identical result digests, with medians 0.332 s for released v2 and 0.0137 s for current v3 (about 24.2× on this constructed workload). The earlier benchmark remains a dated observation. Detection evaluation results and their limitations are unchanged.
 
+Code commit `7953a845e53229d3a4f447814f3f982a35e9a40e` passed all six jobs in [run 37477812718](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718). Both Windows jobs rebuilt public EVTX, graph and operations outputs; all four matrix jobs ran the 84-test suite and complete evidence inventory check. The separate Sigma and pinned native Loki jobs passed. The downloaded backend artifact was independently checked against the released transport SHA-256, all five collection counts, UID pivots and five replay-now event-type counts. [Step attestations](../evidence/quality-review/ci-validation.json), [artifact checks](../evidence/quality-review/ci-backend-validation.json) and [full independent responses](../evidence/quality-review/ci-backend-responses.json) retain the evidence. The v3.0.1 tag points to that tested code commit; a subsequent documentation commit records these results.
+
 ## Version 3.0.0: historical validation
 
 Python 3.11.5 and 3.12.11 each passed 75 tests. Captured output is in [test-results.txt](../evidence/operations/test-results.txt). Tests include static fragment/decode boundaries, evidence-preserving read-only access, bounded Windows publish retry, stale revisions, illegal closure, unknown evidence, modified audit/tail state, exclusive export checksums and real HTTP cross-origin/CSRF/body-limit handling.

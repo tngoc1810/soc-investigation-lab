@@ -33,6 +33,8 @@ The old synthetic reviewed packet was downloaded through the browser after reloa
 
 The repeated indexing comparison ran three fresh workers per version with 1,200 constructed authentication records and 200 candidates. Every result digest matched. Median released-v2 time was **0.332 s** and current-v3 time **0.0137 s**, approximately **24.2×** on this workload. This is a new dated measurement; the older 33.7× observation remains historical. Neither number is a general performance guarantee.
 
+All six jobs passed in [GitHub run 37477812718](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718) for code commit `7953a845e53229d3a4f447814f3f982a35e9a40e`: the four OS/interpreter combinations, Sigma parsing and independent pinned Loki replay. The downloaded backend artifact also matched the released transport hash and reviewed counts. The [v3.0.1 release](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.1) points to this tested commit.
+
 ## Reproduce the review
 
 Run from a source checkout; the website assets and replay fixtures live in the repository:

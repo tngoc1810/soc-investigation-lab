@@ -2,7 +2,7 @@
 
 A Windows SOC portfolio built around evidence, investigation and analyst decisions. Python and SQLite preserve the source records; a local case workspace records the review; a real Loki backend supports LogQL queries. Native Grafana provides a separate replay dashboard. The core runs without Docker or virtual machines.
 
-[Historical v3.0.0 and its reviewed synthetic packet](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.0) · [v3.0.0 six-job CI: passed](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37216927897)
+[Download v3.0.1](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.1) · [v3.0.1 six-job CI: passed](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718) · [Retained v3.0.0 reviewed packet](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.0)
 
 **Version 3.0.1 — evidence-to-case operations, reviewed under failure.** Five case studies, 13 detection hypotheses, a 20-scenario evaluation corpus, 48 executed hunt queries, PowerShell fragment reconstruction and native AST inspection, a revisioned analyst workflow, immutable evidence exports, and actual localhost Loki validation. This is a portfolio lab, not a commercial SIEM or a production SOC deployment.
 

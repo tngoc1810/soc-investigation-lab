@@ -1,0 +1,304 @@
+{
+  "version": "3.0.1",
+  "verified_at": "2026-10-06T14:19:47.1795430Z",
+  "commit": "7953a845e53229d3a4f447814f3f982a35e9a40e",
+  "run_id": 37477812718,
+  "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718",
+  "conclusion": "success",
+  "local_test_count": 84,
+  "engine_source_sha256": "f11cfba40c35d6c67a8b4445eb0650b58471326acaafd5a9d057e6e960e2e5e2",
+  "jobs": [
+    {
+      "name": "regression (windows-latest, 3.12)",
+      "id": 112317754523,
+      "conclusion": "success",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718/job/112317754523",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run regression tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify published evidence checksums",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run documented demo",
+          "conclusion": "success"
+        },
+        {
+          "name": "Rebuild and verify public EVTX cases on Windows",
+          "conclusion": "success"
+        },
+        {
+          "name": "Evaluate checked-in scenario corpus",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "backend",
+      "id": 112317754617,
+      "conclusion": "success",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718/job/112317754617",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Prepare independent evidence collections",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify pinned native Loki ingestion and actual LogQL responses",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "regression (ubuntu-latest, 3.11)",
+      "id": 112317754730,
+      "conclusion": "success",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718/job/112317754730",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run regression tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify published evidence checksums",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run documented demo",
+          "conclusion": "success"
+        },
+        {
+          "name": "Rebuild and verify public EVTX cases on Windows",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Evaluate checked-in scenario corpus",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "regression (ubuntu-latest, 3.12)",
+      "id": 112317754733,
+      "conclusion": "success",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718/job/112317754733",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run regression tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify published evidence checksums",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run documented demo",
+          "conclusion": "success"
+        },
+        {
+          "name": "Rebuild and verify public EVTX cases on Windows",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Evaluate checked-in scenario corpus",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "sigma",
+      "id": 112317754805,
+      "conclusion": "success",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718/job/112317754805",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install -r requirements-validation.txt",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python scripts/validate_sigma.py",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "regression (windows-latest, 3.11)",
+      "id": 112317754994,
+      "conclusion": "success",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718/job/112317754994",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run regression tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify published evidence checksums",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run documented demo",
+          "conclusion": "success"
+        },
+        {
+          "name": "Rebuild and verify public EVTX cases on Windows",
+          "conclusion": "success"
+        },
+        {
+          "name": "Evaluate checked-in scenario corpus",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}

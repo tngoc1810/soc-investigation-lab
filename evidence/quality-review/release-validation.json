@@ -1,0 +1,9 @@
+{
+  "verified_at": "2026-10-06T14:21:46.445398+00:00",
+  "release_id": 404814603,
+  "url": "https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.1",
+  "tag": "v3.0.1",
+  "tested_code_commit": "7953a845e53229d3a4f447814f3f982a35e9a40e",
+  "passed_ci_run": 37477812718,
+  "scope": "Public maintenance release created after all six jobs succeeded. Prior synthetic reviewed packet remains on v3.0.0 and was downloaded unchanged during this review."
+}

@@ -1,0 +1,27 @@
+{
+  "verified_at": "2026-10-06T14:20:23.238872+00:00",
+  "run_id": 37477812718,
+  "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37477812718",
+  "release_code_commit": "7953a845e53229d3a4f447814f3f982a35e9a40e",
+  "artifact_id": 11419457979,
+  "artifact_name": "actual-loki-responses",
+  "downloaded_zip_sha256": "a6350ad0135fedf341b5716ef068511fe18f0f7c122883ed6f463a192d3c2b02",
+  "response_json_sha256": "308a1fd219279cd3496d629d0d35fa2e5a9654456a4b5fd2b77c3291d2ad5f24",
+  "transport_sha256": "c4c845983e851c7be182f6cae53f000d4629e03393598f38f08a21c9a0a2c058",
+  "historical_counts": {
+    "case-001": 8,
+    "case-002": 3561,
+    "case-003": 3,
+    "case-004": 4,
+    "case-005": 2511
+  },
+  "dashboard_counts": {
+    "4625": 5,
+    "4624": 1,
+    "1": 3,
+    "3": 1,
+    "4698": 1
+  },
+  "all_five_uid_pivots_checked": true,
+  "scope": "Downloaded independent CI artifact; full responses retained separately. Query results and transport hash checked against the released code."
+}
