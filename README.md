@@ -15,7 +15,9 @@ python -m http.server 8767 --bind 127.0.0.1 --directory output/network/my-networ
 
 Open `http://127.0.0.1:8767/constructed-report/index.html` and the adjacent public reports. The fixture builds inert bytes without network traffic. Never join independent public captures to Windows incidents or present the three new heuristics as validated production detection accuracy.
 
-[Download v4.0.0 and reviewed packets](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v4.0.0) · [v4 six-job CI: passed](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37486773710) · [Retained v3.0.0 reviewed packet](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.0)
+[Download v5.0.0 and network exercises](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v5.0.0) · [v5 seven-job CI: passed](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37617174984) · [Retained v4 reviewed packets](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v4.0.0)
+
+All four Windows/Linux Python 3.11/3.12 CI jobs passed 127 regression tests. Separate Sigma, native Loki and independent packet-decoding jobs also passed. Downloaded CI artifacts matched their GitHub digests and tested source hashes; the release exercise ZIP was downloaded again and matched its local hash. The [validation record](docs/VALIDATION.md) links the executed responses, the initial downloader failure and its repair.
 
 **Version 4 — an operational path alongside the casebook.** Incremental Windows polling, content deduplication, a transactional checkpoint/outbox, leases and backoff, retained dead letters, scheduled detections across batches, alert assignment and closure, complete review packets, verified snapshot/restore and aggregate metrics. This is a working single-host pilot with explicit deployment limits.
 
@@ -51,6 +53,9 @@ The earlier investigation work remains: five independent cases, thirteen offline
 | Skill | Concrete work | Evidence |
 | --- | --- | --- |
 | Log engineering | Pinned EVTX acquisition, native export, atomic ingest, source and record anchors | [Replay validation](evidence/portfolio-validation.json) |
+| Packet investigation | Original PCAP offsets/frame hashes, reordered TCP reconstruction, DNS associations, HTTP framing and TLS SNI | [Two public protocol samples](cases/006-public-network/report.md) |
+| Evidence correlation | Exact approved source hashes, protocol/tuple/time candidates and retained ProcessGuid ambiguity | [Endpoint ambiguity case](cases/007-network-context/report.md) |
+| Business triage | Capture-bound asset ownership/criticality; proposed response with approval, impact, rollback and verification | [Network design and limits](docs/ENGINEERING_V5.md) |
 | Backend investigation | 6,087 historical records counted on Loki; exact UID pivots; eleven synthetic records replayed for the dashboard | [Actual API responses](evidence/operations/backend-validation.json) |
 | Threat hunting | Eight hypotheses executed across five cases and an independent credential supplement | [Hunt notebook](docs/HUNT_NOTEBOOK.md) and [results](evidence/operations/hunts.json) |
 | Windows forensics | Session/process GUID joins; complete/gapped/conflicting 4104 reconstruction; bounded Base64 decoding; parse-only native AST | [Forensics case study](docs/POWERSHELL_FORENSICS.md) |

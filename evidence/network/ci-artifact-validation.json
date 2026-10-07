@@ -1,0 +1,40 @@
+{
+  "version": "5.0.0",
+  "verified_at": "2026-10-07T11:56:55.836868+00:00",
+  "run_id": 37617174984,
+  "code_commit": "0032c43420d97e6bb71177aaebb76e1e89f0427d",
+  "artifacts": [
+    {
+      "id": 11480986365,
+      "name": "independent-network-validation",
+      "downloaded_zip_sha256": "aa95250d5fc40397cf18b03e4f1a1db49ef0bf98e7d39215c4d68137168c8062",
+      "github_digest_verified": true,
+      "exact_inventory_verified": true
+    },
+    {
+      "id": 11479847572,
+      "name": "actual-loki-responses",
+      "downloaded_zip_sha256": "93f83a177d7fa21e9547f0236311c6abd38bead59388c3579beb2a789b3fe5e0",
+      "github_digest_verified": true,
+      "exact_inventory_verified": true
+    }
+  ],
+  "source_hashes_match_tested_git_blobs": true,
+  "public_capture_hashes_and_expected_counts_verified": true,
+  "independent_public_packet_tuples": 81,
+  "independent_public_dns_messages": 40,
+  "independent_complete_http_requests": 2,
+  "constructed_checksums": 17,
+  "two_endpoint_candidates_retained": true,
+  "historical_counts": {
+    "case-001": 8,
+    "case-002": 3561,
+    "case-003": 3,
+    "case-004": 4,
+    "case-005": 2511
+  },
+  "actual_loki_unique_live_uids": 19,
+  "fresh_process_pending": 19,
+  "scope": "Downloaded CI artifacts, exact inventories and GitHub ZIP digests verified. Full selected protocol and actual Loki responses retained adjacent. No network malicious/benign accuracy benchmark.",
+  "all_five_uid_queries_and_source_line_identities_checked_against_local_rebuild": true
+}

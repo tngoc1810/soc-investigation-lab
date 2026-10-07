@@ -7,9 +7,16 @@ The v5 extension combines offline packet analysis, exact source-approved endpoin
 | [Network validation](validation.json) | Two pinned public captures plus 17 inert constructed packets; TCP reordering/retransmission; three review leads; two endpoint candidates retained; original-frame extraction; independent dpkt checks |
 | [Test validation](test-validation.json) | Interpreter versions, full regression counts and source hashes |
 | [Test output](test-results.txt) | Full Python 3.11/3.12 suites, including 27 new network regressions |
+| [Fresh capture downloads](download-validation.json) | Exact official HTTPS Wiki-to-GitLab upload redirects, size/hash verification and the repaired initial CI failure |
 | [Browser validation](browser-validation.json) | Actual local browser filtering, connection inspection, business-context/ambiguity inspection and packet-anchor selection |
 | [Live regression](live-regression.json) | Fresh HTTP 503/fresh-process queue check and actual pinned Loki recovery of all 19 synthetic UIDs |
 | [Legacy regression](legacy-validation.json) | Fresh EVTX, graph, 48 hunts, static AST and analyst case/export checks |
+| [CI steps](ci-validation.json) | Seven passing jobs; downloaded logs confirm 127 tests in each Windows/Linux matrix job |
+| [Downloaded artifact checks](ci-artifact-validation.json) | GitHub ZIP digests, exact inventories, tested Git source hashes, selected protocol fields and actual Loki results |
+| [CI network response](ci-network-responses.json) | Independent decoding of both pinned public captures and the constructed exercise |
+| [CI historical Loki response](ci-backend-responses.json) | Five historical counts/UID pivots and eleven dashboard records |
+| [CI operational Loki response](ci-live-responses.json) | Nineteen unique UIDs after actual HTTP outage and fresh-process recovery |
+| [Release verification](release-validation.json) | Tested tag target, uploaded/downloaded exercise ZIP and internal 21-file manifest |
 
 ## Genuine browser captures
 

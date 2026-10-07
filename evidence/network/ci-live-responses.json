@@ -1,0 +1,391 @@
+{
+  "version": "5.0.0",
+  "validated_at": "2026-10-07T11:54:35.487606+00:00",
+  "run_id": "ci-live-backend",
+  "workspace": "output/live/ci-live-backend",
+  "batches": [
+    {
+      "accepted": 5,
+      "duplicates": 0,
+      "already_imported": false,
+      "source_sha256": "a1bdb592d5a06f4c6d6698b29a36e6802f02e11c4e29806d93648ad8f6bf1b5e"
+    },
+    {
+      "accepted": 14,
+      "duplicates": 0,
+      "already_imported": false,
+      "source_sha256": "47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e"
+    }
+  ],
+  "events": 19,
+  "overlap_duplicates": 1,
+  "new_alerts": 8,
+  "authentication_anchors": 6,
+  "outage": {
+    "method": "Actual localhost HTTP 503 server",
+    "pending_after_failure": 19,
+    "fresh_process_confirmed_pending": 19
+  },
+  "recovery": {
+    "sent": 19,
+    "exact_persisted_payload_and_timestamp_preserved": true,
+    "destination": "actual local Loki"
+  },
+  "snapshot": {
+    "file": "ci-live-backend-snapshot.zip",
+    "files": 5,
+    "sha256": "d3a3bff3c308d93c1297cb23d849291bbdb4f66a669fce5e6a68644865d70c4f"
+  },
+  "restore": {
+    "restored_files": 5,
+    "events": 19,
+    "note": "In-flight delivery leases expire normally; uncertain acceptance remains at-least-once."
+  },
+  "case": {
+    "case_id": "dd842d74d93a513392891994280353a7",
+    "already_linked": false
+  },
+  "packet": {
+    "file": "alert-189250080949610369d2ba2cb38b90b996d4b0333115c3bcf352deacfe740215-r5-case-dd842d74d93a513392891994280353a7-r1.zip",
+    "sha256": "032576740d27141d583c415156073c3fb62aed4d7b3138f0a3d346bf72c7f403",
+    "manifest": {
+      "format": "soclab-live-review-v1",
+      "alert_anchor": "e9cfa81da345a6f1f3b01a2997d9da45be087e5089a8c033f141c91ab1c9701d",
+      "case_anchor": "25019bdbbb64fc3ab39623d0e03217b8058d5c579d636a26b18204a9889b5554",
+      "files": {
+        "case.json": "69a36c13ee21b4b397fd013aa27cf72666a841f764ff05a708947f58995b0279",
+        "audit.json": "dfef86b6af9f2d47b2a5e6ad25e876f35829760bf510cf984d94bfde08549237",
+        "evidence.jsonl": "f2ca1e8e871c550edc063179009e7731539fd1d6428b16cd1be7ef26131b40a0",
+        "report.md": "a649d0ad6660c96c0d29f03f864ec6387c9a528a4d26cd5b1fb7fee8b37cab90",
+        "case-manifest.json": "d2b37b2c3ff5faa4cc322fdb03823dc090a246c3ae17a27b7a9d83de67b2cff7",
+        "alert.json": "50d720fcee50c5bd28aa5c78eb1a76b58c8089822a841f0e8cec30803cfa2adc",
+        "alert-audit.json": "905ae3105e2583e57f7141b6086b058ce670862193a106bb69e678de9d893408"
+      },
+      "scope": "Independent alert and case snapshots; relative integrity, self-declared actors, no digital signature"
+    }
+  },
+  "alert_anchor": "e9cfa81da345a6f1f3b01a2997d9da45be087e5089a8c033f141c91ab1c9701d",
+  "backend": {
+    "version": {
+      "version": "3.7.8",
+      "revision": "09e6ce2f",
+      "branch": "release-3.7.x",
+      "buildUser": "root@a72310b1e091",
+      "buildDate": "2026-09-17T13:46:13Z",
+      "goVersion": ""
+    },
+    "query": "{job=\"soclab_live\",scope=\"demo-ci-live-backend\",kind=\"synthetic\"}",
+    "start_ns": 1791374072488444416,
+    "end_ns": 1791374074489457352,
+    "observed": 19,
+    "all_19_uids_match": true,
+    "response": {
+      "status": "success",
+      "data": {
+        "resultType": "streams",
+        "result": [
+          {
+            "stream": {
+              "job": "soclab_live",
+              "kind": "synthetic",
+              "scope": "demo-ci-live-backend",
+              "service_name": "soclab_live"
+            },
+            "values": [
+              [
+                "1791374073488444416",
+                "{\"channel\":\"Security\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"IpAddress\":\"192.0.2.25\",\"LogonType\":\"3\",\"Status\":\"0xc000006d\",\"SubStatus\":\"0xc000006a\",\"TargetDomainName\":\"LAB\",\"TargetUserName\":\"analyst.lab\"},\"event_id\":4625,\"event_uid\":\"10ba5de47c943f29d76c732c3fadd162faabf8436201cab565574d5cb274b8aa\",\"host\":\"WS-LAB-01\",\"image\":\"\",\"ip\":\"192.0.2.25\",\"logon_type\":\"3\",\"original_timestamp\":\"2026-10-07T11:51:58.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"received_at\":\"2026-10-07T11:54:33.488444+00:00\",\"record_id\":1004,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":5,\"source_sha256\":\"a1bdb592d5a06f4c6d6698b29a36e6802f02e11c4e29806d93648ad8f6bf1b5e\",\"target_user\":\"analyst.lab\",\"user\":\"\"}"
+              ],
+              [
+                "1791374073488445416",
+                "{\"channel\":\"Security\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"IpAddress\":\"192.0.2.25\",\"LogonType\":\"3\",\"Status\":\"0xc000006d\",\"SubStatus\":\"0xc000006a\",\"TargetDomainName\":\"LAB\",\"TargetUserName\":\"analyst.lab\"},\"event_id\":4625,\"event_uid\":\"d966e24846a9d656f749b13bd088b75cb2dff1e47314f479814b4b0a8b02b743\",\"host\":\"WS-LAB-01\",\"image\":\"\",\"ip\":\"192.0.2.25\",\"logon_type\":\"3\",\"original_timestamp\":\"2026-10-07T11:51:38.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"received_at\":\"2026-10-07T11:54:33.488444+00:00\",\"record_id\":1003,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":4,\"source_sha256\":\"a1bdb592d5a06f4c6d6698b29a36e6802f02e11c4e29806d93648ad8f6bf1b5e\",\"target_user\":\"analyst.lab\",\"user\":\"\"}"
+              ],
+              [
+                "1791374073488446416",
+                "{\"channel\":\"Security\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"IpAddress\":\"192.0.2.25\",\"LogonType\":\"3\",\"Status\":\"0xc000006d\",\"SubStatus\":\"0xc000006a\",\"TargetDomainName\":\"LAB\",\"TargetUserName\":\"analyst.lab\"},\"event_id\":4625,\"event_uid\":\"9a365656bf5f116e86d01cecec4ca7928580091ef049679e4be59361a17d0356\",\"host\":\"WS-LAB-01\",\"image\":\"\",\"ip\":\"192.0.2.25\",\"logon_type\":\"3\",\"original_timestamp\":\"2026-10-07T11:51:18.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"received_at\":\"2026-10-07T11:54:33.488444+00:00\",\"record_id\":1002,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":3,\"source_sha256\":\"a1bdb592d5a06f4c6d6698b29a36e6802f02e11c4e29806d93648ad8f6bf1b5e\",\"target_user\":\"analyst.lab\",\"user\":\"\"}"
+              ],
+              [
+                "1791374073488447416",
+                "{\"channel\":\"Security\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"IpAddress\":\"192.0.2.25\",\"LogonType\":\"3\",\"Status\":\"0xc000006d\",\"SubStatus\":\"0xc000006a\",\"TargetDomainName\":\"LAB\",\"TargetUserName\":\"analyst.lab\"},\"event_id\":4625,\"event_uid\":\"b83a44f0ac8b1eb3447ac27c0ec5a11cb887508988a1e6fb5f454c08e3ccba1c\",\"host\":\"WS-LAB-01\",\"image\":\"\",\"ip\":\"192.0.2.25\",\"logon_type\":\"3\",\"original_timestamp\":\"2026-10-07T11:50:58.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"received_at\":\"2026-10-07T11:54:33.488444+00:00\",\"record_id\":1001,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":2,\"source_sha256\":\"a1bdb592d5a06f4c6d6698b29a36e6802f02e11c4e29806d93648ad8f6bf1b5e\",\"target_user\":\"analyst.lab\",\"user\":\"\"}"
+              ],
+              [
+                "1791374073488448416",
+                "{\"channel\":\"Security\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"IpAddress\":\"192.0.2.25\",\"LogonType\":\"3\",\"Status\":\"0xc000006d\",\"SubStatus\":\"0xc000006a\",\"TargetDomainName\":\"LAB\",\"TargetUserName\":\"analyst.lab\"},\"event_id\":4625,\"event_uid\":\"5bab4fc9db94f59a1bc91473d91a42251ae4b2a097273415b4ed9b86b05d39e0\",\"host\":\"WS-LAB-01\",\"image\":\"\",\"ip\":\"192.0.2.25\",\"logon_type\":\"3\",\"original_timestamp\":\"2026-10-07T11:50:38.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"received_at\":\"2026-10-07T11:54:33.488444+00:00\",\"record_id\":1000,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":1,\"source_sha256\":\"a1bdb592d5a06f4c6d6698b29a36e6802f02e11c4e29806d93648ad8f6bf1b5e\",\"target_user\":\"analyst.lab\",\"user\":\"\"}"
+              ],
+              [
+                "1791374073489444352",
+                "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"Details\":\"C:\\\\Lab\\\\app.exe\",\"TargetObject\":\"HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run\\\\LabApp\"},\"event_id\":13,\"event_uid\":\"21e8f4f573afd0911f359cb9127e78b6a6c8b123abb1f5aab3efaecbf98147bb\",\"host\":\"WS-LAB-01\",\"image\":\"\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:54:28.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Sysmon\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1018,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":14,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"\"}"
+              ],
+              [
+                "1791374073489445352",
+                "{\"channel\":\"Security\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"SubjectUserName\":\"admin.lab\",\"TaskContent\":\"<Task><Actions><Exec><Command>C:\\\\Lab\\\\backup.exe</Command></Exec></Actions></Task>\",\"TaskName\":\"\\\\Lab\\\\Backup\"},\"event_id\":4698,\"event_uid\":\"6bbdbb66b2651d9fd5d47c54c45f11f6d5f8ffec7f689a5075b0115d77e91ce3\",\"host\":\"WS-LAB-01\",\"image\":\"\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:54:18.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1017,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":13,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"\"}"
+              ],
+              [
+                "1791374073489446352",
+                "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"collection_kind\":\"synthetic\",\"command_line\":\"powershell.exe -NoProfile -File C:\\\\Lab\\\\inventory.ps1\",\"destination_ip\":\"\",\"event_data\":{\"CommandLine\":\"powershell.exe -NoProfile -File C:\\\\Lab\\\\inventory.ps1\",\"Image\":\"C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"ParentImage\":\"C:\\\\Windows\\\\explorer.exe\",\"ParentProcessGuid\":\"{DEMO-PARENT}\",\"ProcessGuid\":\"{DEMO-INVENTORY}\",\"User\":\"LAB\\\\analyst.lab\"},\"event_id\":1,\"event_uid\":\"5af01fc620029e0459404d3c83d806edd4eac6f970ac7fb75fa98ecbce8919c0\",\"host\":\"WS-LAB-01\",\"image\":\"C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:54:08.488444Z\",\"parent_guid\":\"{DEMO-PARENT}\",\"process_guid\":\"{DEMO-INVENTORY}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1016,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":12,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"LAB\\\\analyst.lab\"}"
+              ],
+              [
+                "1791374073489447352",
+                "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"collection_kind\":\"synthetic\",\"command_line\":\"powershell.exe -ExecutionPolicy Bypass -File C:\\\\Lab\\\\backup.ps1\",\"destination_ip\":\"\",\"event_data\":{\"CommandLine\":\"powershell.exe -ExecutionPolicy Bypass -File C:\\\\Lab\\\\backup.ps1\",\"Image\":\"C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"ParentImage\":\"C:\\\\Windows\\\\explorer.exe\",\"ParentProcessGuid\":\"{DEMO-PARENT}\",\"ProcessGuid\":\"{DEMO-BACKUP}\",\"User\":\"LAB\\\\analyst.lab\"},\"event_id\":1,\"event_uid\":\"f483eb0d0030712357b1014fadc355001d52211bc7acad05df41b85a02b0fb07\",\"host\":\"WS-LAB-01\",\"image\":\"C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:53:58.488444Z\",\"parent_guid\":\"{DEMO-PARENT}\",\"process_guid\":\"{DEMO-BACKUP}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1015,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":11,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"LAB\\\\analyst.lab\"}"
+              ],
+              [
+                "1791374073489448352",
+                "{\"channel\":\"Security\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"SubjectDomainName\":\"LAB\",\"SubjectUserName\":\"analyst.lab\"},\"event_id\":1102,\"event_uid\":\"f55d83f60e3dff6dc0d9fb0f2e2ba295ffe3f938f2f787a4683b4f4dcfd161ed\",\"host\":\"WS-LAB-01\",\"image\":\"\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:53:48.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Eventlog\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1014,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":10,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"\"}"
+              ],
+              [
+                "1791374073489449352",
+                "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"Details\":\"powershell.exe -File C:\\\\Lab\\\\review.ps1\",\"Image\":\"C:\\\\Windows\\\\System32\\\\reg.exe\",\"ProcessGuid\":\"{DEMO-REG}\",\"TargetObject\":\"HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run\\\\LabReview\"},\"event_id\":13,\"event_uid\":\"f517872efabc7a00fc1498929c4b2521117fe08782195423c16344a41df16e49\",\"host\":\"WS-LAB-01\",\"image\":\"C:\\\\Windows\\\\System32\\\\reg.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:53:38.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"{DEMO-REG}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1013,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":9,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"\"}"
+              ],
+              [
+                "1791374073489450352",
+                "{\"channel\":\"Security\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"SubjectUserName\":\"analyst.lab\",\"TaskContent\":\"<Task><Actions><Exec><Command>powershell.exe</Command><Arguments>-File C:\\\\Lab\\\\review.ps1</Arguments></Exec></Actions></Task>\",\"TaskName\":\"\\\\Lab\\\\ReviewTask\"},\"event_id\":4698,\"event_uid\":\"b87b2a8b19eeb43646ccb7a6c3e0ffdea686d164678a7afe2b3cc0894ac9dee3\",\"host\":\"WS-LAB-01\",\"image\":\"\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:53:28.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1012,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":8,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"\"}"
+              ],
+              [
+                "1791374073489451352",
+                "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"collection_kind\":\"synthetic\",\"command_line\":\"mshta.exe https://example.invalid/lab.hta\",\"destination_ip\":\"\",\"event_data\":{\"CommandLine\":\"mshta.exe https://example.invalid/lab.hta\",\"Image\":\"C:\\\\Windows\\\\System32\\\\mshta.exe\",\"ParentImage\":\"C:\\\\Windows\\\\explorer.exe\",\"ParentProcessGuid\":\"{DEMO-PARENT}\",\"ProcessGuid\":\"{DEMO-HTA}\",\"User\":\"LAB\\\\analyst.lab\"},\"event_id\":1,\"event_uid\":\"cef0a14adee4f243f8671e25b4775a695d1a17a1e6b02c45e581749726674c81\",\"host\":\"WS-LAB-01\",\"image\":\"C:\\\\Windows\\\\System32\\\\mshta.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:53:18.488444Z\",\"parent_guid\":\"{DEMO-PARENT}\",\"process_guid\":\"{DEMO-HTA}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1011,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":7,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"LAB\\\\analyst.lab\"}"
+              ],
+              [
+                "1791374073489452352",
+                "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"collection_kind\":\"synthetic\",\"command_line\":\"certutil.exe -decode C:\\\\Lab\\\\input.txt C:\\\\Lab\\\\output.txt\",\"destination_ip\":\"\",\"event_data\":{\"CommandLine\":\"certutil.exe -decode C:\\\\Lab\\\\input.txt C:\\\\Lab\\\\output.txt\",\"Image\":\"C:\\\\Windows\\\\System32\\\\certutil.exe\",\"ParentImage\":\"C:\\\\Windows\\\\explorer.exe\",\"ParentProcessGuid\":\"{DEMO-PARENT}\",\"ProcessGuid\":\"{DEMO-CERT}\",\"User\":\"LAB\\\\analyst.lab\"},\"event_id\":1,\"event_uid\":\"8963058ba7c1227b098422f1b3ffe66ff5521fe3fa31780e8c6de3bc181ba2bf\",\"host\":\"WS-LAB-01\",\"image\":\"C:\\\\Windows\\\\System32\\\\certutil.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:53:08.488444Z\",\"parent_guid\":\"{DEMO-PARENT}\",\"process_guid\":\"{DEMO-CERT}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1010,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":6,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"LAB\\\\analyst.lab\"}"
+              ],
+              [
+                "1791374073489453352",
+                "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"192.0.2.50\",\"event_data\":{\"DestinationIp\":\"192.0.2.50\",\"DestinationPort\":\"8080\",\"Image\":\"C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"ProcessGuid\":\"{DEMO-PS}\",\"Protocol\":\"tcp\"},\"event_id\":3,\"event_uid\":\"7138f9100f09fab5f8dc6aac5aeb0967f1c2dd092850365069a19f2f09c6533d\",\"host\":\"WS-LAB-01\",\"image\":\"C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:52:58.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"{DEMO-PS}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1009,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":5,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"\"}"
+              ],
+              [
+                "1791374073489454352",
+                "{\"channel\":\"Microsoft-Windows-PowerShell/Operational\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"ScriptBlockId\":\"demo-script\",\"ScriptBlockText\":\"Write-Output 'lab'\"},\"event_id\":4104,\"event_uid\":\"660035eea3222a0c946953ffe647f775e6cb6f73b4485676236171880bbcf9cf\",\"host\":\"WS-LAB-01\",\"image\":\"\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:52:49.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-PowerShell\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1008,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"Write-Output 'lab'\",\"source_line\":4,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"\"}"
+              ],
+              [
+                "1791374073489455352",
+                "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"collection_kind\":\"synthetic\",\"command_line\":\"powershell.exe -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAGwAYQBiACcA\",\"destination_ip\":\"\",\"event_data\":{\"CommandLine\":\"powershell.exe -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAnAGwAYQBiACcA\",\"Image\":\"C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"ParentImage\":\"C:\\\\Windows\\\\explorer.exe\",\"ParentProcessGuid\":\"{DEMO-PARENT}\",\"ProcessGuid\":\"{DEMO-PS}\",\"User\":\"LAB\\\\analyst.lab\"},\"event_id\":1,\"event_uid\":\"0e711d6f8adc11040cee30b650dbe047ffdef90395c098401ca8f1828b1ab836\",\"host\":\"WS-LAB-01\",\"image\":\"C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:52:48.488444Z\",\"parent_guid\":\"{DEMO-PARENT}\",\"process_guid\":\"{DEMO-PS}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1007,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":3,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"LAB\\\\analyst.lab\"}"
+              ],
+              [
+                "1791374073489456352",
+                "{\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"collection_kind\":\"synthetic\",\"command_line\":\"explorer.exe\",\"destination_ip\":\"\",\"event_data\":{\"CommandLine\":\"explorer.exe\",\"Image\":\"C:\\\\Windows\\\\explorer.exe\",\"ParentImage\":\"C:\\\\Windows\\\\explorer.exe\",\"ParentProcessGuid\":\"{OUTSIDE-CAPTURE}\",\"ProcessGuid\":\"{DEMO-PARENT}\",\"User\":\"LAB\\\\analyst.lab\"},\"event_id\":1,\"event_uid\":\"3e8144b997ca590378c140ad4c5272a7bbeb440d4242bf403c20067962fada14\",\"host\":\"WS-LAB-01\",\"image\":\"C:\\\\Windows\\\\explorer.exe\",\"ip\":\"\",\"logon_type\":\"\",\"original_timestamp\":\"2026-10-07T11:52:38.488444Z\",\"parent_guid\":\"{OUTSIDE-CAPTURE}\",\"process_guid\":\"{DEMO-PARENT}\",\"provider\":\"Microsoft-Windows-Sysmon\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1006,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":2,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"\",\"user\":\"LAB\\\\analyst.lab\"}"
+              ],
+              [
+                "1791374073489457352",
+                "{\"channel\":\"Security\",\"collection_kind\":\"synthetic\",\"command_line\":\"\",\"destination_ip\":\"\",\"event_data\":{\"IpAddress\":\"192.0.2.25\",\"LogonType\":\"3\",\"TargetDomainName\":\"LAB\",\"TargetUserName\":\"analyst.lab\"},\"event_id\":4624,\"event_uid\":\"f4efc6b414adc73be417ad189114006744f22f9347393db5a36fc39d5bdb491e\",\"host\":\"WS-LAB-01\",\"image\":\"\",\"ip\":\"192.0.2.25\",\"logon_type\":\"3\",\"original_timestamp\":\"2026-10-07T11:52:28.488444Z\",\"parent_guid\":\"\",\"process_guid\":\"\",\"provider\":\"Microsoft-Windows-Security-Auditing\",\"received_at\":\"2026-10-07T11:54:33.489444+00:00\",\"record_id\":1005,\"scope\":\"demo-ci-live-backend\",\"script_block\":\"\",\"source_line\":1,\"source_sha256\":\"47dace630e601440f73289dfddd753a33c2abc3d9f63e029f40d230efc978c3e\",\"target_user\":\"analyst.lab\",\"user\":\"\"}"
+              ]
+            ]
+          }
+        ],
+        "stats": {
+          "summary": {
+            "bytesProcessedPerSecond": 8493584,
+            "linesProcessedPerSecond": 9411,
+            "totalBytesProcessed": 17146,
+            "totalLinesProcessed": 19,
+            "execTime": 0.002019,
+            "queueTime": 0,
+            "subqueries": 0,
+            "totalEntriesReturned": 19,
+            "splits": 0,
+            "shards": 0,
+            "totalPostFilterLines": 19,
+            "totalStructuredMetadataBytesProcessed": 190
+          },
+          "querier": {
+            "store": {
+              "totalChunksRef": 1,
+              "totalChunksDownloaded": 1,
+              "chunksDownloadTime": 0,
+              "queryReferencedStructuredMetadata": false,
+              "queryUsedV2Engine": false,
+              "chunk": {
+                "headChunkBytes": 0,
+                "headChunkLines": 0,
+                "decompressedBytes": 17146,
+                "decompressedLines": 19,
+                "compressedBytes": 2765,
+                "totalDuplicates": 0,
+                "postFilterLines": 19,
+                "headChunkStructuredMetadataBytes": 0,
+                "decompressedStructuredMetadataBytes": 190
+              },
+              "chunkRefsFetchTime": 0,
+              "congestionControlLatency": 0,
+              "pipelineWrapperFilteredLines": 0,
+              "dataobj": {
+                "prePredicateDecompressedRows": 0,
+                "prePredicateDecompressedBytes": 0,
+                "prePredicateDecompressedStructuredMetadataBytes": 0,
+                "postPredicateRows": 0,
+                "postPredicateDecompressedBytes": 0,
+                "postPredicateStructuredMetadataBytes": 0,
+                "postFilterRows": 0,
+                "pagesScanned": 0,
+                "pagesDownloaded": 0,
+                "pagesDownloadedBytes": 0,
+                "pageBatches": 0,
+                "totalRowsAvailable": 0,
+                "totalPageDownloadTime": 0
+              }
+            },
+            "querierExecTime": 0.000572
+          },
+          "ingester": {
+            "totalReached": 1,
+            "totalChunksMatched": 0,
+            "totalBatches": 1,
+            "totalLinesSent": 0,
+            "store": {
+              "totalChunksRef": 0,
+              "totalChunksDownloaded": 0,
+              "chunksDownloadTime": 0,
+              "queryReferencedStructuredMetadata": false,
+              "queryUsedV2Engine": false,
+              "chunk": {
+                "headChunkBytes": 0,
+                "headChunkLines": 0,
+                "decompressedBytes": 0,
+                "decompressedLines": 0,
+                "compressedBytes": 0,
+                "totalDuplicates": 0,
+                "postFilterLines": 0,
+                "headChunkStructuredMetadataBytes": 0,
+                "decompressedStructuredMetadataBytes": 0
+              },
+              "chunkRefsFetchTime": 0,
+              "congestionControlLatency": 0,
+              "pipelineWrapperFilteredLines": 0,
+              "dataobj": {
+                "prePredicateDecompressedRows": 0,
+                "prePredicateDecompressedBytes": 0,
+                "prePredicateDecompressedStructuredMetadataBytes": 0,
+                "postPredicateRows": 0,
+                "postPredicateDecompressedBytes": 0,
+                "postPredicateStructuredMetadataBytes": 0,
+                "postFilterRows": 0,
+                "pagesScanned": 0,
+                "pagesDownloaded": 0,
+                "pagesDownloadedBytes": 0,
+                "pageBatches": 0,
+                "totalRowsAvailable": 0,
+                "totalPageDownloadTime": 0
+              }
+            },
+            "recvWaitTime": 0.000572
+          },
+          "cache": {
+            "chunk": {
+              "entriesFound": 1,
+              "entriesRequested": 1,
+              "entriesStored": 0,
+              "bytesReceived": 3131,
+              "bytesSent": 0,
+              "requests": 2,
+              "downloadTime": 0,
+              "queryLengthServed": 0
+            },
+            "index": {
+              "entriesFound": 0,
+              "entriesRequested": 0,
+              "entriesStored": 0,
+              "bytesReceived": 0,
+              "bytesSent": 0,
+              "requests": 0,
+              "downloadTime": 0,
+              "queryLengthServed": 0
+            },
+            "result": {
+              "entriesFound": 0,
+              "entriesRequested": 0,
+              "entriesStored": 0,
+              "bytesReceived": 0,
+              "bytesSent": 0,
+              "requests": 0,
+              "downloadTime": 0,
+              "queryLengthServed": 0
+            },
+            "statsResult": {
+              "entriesFound": 0,
+              "entriesRequested": 0,
+              "entriesStored": 0,
+              "bytesReceived": 0,
+              "bytesSent": 0,
+              "requests": 0,
+              "downloadTime": 0,
+              "queryLengthServed": 0
+            },
+            "volumeResult": {
+              "entriesFound": 0,
+              "entriesRequested": 0,
+              "entriesStored": 0,
+              "bytesReceived": 0,
+              "bytesSent": 0,
+              "requests": 0,
+              "downloadTime": 0,
+              "queryLengthServed": 0
+            },
+            "seriesResult": {
+              "entriesFound": 0,
+              "entriesRequested": 0,
+              "entriesStored": 0,
+              "bytesReceived": 0,
+              "bytesSent": 0,
+              "requests": 0,
+              "downloadTime": 0,
+              "queryLengthServed": 0
+            },
+            "labelResult": {
+              "entriesFound": 0,
+              "entriesRequested": 0,
+              "entriesStored": 0,
+              "bytesReceived": 0,
+              "bytesSent": 0,
+              "requests": 0,
+              "downloadTime": 0,
+              "queryLengthServed": 0
+            },
+            "instantMetricResult": {
+              "entriesFound": 0,
+              "entriesRequested": 0,
+              "entriesStored": 0,
+              "bytesReceived": 0,
+              "bytesSent": 0,
+              "requests": 0,
+              "downloadTime": 0,
+              "queryLengthServed": 0
+            }
+          },
+          "index": {
+            "totalChunks": 0,
+            "postFilterChunks": 0,
+            "shardsDuration": 0,
+            "usedBloomFilters": false,
+            "totalStreams": 0,
+            "chunkRefsLookupTime": 0,
+            "bloomFilterTime": 0
+          }
+        }
+      }
+    }
+  },
+  "source_hashes": {
+    "cli.py": "a4dcf1ec850e53d10f8f795ff65ccbedfdd6184b1a101113c7a0605d52e8314c",
+    "collector.py": "06eb8c75be26e14ba70cebb8292b55780e1ea689de931e14bc1aa2359e9442ac",
+    "context.py": "d8b286d8a0f6a1e461b4673518b6a61004c07abb0b21e38742d7cfc76affad92",
+    "corpus.py": "3e97a5810c2883b23ea11c9cd8ab66036eeaba875ad0f3ccbbc60d666e922fc9",
+    "correlation.py": "221e06a5422a3056fed6ed0b9000752ecf1bfeefdb3920df0c669acd2c61cc07",
+    "detections.py": "83c688c997780813c2c4af171c2d658a3ebef5dfe330b8d28938aee1e61e76c9",
+    "events.py": "fde2f3ba2bd805c4924856808101fd36d89c02b068682bd5e2eaf998b06f4754",
+    "forensics.py": "4599ba7e9dee3b5f1e066b2a178ee769719d32e0abad93bf49b50a08b963b2c5",
+    "hunting.py": "fe01b8444e54c3d566409b3a9e5e3f6867ef3ba634fc3a0aa7047f1221820b15",
+    "investigation.py": "98b8d0f3ff39518afca988c69c253dc9e1fda31b64c40a95d34e03412f7567b5",
+    "live.py": "eef13e7a4ac8a03f9ba6bb764271dce6871deb0732418db225b58be2b2936507",
+    "liveweb.py": "f058a5fb31fa970ac38bdb4254151fb9ddd637d71e0b31dd762ce4d08251be75",
+    "loki.py": "c4c845983e851c7be182f6cae53f000d4629e03393598f38f08a21c9a0a2c058",
+    "network.py": "c270f4baa7137fa3f864fe718f5f22febcc4b545c8bb7f7bfb9527a0d16ab6a1",
+    "network_report.py": "4c629e50cf3d44d9422544b8719b43f1394fc86866e890b9cc5a24a57746e59f",
+    "operations.py": "f3bbfbf09e44c603554c9fa509e7bec198dfac3a32138bf5a7ebbe187de5fb78",
+    "query.py": "278cf0b623db8b866f49aa0211424a1ad997b31ce195f22194a3b4e391ea3dab",
+    "report.py": "f6ef5ca0ae3561bcd904a8123158c36a9949aa36c37f2d480130ed5bb0bb0995",
+    "store.py": "9b29155b72fe392f0d8ec5fd5d485d599f964293b3490b48534b297ca8974ad9",
+    "webapp.py": "dd0ba1da8212e7625f7bcf0420eaa225edde848064d313576bc426854dd17669",
+    "__init__.py": "d92f6aed55843fc6385bc967fa7892714122c6838ba3fd487607116e991ebede",
+    "__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d"
+  },
+  "scope": "Constructed data and a simulated HTTP outage. Actual backend results only when --backend is present. No attack commands, private telemetry or containment actions."
+}

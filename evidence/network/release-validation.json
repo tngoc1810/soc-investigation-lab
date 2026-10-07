@@ -1,0 +1,23 @@
+{
+  "version": "5.0.0",
+  "verified_at": "2026-10-07T11:57:51.613477+00:00",
+  "release_id": 405710174,
+  "url": "https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v5.0.0",
+  "tag": "v5.0.0",
+  "code_commit": "0032c43420d97e6bb71177aaebb76e1e89f0427d",
+  "tag_target_verified": true,
+  "draft": false,
+  "prerelease": false,
+  "assets": [
+    {
+      "name": "soc-network-exercises-v5.0.0.zip",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/releases/download/v5.0.0/soc-network-exercises-v5.0.0.zip",
+      "size": 83591,
+      "sha256": "0100e91335609a304035fdb137f169915d1453ccc1734ab3f78f8c15f0131688",
+      "github_asset_digest_verified": true,
+      "download_verified": true,
+      "internal_manifest_and_21_file_inventory_verified": true
+    }
+  ],
+  "scope": "Derived public protocol reports and original inert constructed bytes. No private telemetry or original third-party PCAPs. Release tag points to the seven-job tested code; later evidence/documentation attestation commits may follow."
+}
