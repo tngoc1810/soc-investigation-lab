@@ -92,9 +92,29 @@ def main(argv=None) -> int:
     p.add_argument('--seconds',type=int,default=0,help='0: one cycle; otherwise run for at most this many seconds')
     p.add_argument('--interval',type=int,default=10)
     p.add_argument('--port',type=int,default=8766)
+    p = sub.add_parser('network', help='Inspect bounded offline IPv4 PCAP evidence and response readiness')
+    p.add_argument('--capture', type=Path, required=True)
+    p.add_argument('--out', type=Path, required=True)
+    p.add_argument('--endpoint-db', type=Path)
+    p.add_argument('--scope', type=Path, help='Approve exact PCAP and endpoint source hashes before candidate joins')
+    p.add_argument('--context', type=Path, help='Declared business context bound to the capture SHA-256')
+    p.add_argument('--packet', type=int, help='Extract one original frame into a fresh JSON file instead of a bundle')
+    p.add_argument('--source-sha256', help='Approved source hash required for original-frame extraction')
     args = parser.parse_args(argv)
     try:
-        if args.command == 'live':
+        if args.command == 'network':
+            from .network import write_bundle, extract_packet
+            if args.packet is not None:
+                if not args.source_sha256: raise ValueError('--source-sha256 is required for packet extraction')
+                result = extract_packet(args.capture, args.packet, args.source_sha256)
+                args.out.parent.mkdir(parents=True, exist_ok=True)
+                with args.out.open('x', encoding='utf-8', newline='\n') as stream:
+                    stream.write(json.dumps(result, indent=2) + '\n')
+                print(f'Extracted packet {args.packet} with verified source/frame hashes.')
+            else:
+                result = write_bundle(args.capture, args.out, endpoint_db=args.endpoint_db, scope_path=args.scope, context_path=args.context)
+                print(json.dumps({'source': result['source'], 'summary': result['summary'], 'review_leads': len(result['leads']), 'verdict': result['readiness']['verdict']}, indent=2))
+        elif args.command == 'live':
             from . import live
             if args.action=='init':
                 with live.connect(args.workspace) as conn: result={'initialized':True,'workspace':str(args.workspace)}

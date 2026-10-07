@@ -2,6 +2,19 @@
 
 A Windows SOC operations pilot built around collection, durable delivery, explainable detection and analyst decisions. Python and SQLite preserve original records and checkpoints; a local console supports assigned alerts, review targets, audited case linkage and recovery. Optional native Loki/Grafana provide real backend queries. The core runs without Docker or virtual machines, with the default mutable Windows workspace outside OneDrive.
 
+**Version 5 adds network evidence and business-context triage.** A bounded PCAP analyzer reconstructs TCP directions, inspects DNS/HTTP/TLS metadata, preserves original-frame references and proposes endpoint candidates only under exact source approval. Asset criticality can change review priority; response proposals explicitly include authority, impact, rollback and verification. Two pinned public Wireshark captures and a constructed backup/monitoring counterexample keep observations separate from malicious-intent claims.
+
+![Network assessment over an explicitly constructed exercise](evidence/network/screenshots/01-network-assessment.jpg)
+
+Read the [v5 design](docs/ENGINEERING_V5.md), [network runbook](docs/RUNBOOK_V5.md), [executed evidence](evidence/network/README.md) and [ten practical lessons in Vietnamese](docs/NETWORK_WORKBOOK_VI.md). The [public HTTP/DNS study](cases/006-public-network/report.md) and [ambiguous endpoint/business-context study](cases/007-network-context/report.md) add packet-level investigation alongside the retained five Windows cases. The core remains dependency-free; `dpkt` is an optional independent validation tool.
+
+```powershell
+python scripts/validate_network.py --public --run-id my-network-demo --out output/my-network-demo-validation.json
+python -m http.server 8767 --bind 127.0.0.1 --directory output/network/my-network-demo
+```
+
+Open `http://127.0.0.1:8767/constructed-report/index.html` and the adjacent public reports. The fixture builds inert bytes without network traffic. Never join independent public captures to Windows incidents or present the three new heuristics as validated production detection accuracy.
+
 [Download v4.0.0 and reviewed packets](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v4.0.0) · [v4 six-job CI: passed](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37486773710) · [Retained v3.0.0 reviewed packet](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v3.0.0)
 
 **Version 4 — an operational path alongside the casebook.** Incremental Windows polling, content deduplication, a transactional checkpoint/outbox, leases and backoff, retained dead letters, scheduled detections across batches, alert assignment and closure, complete review packets, verified snapshot/restore and aggregate metrics. This is a working single-host pilot with explicit deployment limits.

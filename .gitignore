@@ -8,6 +8,9 @@ output/
 *.sqlite
 *.sqlite3
 *.evtx
+*.pcap
+*.pcapng
+*.cap
 *.zip
 .env
 .env.*

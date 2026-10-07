@@ -102,7 +102,8 @@ def main():
         found={json.loads(v[1])['event_uid'] for v in values};assert found==set(persisted)
         backend={'version':client.request('/loki/api/v1/status/buildinfo'),'query':expression,'start_ns':begin,'end_ns':finish,'observed':len(values),'all_19_uids_match':True,'response':response}
     hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'soclab').glob('*.py')}
-    record={'version':'4.0.0','validated_at':datetime.now(timezone.utc).isoformat(),'run_id':args.run_id,'workspace':workspace.relative_to(ROOT).as_posix(),
+    from soclab import __version__
+    record={'version':__version__,'validated_at':datetime.now(timezone.utc).isoformat(),'run_id':args.run_id,'workspace':workspace.relative_to(ROOT).as_posix(),
             'batches':batches,'events':19,'overlap_duplicates':1,'new_alerts':8,'authentication_anchors':6,
             'outage':{'method':'Actual localhost HTTP 503 server','pending_after_failure':19,'fresh_process_confirmed_pending':19},
             'recovery':{'sent':19,'exact_persisted_payload_and_timestamp_preserved':True,'destination':'actual local Loki' if args.backend else 'in-process acceptance test double'},

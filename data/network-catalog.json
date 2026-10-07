@@ -1,0 +1,22 @@
+{
+  "http": {
+    "url": "https://wiki.wireshark.org/uploads/27707187aeb30df68e70c8fb9d614981/http.cap",
+    "filename": "http.cap",
+    "bytes": 25803,
+    "sha256": "25a72bdf10339f2c29916920c8b9501d294923108de8f29b19aba7cc001ab60d",
+    "expected": {"packets": 43, "flows": 3, "dns_messages": 2, "http_requests": 2},
+    "origin": "Wireshark SampleCaptures HTTP sample",
+    "kind": "public historical protocol sample; no malicious intent label",
+    "license_note": "Capture bytes are downloaded locally and not redistributed. Consult Wireshark sample attribution/terms. Metadata alone does not establish acquisition authenticity."
+  },
+  "dns": {
+    "url": "https://wiki.wireshark.org/uploads/__moin_import__/attachments/SampleCaptures/dns.cap",
+    "filename": "dns.cap",
+    "bytes": 4338,
+    "sha256": "041eeb6f98bb398f1ee8b09651b5b5a84f6a62639f95bf226f9e7b77355d9f28",
+    "expected": {"packets": 38, "flows": 8, "dns_messages": 38, "http_requests": 0},
+    "origin": "Wireshark SampleCaptures DNS sample",
+    "kind": "public historical protocol sample; independent from HTTP and Windows samples",
+    "license_note": "Capture bytes are downloaded locally and not redistributed. Consult Wireshark sample attribution/terms."
+  }
+}

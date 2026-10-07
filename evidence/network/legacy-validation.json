@@ -1,0 +1,22 @@
+{
+  "version": "5.0.0",
+  "validated_at": "2026-10-07T11:41:29.083168+00:00",
+  "engine_source_sha256": "48eaa078592ffbeb4f70e8d8e7780a27e26484a8183f62f6f6935c69d1786837",
+  "executed": [
+    "reproduce.ps1 v5-final-base",
+    "verify_portfolio.py",
+    "build_advanced.py v5-final-graph",
+    "verify_advanced.py",
+    "build_operations.py v5-final-operations",
+    "inspect_ast.ps1 parse-only",
+    "verify_operations.py"
+  ],
+  "primary_events": 6087,
+  "independent_supplement": 295,
+  "hunt_executions": 48,
+  "complete_fragment_groups": 1,
+  "public_ast_command_nodes": 0,
+  "public_ast_member_nodes": 0,
+  "public_ast_errors": 0,
+  "result": "All completed successfully; held-out graph/baseline outcomes unchanged."
+}

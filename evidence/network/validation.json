@@ -1,0 +1,221 @@
+{
+  "version": "5.0.0",
+  "validated_at": "2026-10-07T11:38:36.569007+00:00",
+  "run_id": "v5-release",
+  "constructed": {
+    "source": {
+      "filename": "constructed.pcap",
+      "sha256": "bb7e387cad0a20a94cc49a1b2f77ddbf704182864375569e43481070ca2b0719",
+      "bytes": 4147,
+      "link_type": 1
+    },
+    "summary": {
+      "packets": 17,
+      "flows": 9,
+      "dns_messages": 4,
+      "http_requests": 1,
+      "tls_client_hellos": 1
+    },
+    "expectations": {
+      "capture_sha256": "bb7e387cad0a20a94cc49a1b2f77ddbf704182864375569e43481070ca2b0719",
+      "packet_count": 17,
+      "request_body_sha256": "530cbebb7b1c96db599a5d898b10b72e8bd5a2694ea5b8224dd5c3328b3ebea4",
+      "request_body_bytes": 2480,
+      "request_sha256": "a013a93e7ca31a5a39d798cdb06287d0e668509a01a423c7f21745705398e4b1",
+      "long_name": "abcdefghijklmnopqrstuvwxyz0123456789abcdefghij.telemetry.example"
+    },
+    "lead_counts": {
+      "NET-001": 1,
+      "NET-002": 1,
+      "NET-003": 1
+    },
+    "dns_connection_candidates": 4,
+    "two_endpoint_candidates_retained": true,
+    "verdict": "unassessed",
+    "original_frame_extraction_verified": true,
+    "report": "output/network/v5-release/constructed-report"
+  },
+  "public_samples": [
+    {
+      "name": "http",
+      "source": {
+        "filename": "http.cap",
+        "sha256": "25a72bdf10339f2c29916920c8b9501d294923108de8f29b19aba7cc001ab60d",
+        "bytes": 25803,
+        "link_type": 1
+      },
+      "summary": {
+        "packets": 43,
+        "flows": 3,
+        "dns_messages": 2,
+        "http_requests": 2,
+        "tls_client_hellos": 0
+      },
+      "diagnostics": [],
+      "requests": [
+        {
+          "method": "GET",
+          "target": "/download.html",
+          "host": "www.ethereal.com",
+          "content_type": "",
+          "declared_body_bytes": 0,
+          "body_complete": true,
+          "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "transfer_encoding": "",
+          "stream_offset": 0,
+          "note": "Declared length is not proof of server acceptance or exfiltration.",
+          "direction": [
+            "145.254.160.237",
+            3372,
+            "65.208.228.223",
+            80
+          ],
+          "packets": [
+            4
+          ]
+        },
+        {
+          "method": "GET",
+          "target": "/pagead/ads?client=ca-pub-2309191948673629&random=1084443430285&lmt=1082467020&format=468x60_as&output=html&url=http%3A%2F%2Fwww.ethereal.com%2Fdownload.html&color_bg=FFFFFF&color_text=333333&color_link=000000&color_url=666633&color_border=666633",
+          "host": "pagead2.googlesyndication.com",
+          "content_type": "",
+          "declared_body_bytes": 0,
+          "body_complete": true,
+          "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "transfer_encoding": "",
+          "stream_offset": 0,
+          "note": "Declared length is not proof of server acceptance or exfiltration.",
+          "direction": [
+            "145.254.160.237",
+            3371,
+            "216.239.59.99",
+            80
+          ],
+          "packets": [
+            18
+          ]
+        }
+      ],
+      "dns_question_count": 2,
+      "scope": "public historical protocol sample; no malicious intent label"
+    },
+    {
+      "name": "dns",
+      "source": {
+        "filename": "dns.cap",
+        "sha256": "041eeb6f98bb398f1ee8b09651b5b5a84f6a62639f95bf226f9e7b77355d9f28",
+        "bytes": 4338,
+        "link_type": 1
+      },
+      "summary": {
+        "packets": 38,
+        "flows": 8,
+        "dns_messages": 38,
+        "http_requests": 0,
+        "tls_client_hellos": 0
+      },
+      "diagnostics": [],
+      "requests": [],
+      "dns_question_count": 38,
+      "scope": "public historical protocol sample; independent from HTTP and Windows samples"
+    }
+  ],
+  "independent_checks": {
+    "constructed": {
+      "validator": "dpkt",
+      "version": "1.9.8",
+      "packet_tuples_checked": 17,
+      "dns_messages_checked": 4,
+      "complete_single_packet_requests_checked": [
+        {
+          "packet_number": 7,
+          "method": "POST",
+          "target": "/backup",
+          "host": "backup.example"
+        },
+        {
+          "packet_number": 8,
+          "method": "POST",
+          "target": "/backup",
+          "host": "backup.example"
+        }
+      ],
+      "constructed_ipv4_transport_checksums_checked": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "scope": "Independent decoding of selected tuples/DNS and complete single-packet HTTP requests; not full parser equivalence or production accuracy."
+    },
+    "http": {
+      "validator": "dpkt",
+      "version": "1.9.8",
+      "packet_tuples_checked": 43,
+      "dns_messages_checked": 2,
+      "complete_single_packet_requests_checked": [
+        {
+          "packet_number": 4,
+          "method": "GET",
+          "target": "/download.html",
+          "host": "www.ethereal.com"
+        },
+        {
+          "packet_number": 18,
+          "method": "GET",
+          "target": "/pagead/ads?client=ca-pub-2309191948673629&random=1084443430285&lmt=1082467020&format=468x60_as&output=html&url=http%3A%2F%2Fwww.ethereal.com%2Fdownload.html&color_bg=FFFFFF&color_text=333333&color_link=000000&color_url=666633&color_border=666633",
+          "host": "pagead2.googlesyndication.com"
+        }
+      ],
+      "constructed_ipv4_transport_checksums_checked": [],
+      "scope": "Independent decoding of selected tuples/DNS and complete single-packet HTTP requests; not full parser equivalence or production accuracy."
+    },
+    "dns": {
+      "validator": "dpkt",
+      "version": "1.9.8",
+      "packet_tuples_checked": 38,
+      "dns_messages_checked": 38,
+      "complete_single_packet_requests_checked": [],
+      "constructed_ipv4_transport_checksums_checked": [],
+      "scope": "Independent decoding of selected tuples/DNS and complete single-packet HTTP requests; not full parser equivalence or production accuracy."
+    }
+  },
+  "source_hashes": {
+    "__init__.py": "d92f6aed55843fc6385bc967fa7892714122c6838ba3fd487607116e991ebede",
+    "__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "cli.py": "a4dcf1ec850e53d10f8f795ff65ccbedfdd6184b1a101113c7a0605d52e8314c",
+    "collector.py": "06eb8c75be26e14ba70cebb8292b55780e1ea689de931e14bc1aa2359e9442ac",
+    "context.py": "d8b286d8a0f6a1e461b4673518b6a61004c07abb0b21e38742d7cfc76affad92",
+    "corpus.py": "3e97a5810c2883b23ea11c9cd8ab66036eeaba875ad0f3ccbbc60d666e922fc9",
+    "correlation.py": "221e06a5422a3056fed6ed0b9000752ecf1bfeefdb3920df0c669acd2c61cc07",
+    "detections.py": "83c688c997780813c2c4af171c2d658a3ebef5dfe330b8d28938aee1e61e76c9",
+    "events.py": "fde2f3ba2bd805c4924856808101fd36d89c02b068682bd5e2eaf998b06f4754",
+    "forensics.py": "4599ba7e9dee3b5f1e066b2a178ee769719d32e0abad93bf49b50a08b963b2c5",
+    "hunting.py": "fe01b8444e54c3d566409b3a9e5e3f6867ef3ba634fc3a0aa7047f1221820b15",
+    "investigation.py": "98b8d0f3ff39518afca988c69c253dc9e1fda31b64c40a95d34e03412f7567b5",
+    "live.py": "eef13e7a4ac8a03f9ba6bb764271dce6871deb0732418db225b58be2b2936507",
+    "liveweb.py": "f058a5fb31fa970ac38bdb4254151fb9ddd637d71e0b31dd762ce4d08251be75",
+    "loki.py": "c4c845983e851c7be182f6cae53f000d4629e03393598f38f08a21c9a0a2c058",
+    "network.py": "c270f4baa7137fa3f864fe718f5f22febcc4b545c8bb7f7bfb9527a0d16ab6a1",
+    "network_report.py": "4c629e50cf3d44d9422544b8719b43f1394fc86866e890b9cc5a24a57746e59f",
+    "operations.py": "f3bbfbf09e44c603554c9fa509e7bec198dfac3a32138bf5a7ebbe187de5fb78",
+    "query.py": "278cf0b623db8b866f49aa0211424a1ad997b31ce195f22194a3b4e391ea3dab",
+    "report.py": "f6ef5ca0ae3561bcd904a8123158c36a9949aa36c37f2d480130ed5bb0bb0995",
+    "store.py": "9b29155b72fe392f0d8ec5fd5d485d599f964293b3490b48534b297ca8974ad9",
+    "webapp.py": "dd0ba1da8212e7625f7bcf0420eaa225edde848064d313576bc426854dd17669"
+  },
+  "scope": "Public protocol captures and inert constructed bytes; no real compromise, packet capture, payload execution, remote IOC contact or containment."
+}

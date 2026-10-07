@@ -38,6 +38,23 @@ jobs:
         run: python -m soclab evaluate --out output/evaluation.json
       - name: Verify operational outage, restart, case export and snapshot recovery
         run: python scripts/validate_live.py --run-id ci-live --out output/live-validation.json
+      - name: Verify packet evidence and ambiguous endpoint candidates
+        run: python scripts/validate_network.py --run-id ci-network --out output/network-validation.json
+  network:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install independent packet decoder
+        run: python -m pip install --require-hashes -r requirements-network-validation.txt
+      - name: Validate pinned public captures with independent decoding
+        run: python scripts/validate_network.py --public --independent --run-id ci-network-public --out output/network-public-validation.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: independent-network-validation
+          path: output/network-public-validation.json
   sigma:
     runs-on: ubuntu-latest
     steps:
