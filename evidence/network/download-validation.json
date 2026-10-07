@@ -1,0 +1,24 @@
+{
+  "validated_at": "2026-10-07T11:53:00.681760+00:00",
+  "fresh_downloads": [
+    {
+      "name": "http",
+      "original_url": "https://wiki.wireshark.org/uploads/27707187aeb30df68e70c8fb9d614981/http.cap",
+      "approved_redirect_url": "https://gitlab.com/wireshark/wireshark/-/wikis/uploads/27707187aeb30df68e70c8fb9d614981/http.cap",
+      "bytes": 25803,
+      "sha256": "25a72bdf10339f2c29916920c8b9501d294923108de8f29b19aba7cc001ab60d"
+    },
+    {
+      "name": "dns",
+      "original_url": "https://wiki.wireshark.org/uploads/__moin_import__/attachments/SampleCaptures/dns.cap",
+      "approved_redirect_url": "https://gitlab.com/wireshark/wireshark/-/wikis/uploads/__moin_import__/attachments/SampleCaptures/dns.cap",
+      "bytes": 4338,
+      "sha256": "041eeb6f98bb398f1ee8b09651b5b5a84f6a62639f95bf226f9e7b77355d9f28"
+    }
+  ],
+  "initial_ci_failure": {
+    "run_id": 37616256937,
+    "reason": "Downloader rejected the official Wiki redirect to the Wireshark GitLab wiki upload path; the six other jobs passed.",
+    "resolution": "Allow only the exact corresponding official HTTPS upload URL at every redirect and retain exact size/hash checks; two regression tests cover redirect and content/cache rejection."
+  }
+}

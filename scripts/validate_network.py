@@ -12,7 +12,7 @@ import socket
 import struct
 import sys
 from urllib.parse import urlparse
-from urllib.request import urlopen
+from urllib.request import HTTPRedirectHandler, build_opener
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -22,14 +22,37 @@ from soclab.network import analyze_capture, digest, extract_packet, write_bundle
 from soclab.store import ingest
 
 
-def fetch(spec):
-    folder = ROOT / 'data/raw/network'; folder.mkdir(parents=True, exist_ok=True)
+def approved_capture_url(spec, url):
+    source = spec['url']
+    parsed = urlparse(source)
+    if (parsed.scheme != 'https' or parsed.netloc != 'wiki.wireshark.org'
+            or not parsed.path.startswith('/uploads/') or parsed.query or parsed.fragment):
+        raise ValueError('unexpected capture source')
+    canonical = 'https://gitlab.com/wireshark/wireshark/-/wikis' + parsed.path
+    if spec.get('redirect_url') != canonical:
+        raise ValueError('catalog redirect does not match the official upload path')
+    return url in (source, canonical)
+
+
+class CatalogRedirect(HTTPRedirectHandler):
+    def __init__(self, spec): self.spec = spec
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        if not approved_capture_url(self.spec, newurl):
+            raise ValueError('unexpected capture redirect')
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+def fetch(spec, folder=None):
+    if not approved_capture_url(spec, spec['url']): raise ValueError('unexpected capture source')
+    if Path(spec['filename']).name != spec['filename']: raise ValueError('invalid capture filename')
+    folder = folder if folder is not None else ROOT / 'data/raw/network'
+    folder.mkdir(parents=True, exist_ok=True)
     path = folder / spec['filename']
     if path.exists(): raw = path.read_bytes()
     else:
-        if urlparse(spec['url']).netloc != 'wiki.wireshark.org': raise ValueError('unexpected capture source')
-        with urlopen(spec['url'], timeout=30) as response:
-            if urlparse(response.geturl()).netloc != 'wiki.wireshark.org': raise ValueError('unexpected capture redirect')
+        with build_opener(CatalogRedirect(spec)).open(spec['url'], timeout=30) as response:
+            if not approved_capture_url(spec, response.geturl()): raise ValueError('unexpected capture redirect')
             raw = response.read(spec['bytes'] + 1)
         if len(raw) != spec['bytes'] or digest(raw) != spec['sha256']: raise ValueError('downloaded capture differs from catalog')
         with path.open('xb') as stream: stream.write(raw)

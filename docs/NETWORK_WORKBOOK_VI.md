@@ -58,7 +58,7 @@ Nộp: ticket kỹ thuật và một đoạn tóm tắt cho người quản lý 
 
 ## 10. Failure paths và reproducibility
 
-Giải thích test DNS pointer loop, duplicate Content-Length, stale/incorrect source scope, TCP conflicting bytes, HTML injection và failed publication. So sánh parser của dự án với dpkt: fields nào đã đối chiếu, phần nào chưa? Vì sao 125 tests pass vẫn chưa chứng minh production accuracy hoặc sức chịu tải?
+Giải thích test DNS pointer loop, duplicate Content-Length, stale/incorrect source scope, TCP conflicting bytes, HTML injection và failed publication. So sánh parser của dự án với dpkt: fields nào đã đối chiếu, phần nào chưa? Vì sao 127 tests pass vẫn chưa chứng minh production accuracy hoặc sức chịu tải?
 
 Nộp: run ID, Git commit, manifest, test output và một lỗi phân tích bạn tự tìm được. Ghi learning log bằng lời của mình ở `learning/LOG.md`; mẫu bài tập này không xác nhận bạn đã hoàn thành.
 

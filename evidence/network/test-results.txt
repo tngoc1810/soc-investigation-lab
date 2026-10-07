@@ -68,6 +68,8 @@ test_context_document_size_and_duplicate_keys_are_rejected (test_network.Network
 test_context_priority_requires_capture_bound_ownership_and_never_closes (test_network.NetworkTests.test_context_priority_requires_capture_bound_ownership_and_never_closes) ... ok
 test_dns_pointer_cycle_truncated_records_and_name_bounds (test_network.NetworkTests.test_dns_pointer_cycle_truncated_records_and_name_bounds) ... ok
 test_dns_txid_collision_keeps_question_and_retransmission_ambiguity (test_network.NetworkTests.test_dns_txid_collision_keeps_question_and_retransmission_ambiguity) ... ok
+test_download_checks_content_before_publishing_and_rechecks_cache (test_network.NetworkTests.test_download_checks_content_before_publishing_and_rechecks_cache) ... ok
+test_download_redirect_allows_only_exact_official_upload_path (test_network.NetworkTests.test_download_redirect_allows_only_exact_official_upload_path) ... ok
 test_endpoint_exact_scope_protocol_and_ambiguity (test_network.NetworkTests.test_endpoint_exact_scope_protocol_and_ambiguity) ... ok
 test_endpoint_protocol_and_clock_mismatch_do_not_join (test_network.NetworkTests.test_endpoint_protocol_and_clock_mismatch_do_not_join) ... ok
 test_failed_render_never_publishes_partial_bundle (test_network.NetworkTests.test_failed_render_never_publishes_partial_bundle) ... ok
@@ -126,7 +128,7 @@ test_reviewed_download_can_be_restored_but_modified_content_is_rejected (test_qu
 test_wrong_channels_cannot_supply_windows_hunt_evidence (test_quality_review.QualityReviewTests.test_wrong_channels_cannot_supply_windows_hunt_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 125 tests in 19.131s
+Ran 127 tests in 14.408s
 
 OK
 
@@ -200,6 +202,8 @@ test_context_document_size_and_duplicate_keys_are_rejected (test_network.Network
 test_context_priority_requires_capture_bound_ownership_and_never_closes (test_network.NetworkTests.test_context_priority_requires_capture_bound_ownership_and_never_closes) ... ok
 test_dns_pointer_cycle_truncated_records_and_name_bounds (test_network.NetworkTests.test_dns_pointer_cycle_truncated_records_and_name_bounds) ... ok
 test_dns_txid_collision_keeps_question_and_retransmission_ambiguity (test_network.NetworkTests.test_dns_txid_collision_keeps_question_and_retransmission_ambiguity) ... ok
+test_download_checks_content_before_publishing_and_rechecks_cache (test_network.NetworkTests.test_download_checks_content_before_publishing_and_rechecks_cache) ... ok
+test_download_redirect_allows_only_exact_official_upload_path (test_network.NetworkTests.test_download_redirect_allows_only_exact_official_upload_path) ... ok
 test_endpoint_exact_scope_protocol_and_ambiguity (test_network.NetworkTests.test_endpoint_exact_scope_protocol_and_ambiguity) ... ok
 test_endpoint_protocol_and_clock_mismatch_do_not_join (test_network.NetworkTests.test_endpoint_protocol_and_clock_mismatch_do_not_join) ... ok
 test_failed_render_never_publishes_partial_bundle (test_network.NetworkTests.test_failed_render_never_publishes_partial_bundle) ... ok
@@ -258,6 +262,6 @@ test_reviewed_download_can_be_restored_but_modified_content_is_rejected (test_qu
 test_wrong_channels_cannot_supply_windows_hunt_evidence (test_quality_review.QualityReviewTests.test_wrong_channels_cannot_supply_windows_hunt_evidence) ... ok
 
 ----------------------------------------------------------------------
-Ran 125 tests in 19.956s
+Ran 127 tests in 18.740s
 
 OK

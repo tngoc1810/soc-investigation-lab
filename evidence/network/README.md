@@ -6,7 +6,7 @@ The v5 extension combines offline packet analysis, exact source-approved endpoin
 | --- | --- |
 | [Network validation](validation.json) | Two pinned public captures plus 17 inert constructed packets; TCP reordering/retransmission; three review leads; two endpoint candidates retained; original-frame extraction; independent dpkt checks |
 | [Test validation](test-validation.json) | Interpreter versions, full regression counts and source hashes |
-| [Test output](test-results.txt) | Full Python 3.11/3.12 suites, including 25 new network regressions |
+| [Test output](test-results.txt) | Full Python 3.11/3.12 suites, including 27 new network regressions |
 | [Browser validation](browser-validation.json) | Actual local browser filtering, connection inspection, business-context/ambiguity inspection and packet-anchor selection |
 | [Live regression](live-regression.json) | Fresh HTTP 503/fresh-process queue check and actual pinned Loki recovery of all 19 synthetic UIDs |
 | [Legacy regression](legacy-validation.json) | Fresh EVTX, graph, 48 hunts, static AST and analyst case/export checks |

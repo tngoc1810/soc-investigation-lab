@@ -2,14 +2,17 @@
 
 import copy
 import hashlib
+import io
 import json
 from pathlib import Path
 import struct
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
+from urllib.request import Request
 
 from scripts.network_fixtures import BASE, CLIENT, SERVER, RESOLVER, build, dns_wire, frame, pcap, tcp, tls_hello, udp
+from scripts.validate_network import approved_capture_url, CatalogRedirect, fetch
 from soclab.network import analyze_capture, dns_name, endpoint_pivots, extract_packet, parse_dns, parse_http, parse_tls, read_document, reassemble, write_bundle
 from soclab.network_report import readiness, render_html
 from soclab.store import ingest
@@ -23,6 +26,38 @@ class NetworkTests(unittest.TestCase):
 
     def capture_bytes(self, records, **settings):
         path = self.root / 'experiment.pcap'; path.write_bytes(pcap(records, **settings)); return path
+
+    def test_download_redirect_allows_only_exact_official_upload_path(self):
+        spec = json.loads(Path('data/network-catalog.json').read_text())['http']
+        self.assertTrue(approved_capture_url(spec, spec['url']))
+        self.assertTrue(approved_capture_url(spec, spec['redirect_url']))
+        handler = CatalogRedirect(spec); request = Request(spec['url'])
+        self.assertEqual(handler.redirect_request(request, None, 302, '', {}, spec['redirect_url']).full_url, spec['redirect_url'])
+        for url in ('http://gitlab.com/wireshark/wireshark/-/wikis/uploads/http.cap',
+                    spec['redirect_url'] + '?next=evil', spec['redirect_url'] + '#fragment',
+                    spec['redirect_url'].replace('/wireshark/wireshark/', '/attacker/project/'),
+                    'https://wiki.wireshark.org/other.cap', 'https://gitlab.com.evil.test/capture'):
+            with self.subTest(url=url):
+                self.assertFalse(approved_capture_url(spec, url))
+                with self.assertRaises(ValueError): handler.redirect_request(request, None, 302, '', {}, url)
+        with self.assertRaises(ValueError): approved_capture_url({**spec, 'redirect_url': 'https://gitlab.com/other'}, spec['url'])
+
+    def test_download_checks_content_before_publishing_and_rechecks_cache(self):
+        spec = json.loads(Path('data/network-catalog.json').read_text())['http']
+        raw = b'inert'; spec = {**spec, 'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest()}
+        folder = self.root / 'download'; opener = MagicMock()
+        def response(data, url):
+            stream = io.BytesIO(data); stream.geturl = lambda: url
+            return stream
+        with patch('scripts.validate_network.build_opener', return_value=opener):
+            for data, url in ((b'wrong', spec['redirect_url']), (raw + b'extra', spec['redirect_url']), (raw, 'https://evil.test/')):
+                opener.open.return_value = response(data, url)
+                with self.assertRaises(ValueError): fetch(spec, folder)
+                self.assertFalse((folder / spec['filename']).exists())
+            opener.open.return_value = response(raw, spec['redirect_url'])
+            path = fetch(spec, folder); self.assertEqual(path.read_bytes(), raw)
+            path.write_bytes(b'wrong')
+            with self.assertRaises(ValueError): fetch(spec, folder)
 
     def test_constructed_backup_alerts_without_malicious_verdict_and_retains_retransmission(self):
         result = analyze_capture(self.capture)

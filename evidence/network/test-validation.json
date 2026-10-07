@@ -1,20 +1,20 @@
 {
   "version": "5.0.0",
-  "validated_at": "2026-10-07T11:41:29.079655+00:00",
+  "validated_at": "2026-10-07T11:53:00.570307+00:00",
   "engine_source_sha256": "48eaa078592ffbeb4f70e8d8e7780a27e26484a8183f62f6f6935c69d1786837",
   "results": [
     {
       "python": "3.11.5",
-      "suite": "Ran 125 tests in 19.131s",
+      "suite": "Ran 127 tests in 14.408s",
       "exit_code": 0
     },
     {
       "python": "3.12.14",
-      "suite": "Ran 125 tests in 19.956s",
+      "suite": "Ran 127 tests in 18.740s",
       "exit_code": 0
     }
   ],
-  "new_network_tests": 25,
+  "new_network_tests": 27,
   "source_hashes": {
     "__init__.py": "d92f6aed55843fc6385bc967fa7892714122c6838ba3fd487607116e991ebede",
     "__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
