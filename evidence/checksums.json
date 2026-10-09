@@ -81,6 +81,7 @@
     "evidence/operations/workflow-validation.json": "59892e5fb04f6887ab3afff7361076dbae4ce79ce853c3ce7dfdacf815b65917",
     "evidence/portfolio-validation.json": "0beda18d230dcfad6d034146a3e101038c017f1adcc774bd7d7002a950fb261c",
     "evidence/powershell-query.json": "7e244fea253426d7aa51b34eb0bc724f64b9f6b019cf7b7e0d7f65a85a29d7d9",
+    "evidence/project-documentation-validation.json": "b0be943c4e55a0a43ae7435a06fe18aa429bab661f9d020a6fb596c73de64f4e",
     "evidence/quality-review/backend-validation.json": "2aa76b4f829ebee493bf7c2b3aa00544b6d813ad8fc402f8a48d6fe525d311e9",
     "evidence/quality-review/browser-validation.json": "2c808534e84fa705569b8c86998883ba1fdd37afbdace29567f3ed0e5dc8b676",
     "evidence/quality-review/ci-backend-responses.json": "308a1fd219279cd3496d629d0d35fa2e5a9654456a4b5fd2b77c3291d2ad5f24",

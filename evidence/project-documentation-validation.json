@@ -1,0 +1,70 @@
+{
+  "documentation_date": "2026-10-09",
+  "verified_at_utc": "2026-10-09T05:08:04.687026+00:00",
+  "basis_commit": "4997ddc03e5b66da25a6c813cea71bbcd0a9fe71",
+  "implementation_version": "5.0.0",
+  "tested_engine_commit": "0032c43420d97e6bb71177aaebb76e1e89f0427d",
+  "engine_source_sha256": "48eaa078592ffbeb4f70e8d8e7780a27e26484a8183f62f6f6935c69d1786837",
+  "engine_matches_previous_tested_source": true,
+  "documents": {
+    "README.md": {
+      "sha256": "f72a04e6ebb9a0ca016c714264625ddb191f5b4e76c7a7961a779246cef0d5f7",
+      "lines": 139,
+      "whitespace_delimited_words": 1493
+    },
+    "docs/PROJECT_REPORT_VI.md": {
+      "sha256": "2a0b56a490855453615c12b0a4b9b643580c7be0fa6dd02b032b0f09c89e2fd4",
+      "lines": 380,
+      "whitespace_delimited_words": 6237
+    },
+    "docs/ARCHITECTURE.md": {
+      "sha256": "caf08ef01308e8c1948d711d58b14e8911e7a5f8ce46883874531fc940bef7fa",
+      "lines": 134,
+      "whitespace_delimited_words": 1871
+    },
+    "docs/OPERATIONS.md": {
+      "sha256": "ce244c659e15a6c234550c0eea4fee60140eaa0df3f077e843402e7acf27480f",
+      "lines": 209,
+      "whitespace_delimited_words": 1509
+    },
+    "docs/ACCEPTANCE.md": {
+      "sha256": "91856c71054d09c4c9fe62ed0679960645a79c33a4015aefa40e96c3885b75be",
+      "lines": 92,
+      "whitespace_delimited_words": 1397
+    },
+    "docs/START_HERE_VI.md": {
+      "sha256": "0bc919bb0414acc1ec6dc0df1ae2b1fcb34d914bb6e7991ebd6d49ba8f2eb31c",
+      "lines": 32,
+      "whitespace_delimited_words": 385
+    },
+    "docs/PORTFOLIO_NOTES.md": {
+      "sha256": "a746f11e2c7c32cdd16d2077b49ebd9e17057212f8c3b62d83ebf0d903f40084",
+      "lines": 11,
+      "whitespace_delimited_words": 197
+    },
+    "docs/RUNBOOK_V5.md": {
+      "sha256": "3b6a67669a94228412bd1f01b754c20d4d6f5cdb925e5c2fe89fdf29569ded20",
+      "lines": 61,
+      "whitespace_delimited_words": 514
+    },
+    "cases/001-mshta-scheduled-task/report.md": {
+      "sha256": "456327dd9c11ba6cc15ad0497f98569285385e4c1f677c0ffc169e33b57ce994",
+      "lines": 93,
+      "whitespace_delimited_words": 1136
+    },
+    "cases/005-multisource-chain/report.md": {
+      "sha256": "9c89aaa1ce92a8cf3e069282cab2809bc9895f7837c3bfa5991d636df199ae43",
+      "lines": 53,
+      "whitespace_delimited_words": 926
+    }
+  },
+  "local_links_checked": 120,
+  "local_links_exist": true,
+  "utf8_and_fence_structure_checked": true,
+  "cli_argument_sets_accepted_before_execution": 21,
+  "powershell_blocks_native_parse_only": 22,
+  "powershell_syntax_errors": 0,
+  "new_engine_tests_run": false,
+  "private_acquisition_backend_or_response_actions_executed": false,
+  "scope": "Documentation consolidation and static parser/source-integrity verification only. The previously executed 127-test/seven-job CI and dated collection/backend results retain their own source attestations; they were not rerun for this documentation-only change."
+}

@@ -46,8 +46,8 @@ The eight held-out fixture variants yield TP=2, FP=1, TN=3 and FN=2: precision 6
 
 These are scenario-level labels on a tiny, related synthetic family, not field precision/recall. The policy was fixed before measurement; development and holdout variants are public and versioned. The evaluator checks the corpus inventory and passes only event records plus source scope to the engine. It does not pass the expected label or rationale.
 
-## Reproduce and inspect
+## Reproduction boundary
 
-Run the four-case replay, then scripts/build_advanced.py with a new run ID. Open case 005 and choose Reconstruction. Select a process, inspect its linked activity and open the original event. Choose Evaluation to see every success and failure rather than a success-only demo.
+The four-case replay followed by scripts/build_advanced.py builds a fresh reconstruction collection. The explorer's Reconstruction view retains process-linked activity and original event objects; Evaluation retains every scenario result, including false positives and false negatives. The integrated operating sequence is documented in [OPERATIONS.md](../../docs/OPERATIONS.md).
 
 The expected result is three process nodes, two observed parent edges, one complete chain and four separate event/auth findings. The count of detections is not the count of incidents. The response actions above are proposals; the lab has not disabled an account or isolated a host.

@@ -1,48 +1,32 @@
-# Bài 01 — Từ alert đến bằng chứng
+# Hồ sơ dự án SOC Investigation & Operations
 
-Đây là bài nền tảng để bắt đầu học trong chat. Bản hiện tại là v3: xem [10 mô-đun đầy đủ](MASTERCLASS_VI.md) và [runbook dựng toàn bộ lab](RUNBOOK_V3.md) sau khi hiểu cách truy một finding về event gốc.
+Đây là mục lục hồ sơ triển khai v5.0.0, cập nhật ngày 09/10/2026. Tài liệu trình bày dự án từ bài toán đến kiến trúc, vận hành, điều tra và nghiệm thu; không dùng cấu trúc giáo án.
 
-Mục tiêu: sau buổi đầu, bạn giải thích được alert nói gì, không nói gì, và tìm lại được event gốc. Dự kiến 60–90 phút, có thể chia nhỏ.
+## Tài liệu chính
 
-## 1. Chạy demo
+| Hồ sơ | Nội dung |
+| --- | --- |
+| [Báo cáo dự án](PROJECT_REPORT_VI.md) | Yêu cầu, quyết định thiết kế, data/evidence policy, quy trình vận hành, bảy cuộc điều tra và kết quả |
+| [Kiến trúc](ARCHITECTURE.md) | Component ownership, storage, transaction/outbox, inference/trust boundary, decision model và capacity guards |
+| [Runbook vận hành](OPERATIONS.md) | Native collection, retrospective investigation, optional backend, queue maintenance, PCAP và recovery |
+| [Nghiệm thu](ACCEPTANCE.md) | Điều kiện bàn giao, executed checks, failure behavior, release/source identity và phần ngoài phạm vi |
+| [Validation có ngày](VALIDATION.md) | Kết quả gốc theo phiên bản, CI/artifact/release attestations và giới hạn phép đo |
+| [Schema](DATA_SCHEMA.md) | Original event object, provider/channel, timestamp, source hash và physical references |
 
-Mở terminal tại thư mục project. Không cần cài thêm package.
+## Hồ sơ điều tra
 
-~~~powershell
-python -m soclab ingest data/fixtures/demo.jsonl --db output/lesson-01/evidence.sqlite
-python -m soclab analyze --db output/lesson-01/evidence.sqlite --out output/lesson-01/run-01
-~~~
+| Case | Câu hỏi điều tra |
+| --- | --- |
+| [001](../cases/001-mshta-scheduled-task/report.md) | Process chain/network/task artifact hỗ trợ persistence hypothesis đến đâu? |
+| [002](../cases/002-authentication/report.md) | Failure burst có chứng minh successful access không; supplement có cùng collection không? |
+| [003](../cases/003-powershell-string/report.md) | Download-looking script text có phải executable syntax không? |
+| [004](../cases/004-context-tuning/report.md) | Context annotation giảm review priority mà vẫn giữ được evidence/variant thế nào? |
+| [005](../cases/005-multisource-chain/report.md) | Identity/ancestry và exact source scope có hỗ trợ multi-stage lead không? |
+| [006](../cases/006-public-network/report.md) | Public HTTP/DNS capture hỗ trợ những protocol relationship nào? |
+| [007](../cases/007-network-context/report.md) | Hai endpoint candidates và asset criticality ảnh hưởng attribution/priority/response proposal thế nào? |
 
-Mở findings.jsonl và case-notes.md trong output/lesson-01/run-01. Tất cả dữ liệu demo đều là mô phỏng; command chỉ là chuỗi ký tự trong log, không được chạy.
+## Bằng chứng bàn giao
 
-## 2. Điều tra một PowerShell alert
+[Windows hunting/forensics/workflow](../evidence/operations/README.md), [native collection và operational reliability](../evidence/live/README.md), [network/CI/release verification](../evidence/network/README.md) và [checksum inventory](../evidence/checksums.json) giữ các kết quả đã công bố. Original third-party acquisitions và raw private telemetry không nằm trong bộ hồ sơ public.
 
-~~~powershell
-python -m soclab search --db output/lesson-01/evidence.sqlite --term EncodedCommand
-python -m soclab search --db output/lesson-01/evidence.sqlite --event-id 4104
-python -m soclab search --db output/lesson-01/evidence.sqlite --term backup
-~~~
-
-Ghi câu trả lời vào learning/LOG.md:
-
-1. Image, CommandLine, User và ParentProcessGuid của encoded command là gì?
-2. Chỉ nhìn switch mã hóa có đủ kết luận malicious không? Vì sao?
-3. Event 4104 cho biết gì? Việc xuất hiện gần event khác có đủ để liên kết process không?
-4. Vì sao backup command hợp lệ vẫn trigger WIN-002? Cần ngữ cảnh nào trước khi đóng case?
-5. Dùng event_uid, source_sha256 và source_line nào để người khác kiểm tra kết luận?
-
-## 3. Đọc public EVTX
-
-Chạy các lệnh public-case trong README. Tìm event có schtasks và các network event. Trước khi đọc report mẫu, thử tự trả lời:
-
-- Host và user nào liên quan?
-- Bốn process trong chuỗi liên kết bằng GUID nào, trên host nào?
-- Có task artifact không? Có bằng chứng task đã chạy không?
-- System/TimeCreated và EventData.UtcTime có nhất quán không?
-- Rule cần Security 4698 có đánh giá được trên file chỉ có Sysmon không?
-
-Sau đó đối chiếu cases/001-mshta-scheduled-task/report.md và ghi lại điều bạn thay đổi trong kết luận. Không truy cập URL lịch sử trong log và không chạy command trích từ bằng chứng; bài này chỉ cần đọc dữ liệu.
-
-## 4. Nộp sản phẩm đầu tiên
-
-Hoàn thành một bản report theo templates/incident-report.md, tập trung vào PowerShell demo. Ghi rõ synthetic dataset ở đầu. Một report tốt có thể kết luận chưa đủ bằng chứng; không cần biến mọi alert thành incident.
+Source phát triển có Codex hỗ trợ. Data origin, controlled validation và real native collection được phân biệt ở từng case/artifact. Hồ sơ mô tả hệ thống một workstation đã triển khai và kiểm chứng theo phạm vi, không phải kinh nghiệm xử lý production incident hay vận hành SOC doanh nghiệp.

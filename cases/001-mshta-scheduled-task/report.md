@@ -2,7 +2,7 @@
 
 **Assessment:** suspicious behavior in a public historical attack-sample dataset; escalate for further investigation in a live setting. Confidence is high in the observed process relationships and moderate in a persistence-attempt interpretation. Successful payload execution, actual recurring task execution and business impact are not established by this file.
 
-This example analysis was prepared with Codex assistance. Reproduce the findings, inspect the original events and record your own reasoning in learning/LOG.md before claiming independent investigation experience.
+This investigation report was prepared with Codex assistance. Its conclusions refer to the cataloged historical collection and retained analysis artifacts, not a production incident handled by the project owner.
 
 ## Scope and provenance
 
@@ -90,4 +90,4 @@ python -m soclab search --db output/public-mshta/evidence.sqlite --event-id 3
 python -m soclab search --db output/public-mshta/evidence.sqlite --term "{365abb72-1a29-5ce4-0000-001079f92101}"
 ~~~
 
-Inspect original_json/original_xml, not only timeline labels. Keep your local manifest with the code commit used, and avoid mixing this historical sample with the synthetic September 2026 demo.
+The original_json/original_xml and analysis manifest retain the source references used for these conclusions. This historical collection remains separate from the constructed validation inputs.

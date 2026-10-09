@@ -58,4 +58,4 @@ python -m unittest discover -s tests -v
 python scripts/verify_checksums.py
 ```
 
-See [the network workbook](NETWORK_WORKBOOK_VI.md) and the two new case studies. Before escalating, distinguish an observed request from server acceptance, connection attempt from successful session, same tuple from process identity, supplied inventory from authenticated ownership, and a proposed restriction from a performed response action.
+The [integrated operating procedure](OPERATIONS.md) and [project report](PROJECT_REPORT_VI.md) define the acquisition, assessment and response boundary. An observed request is distinct from server acceptance; a connection attempt from a successful session; the same tuple from process identity; supplied inventory from authenticated ownership; and a proposed restriction from a performed action.

@@ -1,18 +1,11 @@
-# Presenting the project
+# Project scope and authorship
 
-Use the project to discuss decisions and evidence, not a list of tools. A concise description after reviewing the work:
+SOC Investigation & Operations is a single-workstation implementation covering Windows acquisition, durable evidence/delivery, scoped detection and reconstruction, static PowerShell forensics, local analyst decisions, audited exports/recovery and offline packet investigation.
 
-> Built an evidence-to-case SOC lab using Python, SQLite and native Loki/Grafana. Reproduced five source-scoped investigations, ran 48 hunt queries, inspected PowerShell fragments and ASTs, and implemented revisioned analyst decisions with verifiable evidence exports. Validated real LogQL results and documented detection errors across 20 constructed scenarios.
+The integrated specification is the [project report](PROJECT_REPORT_VI.md), supported by [architecture](ARCHITECTURE.md), [operating procedure](OPERATIONS.md) and [acceptance record](ACCEPTANCE.md). Seven case reports retain original observations, competing explanations, assessments and missing evidence.
 
-The development used Codex assistance. Say which parts you subsequently reviewed, changed and can explain independently; do not turn the project into a claim of employment or production incident handling. Before using the description, run the lab and understand the decisions.
+Development and initial analysis used Codex assistance. Public acquisition authors are credited in the catalogs and reports. Constructed inputs are labeled; native collection is a dated finite execution with private raw data. This authorship statement does not imply employment, independent manual implementation of every module or handling of a live commercial SOC incident.
 
-Useful interview examples:
+Executed query paths are SQLite and native Loki/LogQL. Sigma conditions were parsed independently. KQL/SPL translations were not executed on their target platforms. Backend replay, selected resource snapshots and the small constructed evaluation corpus retain their measured scope.
 
-- A failure-only collection exposed the limits of a failure-to-success rule.
-- Quoted PowerShell text showed why token matching is not execution proof.
-- A task-creation command and artifact supported a persistence hypothesis without confirming execution.
-- An exact context match reduced queue priority while retaining the evidence and admitting a script-content blind spot.
-- A stricter graph policy reduced false joins but lost recall when required telemetry was missing; the published holdout baseline had higher F1.
-- Overlapping evidence retained provenance without inflating the unique failure threshold, while conflicting process records blocked causal joins.
-
-The reference KQL/SPL queries remain unexecuted on their target platforms. SQLite hunts and native Loki/LogQL were executed; Grafana rendered the verified replay. This demonstrates a local backend workflow, not production incident handling. Explain the difference between replay-time and original timestamps, and why the baseline still has higher held-out F1.
+The delivered scope is complete as a local system with documented operating and failure paths. Enterprise deployment, fleet coverage, authenticated multi-user workflow, containment and field detection accuracy are not represented as delivered results. Release/source identities and detailed acceptance evidence are recorded separately from later documentation changes.

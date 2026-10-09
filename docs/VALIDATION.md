@@ -1,4 +1,12 @@
-# Validation record — updated 2026-10-07
+# Validation record — updated 2026-10-09
+
+## Integrated project documentation
+
+The 9 October consolidation replaces the version-by-version landing page and instructional entry point with the [complete project report](PROJECT_REPORT_VI.md), [architecture](ARCHITECTURE.md), [operating procedure](OPERATIONS.md) and [acceptance record](ACCEPTANCE.md). The seven investigation records remain source-scoped, with public/constructed/private acquisition boundaries retained. Case-report wording was adjusted without changing the underlying observations, rule policy or release assets.
+
+Local document/image links and Markdown fence/UTF-8 structure were checked. Twenty-one documented CLI/script argument sets were accepted by their actual parsers before execution; 22 PowerShell command blocks passed native parse-only syntax inspection. These checks do not execute acquisition, response actions or backend deployment. Engine/source hashes still match the tested v5 code, and the published evidence inventory remains complete. [Documentation verification](../evidence/project-documentation-validation.json) records the files and check scope.
+
+No new detector, native collection or field performance result is claimed for this documentation change. The following sections retain their actual validation dates and tested commits.
 
 ## Version 5: network evidence and business context
 
