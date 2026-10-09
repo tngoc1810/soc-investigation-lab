@@ -160,7 +160,9 @@ class ServiceReadinessTests(unittest.TestCase):
         self.context(lambda p: p.update(kind='private_host'))
         for table in ('batches', 'observations', 'outbox'): self.edit(f"UPDATE {table} SET kind='private_host'")
         with self.assertRaisesRegex(ValueError, 'Workspace private'): self.evaluate()
-        with patch('soclab.service_readiness.private_path', side_effect=lambda p: Path(p) == self.workspace):
+        # Windows runner temp paths may use 8.3 aliases; compare resolved paths,
+        # just as the production workspace guard does.
+        with patch('soclab.service_readiness.private_path', side_effect=lambda p: Path(p).resolve() == self.workspace.resolve()):
             with self.assertRaisesRegex(ValueError, 'Báo cáo private'): write_bundle(self.workspace, self.profile, self.root / 'public-output', as_of=AS_OF)
         self.assertFalse((self.root / 'public-output').exists())
 
