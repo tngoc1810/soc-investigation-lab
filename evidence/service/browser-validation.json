@@ -1,0 +1,33 @@
+{
+  "version": "6.0.0",
+  "validated_at": "2026-10-09T06:32:18.789287+00:00",
+  "url": "http://127.0.0.1:8769/",
+  "run_id": "v6-delivery",
+  "as_of": "2026-10-09T03:00:00.000000Z",
+  "kind": "synthetic",
+  "context_sha256": "c6dade804ccccf036d5f9eb08a08f8bfebadba9ee7555dc5a28d1baee29b94f6",
+  "snapshot_sha256": "b5cf55ea1799c5436ee8547ea945c7c6cc58a0790d4a0d36413ba7289c133038",
+  "summary": {
+    "assets": 2,
+    "selected_events": 12,
+    "unmapped_hosts": 1,
+    "telemetry_checks": 5,
+    "checks_needing_review": 4,
+    "active_alerts": 2
+  },
+  "checks": [
+    "Headline counts and explicit synthetic classification visible",
+    "Asset search backup narrowed list; selected backup shows missing observations/heartbeat without audit-disabled conclusion",
+    "Finance exposes ParentImage missing, future record and scoped collector error/gap/age; original source line/UID shown in expanded details",
+    "Handoff shows declared owner, authority boundary, approval, impact, rollback, verification; no notification/action",
+    "Delivery tab retains four queue scopes, 12 pending records, WS-UNMAPPED and exact approved source hashes",
+    "Limits tab retains current-snapshot/as_of and SQLite coordination boundary",
+    "Default narrow layout one column at 552px, desktop layout two columns at 1265px; document scrollWidth equals clientWidth for both inspected layouts; viewport override reset"
+  ],
+  "screenshots": {
+    "01-service-readiness.jpg": "8f203eee5d8a3487764807754920bb70aa1ed737f087858ef7d81f4aaaff4a13",
+    "02-missing-telemetry.jpg": "4de92b5289485fd5d0395e85f1ef1e037d12b214d4503a395328791fc223c01e",
+    "03-service-handoff.jpg": "7ad6ef7eb4390eb299cdd4600d68dcdf46413abc965adecd0c586bb77bad2dda"
+  },
+  "screenshot_scope": "Genuine unedited browser captures during desktop breakpoint validation (1280x900 override); responsive default inspected separately. No invented incident/native collector evidence."
+}

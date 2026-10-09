@@ -1,49 +1,36 @@
-# Architecture and design decisions
+# Kiến trúc và quyết định thiết kế
 
-This specification describes the v5.0.0 implementation as a single-workstation system. It consolidates the dated engineering records without changing the tested engine. The [project report](PROJECT_REPORT_VI.md) contains the investigation rationale; [OPERATIONS.md](OPERATIONS.md) defines operator procedures.
+Tôi triển khai v6.0.0 theo phạm vi một workstation. Windows acquisition, investigation, durable delivery, case review, packet analysis và service readiness có input/output riêng; cùng giữ nguyên tắc truy lại bằng chứng và phân biệt observation/assessment/decision. [Báo cáo](PROJECT_REPORT_VI.md) ghi lý do điều tra; [runbook](OPERATIONS.md) định nghĩa thao tác vận hành.
 
-## Component map
+## Thành phần và ownership
 
-| Boundary | Modules/assets | Input | Retained output |
-| --- | --- | --- | --- |
-| Native acquisition | `collector.py`, `scripts/export_evtx.ps1`, collection scripts | Existing readable Windows channels or acquired EVTX | Original XML and normalized JSONL; cursor/reset diagnostics for polling |
-| Evidence | `events.py`, `store.py` | Validated event objects | Sources/events in SQLite, received object, source hash/line/UID |
-| Event detection | `detections.py`, `correlation.py`, `rules/windows.json` | Scoped stored events and policy | Findings, rule metadata, original anchors and analysis manifest |
-| Reconstruction | `context.py`, `investigation.py` | Events and exact approved source set | Process inventory, observed/missing/conflicting links and bounded chain leads |
-| Static forensics | `forensics.py`, `scripts/inspect_ast.ps1` | Retained script fragments/encoded text | Completeness/conflict results, decoded inert data and parse-only AST metadata |
-| Operational coordination | `live.py` | Archived batches, collector cursor and scheduled policy | Observations, batches, durable outbox, detection runs, alerts and alert audit |
-| Backend | `loki.py`, `deployment/loki.yaml`, runtime lock | Approved public/synthetic replay or synthetic operational outbox | Actual API results; original time/identity in JSON |
-| Historical case decisions | `operations.py`, `webapp.py` | Chosen collection/finding plus analyst input | Separate case state, audit, original anchors and revisioned ZIP |
-| Live interface | `liveweb.py` | Operational workspace and analyst input | Loopback queue/status/review/packet interface and metrics |
-| Network | `network.py`, `network_report.py` | PCAP; optional endpoint DB, scope and asset context | Protocol observations, candidates, readiness and standalone report bundle |
+| Thành phần | Module | Nguồn vào và sản phẩm giữ lại |
+| --- | --- | --- |
+| Thu nhận | collector.py, native export scripts | Channel/EVTX hiện hữu → XML gốc, JSONL, cursor/gap diagnostic |
+| Evidence | events.py, store.py | Validated objects → sources/events SQLite, original object, hash/line/UID |
+| Detection | detections.py, correlation.py | Scoped records/policy → findings và analysis manifest |
+| Reconstruction | context.py, investigation.py | Exact source scope → observed/missing/conflicting process/session links |
+| Static forensics | forensics.py, inspect_ast.ps1 | Fragment/encoded text → completeness/decode/parse-only AST |
+| Operational | live.py | Batch/cursor → observations/outbox/alerts/audit/detection runs |
+| Backend | loki.py, deployment config | Approved replay/synthetic outbox → actual API queries; identity/time giữ trong JSON |
+| Case | operations.py, webapp.py | Analyst input/evidence → separate state/audit/revisioned packet |
+| Live UI | liveweb.py | Operational state → loopback status/review/export/metrics |
+| Network | network.py, network_report.py | PCAP/scope/context → packet anchors/protocol/candidates/report |
+| Service v6 | service_readiness.py, service_report.py | Current operational snapshot/profile → quality/priority/handoff bundle |
 
-The analysis engine uses custom Python policies. Loki is a transport/query backend, and Grafana renders selected streams. Sigma condition parsing is a separate portability check. There is no live Sigma engine, live KQL/SPL backend or network-to-live-alert ingestion path.
+Core detection là custom Python policy. Loki là transport/query backend, Grafana render selected streams. Sigma là condition portability validation; chưa có live Sigma/KQL/SPL engine. Network không tự chuyển result vào live alert database.
 
-## Storage ownership
+## Lưu trữ và identity
 
-### Historical evidence
+Historical import hash exact JSONL bytes. Physical line giữ cả vị trí blank lines; UID bind source hash/line, không dùng record ID đơn lẻ. Complete input được validate trong transaction; malformed nonblank input rollback, byte-identical source idempotent. Overlapping historical acquisitions vẫn riêng.
 
-An import hashes the received JSONL bytes and stores each original event object. A physical line remains a physical line even when blank lines are skipped. `event_uid` binds a source hash to that line; record ID alone is insufficient because it can overlap across channel, host or file.
+Operational mặc định ở `%LOCALAPPDATA%/SOCInvestigationLab/live/default`, tránh đặt continuous-write DB trong OneDrive source. `live.sqlite` giữ sources/events, observations, accepted batches, outbox, collectors, detection runs, alerts/audit. `cases.sqlite` giữ analyst case state/audit. `archive/` giữ exact received batch bytes. Review không sửa source event.
 
-Imports validate the complete input within a transaction. Malformed nonblank input rolls back the import. Byte-identical imports are idempotent. Separate overlapping source files remain separate acquisitions; historical import does not pretend to deduplicate every real-world observation.
+Operational observation fingerprint giữ scope/kind/identity/time/content/original XML nhưng loại poll provenance. Lặp cùng observation có thể skip; record ID tái dùng với nội dung khác vẫn khác. Physical acquisition anchor giữ nguyên nguồn accepted đầu tiên.
 
-Analysis bundles stage their complete contents before publication to a fresh destination. Source/rule hashes and correlation parameters identify the actual policy/input. A hash of exported JSONL can vary with serializer/platform while the original EVTX hash remains the cataloged acquisition check.
+Network bundle giữ network.json/index.html/manifest, PCAP gốc lưu riêng. Service bundle giữ readiness.json/index.html/ban-giao.md/manifest. Context không được trình bày như dữ kiện engine tự khám phá: network bind capture hash; service bind exact scope/source set cùng expiry.
 
-### Operational workspace
-
-The Windows default is `%LOCALAPPDATA%/SOCInvestigationLab/live/default`; explicit private workspaces may also reside under ignored `data/local`. Keeping a continuously written SQLite database outside the OneDrive source checkout is the default operating choice.
-
-`live.sqlite` owns evidence, observation fingerprints, accepted batches, outbox rows, collectors, detection runs, alerts and alert audit. `cases.sqlite` owns case snapshots/audit. `archive/` owns the exact received batch bytes. Original source evidence is not edited by an analyst decision.
-
-The observation fingerprint excludes poll provenance while retaining scope, kind, identity, timestamp, content and original XML. A repeated poll can skip the same observation; a reused record ID with changed content remains distinct. Physical acquisition references are still retained.
-
-### Network bundles
-
-`network.json` is the machine-readable result, `index.html` is the self-contained viewer and `manifest.json` hashes the result files. Original PCAP is retained separately. Context and endpoint scope are independently supplied, hash-bound documents rather than facts discovered by the parser.
-
-The viewer bounds its displayed lists while the JSON retains the complete accepted inventory. Standalone HTML renders data as text and blocks external connections. It is a local report, without application accounts or a server-side case workflow.
-
-## Commit and delivery sequence
+## Transaction và delivery
 
 ```mermaid
 sequenceDiagram
@@ -51,84 +38,73 @@ sequenceDiagram
     participant A as Archive
     participant S as SQLite
     participant W as Delivery worker
-    participant L as Local Loki
-    C->>A: Write and flush exact batch bytes
-    C->>S: Begin ingest transaction
+    participant L as Loki localhost
+    C->>A: Ghi/flush exact batch
+    C->>S: Begin transaction
     C->>S: Evidence + observations + outbox + cursor
     S-->>C: Commit
-    W->>S: Claim due rows with lease token
-    S-->>W: Persisted timestamps and payloads
-    W->>L: HTTP push outside DB transaction
-    L-->>W: HTTP acceptance or failure
-    W->>S: Ack own lease or persist retry state
+    W->>S: Claim due rows và lease token
+    W->>L: Push persisted timestamp/payload
+    L-->>W: Acceptance hoặc lỗi
+    W->>S: Ack own lease hoặc retry state
 ```
 
-A crash before the ingest commit can leave an unreferenced archive but cannot commit a new cursor without corresponding accepted evidence/outbox. HTTP and SQLite acknowledgment are separate boundaries: acceptance followed by a crash can cause a repeat. Delivery is at-least-once.
+Crash trước ingest commit có thể để archive chưa tham chiếu; không commit cursor mới thiếu accepted evidence/outbox. HTTP acceptance và local acknowledgment không cùng transaction, nên delivery **at-least-once**; crash giữa hai bước có thể gửi lặp.
 
-| Queue state | Meaning | Exit |
+| Queue state | Nghĩa và xử lý |
+| --- | --- |
+| held_private | Native private records giữ local, không có delivery switch |
+| pending | Synthetic eligible record đợi due time |
+| sending | Lease-owned; ack đúng token hoặc expiry/retry |
+| delivered | Local ack sau backend acceptance, giữ record |
+| dead_letter | Hết retry; giữ payload/evidence, redrive explicit actor/reason |
+
+Claim tối đa 250 row, lease 180 giây, backoff cap 300 giây, tám failed cycles → dead letter. Redrive giữ maintenance entry. Không chạy original/restored workspace như hai delivery agent song song.
+
+## Collection, detection và suy luận
+
+Bootstrap thu recent slice, thường 20 record; poll theo committed EventRecordID, tối đa 200 ascending record. Boundary XML fingerprint, lower ID, missing/retention boundary và read failure tạo diagnostic. Reset bootstrap recent/increment gap, chưa phục hồi overwritten history. Không cài Sysmon/enable audit/clear logs/chạy recorded commands.
+
+Live scheduler chạy chín event rule +AUTH-001, window mặc định 600 giây và future allowance 120 giây, cap 10.000 event/window. Old arrivals vẫn stored nhưng ngoài scheduler; chưa có distributed watermark. Offline auth/graph dùng source scope và host/domain/nonzero GUID/time/observed ancestry. Conflicting process suppress unsupported causal link; missing link không tạo benign verdict.
+
+PCAP hỗ trợ classic 2.4 hai endian, micro/nanosecond; Ethernet tối đa hai VLAN/raw IPv4/Linux cooked v1. IPv6/fragments/unsupported transports giữ gap; PCAPNG reject. TCP xử lý sequence wrap/order/retransmission, gap/conflicting overlap suppress app inference; tuple reuse thiếu SYN có thể ambiguous.
+
+DNS có bounded compression/selected record data. HTTP/1 có request/header/framing/complete-body hash, tối đa 100 request/direction, chưa chunked/HTTP2/response acceptance. TLS giới hạn first ClientHello/SNI, chưa decryption/cert authentication/JA3/cross-record fragmented handshake.
+
+DNS association cần captured client/answer/name chain/TTL/time. Endpoint candidate cần exact approved source set, Sysmon provider/channel/event3, protocol/tuple/±2 giây; vẫn candidate, chưa process identity proof. Criticality context đổi thứ tự review, không confidence/compromise verdict.
+
+## Readiness v6
+
+Service reader mở SQLite mode=ro/query_only trong transaction; profile read bounded/duplicate-key rejection/expiry check. Batch set khớp exact approval, observation accepted count và source kind. Archive hash/physical line/original object, alert audit/evidence anchor và outbox consistency phải đúng trước output.
+
+Asset mapping dùng host aliases duy nhất; mỗi asset có policy. Quality tách event freshness, ingest lag, future/negative clock, required fields và scope heartbeat. Không event chưa đủ chứng minh audit tắt; scope heartbeat chưa đủ chứng minh từng host sensor khỏe. Unknown host/alert giữ riêng.
+
+Readiness chỉ dùng **current snapshot**; as_of là mốc đánh giá thời gian, không historical database version. SQLite có thể tạo coordination SHM/zero-frame WAL; readonly proof không claim mọi file byte bất biến. Snapshot hash bind selected inputs/current alert state; không signature.
+
+Handoff có proposed owner/approval/impact/rollback/verification, chưa có notification/action. Output fresh, render staging/rename với bounded Windows retry; không hỗ trợ concurrent publisher cùng destination. [ENGINEERING_V6.md](ENGINEERING_V6.md) ghi schema, công thức và test cụ thể.
+
+## Decision/audit/export
+
+State graph `new → triaged → investigating`, escalate/close từ investigation, return từ escalated; closed không review transition. Live verdict suspicious_activity/expected_activity/insufficient_evidence; case riêng confirmed_in_lab/expected_activity/insufficient_evidence. Actor self-declared, stale revision fail, linked case không auto-copy verdict.
+
+Audit hash previous entry/full snapshot và so current state; local owner có thể reseal nên chưa signature. Retained export digest là independent comparison anchor. Alert promotion dùng deterministic ID/retry để recover boundary hai database, verify scope/evidence trước link; chưa distributed transaction.
+
+Case export staging/exclusive hard-link publication cần filesystem support. Reload kiểm exact inventory/content theo audit trước giữ download link. Snapshot dùng SQLite backup/archive hashes; restore destination mới và verify allowed paths/inventory/integrity. Interrupted restore có thể để partial directory, chưa success.
+
+## Deployment, security và giới hạn
+
+| Ranh giới | Control | Phần còn lại |
 | --- | --- | --- |
-| `held_private` | Native private-host observation retained locally | No backend delivery switch in this implementation |
-| `pending` | Eligible synthetic observation awaiting due time | Worker claim |
-| `sending` | Owned by a lease token | Own-token acknowledgment or expiry/retry |
-| `delivered` | Local acknowledgment after backend acceptance | Retained record |
-| `dead_letter` | Retry limit reached; payload/evidence retained | Explicit redrive with actor/reason |
+| Acquisition | Pinned size/hash, exact HTTPS redirects | Chưa authenticated custody/completeness |
+| Private telemetry | Private paths, held_private, publication exclusion | Filesystem owner vẫn copy/relabel được |
+| HTTP write | Exact loopback Host/Origin, CSRF, bounded JSON/revision | Chưa authenticated RBAC, chưa chống local hostile process |
+| Render | textContent/inert JSON, static report CSP | Retention/access control vẫn cần riêng |
+| Backend | Loopback request, refuse redirects | Không signed external custody |
+| Runtime | Official pinned downloads/owned PID cleanup | Operator kiểm local process permissions |
+| Export | Fresh staged publication/audited content/manifest | Retained anchor/filesystem support cần đúng |
 
-Workers claim at most 250 rows; leases expire after 180 seconds. Backoff persists and caps at 300 seconds. Eight failed delivery cycles lead to dead letter. Redrive records a maintenance entry. An original workspace and its recovered copy must not run as simultaneous delivery agents.
+Loopback ports: historical 8765, live 8766, network 8767, service 8768 theo runbook, Loki 3100/Grafana 3000. Không autostart service/public network exposure. Core không VM/Docker/dependency bắt buộc.
 
-## Collection and detection boundaries
+Capacity guards: operational100.000 stored events/10.000 non-delivered rows/512 MiB admission; batch500 record/16.000.000 bytes; graph100.000 events; network32 MiB/50.000 packets/2.000 flows/128 KiB stream; network scope128 KiB; service50.000 events/64 MiB archive/256 KiB profile. Đây là reject policy, không measured throughput/peak RAM. Private hold accumulation cũng cần retention/workspace decision.
 
-The first collection reads a recent bounded slice, normally 20 records. Incremental polls use committed EventRecordID and at most 200 records, in ascending order. The retained XML fingerprint detects a changed boundary; lower IDs, missing boundary/retention movement and channel failures are visible.
-
-Reset recovery bootstraps recent data and increments a gap counter. It does not recover overwritten records. Collection does not install Sysmon, enable audit policy, clear logs or execute recorded commands.
-
-Scheduled live evaluation runs nine event rules plus AUTH-001 within one explicitly named collection. Its default event-time window is 600 seconds with 120 seconds future-clock allowance. More than 10,000 records/window aborts evaluation. Older arrivals remain stored but are outside this scheduler; there is no distributed watermark.
-
-Offline authentication and graph policies retain source boundaries. Graph scope approves exact hashes, while identity/relationship checks retain host, domain, GUID validity, time and observed ancestry. Conflicting process records suppress unsupported causal links. Missing links do not become benign verdicts.
-
-## Decision model and exports
-
-The state graph is `new → triaged → investigating`, with escalation/closure from investigation and a return from escalation to investigation. Closed states have no review transitions. Live alert closure uses `suspicious_activity`, `expected_activity` or `insufficient_evidence`; the separate case workflow uses `confirmed_in_lab`, `expected_activity` or `insufficient_evidence`. Actor labels are self-declared, and stale revisions fail. A linked case does not automatically copy an alert verdict.
-
-The audit stores the previous hash and complete state snapshot. Reads check the chain and agreement with the current state. This is relative integrity, not a signature or protection against an owner rewriting/resealing the database. An independently retained export digest supplies a comparison anchor.
-
-Alert promotion uses an ID derived from the alert to recover the two-database case/link boundary. A retry verifies the existing case's source scope/evidence UID set before linking it. A case and an alert remain separate workflows; linkage does not silently synchronize verdicts.
-
-Exports use new revision-specific names and publish only after staging a complete archive. The case export's exclusive hard-link publication requires filesystem hard-link support. Reload retains a download link only after comparing exact file inventory/content to the audited snapshot. Snapshots retain SQLite backups and original archives; restore verifies hashes, inventory, allowed paths and database integrity.
-
-## Network inference boundaries
-
-| Layer | Supported subset | Important exclusion |
-| --- | --- | --- |
-| Acquisition format | Classic PCAP 2.4, both byte orders, micro/nanosecond | PCAPNG rejection; no capture sensor |
-| Link/IP | Ethernet up to two VLAN tags, raw IPv4, Linux cooked v1 | IPv6/IP fragments/unsupported transports become gaps |
-| TCP | Sequence wrap/order/retransmission, bounded stream | Gaps/conflicting overlaps suppress application inference; reuse without observed SYN can remain ambiguous |
-| DNS | Bounded compression, questions/rcode and selected record data | No arbitrary record-format coverage; TCP message time approximate |
-| HTTP/1 | Request framing/headers, Content-Length and complete-body hash | At most 100 requests/direction; no response acceptance, chunked-body support or HTTP/2 |
-| TLS | Supported first ClientHello SNI | No decryption/certificate authentication/JA3; cross-record handshake fragmentation unsupported |
-
-DNS-to-connection candidates require same captured client, answer address/name chain and bounded TTL/time. Endpoint candidates additionally require exact approved source hashes, Sysmon provider/channel/event 3, protocol, tuple and ±2 seconds. Neither association is process identity proof.
-
-Asset inventory is bound to capture hash and validates unique IPs plus owner/service/classification/criticality. High/critical context changes priority to `review_first`; it does not create confidence or a compromise verdict. Proposed actions retain owner, approval, impact, rollback and verification, with no execution capability.
-
-## Security and deployment boundary
-
-| Boundary | Implemented control | Residual limitation |
-| --- | --- | --- |
-| Acquisition integrity | Pinned size/hash, exact HTTPS public-capture redirect path | Hash is not authenticated acquisition or completeness |
-| Historical/live evidence | Full original object, source anchors, scope checks | Local filesystem owner can alter storage |
-| Private telemetry | Private cache/ignored path, `held_private`, publication exclusion | Deliberate copying/relabeling by an owner is not prevented |
-| Browser writes | Exact loopback Host/Origin, per-process CSRF token, bounded JSON/revisions | No authenticated users/RBAC; local hostile processes are outside this protection |
-| Browser rendering | `textContent`; inert JSON embedding; network report connection restrictions | Sensitive content still requires retention/access control |
-| Backend requests | Loopback transport with redirects refused | Local backend is not a signed external custody service |
-| Runtime lifecycle | Official pinned downloads, hashes, owned executable/PID checks, failed-start cleanup | Operator still controls local process permissions |
-| Reviewed exports | Staged fresh publication, audited payload comparison and manifest | Filesystem requirements; retained anchors needed for divergence checks |
-
-Interfaces bind locally: historical viewer 8765, operational console 8766, static network viewer conventionally 8767, Loki 3100 and Grafana 3000. The project does not expose them to a network or install an autostart service.
-
-## Capacity and engineering decisions
-
-Operational limits include 100,000 stored events, 10,000 non-delivered outbox rows (including private holds) and a 512 MiB storage admission guard. Each incoming operational batch caps at 500 records/16,000,000 bytes. Graph reconstruction caps input at 100,000 events. Network input caps at 32 MiB/50,000 packets/2,000 flows and 128 KiB stream span; scope/context documents cap at 128 KiB. These are rejection policies, not measured capacity or throughput guarantees. Native held-private accumulation therefore also requires an explicit retention/workspace decision; it is not an unlimited private archive.
-
-Python/SQLite makes the transaction and recovery model inspectable on one workstation and keeps core deployment small. Exact scope improves attribution discipline but loses recall when essential telemetry is absent. At-least-once delivery retains uncertainty instead of inventing exactly-once semantics. Bounded protocol support keeps exclusions explicit rather than simulating a full network IDS.
-
-Multi-user authentication, independent signatures, retention automation, high availability, fleet source registration, external threat intelligence, containment approvals/execution and high-volume endurance remain outside this implementation. The [acceptance record](ACCEPTANCE.md) identifies what was actually executed, including weaker held-out graph results and historical-only resource measurements.
+HA, fleet IAM, retention automation, independent signatures, external intelligence, continuous network sensor, containment và production endurance chưa triển khai. [Nghiệm thu](ACCEPTANCE.md) ghi phạm vi đã chạy và các kết quả yếu hơn baseline.

@@ -1,0 +1,1 @@
+{"timestamp": "2026-10-09T02:59:50+00:00", "host": "WS-UNMAPPED", "channel": "System", "provider": "EventLog", "event_id": 1, "record_id": 40, "event_data": {"Message": "Inert unmanaged asset observation"}, "provenance": {"kind": "synthetic", "scenario": "service-readiness", "note": "Dữ liệu tự dựng, không phải log native hay incident thật"}}

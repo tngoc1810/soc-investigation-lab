@@ -1,6 +1,6 @@
 # SOC Investigation & Operations — Báo cáo dự án
 
-**Phiên bản triển khai:** 5.0.0. **Ngày hoàn thiện bộ hồ sơ:** 09/10/2026. **Phạm vi:** hệ thống thu thập, điều tra và quản lý bằng chứng trên một workstation, với backend Loki/Grafana tùy chọn.
+**Phiên bản triển khai:** 6.0.0. **Ngày hoàn thiện bộ hồ sơ:** 09/10/2026. **Phạm vi:** hệ thống thu thập, điều tra và quản lý bằng chứng trên một workstation, với backend Loki/Grafana tùy chọn.
 
 Trong dự án này, tôi xây dựng một luồng xử lý từ bản ghi được tiếp nhận đến quyết định điều tra có thể kiểm tra lại. Tôi chọn Windows telemetry và packet capture làm hai nguồn quan sát chính vì chúng trả lời những câu hỏi khác nhau: log endpoint mô tả danh tính, process và thao tác được ghi nhận; packet mô tả những byte và quan hệ giao thức xuất hiện tại vị trí capture. Việc ghép hai nguồn phải có điều kiện, thay vì coi cùng IP hoặc gần thời gian là đủ để kết luận.
 
@@ -31,6 +31,7 @@ Tôi thiết kế hệ thống để những tình huống này có trạng thá
 | FR-09 | Xuất và khôi phục hồ sơ | Reviewed packet, manifest, exclusive publication, SQLite/archive snapshot và restore verification |
 | FR-10 | Điều tra PCAP | Packet offset/hash, TCP reassembly, DNS/HTTP/TLS metadata và diagnostic |
 | FR-11 | Bổ sung endpoint/business context có kiểm soát | Exact source scope; tuple/protocol/time candidates; capture-bound asset inventory |
+| FR-13 | Đánh giá dịch vụ, quality và bàn giao | Snapshot chỉ đọc, inventory, exact source/time-bound profile, quality checks, handoff |
 | FR-12 | Có thể kiểm chứng độc lập | CI đa OS/interpreter, native Loki responses, dpkt cross-check, inventory checksum |
 
 ### 1.3. Yêu cầu phi chức năng và phạm vi bàn giao
@@ -39,7 +40,7 @@ Máy mục tiêu có 8 GB RAM nên tôi giữ core ở Python standard library v
 
 Tôi đặt giới hạn đầu vào và yêu cầu output mới thay vì ghi đè kết quả đã review. Event import sai định dạng phải rollback; reconstruction vượt giới hạn phải fail rõ; HTTP write phải ở loopback; private collection không đi vào backend delivery công khai. Đây là các ràng buộc được triển khai, không phải cam kết vận hành ở mọi tải hoặc mọi filesystem.
 
-Phạm vi bàn giao gồm source, policy, scripts triển khai/kiểm chứng, giao diện localhost, bảy báo cáo điều tra và bằng chứng kiểm thử. Hệ thống không bao gồm agent EDR, live packet sensor, multi-user IAM, autonomous containment hay dịch vụ SOC hoạt động 24/7. Các giới hạn này được đưa vào thiết kế và nghiệm thu, không chỉ ghi ở cuối báo cáo.
+Phạm vi bàn giao gồm source, policy, scripts triển khai/kiểm chứng, giao diện localhost, tám báo cáo điều tra và bằng chứng kiểm thử. Hệ thống không bao gồm agent EDR, live packet sensor, multi-user IAM, autonomous containment hay dịch vụ SOC hoạt động 24/7. Các giới hạn này được đưa vào thiết kế và nghiệm thu, không chỉ ghi ở cuối báo cáo.
 
 ## 2. Kiến trúc tổng thể
 
@@ -311,7 +312,7 @@ Snapshot giữ SQLite backups, original batch archives và file-hash inventory. 
 
 Không chạy original và restored workspace như hai delivery agent song song. In-flight lease đợi expiry bình thường; uncertain remote acceptance vẫn at-least-once. Restore bị ngắt có thể để partial destination, nên operator giữ lại để kiểm tra và dùng destination mới cho lần tiếp theo. Project chưa có measured RTO/RPO hay automated retention rotation.
 
-### 9.2. Kết quả đã kiểm chứng
+### 9.2. Bằng chứng v5 và các phép thu lịch sử
 
 | Hạng mục | Kết quả được lưu | Căn cứ |
 | --- | --- | --- |
@@ -367,7 +368,7 @@ Historical idle resource snapshot có 145.51 MiB combined current working set c�
 
 Các quyết định và failure semantics được định nghĩa đầy đủ ở [ARCHITECTURE.md](ARCHITECTURE.md). Acceptance phân biệt implemented, executed và excluded trong [ACCEPTANCE.md](ACCEPTANCE.md).
 
-## 11. Sản phẩm bàn giao
+## 11. Sản phẩm v5 và lịch sử bàn giao
 
 Repo bàn giao executable source/policy, acquisition catalogs, constructed validation inputs, deployment lock/config, UI, reports và selected evidence. [Release v5.0.0](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v5.0.0) chứa source snapshot của tested commit và exercise ZIP 21 file gồm derived reports, constructed source, context/scope và technical documents. ZIP không có private telemetry hoặc original third-party PCAP.
 
@@ -378,3 +379,41 @@ Các procedure vận hành gồm native polling, retrospective Windows investiga
 ![Network assessment giữ verdict unassessed và context gaps](../evidence/network/screenshots/01-network-assessment.jpg)
 
 Các ảnh trên là capture giao diện thật đã lưu, không phải mockup hay ảnh dựng. Mỗi kết luận chính của báo cáo có artifact/source reference tương ứng. Phần chưa triển khai hoặc chưa đo vẫn được ghi là giới hạn: authenticated multi-user operation, enterprise retention/HA, continuous packet sensor, containment và independent field accuracy/endurance evaluation.
+
+## 12. Nâng cấp v6: đưa chất lượng dữ liệu và trách nhiệm dịch vụ vào điều tra
+
+### 12.1. Lý do tôi bổ sung
+
+Sau khi hoàn thiện evidence-to-case workflow, tôi cần trả lời thêm: một tài sản không có alert thực sự chưa có lead hay chưa có dữ liệu; observation đã nhận có đủ để nối process/session/connection; ai cần xác minh tác động dịch vụ. Tôi triển khai readiness trên operational workspace thay vì thêm một dashboard số lượng độc lập.
+
+Phần mới đọc acquisition archive, event, collector diagnostic, outbox và audited alert trong approved scope. Nó đối chiếu nguồn trước khi đánh giá inventory/telemetry. Tôi giữ output là hiện trạng và đề xuất bàn giao; không biến data-quality issue thành incident verdict hoặc tự gán owner alert.
+
+### 12.2. Context và ranh giới quyết định
+
+Profile ghi reviewer, review time, expiry, collection reason, kind, exact source hash set, asset host aliases, chủ dịch vụ, incident lead, criticality và telemetry requirement. Duplicate alias, tài sản không policy, source set khác approval, context hết hạn hoặc timezone thiếu bị reject. Inventory và thẩm quyền người khai báo chưa được authenticated; đó là giới hạn dữ liệu đầu vào.
+
+Native collection có batch mới làm profile cũ không còn đủ approval. Người vận hành phải review lại nguồn; không wildcard hoặc tự approve tất cả source. Cách này phù hợp retained assessment, không dùng làm continuous-monitor profile. Private workspace/report giữ riêng; unrelated private scope không xuất qua synthetic report.
+
+### 12.3. Chất lượng telemetry
+
+Tôi kiểm đúng asset/scope/provider/channel/Event ID, required fields, activity age, received-event lag, future/negative clock và collector heartbeat theo scope. Không có event 4624 có thể chỉ là không có successful logon trong window; chưa chứng minh audit bị tắt. Fresh scope heartbeat chưa chứng minh từng host sensor khỏe. Late historical replay chưa đủ nói backend lỗi.
+
+Missing fields được tính trên approved collection; window count có phạm vi riêng. Future record bị giữ nhưng không làm tăng current activity. Wrong channel giữ unmatched-policy count. Anchor samples giới hạn năm dòng/check; mọi nguồn selected vẫn được hash/đối chiếu đầy đủ trước export.
+
+### 12.4. Snapshot và bàn giao
+
+Database đọc mode=ro/query_only trong transaction. SQLite có thể tạo SHM/WAL chưa có frame để phối hợp reader; kiểm chứng so database chính/archive/nonempty WAL, không nói mọi file vật lý bất biến. as_of là mốc đánh giá thời gian của current DB snapshot, không phục dựng owner/state/audit lịch sử.
+
+Priority theo criticality cùng active alert/gap, giữ riêng severity detector. Handoff ghi owner/service/incident lead khai báo, open alert IDs, gaps, approval, impact, rollback, verification. Multi-asset alert giữ ambiguity; unmapped host giữ count/alert IDs và chưa gán owner. Closed decision đã review không bị readiness sửa.
+
+### 12.5. Kết quả chạy thực tế trên input tự dựng
+
+[Case 008](../cases/008-telemetry-readiness/report.md) có 12 record trong năm batch, hai asset và năm telemetry requirement. Bốn requirement cần review; một host chưa mapping; live detector giữ hai active alert. AUTH-COVERAGE không quality issue nhưng còn auth lead; backup không observation/heartbeat và vẫn phải review theo context quan trọng.
+
+Local Python 3.11.5/3.12.14 pass 151 test, gồm 24 readiness regressions. Validator so summary, source/archive anchors, clock/channel, private boundaries, persistent-byte readonly và exact manifest. [Artifacts v6](../evidence/service/README.md), [thiết kế đầy đủ](ENGINEERING_V6.md), [vận hành](OPERATIONS.md), [nghiệm thu](ACCEPTANCE.md).
+
+![Readiness v6 trên giao diện thật](../evidence/service/screenshots/01-service-readiness.jpg)
+
+![Bàn giao theo chủ dịch vụ, chưa gửi thông báo/chưa containment](../evidence/service/screenshots/03-service-handoff.jpg)
+
+Tôi chưa thêm authenticated host heartbeat, CMDB/ticket API, IAM, continuous policy scheduler cho readiness, field-accuracy benchmark hoặc remediation. v6 thể hiện thêm năng lực dữ liệu/vận hành trong implementation có input/output/failure checks, với các kết quả lịch sử được giữ đúng phiên bản ở phần trước.

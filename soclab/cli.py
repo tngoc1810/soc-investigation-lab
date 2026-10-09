@@ -100,9 +100,20 @@ def main(argv=None) -> int:
     p.add_argument('--context', type=Path, help='Declared business context bound to the capture SHA-256')
     p.add_argument('--packet', type=int, help='Extract one original frame into a fresh JSON file instead of a bundle')
     p.add_argument('--source-sha256', help='Approved source hash required for original-frame extraction')
+    p = sub.add_parser('readiness', help='Đánh giá tài sản, chất lượng telemetry và bàn giao điều tra bằng snapshot chỉ đọc')
+    p.add_argument('--workspace', type=Path, required=True, help='Workspace operational đã tiếp nhận dữ liệu')
+    p.add_argument('--profile', type=Path, required=True, help='Context có thời hạn và tập source hash được phê duyệt')
+    p.add_argument('--out', type=Path, required=True, help='Thư mục báo cáo mới, không ghi đè')
+    p.add_argument('--as-of', help='Mốc đánh giá ISO có timezone; mặc định thời gian UTC hiện tại')
+    p.add_argument('--window-seconds', type=int, default=3600, help='Cửa sổ event, mặc định 3.600 giây')
     args = parser.parse_args(argv)
     try:
-        if args.command == 'network':
+        if args.command == 'readiness':
+            from datetime import datetime, timezone
+            from .service_readiness import write_bundle
+            result = write_bundle(args.workspace, args.profile, args.out, as_of=args.as_of or datetime.now(timezone.utc).isoformat(), window_seconds=args.window_seconds)
+            print(json.dumps({'tổng_quan': result['summary'], 'kết_luận': result['verdict'], 'báo_cáo': str(args.out)}, ensure_ascii=False, indent=2))
+        elif args.command == 'network':
             from .network import write_bundle, extract_packet
             if args.packet is not None:
                 if not args.source_sha256: raise ValueError('--source-sha256 is required for packet extraction')

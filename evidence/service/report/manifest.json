@@ -1,0 +1,11 @@
+{
+  "format": "soclab-service-readiness-v1",
+  "context_sha256": "c6dade804ccccf036d5f9eb08a08f8bfebadba9ee7555dc5a28d1baee29b94f6",
+  "snapshot_sha256": "b5cf55ea1799c5436ee8547ea945c7c6cc58a0790d4a0d36413ba7289c133038",
+  "files": {
+    "readiness.json": "f840cb7fdb4d4ac392b3a7f0c0a9915dbbb50f9703ce7c1f53344c9c68dd8b88",
+    "index.html": "5babcea6e21ffe6e830789512f0e1f980a8c77777829e242ee4e20eaa991b9f3",
+    "ban-giao.md": "6bdfbee6ce1bb7bd94c43086f5c77a09052ed82390ca70b7612611abaee0caaf"
+  },
+  "scope": "Ảnh chụp chỉ đọc của collection được phê duyệt. Không sửa owner/status/verdict, không đánh giá mọi audit policy, không gửi thông báo hoặc thực hiện containment."
+}

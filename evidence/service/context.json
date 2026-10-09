@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "id": "controlled-service-readiness",
+  "kind": "synthetic",
+  "reviewed_by": "Người tạo scenario kiểm chứng",
+  "reviewed_at": "2026-10-09T00:00:00Z",
+  "valid_until": "2026-11-08T00:00:00Z",
+  "collection_reason": "Nguồn tự dựng cùng scenario để kiểm chứng chất lượng telemetry; không phải incident hay collector native.",
+  "scopes": [
+    {
+      "id": "security",
+      "source_sha256": [
+        "3be9778af132318ef3cfd9949c2efb2f53b9811025889325024f67170f89f5af",
+        "460909f535555889395d7f4dcceda0df98c3d4ad8be1be07fb2ee07751f31b97"
+      ]
+    },
+    {
+      "id": "sysmon",
+      "source_sha256": [
+        "85e997cd6b15350e5cd42691a74ccc5e8a403580959fa6988bf93a4b05d0c604"
+      ]
+    },
+    {
+      "id": "powershell",
+      "source_sha256": [
+        "045db800e8863b056ed17beb283f29c3e2509433139d6312db23d3cf0c5923af"
+      ]
+    },
+    {
+      "id": "unmapped",
+      "source_sha256": [
+        "9b3931f45347e448be30bcf83eecaa0640b5966285156fcec6191c4be254fd3b"
+      ]
+    },
+    {
+      "id": "backup-security",
+      "source_sha256": []
+    }
+  ],
+  "assets": [
+    {
+      "id": "finance",
+      "name": "Máy trạm tài chính tự dựng",
+      "hosts": [
+        "FIN-WS-01"
+      ],
+      "owner": "Chủ dịch vụ tài chính trong scenario",
+      "incident_lead": "Đầu mối SOC trong scenario",
+      "business_service": "Xử lý nghiệp vụ tài chính tự dựng",
+      "criticality": "critical",
+      "data_classification": "Không có dữ liệu nghiệp vụ thật"
+    },
+    {
+      "id": "backup",
+      "name": "Máy backup khai báo chưa có log",
+      "hosts": [
+        "BACKUP-01"
+      ],
+      "owner": "Chủ dịch vụ backup trong scenario",
+      "incident_lead": "Đầu mối SOC trong scenario",
+      "business_service": "Dịch vụ backup tự dựng",
+      "criticality": "high",
+      "data_classification": "Inventory giả định để kiểm chứng missing coverage"
+    }
+  ],
+  "telemetry": [
+    {
+      "id": "AUTH-COVERAGE",
+      "asset_id": "finance",
+      "scopes": [
+        "security"
+      ],
+      "channel": "Security",
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "event_ids": [
+        4624,
+        4625
+      ],
+      "required_fields": [
+        "event_data.TargetUserName",
+        "event_data.TargetDomainName",
+        "event_data.IpAddress",
+        "event_data.LogonType"
+      ],
+      "expected_activity_seconds": 1800,
+      "max_ingest_lag_seconds": 120,
+      "max_collector_age_seconds": null
+    },
+    {
+      "id": "PROCESS-QUALITY",
+      "asset_id": "finance",
+      "scopes": [
+        "sysmon"
+      ],
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "provider": "Microsoft-Windows-Sysmon",
+      "event_ids": [
+        1
+      ],
+      "required_fields": [
+        "event_data.Image",
+        "event_data.CommandLine",
+        "event_data.ProcessGuid",
+        "event_data.ParentImage"
+      ],
+      "expected_activity_seconds": 1800,
+      "max_ingest_lag_seconds": 120,
+      "max_collector_age_seconds": 300
+    },
+    {
+      "id": "NETWORK-QUALITY",
+      "asset_id": "finance",
+      "scopes": [
+        "sysmon"
+      ],
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "provider": "Microsoft-Windows-Sysmon",
+      "event_ids": [
+        3
+      ],
+      "required_fields": [
+        "event_data.SourceIp",
+        "event_data.SourcePort",
+        "event_data.DestinationIp",
+        "event_data.DestinationPort",
+        "event_data.Protocol",
+        "event_data.ProcessGuid"
+      ],
+      "expected_activity_seconds": 1800,
+      "max_ingest_lag_seconds": 120,
+      "max_collector_age_seconds": 300
+    },
+    {
+      "id": "SCRIPT-COVERAGE",
+      "asset_id": "finance",
+      "scopes": [
+        "powershell"
+      ],
+      "channel": "Microsoft-Windows-PowerShell/Operational",
+      "provider": "Microsoft-Windows-PowerShell",
+      "event_ids": [
+        4104
+      ],
+      "required_fields": [
+        "event_data.ScriptBlockText",
+        "event_data.ScriptBlockId",
+        "event_data.MessageNumber",
+        "event_data.MessageTotal"
+      ],
+      "expected_activity_seconds": 1800,
+      "max_ingest_lag_seconds": 120,
+      "max_collector_age_seconds": null
+    },
+    {
+      "id": "BACKUP-AUTH-COVERAGE",
+      "asset_id": "backup",
+      "scopes": [
+        "backup-security"
+      ],
+      "channel": "Security",
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "event_ids": [
+        4624,
+        4625
+      ],
+      "required_fields": [
+        "event_data.TargetUserName",
+        "event_data.IpAddress"
+      ],
+      "expected_activity_seconds": 1800,
+      "max_ingest_lag_seconds": 120,
+      "max_collector_age_seconds": 300
+    }
+  ]
+}

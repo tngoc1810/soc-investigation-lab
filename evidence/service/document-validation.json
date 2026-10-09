@@ -1,0 +1,21 @@
+{
+  "version": "6.0.0",
+  "validated_at": "2026-10-09T06:34:19.299688+00:00",
+  "files": {
+    "README.md": "fca4f1675f6bff1cbb2b3849c8d361698d76e8bbfd95c3a002939539aedf04e9",
+    "docs/PROJECT_REPORT_VI.md": "f4cf9447876413362f9aa5cab19a6d7f4512becdb2d4587e8a71c8688faa5554",
+    "docs/ARCHITECTURE.md": "451e6808792459d1463ab97ba15ada8bc6f5a1ec8f9691a49b773f5cb79a2de4",
+    "docs/OPERATIONS.md": "d156e73db805f897335b44ca15d2eb0aeb1619e2ab50258668f05276eba6c95e",
+    "docs/ACCEPTANCE.md": "ee7a529908d5c7cf7ab9c7dd918e0515d4b5b0b295a90b69b76ec4282ff502f8",
+    "docs/START_HERE_VI.md": "3b2a6ef22f66c6a051090eb0a44bf7c185aa522ae38d92c1c39292b43ac4c5f6",
+    "docs/ENGINEERING_V6.md": "24b153ebb2408cebe39f1a6d8f6e423ebf179829daa2f9e00fb4c54ab1057005",
+    "cases/008-telemetry-readiness/report.md": "4b497c98a7919151186fea6583fb0103248eec2d359e38a8222e749e529a32ad",
+    "evidence/service/README.md": "69578c176e5ba62540f336e37bd7423bd9d700d3b6015ce55029be0d80199c2c"
+  },
+  "local_links_verified": 134,
+  "cli_commands_parsed_without_execution": 19,
+  "powershell_blocks_for_native_ast_check": 20,
+  "scope": "Các hồ sơ chính tiếng Việt, local file links, CLI parser và native PowerShell AST syntax; không thực thi nội dung log hay lệnh operational trong tài liệu.",
+  "native_powershell_ast_blocks_verified": 20,
+  "cli_join_path_boundary": "Hai biểu thức Join-Path được thay bằng một path literal để kiểm argparse; native PowerShell AST kiểm nguyên block."
+}
