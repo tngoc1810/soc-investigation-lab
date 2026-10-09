@@ -111,3 +111,5 @@ Development có ba failure đáng ghi: so mọi file fail vì reader tạo coord
 Chưa có authenticated per-host heartbeat, đọc audit policy/config trực tiếp, CMDB API, fleet registration, distributed watermark, lịch sử version mọi database state, ticket integration, auto source approval, RBAC/signature/remediation. Ngưỡng scenario chưa được calibrate từ production độc lập. Pass quality checker chưa chứng minh detection recall, endpoint an toàn hoặc nguồn đầy đủ ngoài collection.
 
 Tôi giữ những giới hạn này trong hồ sơ vì chúng xác định người vận hành có thể dựa vào output tới đâu. v6 thêm bước kiểm tra dữ liệu và trách nhiệm dịch vụ vào implementation chạy được, với input/output và failure handling có thể kiểm tra.
+
+Snapshot fingerprint giữ current audited alert anchor, trong đó có actual wall-clock audit time. Independent run không cần cùng digest; cùng workspace chưa đổi phải đọc lặp cùng kết quả. CI/local source context và assessment được đối chiếu, mỗi run tự kiểm archive/audit/manifest. [CI artifact checks](../evidence/service/ci-artifact-validation.json) ghi riêng cả hai snapshot identity.

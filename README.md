@@ -4,7 +4,7 @@ Tôi xây dựng dự án này để xử lý trọn một luồng điều tra S
 
 **Phiên bản 6.0.0 — hoàn thiện ngày 09/10/2026.** Core dùng Python standard library, SQLite và PowerShell; Loki/Grafana native là backend tùy chọn. Tôi chọn phạm vi một workstation để triển khai trên máy 8 GB RAM mà không cần Docker hoặc VM.
 
-[Báo cáo dự án đầy đủ](docs/PROJECT_REPORT_VI.md) · [Kiến trúc](docs/ARCHITECTURE.md) · [Vận hành](docs/OPERATIONS.md) · [Nghiệm thu](docs/ACCEPTANCE.md) · [Thiết kế v6](docs/ENGINEERING_V6.md)
+[Báo cáo dự án đầy đủ](docs/PROJECT_REPORT_VI.md) · [Kiến trúc](docs/ARCHITECTURE.md) · [Vận hành](docs/OPERATIONS.md) · [Nghiệm thu](docs/ACCEPTANCE.md) · [Thiết kế v6](docs/ENGINEERING_V6.md) · [Bản phát hành v6](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v6.0.0)
 
 ## Bài toán tôi giải quyết
 
@@ -93,6 +93,8 @@ Output gồm JSON, HTML tiếng Việt, biên bản Markdown và manifest. Ngu�
 Native collector giữ log riêng tư ở `%LOCALAPPDATA%/SOCInvestigationLab/live/default`. [Runbook](docs/OPERATIONS.md) mô tả polling, backend, điều tra Windows/packet, approval context, queue maintenance và restore.
 
 ## Kiểm chứng và giới hạn thực nghiệm
+
+Commit `04dc9283c3e10b9a16bc25796c182be9e4ff4fbf` pass [cả bảy job CI](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37894582621). Log tải về xác nhận mỗi job Windows/Linux Python 3.11/3.12 chạy 151 test. Ba artifact có digest/inventory đúng; source hashes khớp tested Git blobs. [CI verification](evidence/service/ci-validation.json), [artifact verification](evidence/service/ci-artifact-validation.json).
 
 Local Python 3.11.5 và 3.12.14 đều pass **151 test**, trong đó 24 test mới kiểm tra source approval, archive/database/audit tamper, missing outbox, clock/channel, private scope, output dở và HTML injection. [Full test output](evidence/service/test-results.txt), [pipeline v6 đã chạy](evidence/service/local-validation.json).
 

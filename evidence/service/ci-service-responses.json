@@ -1,20 +1,53 @@
 {
   "version": "6.0.0",
-  "validated_at": "2026-10-09T06:39:17.613260+00:00",
-  "engine_source_sha256": "63f7c18b1789478b77bfa202037444a7b98c931be3d61ec848c53268ea374272",
-  "results": [
-    {
-      "python": "3.11.5",
-      "suite": "Ran 151 tests in 30.041s",
-      "exit_code": 0
+  "validated_at_utc": "2026-10-09T06:38:36.793111+00:00",
+  "run_id": "ci-service-public",
+  "summary": {
+    "assets": 2,
+    "selected_events": 12,
+    "unmapped_hosts": 1,
+    "telemetry_checks": 5,
+    "checks_needing_review": 4,
+    "active_alerts": 2
+  },
+  "as_of": "2026-10-09T03:00:00Z",
+  "context_sha256": "c6dade804ccccf036d5f9eb08a08f8bfebadba9ee7555dc5a28d1baee29b94f6",
+  "snapshot_sha256": "830228814f8f038daf57200c739f48a432785a2b237bb5fec532fa8c609dcc69",
+  "persistent_database_archives_and_nonempty_wal_unchanged": true,
+  "archive_and_database_anchors_verified": true,
+  "readonly_boundary": "SQLite mode=ro/query_only và transaction đọc. WAL/SHM coordination có thể được tạo; không đồng nghĩa ghi event/alert. Phép so hash loại SHM và WAL không có frame.",
+  "exact_report_manifest_verified": true,
+  "future_timestamp_and_wrong_channel_retained": true,
+  "missing_host_telemetry_not_called_disabled": true,
+  "missing_fields": {
+    "AUTH-COVERAGE": {
+      "event_data.TargetUserName": 0,
+      "event_data.TargetDomainName": 0,
+      "event_data.IpAddress": 0,
+      "event_data.LogonType": 0
     },
-    {
-      "python": "3.12.14",
-      "suite": "Ran 151 tests in 30.520s",
-      "exit_code": 0
+    "PROCESS-QUALITY": {
+      "event_data.Image": 0,
+      "event_data.CommandLine": 0,
+      "event_data.ProcessGuid": 0,
+      "event_data.ParentImage": 1
+    },
+    "NETWORK-QUALITY": {
+      "event_data.SourceIp": 0,
+      "event_data.SourcePort": 0,
+      "event_data.DestinationIp": 0,
+      "event_data.DestinationPort": 1,
+      "event_data.Protocol": 0,
+      "event_data.ProcessGuid": 0
+    },
+    "SCRIPT-COVERAGE": {
+      "event_data.ScriptBlockText": 0,
+      "event_data.ScriptBlockId": 0,
+      "event_data.MessageNumber": 0,
+      "event_data.MessageTotal": 1
     }
-  ],
-  "new_service_tests": 24,
+  },
+  "verdict": "chưa_kết_luận",
   "source_hashes": {
     "__init__.py": "17467c0571b017af9f8549223425008dfccd1e4504a8413849296f774926503b",
     "__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
@@ -40,5 +73,6 @@
     "service_report.py": "4a5b87a8b2878205ae49b08d73649b1c8288b97b65509425a26c9c4eddb104cf",
     "store.py": "9b29155b72fe392f0d8ec5fd5d485d599f964293b3490b48534b297ca8974ad9",
     "webapp.py": "dd0ba1da8212e7625f7bcf0420eaa225edde848064d313576bc426854dd17669"
-  }
+  },
+  "scope": "Dữ liệu và collector diagnostic đều tự dựng. Chỉ đọc source workspace; không thu thập log host thật, không thông báo người nhận, không thực hiện containment."
 }

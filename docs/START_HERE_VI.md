@@ -24,6 +24,7 @@
 | [005](../cases/005-multisource-chain/report.md) | Identity/ancestry và exact source scope có hỗ trợ multi-stage lead không? |
 | [006](../cases/006-public-network/report.md) | Public HTTP/DNS capture hỗ trợ những protocol relationship nào? |
 | [007](../cases/007-network-context/report.md) | Hai endpoint candidates và asset criticality ảnh hưởng attribution/priority/response proposal thế nào? |
+| [008](../cases/008-telemetry-readiness/report.md) | Quality/clock/channel/heartbeat, inventory và bàn giao theo dịch vụ hỗ trợ quyết định đến đâu? |
 
 ## Bằng chứng bàn giao
 

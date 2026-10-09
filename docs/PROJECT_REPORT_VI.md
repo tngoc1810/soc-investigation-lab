@@ -31,8 +31,8 @@ Tôi thiết kế hệ thống để những tình huống này có trạng thá
 | FR-09 | Xuất và khôi phục hồ sơ | Reviewed packet, manifest, exclusive publication, SQLite/archive snapshot và restore verification |
 | FR-10 | Điều tra PCAP | Packet offset/hash, TCP reassembly, DNS/HTTP/TLS metadata và diagnostic |
 | FR-11 | Bổ sung endpoint/business context có kiểm soát | Exact source scope; tuple/protocol/time candidates; capture-bound asset inventory |
-| FR-13 | Đánh giá dịch vụ, quality và bàn giao | Snapshot chỉ đọc, inventory, exact source/time-bound profile, quality checks, handoff |
 | FR-12 | Có thể kiểm chứng độc lập | CI đa OS/interpreter, native Loki responses, dpkt cross-check, inventory checksum |
+| FR-13 | Đánh giá dịch vụ, quality và bàn giao | Snapshot chỉ đọc, inventory, exact source/time-bound profile, quality checks, handoff |
 
 ### 1.3. Yêu cầu phi chức năng và phạm vi bàn giao
 
@@ -417,3 +417,17 @@ Local Python 3.11.5/3.12.14 pass 151 test, gồm 24 readiness regressions. Valid
 ![Bàn giao theo chủ dịch vụ, chưa gửi thông báo/chưa containment](../evidence/service/screenshots/03-service-handoff.jpg)
 
 Tôi chưa thêm authenticated host heartbeat, CMDB/ticket API, IAM, continuous policy scheduler cho readiness, field-accuracy benchmark hoặc remediation. v6 thể hiện thêm năng lực dữ liệu/vận hành trong implementation có input/output/failure checks, với các kết quả lịch sử được giữ đúng phiên bản ở phần trước.
+
+### 12.6. Nghiệm thu CI và identity bản phát hành
+
+Commit `04dc9283c3e10b9a16bc25796c182be9e4ff4fbf` pass [bảy job trong run 37894582621](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37894582621). Bốn matrix job Windows/Linux Python 3.11/3.12 đều có 151 test trong log tải về. Windows còn rebuild public EVTX/graph/operations. Ba job riêng kiểm Sigma, native Loki thực tế và public packet/dpkt cùng readiness artifact.
+
+Tôi tải ba artifact ZIP, kiểm GitHub digest và exact inventory, rồi đối chiếu source hashes với tested Git blobs. Native Loki giữ các primary-case count/UID pivot và trả đủ 19 unique operational UID sau actual HTTP 503 và fresh-process recovery. dpkt kiểm 81 public packet tuple, 40 DNS message và hai HTTP request; 17 constructed transport checksums đúng. Readiness context, exact summary và missing fields khớp local; mỗi run kiểm source/audit/manifest riêng.
+
+Snapshot hash không yêu cầu giống giữa các run vì giữ alert audit anchor chứa wall-clock time của chính lần chạy. Nó ổn định khi đọc lại cùng workspace chưa đổi; context/assessment có thể tái lập mà snapshot identity vẫn khác. Tôi giữ cả hai digest trong artifact thay vì thay timestamp để làm hash đẹp.
+
+CI đầu tiên fail tại test private-output path trên Windows/Python 3.12: test double chưa resolve đường dẫn như production. Tôi sửa cả hai phía phép so bằng Path.resolve(), giữ nguyên privacy gate và chạy lại toàn bộ CI. [Failure record](../evidence/service/ci-initial-failure.json), [CI steps](../evidence/service/ci-validation.json), [full responses và checks](../evidence/service/ci-artifact-validation.json).
+
+[Bản phát hành v6.0.0](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v6.0.0) trỏ tested commit nêu trên. Repo chính còn giữ các attestation sau run; chúng không đổi engine. ZIP bàn giao gồm public source/hồ sơ và selected proof, với exact file manifest; raw private/original third-party captures và credentials không được đưa vào. Verified engine fingerprint: `63f7c18b1789478b77bfa202037444a7b98c931be3d61ec848c53268ea374272`.
+
+ZIP bàn giao đã được tải lại và kiểm byte/hash/manifest: 299 file, 2,578,421 byte, SHA-256 `3e133eba8038ffc7a05108d00e5165d980c69d42047bff39a92629f84f0554e1`. Tôi giải nén vào thư mục mới để chạy core CLI, kiểm 124 evidence file trong bundle và tái lập readiness. [Release verification](../evidence/service/release-validation.json) giữ từng phép kiểm; attestation upload được ghi sau publish vào repo, không thay byte ZIP đã phát hành.

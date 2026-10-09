@@ -1,0 +1,475 @@
+{
+  "version": "6.0.0",
+  "validated_at": "2026-10-09T06:41:57.718487+00:00",
+  "run_id": 37894582621,
+  "url": "https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37894582621",
+  "head_sha": "04dc9283c3e10b9a16bc25796c182be9e4ff4fbf",
+  "conclusion": "success",
+  "matrix_tests_per_job": 151,
+  "matrix_logs_test_counts_verified": true,
+  "engine_source_sha256": "63f7c18b1789478b77bfa202037444a7b98c931be3d61ec848c53268ea374272",
+  "jobs": [
+    {
+      "name": "backend",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Prepare independent evidence collections",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Verify pinned native Loki ingestion and actual LogQL responses",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success",
+          "number": 13
+        }
+      ]
+    },
+    {
+      "name": "network",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Install independent packet decoder",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Validate pinned public captures with independent decoding",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Validate service handoff and source integrity",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 16
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success",
+          "number": 17
+        }
+      ]
+    },
+    {
+      "name": "sigma",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run python -m pip install -r requirements-validation.txt",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run python scripts/validate_sigma.py",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success",
+          "number": 11
+        }
+      ]
+    },
+    {
+      "name": "regression (ubuntu-latest, 3.12)",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run regression tests",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Verify published evidence checksums",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run documented demo",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Rebuild and verify public EVTX cases on Windows",
+          "conclusion": "skipped",
+          "number": 7
+        },
+        {
+          "name": "Evaluate checked-in scenario corpus",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Verify operational outage, restart, case export and snapshot recovery",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Verify packet evidence and ambiguous endpoint candidates",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Verify read-only service context and telemetry quality",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 21
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 22
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success",
+          "number": 23
+        }
+      ]
+    },
+    {
+      "name": "regression (ubuntu-latest, 3.11)",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run regression tests",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Verify published evidence checksums",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run documented demo",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Rebuild and verify public EVTX cases on Windows",
+          "conclusion": "skipped",
+          "number": 7
+        },
+        {
+          "name": "Evaluate checked-in scenario corpus",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Verify operational outage, restart, case export and snapshot recovery",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Verify packet evidence and ambiguous endpoint candidates",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Verify read-only service context and telemetry quality",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 21
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 22
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success",
+          "number": 23
+        }
+      ]
+    },
+    {
+      "name": "regression (windows-latest, 3.12)",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run regression tests",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Verify published evidence checksums",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run documented demo",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Rebuild and verify public EVTX cases on Windows",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Evaluate checked-in scenario corpus",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Verify operational outage, restart, case export and snapshot recovery",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Verify packet evidence and ambiguous endpoint candidates",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Verify read-only service context and telemetry quality",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 21
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 22
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success",
+          "number": 23
+        }
+      ]
+    },
+    {
+      "name": "regression (windows-latest, 3.11)",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run regression tests",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Verify published evidence checksums",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run documented demo",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Rebuild and verify public EVTX cases on Windows",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Evaluate checked-in scenario corpus",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Verify operational outage, restart, case export and snapshot recovery",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Verify packet evidence and ambiguous endpoint candidates",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Verify read-only service context and telemetry quality",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success",
+          "number": 21
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success",
+          "number": 22
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success",
+          "number": 23
+        }
+      ]
+    }
+  ]
+}

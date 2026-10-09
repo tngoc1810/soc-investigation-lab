@@ -1,0 +1,59 @@
+{
+  "version": "6.0.0",
+  "verified_at": "2026-10-09T06:42:04.945528+00:00",
+  "run_id": 37894582621,
+  "code_commit": "04dc9283c3e10b9a16bc25796c182be9e4ff4fbf",
+  "artifacts": [
+    {
+      "id": 11600115487,
+      "name": "actual-loki-responses",
+      "downloaded_zip_sha256": "367272a9c88fd6ca0f6cd804d807a8097ec4862149cfe9d9cfec7d0feb60a860",
+      "github_digest_verified": true,
+      "exact_inventory_verified": true
+    },
+    {
+      "id": 11599841620,
+      "name": "independent-network-validation",
+      "downloaded_zip_sha256": "3456ec81fb775de6cbe4b843b6df9eba749756063ab4259092c868ead48786f5",
+      "github_digest_verified": true,
+      "exact_inventory_verified": true
+    },
+    {
+      "id": 11599477815,
+      "name": "service-readiness-validation",
+      "downloaded_zip_sha256": "2866835c55e6f54701f5e3cfd1c337b86a14061786740855770ca7a9290b2a2e",
+      "github_digest_verified": true,
+      "exact_inventory_verified": true
+    }
+  ],
+  "source_hashes_match_tested_git_blobs": true,
+  "public_capture_hashes_and_expected_counts_verified": true,
+  "independent_public_packet_tuples": 81,
+  "independent_public_dns_messages": 40,
+  "independent_complete_http_requests": 2,
+  "constructed_checksums": 17,
+  "two_endpoint_candidates_retained": true,
+  "historical_counts": {
+    "case-001": 8,
+    "case-002": 3561,
+    "case-003": 3,
+    "case-004": 4,
+    "case-005": 2511
+  },
+  "actual_loki_unique_live_uids": 19,
+  "fresh_process_pending": 19,
+  "service_exact_summary_verified": {
+    "assets": 2,
+    "selected_events": 12,
+    "unmapped_hosts": 1,
+    "telemetry_checks": 5,
+    "checks_needing_review": 4,
+    "active_alerts": 2
+  },
+  "service_context_summary_and_missing_fields_match_local": true,
+  "service_ci_snapshot_sha256": "830228814f8f038daf57200c739f48a432785a2b237bb5fec532fa8c609dcc69",
+  "service_local_snapshot_sha256": "b5cf55ea1799c5436ee8547ea945c7c6cc58a0790d4a0d36413ba7289c133038",
+  "service_snapshot_boundary": "Independent runs include alert audit anchors with actual run wall-clock times. Snapshot digests are not required to match across runs; source context and assessment results are compared instead. Each validator verifies its own archives/audit/report manifest.",
+  "service_persistent_database_and_archives_unchanged": true,
+  "scope": "Downloaded CI artifacts, exact inventories and GitHub ZIP digests verified. Full selected protocol and actual Loki responses retained adjacent. No network malicious/benign accuracy benchmark."
+}

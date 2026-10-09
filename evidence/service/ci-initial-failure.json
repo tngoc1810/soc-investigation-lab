@@ -1,0 +1,18 @@
+{
+  "version": "6.0.0",
+  "verified_at": "2026-10-09T06:39:17.445754+00:00",
+  "run_id": 37894289214,
+  "code_commit": "3b3ca67711cd15753266499cd1246deb48292691",
+  "failing_job": "regression (windows-latest, 3.12)",
+  "failing_step": "Run regression tests",
+  "test": "test_private_workspace_and_public_output_guard",
+  "total_tests": 151,
+  "failures": 1,
+  "log_member": "regression (windows-latest, 3.12)/4_Run regression tests.txt",
+  "log_member_sha256": "9e21c0888feb5d6708d9fec88db22265cb085fd26de9585a229a4f89ce75f63c",
+  "downloaded_logs_zip_sha256": "86bff02885aef1460c8ba2b78efca4c1538cfcdf758c5a06b86875f8567115c3",
+  "observed_failure": "The test expected the public-output private guard, but the earlier private-workspace guard rejected the resolved path. No private report was exported.",
+  "repair": "The private_path test double now compares both paths after Path.resolve(), matching production path handling. Windows temporary path aliases are the likely reason the unresolved comparison differed; production privacy guard was not weakened.",
+  "fixed_commit": "04dc9283c3e10b9a16bc25796c182be9e4ff4fbf",
+  "scope": "Five jobs passed, Windows3.12 failed and the other Windows matrix job was cancelled by fail-fast. Subsequent full run must pass before release."
+}

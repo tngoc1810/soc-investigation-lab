@@ -1,4 +1,19 @@
-# Validation record — updated 2026-10-09
+# Bản ghi kiểm chứng — cập nhật 09/10/2026
+
+## Phiên bản 6 — Service readiness, chất lượng dữ liệu và hồ sơ tiếng Việt (09/10/2026)
+
+Tôi bổ sung current operational snapshot chỉ đọc, profile có thời hạn/exact source set, asset/owner/service mapping, provider/channel/Event ID coverage, missing fields, ingest lag, future/negative clock, scope heartbeat và proposed handoff. Scenario tự dựng giữ hai asset/12 event/năm requirement/bốn cần review/hai active alert/một unmapped host. Source/archive/database/audit/outbox được verify trước output; không thu native log mới hoặc containment.
+
+Python 3.11.5 và 3.12.14 local đều pass 151 test. [CI run 37894582621](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37894582621) trên `04dc9283c3e10b9a16bc25796c182be9e4ff4fbf` pass bảy job; log tải về xác nhận 151 test trong mỗi matrix job. Windows tái lập public EVTX, graph và operations. Sigma, native Loki, network/dpkt và service artifact cũng pass. Ba artifact ZIP tải về khớp digest GitHub, inventory chính xác và source Git blobs. [Local](../evidence/service/local-validation.json), [CI](../evidence/service/ci-validation.json), [artifact checks](../evidence/service/ci-artifact-validation.json).
+
+Loki thật trả lại đúng historical case counts/UID pivots và 19 unique operational UID sau HTTP 503 và restart sang process mới. dpkt đối chiếu 81 public packet tuple, 40 DNS message và hai HTTP request; 17 constructed checksum đúng. Context, summary và missing fields của service khớp local. Snapshot SHA khác vì mỗi run giữ thời gian audit thực tế. Phép kiểm readonly loại SHM/WAL chưa có frame, không tuyên bố mọi file vật lý bất biến. as_of không phục dựng database state lịch sử.
+
+[CI đầu tiên](../evidence/service/ci-initial-failure.json) fail một test Windows 3.12: private-path test double so unresolved với resolved path. Repair resolve cả hai; privacy gate không đổi; full CI chạy lại pass. [Browser proof](../evidence/service/browser-validation.json) giữ bốn tab/search/anchors/handoff và responsive layout cùng genuine screenshots. [Release v6](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v6.0.0) trỏ tested commit; post-run evidence/docs commits không đổi engine.
+
+Các hồ sơ v5 bên dưới là bản ghi lịch sử. File hashes trong attestation đó mô tả tài liệu ngày 09/10 trước nâng cấp v6; tài liệu hiện tại đã được cập nhật và có attestation riêng.
+
+
+[Release verification](../evidence/service/release-validation.json): 299-file ZIP khớp GitHub digest, byte tải lại và internal manifest; tag target đúng tested commit. CLI, 124 bundle evidence checksums và service pipeline chạy thành công từ thư mục giải nén mới.
 
 ## Integrated project documentation
 

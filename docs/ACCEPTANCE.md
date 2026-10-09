@@ -58,3 +58,11 @@ Enterprise fleet deployment, authenticated multi-user IAM/RBAC, HA, automatic re
 ## Hồ sơ giao nhận
 
 Source/policy/catalog/deployment lock, tám case report, tiếng Việt README/report/architecture/runbook/acceptance/design v6, HTML/JSON/Markdown service bundle và checksum manifest. Public artifact chỉ gồm selected derived results và inert constructed input. Raw private telemetry, credentials, original third-party acquisitions không đưa vào release review bundle.
+
+## Kết quả CI đã đóng
+
+[Run 37894582621](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/37894582621) trên commit `04dc9283c3e10b9a16bc25796c182be9e4ff4fbf` pass cả bảy job. Log tải về xác nhận bốn suite, mỗi suite 151 test; artifact digest, inventory và source Git blobs khớp. Response được kiểm lại gồm 19 UID từ Loki sau outage/restart, historical primary counts và 81 packet tuple/40 DNS/hai HTTP request đối chiếu dpkt. [Verification](../evidence/service/ci-artifact-validation.json). [Failure path đầu tiên](../evidence/service/ci-initial-failure.json) được giữ cùng bản sửa.
+
+[Bản phát hành v6](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v6.0.0) trỏ tested commit; source fingerprint `63f7c18b1789478b77bfa202037444a7b98c931be3d61ec848c53268ea374272`. Context/assessment CI khớp local; snapshot digest độc lập vì audit giữ thời gian thực của từng run. Release digest, download và internal manifest được kiểm riêng sau khi publish.
+
+[Release verification](../evidence/service/release-validation.json) đã hoàn tất: tag target, asset digest, downloaded bytes và exact 299-file manifest đúng. Bộ tải lại được chạy trong thư mục mới: CLI, 124 evidence checksums của bundle và service pipeline đều pass. Attestation sau publish được giữ riêng trong inventory hiện tại của repo.

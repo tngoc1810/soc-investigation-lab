@@ -1,0 +1,68 @@
+{
+  "version": "6.0.0",
+  "verified_at": "2026-10-09T06:48:31.593462+00:00",
+  "release_id": 407610725,
+  "url": "https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v6.0.0",
+  "tag": "v6.0.0",
+  "code_commit": "04dc9283c3e10b9a16bc25796c182be9e4ff4fbf",
+  "tag_target_verified": true,
+  "draft": false,
+  "prerelease": false,
+  "assets": [
+    {
+      "name": "soc-investigation-lab-v6.0.0.zip",
+      "url": "https://github.com/tngoc1810/soc-investigation-lab/releases/download/v6.0.0/soc-investigation-lab-v6.0.0.zip",
+      "size": 2578421,
+      "sha256": "3e133eba8038ffc7a05108d00e5165d980c69d42047bff39a92629f84f0554e1",
+      "github_asset_digest_verified": true,
+      "downloaded_bytes_match": true,
+      "exact_internal_inventory_verified": true,
+      "files": 299,
+      "all_engine_bytes_match_tested_commit": true
+    }
+  ],
+  "scope": "Public source and dossier plus post-CI attestations; no raw private/third-party acquisition/credentials/mutable databases. Engine bytes match tested commit; release-upload verification follows in repository.",
+  "downloaded_bundle_smoke": {
+    "verified_at": "2026-10-09T06:49:36.149864+00:00",
+    "fresh_temporary_directory": true,
+    "python": "3.11.5",
+    "commands": [
+      {
+        "argv": [
+          "-m",
+          "soclab",
+          "--help"
+        ],
+        "exit_code": 0,
+        "stdout": "usage: __main__.py [-h]\n                   {ingest,analyze,investigate,evaluate,search,query,serve,case,hunt,forensics,decode,live,network,readiness}\n                   ...\n\nOffline Windows SOC investigation lab; findings require analyst review.\n\npositional arguments:\n  {ingest,analyze,investigate,evaluate,search,query,serve,case,hunt,forensics,decode,live,network,readiness}\n    ingest              Atomically import a JSONL evidence file\n    analyze             Export timeline, findings and a draft analyst report\n    investigate         Build a source-scoped process graph and explainable\n                        investigation chains\n    evaluate            Evaluate scenario-level review labels on the synthetic\n                        development/holdout corpus\n    search              Search original events, not only alert matches\n    query               Execute a checked-in SQLite investigation query (read-\n                        only)\n    serve               Open the local, read-only case explorer\n    case                Manage analyst decisions separately from source\n                        evidence\n    hunt                Execute eight fixed read-only investigation hypotheses\n    forensics           Reconstruct complete PowerShell 4104 blocks without\n                        executing them\n    decode              Decode a supported PowerShell encoded host argument as\n                        text\n    live                Operate the durable single-host collection and alert\n                        pilot\n    network             Inspect bounded offline IPv4 PCAP evidence and\n                        response readiness\n    readiness           Đánh giá tài sản, chất lượng telemetry và bàn giao\n                        điều tra bằng snapshot chỉ đọc\n\noptions:\n  -h, --help            show this help message and exit\n"
+      },
+      {
+        "argv": [
+          "scripts/verify_checksums.py"
+        ],
+        "exit_code": 0,
+        "stdout": "Verified 124 published evidence files, including inventory completeness.\n"
+      },
+      {
+        "argv": [
+          "scripts/validate_service_readiness.py",
+          "--run-id",
+          "release-smoke",
+          "--out",
+          "output/service-smoke.json"
+        ],
+        "exit_code": 0,
+        "stdout": "{\n  \"assets\": 2,\n  \"selected_events\": 12,\n  \"unmapped_hosts\": 1,\n  \"telemetry_checks\": 5,\n  \"checks_needing_review\": 4,\n  \"active_alerts\": 2\n}\n"
+      }
+    ],
+    "service_summary": {
+      "assets": 2,
+      "selected_events": 12,
+      "unmapped_hosts": 1,
+      "telemetry_checks": 5,
+      "checks_needing_review": 4,
+      "active_alerts": 2
+    },
+    "archive_audit_readonly_manifest_verified": true
+  }
+}
