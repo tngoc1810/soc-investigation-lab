@@ -1,36 +1,38 @@
-# CASE-007: an upload, long DNS label and periodic SYNs
+# CASE-007 — Upload, DNS label dài và SYN định kỳ: ưu tiên review mà chưa kết luận C2
 
-## The constructed evidence
+Tôi dựng 17 packet inert, hai endpoint event và inventory giả lập để kiểm reassembly, attribution và business context. Generator không mở kết nối hay chạy backup. Ý định backup/monitoring được biết từ cách dựng scenario, chưa được suy ra chỉ bằng packet.
 
-This exercise contains 17 inert packet records, two fictional endpoint events and a fictional inventory. All addresses use documentation ranges. The generator does not make network connections or execute a backup. Its declared backup/monitoring intention is known to the exercise author, not discovered from the packet data.
+## Quan sát và giới hạn
 
-| Observation | Supported interpretation | Unsupported conclusion |
+| Quan sát | Điều dữ liệu hỗ trợ | Điều tôi chưa kết luận |
 | --- | --- | --- |
-| Long varied label under `telemetry.example` | NET-001 needs context | Confirmed DNS tunnel or data theft |
-| POST `/backup`, declared complete 2,480-byte body | NET-002 observes request framing and retained inert-body hash | Server accepted the upload; confidential files were stolen |
-| Six TCP SYN starts every 30 seconds | NET-003 observes regular attempts | Six successful C2 sessions |
-| Reordered TCP segments plus one exact retransmission | Sequence reconstruction preserves one request and records 70 repeated bytes | Retransmissions are additional distinct uploads |
-| TLS ClientHello SNI `telemetry.example` | The client supplied a name in a supported hello | Authenticated server identity or decrypted application content |
-| Two Sysmon event-3 candidates with the same tuple/time | Endpoint attribution is ambiguous | Select the convenient backup executable and discard the other candidate |
+| Label dài, nhiều loại ký tự dưới telemetry.example | NET-001 cần context | DNS tunnel hoặc data theft |
+| POST /backup, body hoàn chỉnh khai báo 2.480 byte | NET-002 giữ framing và inert-body hash | Server đã nhận hoặc file nhạy cảm bị đánh cắp |
+| Sáu SYN start cách 30 giây | NET-003 thấy nỗ lực đều đặn | Sáu C2 session thành công |
+| TCP reorder và một exact retransmission | Một request, ghi 70 repeated byte | Nhiều upload độc lập |
+| ClientHello có SNI telemetry.example | Client cung cấp tên trong hello hỗ trợ | Server identity đã xác thực hoặc application content đã giải mã |
+| Hai Sysmon 3 cùng tuple/time | Hai process candidate | Chọn process thuận tiện rồi bỏ candidate kia |
 
-The body is repeated inert text. An identically named real executable or destination would need independent content/hash/ownership validation. The case deliberately supplies both `backup.exe` and `unverified.exe` candidate metadata without process-creation evidence, so neither becomes a proven origin.
+Body là text lặp inert. Hai candidate có metadata `backup.exe` và `unverified.exe`, chưa có process creation để xác minh origin. Tên executable hoặc destination quen thuộc chưa kiểm content/hash/ownership.
 
-## Triage
+## Cách tôi ưu tiên
 
-Declared context marks the client as a high-criticality finance exercise workstation. All three leads receive `review_first`. Priority is not confidence: the inventory is fictional and the observables support competing explanations. The analyzer's verdict remains `unassessed` even though the generator describes an approved backup exercise.
+Inventory khai báo workstation finance có mức critical, nên ba lead nhận `review_first`. Criticality ảnh hưởng thứ tự kiểm tra, không tăng confidence về maliciousness. Verdict vẫn `unassessed` dù fixture author mô tả backup exercise.
 
-Preserve the capture, source hashes, frame references, endpoint events and exact context supplied at review. Request the capture vantage/time synchronization, process creation/GUID evidence, actual executable/hash/signature, file-access context, destination owner and change approval. A proxy/NAT boundary or different clock may invalidate the tuple/time association.
+Tôi giữ capture/source hashes, frame anchors, endpoint events và context đúng lần review. Cần capture vantage, time synchronization, ProcessGuid/process creation, executable/hash/signature, file access, destination owner và approval. NAT/proxy hoặc clock khác có thể làm tuple/time association không còn hợp lệ.
 
-## Proposed response and tradeoffs
+## Đề xuất bàn giao
 
-| Proposal | Owner/authority | Impact and rollback | Verification |
+| Công việc | Người phụ trách dự kiến và phê duyệt | Ảnh hưởng/phục hồi | Xác minh |
 | --- | --- | --- | --- |
-| Preserve capture and endpoint logs | Analyst/custodian; follow approved retention/data handling | Storage/privacy obligations; preserve originals | Reopen files, compare hashes and verify time coverage |
-| Validate backup/monitoring authorization | Application/asset owner; obtain approval record | Review effort; correct unsupported assumptions without rewriting prior evidence | Match approved executable/content/destination and schedule |
-| Consider narrow restriction if evidence/authorization warrants it | Incident lead and network owner; named approval before execution | Backup or monitoring may stop; retain prior configuration and tested restoration procedure | Confirm approved restriction, continued telemetry and service recovery |
+| Giữ capture/endpoint logs | Analyst/custodian, theo retention/data handling được duyệt | Chi phí lưu trữ/privacy, giữ original | Mở lại nguồn, so hash và coverage |
+| Kiểm backup/monitoring authorization | Chủ tài sản/ứng dụng, lấy change record | Sửa giả định sai mà giữ quyết định cũ | So executable/content/destination/schedule |
+| Cân nhắc hạn chế hẹp khi đủ căn cứ | Incident lead/network owner có quyền phê duyệt | Có thể ngừng backup; giữ cấu hình và thủ tục phục hồi | Kiểm hiệu lực, telemetry tiếp tục, dịch vụ phục hồi |
 
-No restriction, host isolation or account change was executed. Do not recommend blocking a shared destination solely from an entropy or periodicity threshold. Escalation should communicate the observed behavior, competing explanations, business impact, missing evidence and requested decision.
+Project chưa block, isolate host hoặc sửa account. Entropy/periodicity threshold chưa đủ để chặn shared destination. Hồ sơ chuyển cấp phải nói quan sát, giả thuyết cạnh tranh, tác động và dữ liệu còn thiếu.
 
-## Demonstration and counterexample
+## Kiểm boundary
 
-Run the validator, open the interactive report and show the three leads. Open the POST's connection to verify body hash and retransmission count. Show the two endpoint candidates and explain why approved source scope does not remove ambiguity. Change the endpoint protocol or timestamp in a fresh experiment; the pivot must disappear. Remove part of a TCP request or create a conflicting overlap; application inference must be suppressed. The original exercise stays retained rather than overwritten.
+Tôi kiểm POST connection để đối chiếu body hash và retransmission count, đồng thời giữ cả hai endpoint candidate. Exact source scope cho phép tương quan, chưa loại ambiguity. Trong experiment mới, đổi protocol hoặc timestamp làm pivot biến mất; thiếu request segment hoặc conflicting overlap phải chặn application inference. Collection gốc được giữ riêng.
+
+[Runbook](../../docs/OPERATIONS.md), [network proofs](../../evidence/network/README.md) và [bản tiếng Anh đã lưu](report.en.md) giữ đường tái lập. Tình huống này kiểm logic trên dữ liệu biết trước, chưa đo detection hiệu quả ngoài thực tế.

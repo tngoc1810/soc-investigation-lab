@@ -1,10 +1,10 @@
 # SOC Investigation & Operations — Báo cáo dự án
 
-**Phiên bản triển khai:** 6.0.0. **Ngày hoàn thiện bộ hồ sơ:** 09/10/2026. **Phạm vi:** hệ thống thu thập, điều tra và quản lý bằng chứng trên một workstation, với backend Loki/Grafana tùy chọn.
+**Phiên bản hiện tại:** 6.1.0. **Ngày cập nhật bộ hồ sơ:** 11/10/2026. Kết quả nghiệm thu v6.0 được giữ theo mốc 09/10/2026. **Phạm vi:** hệ thống thu thập, điều tra và quản lý bằng chứng trên một workstation, với backend Loki/Grafana tùy chọn.
 
 Trong dự án này, tôi xây dựng một luồng xử lý từ bản ghi được tiếp nhận đến quyết định điều tra có thể kiểm tra lại. Tôi chọn Windows telemetry và packet capture làm hai nguồn quan sát chính vì chúng trả lời những câu hỏi khác nhau: log endpoint mô tả danh tính, process và thao tác được ghi nhận; packet mô tả những byte và quan hệ giao thức xuất hiện tại vị trí capture. Việc ghép hai nguồn phải có điều kiện, thay vì coi cùng IP hoặc gần thời gian là đủ để kết luận.
 
-Bộ hồ sơ này mô tả phần đã triển khai, những quyết định thiết kế, kết quả điều tra và các phép kiểm chứng đã thực hiện. Các dữ liệu công khai, dữ liệu tự dựng và thu thập thật trên máy được ghi rõ theo từng nguồn. Phần phát triển và phân tích ban đầu có sử dụng Codex; các kết quả không được trình bày như kinh nghiệm vận hành SOC doanh nghiệp hay sự cố sản xuất đã xử lý.
+Bộ hồ sơ này mô tả phần đã triển khai, những quyết định thiết kế, kết quả điều tra và các phép kiểm chứng đã thực hiện. Các dữ liệu công khai, dữ liệu tự dựng và thu thập thật trên máy được ghi rõ theo từng nguồn. Quá trình phát triển có Codex hỗ trợ như ghi tại [phạm vi đóng góp](PORTFOLIO_NOTES.md). Hồ sơ giữ riêng nguồn công khai, thử nghiệm tự dựng và lần thu native; đây là dự án cá nhân, chưa phải trải nghiệm xử lý incident doanh nghiệp.
 
 ## 1. Bài toán và yêu cầu
 
@@ -431,3 +431,13 @@ CI đầu tiên fail tại test private-output path trên Windows/Python 3.12: t
 [Bản phát hành v6.0.0](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v6.0.0) trỏ tested commit nêu trên. Repo chính còn giữ các attestation sau run; chúng không đổi engine. ZIP bàn giao gồm public source/hồ sơ và selected proof, với exact file manifest; raw private/original third-party captures và credentials không được đưa vào. Verified engine fingerprint: `63f7c18b1789478b77bfa202037444a7b98c931be3d61ec848c53268ea374272`.
 
 ZIP bàn giao đã được tải lại và kiểm byte/hash/manifest: 299 file, 2,578,421 byte, SHA-256 `3e133eba8038ffc7a05108d00e5165d980c69d42047bff39a92629f84f0554e1`. Tôi giải nén vào thư mục mới để chạy core CLI, kiểm 124 evidence file trong bundle và tái lập readiness. [Release verification](../evidence/service/release-validation.json) giữ từng phép kiểm; attestation upload được ghi sau publish vào repo, không thay byte ZIP đã phát hành.
+
+## 13. Bổ sung v6.1: kiểm tra hồ sơ ở phía người nhận
+
+Sau khi có báo cáo và manifest, vẫn còn một câu hỏi: người nhận đang xem đúng nội dung đã bàn giao hay chỉ một thư mục tự nhất quán? Nếu ai đó sửa cả JSON, HTML, Markdown và manifest, việc tính hash từ chính manifest mới sẽ không phát hiện thay đổi so với bản trước đó.
+
+Tôi bổ sung `verify-readiness`, bắt buộc nhận manifest digest đã giữ độc lập. Lệnh đọc byte có giới hạn, từ chối inventory khác bốn file, symlink/reparse point, key trùng trong JSON, hash lệch, context/snapshot lệch và các tổng số không khớp phần chi tiết có trong báo cáo. HTML/Markdown phải bằng kết quả render lại từ JSON với renderer hiện tại.
+
+Tôi không gán bước này thành xác thực acquisition. Lệnh không có archive hoặc database để kiểm lại; số selected event chỉ được kiểm kiểu/giới hạn, không tự tái đếm toàn bộ event. Unmapped alert IDs không có state nên chỉ cung cấp giới hạn cho active count. Hash giữ riêng chỉ có giá trị khi bản tham chiếu đáng tin cậy; không thay thế chữ ký số hay xác minh người gửi.
+
+Đợt biên tập này chuyển bảy case cũ thành tiếng Việt, giữ bản tiếng Anh cạnh file hiện tại. Số liệu, source hash, timeline, kết quả bất lợi và giới hạn không bị sửa để làm câu chuyện đẹp hơn. [Quyết định thiết kế](DESIGN_DECISIONS_VI.md) trình bày lý do chọn implementation và những phương án còn thiếu; [thiết kế v6.1](ENGINEERING_V61.md) giữ contract kiểm gói bàn giao.

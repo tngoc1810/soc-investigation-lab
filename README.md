@@ -1,10 +1,10 @@
 # SOC Investigation & Operations
 
-Tôi xây dựng dự án này để xử lý trọn một luồng điều tra SOC: thu nhận dữ liệu, bảo toàn nguồn gốc, phát hiện dấu hiệu, kiểm tra giả thuyết, ghi nhận quyết định và bàn giao có căn cứ. Windows telemetry, packet capture và context dịch vụ trả lời những câu hỏi khác nhau; hệ thống giữ các ranh giới đó khi tương quan và báo cáo.
+Tôi xây dựng SOC Investigation & Operations quanh một câu hỏi: khi có alert, tôi có thể quay lại dữ liệu gốc và giải thích vì sao cần điều tra tiếp không? Từ câu hỏi đó, tôi triển khai thu nhận log Windows, phân tích packet, detection, hunting, ghi nhận quyết định và bàn giao theo dịch vụ. Mỗi kết luận giữ nguồn đối chiếu và phần bằng chứng còn thiếu.
 
-**Phiên bản 6.0.0 — hoàn thiện ngày 09/10/2026.** Core dùng Python standard library, SQLite và PowerShell; Loki/Grafana native là backend tùy chọn. Tôi chọn phạm vi một workstation để triển khai trên máy 8 GB RAM mà không cần Docker hoặc VM.
+**Phiên bản 6.1.0 — cập nhật ngày 11/10/2026.** Core dùng Python standard library, SQLite và PowerShell; Loki/Grafana native là backend tùy chọn. Tôi chọn phạm vi một workstation để triển khai trên máy 8 GB RAM mà không cần Docker hoặc VM.
 
-[Báo cáo dự án đầy đủ](docs/PROJECT_REPORT_VI.md) · [Kiến trúc](docs/ARCHITECTURE.md) · [Vận hành](docs/OPERATIONS.md) · [Nghiệm thu](docs/ACCEPTANCE.md) · [Thiết kế v6](docs/ENGINEERING_V6.md) · [Bản phát hành v6](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v6.0.0)
+[Báo cáo dự án đầy đủ](docs/PROJECT_REPORT_VI.md) · [Kiến trúc](docs/ARCHITECTURE.md) · [Vận hành](docs/OPERATIONS.md) · [Nghiệm thu](docs/ACCEPTANCE.md) · [Thiết kế v6](docs/ENGINEERING_V6.md) · [Quyết định thiết kế](docs/DESIGN_DECISIONS_VI.md) · [Kiểm gói bàn giao v6.1](docs/ENGINEERING_V61.md) · [Bản phát hành v6](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v6.0.0)
 
 ## Bài toán tôi giải quyết
 
@@ -122,4 +122,16 @@ Tôi bàn giao source, policy, acquisition catalog, scripts tái lập, tám h�
 
 Chưa triển khai IAM/RBAC nhiều người dùng, fleet enrollment, HA, retention tự động, continuous packet sensor, external intelligence hoặc containment. Parser hỗ trợ classic-PCAP/IPv4 có giới hạn. Priority là thứ tự review; owner/reviewer là nhãn khai báo. Hash/audit giúp đối chiếu anchor đã giữ, không phải chữ ký số hoặc chứng minh thẩm quyền.
 
-Phần phát triển/phân tích ban đầu có hỗ trợ Codex. Public sources được credit ở catalog/case. Credentials, raw private logs và original third-party captures được loại khỏi public repo. Tài liệu hướng dẫn cũ được giữ làm lịch sử; hồ sơ chính ở đầu trang mô tả sản phẩm bàn giao bằng tiếng Việt.
+Phần phát triển/phân tích ban đầu có hỗ trợ Codex. Nguồn công khai được ghi tác giả ở catalog/case. [Phạm vi đóng góp](docs/PORTFOLIO_NOTES.md) giải thích cách dùng công cụ hỗ trợ và phạm vi trải nghiệm được mô tả. Credentials, raw private logs và original third-party captures được loại khỏi public repo. Tài liệu hướng dẫn cũ được giữ làm lịch sử; hồ sơ chính ở đầu trang mô tả sản phẩm bàn giao bằng tiếng Việt.
+
+## Bổ sung v6.1: kiểm gói bàn giao trước khi mở
+
+Người nhận cần đối chiếu **SHA-256 của manifest đã giữ qua kênh riêng**, không chỉ tính lại checksum từ cùng thư mục nhận được. Lệnh mới kiểm đúng bốn file, hash từng file, context/snapshot, các tổng số có thể đối chiếu và dựng lại HTML/biên bản từ JSON để phát hiện hai cách trình bày khác nhau.
+
+```powershell
+python -m soclab verify-readiness --bundle evidence/service/report --manifest-sha256 7cec40b06c4e378cda911ddf8f61a9ed36324437f9ad58b49e092b3df8134691
+```
+
+Lệnh không mở HTML, không gọi mạng, không ghi workspace và không thay cho việc xác minh acquisition. Với báo cáo khác, dùng digest của đúng manifest đã nhận qua kênh tin cậy. [Thiết kế và giới hạn](docs/ENGINEERING_V61.md) mô tả trust boundary và các test từ chối gói đã sửa.
+
+v6.1 pass **170 test trên local Python 3.11.5 và 3.12.14**, gồm 19 test mới. CLI thật chấp nhận bundle đã giữ và từ chối bốn bản sao bị sửa. [Bằng chứng mới](evidence/handoff/README.md) giữ full output và code hashes. Các số 151 test/bảy job phía trên thuộc v6.0 đã phát hành; [nghiệm thu](docs/ACCEPTANCE.md) ghi kết quả theo từng phiên bản.

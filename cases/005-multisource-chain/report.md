@@ -1,53 +1,44 @@
-# CASE-005 — Does the authentication activity belong to the process chain?
+# CASE-005 — Kiểm tra log authentication có thuộc cùng process chain không
 
-This case is a constructed multi-source experiment. The Security and Sysmon records were generated together; the commands were never executed. Its purpose is to test identity joins, source boundaries and collection gaps that the independent public case studies cannot establish.
+Tôi dùng một collection tự dựng gồm Security và Sysmon được sinh cùng scenario để kiểm identity join. Collection có 2.511 event: bảy Security trên `WS-CHAIN-LAB`, bốn Sysmon trên host đó và 2.500 logoff inert trên `QUIET-WS-LAB`. Command không được thực thi; noise chỉ tạo nền cho truy vấn, không phải hàng nghìn compromise hay một phép đo tải lớn.
 
-The reviewed collection contains 2,511 events: seven Security records on WS-CHAIN-LAB, four Sysmon records on that host and 2,500 inert logoff records on QUIET-WS-LAB. The background records provide search noise, not evidence of additional compromises or a large-scale performance test. Domains use example.invalid and addresses use documentation ranges.
+## Câu hỏi và ranh giới nguồn
 
-## The question
+Tôi kiểm failure và success có cùng authentication context trước, rồi mới nối success với process bằng session identity. Username giống nhau hoặc hai event gần thời gian chưa đủ. Scope duyệt ba exact source hash; nguồn chưa duyệt, nguồn khai báo nhưng thiếu và scope không giải thích được đều bị reject.
 
-A nearby failed-logon burst and a suspicious command are not enough to establish a shared session. I first ask whether the success matches the failed attempts, then whether the process carries the same session identity. Only after those checks do I follow process activity and ancestry.
+Scope nói các nguồn được thu trong cùng fixture, không phải authorization chạy command hoặc verdict malicious. Domain dùng `example.invalid`, IP thuộc documentation ranges. Public cases độc lập không được ghép vào chuỗi này.
 
-The scope manifest explicitly approves three exact source hashes. The engine rejects an unknown source, an absent declared source or an unexplained collection scope. This approval describes how the fixture was collected; it is not authorization to execute the commands or a verdict about maliciousness.
+## Chuỗi đã dựng lại
 
-## Evidence reconstruction
-
-| UTC on 2026-09-03 | Source / record / line | Observation and join |
+| UTC ngày 03/09/2026 | Nguồn / record / dòng | Quan sát và điều kiện nối |
 | --- | --- | --- |
-| 10:00:00–04 | chain-security / 100–104 / 1–5 | Five 4625 records share host, target account/domain, source IP and network logon type |
-| 10:00:05 | chain-security / 105 / 6 | 4624 matches that authentication context; nonzero LogonGuid and TargetLogonId retained |
-| 10:00:06 | chain-sysmon / 106 / 1 | cmd creation carries the same domain-qualified user, LogonGuid and LogonId |
-| 10:00:07 | chain-sysmon / 107 / 2 | mshta uses a remote URL; its parent GUID matches the observed cmd GUID |
-| 10:00:08 | chain-sysmon / 108 / 3 | Initiated network connection carries the mshta ProcessGuid |
-| 10:00:09 | chain-sysmon / 109 / 4 | schtasks /Create is an observed descendant of mshta and contains a /TR argument |
-| 10:00:10 | chain-security / 110 / 7 | 4698 records a LabUpdater task; the subject logon ID matches the success context |
+| 10:00:00–04 | chain-security / 100–104 / 1–5 | Năm 4625 cùng host, account/domain, IP và network logon type |
+| 10:00:05 | chain-security / 105 / 6 | 4624 khớp context; giữ nonzero LogonGuid và TargetLogonId |
+| 10:00:06 | chain-sysmon / 106 / 1 | cmd có cùng domain-qualified user, LogonGuid, LogonId |
+| 10:00:07 | chain-sysmon / 107 / 2 | mshta URL, ParentProcessGuid bằng GUID cmd đã thấy |
+| 10:00:08 | chain-sysmon / 108 / 3 | Initiated connection mang ProcessGuid mshta |
+| 10:00:09 | chain-sysmon / 109 / 4 | schtasks /Create /TR là descendant quan sát được |
+| 10:00:10 | chain-security / 110 / 7 | 4698 LabUpdater, subject logon ID khớp success |
 
-Every table entry can be opened as original JSON in the explorer. Source hashes and physical lines remain available after graph construction. The five-stage CHAIN-001 lead uses failures, success, risky process, initiated connection and descendant task command. The final 4698 observation is additional analyst evidence; this engine does not parse task XML or automatically bind the registered task to its later execution.
+CHAIN-001 dùng năm bước failures, success, risky process, initiated connection, descendant task command. 4698 là evidence thêm cho analyst; engine chưa parse task XML hoặc tự bind task đăng ký với lần chạy sau. Kết quả có ba process node, hai parent edge, một complete chain và bốn event/auth findings riêng.
 
-The Security and Sysmon identity checks follow the meanings documented by [Microsoft for 4624](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4624) and [Sysmon](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon). Missing or zero GUIDs remain missing. Matching account names or PIDs cannot replace the stronger joins.
+Tôi giữ source hash/physical line và original object sau khi dựng graph. GUID thiếu hoặc zero không được thay bằng username/PID. Ngữ nghĩa identity theo [Microsoft 4624](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4624) và [Sysmon](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon).
 
-## What I would do with this lead
+## Dữ liệu thiếu và kết quả không thuận lợi
 
-Escalate the constructed sequence for account and host verification. It combines a matching failure-to-success pattern, a session-linked risky process, initiated communication and task creation. Preserve the raw collection, scope manifest, process graph and stage references before making changes.
+D12/H05 có approved intent theo người tạo fixture nhưng vẫn tạo chain vì engine chưa có trusted approval context: chúng được giữ như false positives. H03 thiếu nonzero success GUID, H04 thiếu descendant task process nên chỉ tạo incomplete candidate dù có attack intent trong label. Tôi giữ missing requirements để đề nghị bổ sung log, không gọi host an toàn.
 
-Ask for the source host's authentication context, account ownership, task XML and task execution telemetry, downloaded script contents and network transaction details. Verify change approval and expected administrator activity. A TCP event cannot establish what a URL returned or whether a payload ran. The fixture gives no production business impact, credential theft, lateral movement or exfiltration evidence.
+Exact overlapping observations được đếm một lần trong scope rõ ràng, vẫn giữ multiple source references. Record ID dùng lại với content khác được giữ riêng. Hai process-creation record xung đột cùng host/GUID làm node đó không đủ điều kiện causal join.
 
-## Alternative explanations and deliberate failures
+| Holdout gồm tám scenario | Graph | Baseline username/time |
+| --- | --- | --- |
+| TP / FP / TN / FN | 2 / 1 / 3 / 2 | 4 / 3 / 1 / 0 |
+| Precision / recall / F1 | 66,7% / 50,0% / 57,1% | 57,1% / 100% / 72,7% |
 
-Authorized testing can generate the same sequence. D12 and H05 in the corpus have known approved intent but still produce a full chain: the engine has no trusted approval context to tell them apart. These remain false positives in the published evaluation.
+Tôi giữ kết quả graph F1 thấp hơn baseline. Graph trả lời câu hỏi có bằng chứng nối cụ thể nhưng nhạy với telemetry thiếu. Đây là tám related constructed variants, chưa phải field accuracy. Policy cố định trước đo, evaluator nhận event/scope chứ không nhận label/rationale; development và holdout đều được version.
 
-H03 omits the nonzero success GUID. H04 omits the descendant task process. Both have constructed attack intent, but the engine does not produce a complete chain. It retains an incomplete candidate with the missing requirements; it does not declare either host safe. The missing records are collection requests, not proof that the underlying behavior never occurred.
+## Quyết định và yêu cầu tiếp theo
 
-Overlapping exports are another problem. Exact semantic observations are counted once within this explicit scenario, while their multiple source references remain available. Changed content at the same record ID is retained separately. Conflicting process-creation records for one host/GUID prevent that node from supplying a causal join.
+Tôi đề xuất chuyển cấp chuỗi để xác minh account/host. Cần source authentication context, ownership, task XML/execution telemetry, downloaded content, network transaction và change approval. TCP event không cho biết URL trả nội dung gì; fixture chưa chứng minh business impact, credential theft, lateral movement hoặc exfiltration.
 
-## Evaluation result and trade-off
-
-The eight held-out fixture variants yield TP=2, FP=1, TN=3 and FN=2: precision 66.7%, recall 50.0%, F1 57.1%. The username/time-only baseline catches more labeled positive scenarios but makes more false joins; its held-out F1 is actually higher at 72.7%. The graph policy is therefore not a universal performance improvement. It answers a narrower, better-supported reconstruction question and pays for that specificity with missing-telemetry sensitivity.
-
-These are scenario-level labels on a tiny, related synthetic family, not field precision/recall. The policy was fixed before measurement; development and holdout variants are public and versioned. The evaluator checks the corpus inventory and passes only event records plus source scope to the engine. It does not pass the expected label or rationale.
-
-## Reproduction boundary
-
-The four-case replay followed by scripts/build_advanced.py builds a fresh reconstruction collection. The explorer's Reconstruction view retains process-linked activity and original event objects; Evaluation retains every scenario result, including false positives and false negatives. The integrated operating sequence is documented in [OPERATIONS.md](../../docs/OPERATIONS.md).
-
-The expected result is three process nodes, two observed parent edges, one complete chain and four separate event/auth findings. The count of detections is not the count of incidents. The response actions above are proposals; the lab has not disabled an account or isolated a host.
+Giữ acquisition, scope, graph và stage references trước thay đổi. Các phương án ứng phó trong hồ sơ chưa được thực thi. [Runbook](../../docs/OPERATIONS.md) mô tả rebuild/explorer/evaluation; [bản tiếng Anh đã lưu](report.en.md) giữ chi tiết gốc.

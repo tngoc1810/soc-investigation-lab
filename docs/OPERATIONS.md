@@ -159,3 +159,32 @@ python -m soclab live status --workspace (Join-Path $taskLiveRoot "restored-2026
 ```
 
 Destination mới, inventory/hash/database integrity phải verified. Giữ original khi kiểm; không chạy hai delivery copies. Interrupted restore có thể partial, giữ để xem và dùng destination mới cho retry. Published checksums chỉ cover deliberately published artifacts, private retention riêng. Chưa measured RTO/RPO hoặc automated retention.
+
+## 8. Kiểm gói bàn giao trước khi mở báo cáo
+
+Tôi giữ manifest digest ở thời điểm xuất và chuyển nó qua kênh được người nhận xác minh. Digest nằm cùng một thư mục nhận được chỉ giúp kiểm tự nhất quán; người nhận cần tham chiếu giữ độc lập nếu muốn phát hiện cả bộ bị thay.
+
+Với bundle v6 đã lưu trong repo:
+
+```powershell
+python -m soclab verify-readiness --bundle evidence/service/report --manifest-sha256 7cec40b06c4e378cda911ddf8f61a9ed36324437f9ad58b49e092b3df8134691
+```
+
+Với bundle mới, dùng digest đã nhận qua kênh tin cậy của đúng lần xuất, không dùng lại digest mẫu. Success exit 0 mới xác nhận byte, inventory và nội dung render khớp; chưa xác nhận nguồn acquisition hoặc người khai báo có thẩm quyền. Exit 2 thì giữ nguyên gói nhận được và thông báo chênh lệch cho người phụ trách, không sửa manifest cho pass.
+
+| Lỗi | Việc cần kiểm |
+| --- | --- |
+| Manifest khác hash đã giữ | Đúng phiên bản/gói chưa; bản truyền có bị thay; anchor có được giữ tin cậy không |
+| File thiếu/thừa | Gói bị thiếu khi copy, có file thêm; giữ original để đối chiếu |
+| File khác manifest | Byte thay đổi trong lúc bàn giao hoặc lưu giữ |
+| HTML/Markdown khác JSON | Nội dung hai bản trình bày khác nhau hoặc renderer version khác |
+| Summary khác chi tiết | Gói không nhất quán; yêu cầu producer kiểm lại từ acquisition |
+| Symlink/reparse point/oversize | Gói không đáp ứng contract file thường có giới hạn; chưa mở báo cáo |
+
+Lệnh chỉ nhận readiness bundle, không dùng để kiểm release ZIP hoặc packet bundle. Khi phải kiểm lại source, chạy readiness từ workspace/context đã được review vào destination mới. Thư mục cần ổn định trong lúc verifier đọc.
+
+```powershell
+python scripts/validate_handoff.py --out output/handoff-check-20261011.json
+```
+
+Phép chạy này kiểm CLI trên public constructed bundle đã giữ và bốn bản sao sửa riêng; không làm thay đổi artifact gốc. [Thiết kế v6.1](ENGINEERING_V61.md) ghi contract và giới hạn.

@@ -1,13 +1,15 @@
-# Phạm vi và tác giả dự án
+# Phạm vi đóng góp và cách sử dụng hồ sơ
 
-Tôi triển khai SOC Investigation & Operations theo phạm vi một workstation: Windows acquisition, evidence/delivery, scoped detection/reconstruction, static PowerShell, analyst decision/audit/export/recovery, packet investigation và service readiness. Tám hồ sơ giữ observations, giả thuyết cạnh tranh, assessment và missing evidence.
+Tôi phát triển SOC Investigation & Operations làm dự án cá nhân phục vụ hồ sơ ứng tuyển SOC Analyst intern. Repo chứa hệ thống chạy được, dữ liệu kiểm chứng, các hồ sơ điều tra và kết quả có thể tái lập trên phạm vi một workstation.
 
-[Báo cáo](PROJECT_REPORT_VI.md), [kiến trúc](ARCHITECTURE.md), [vận hành](OPERATIONS.md), [nghiệm thu](ACCEPTANCE.md) và [thiết kế v6](ENGINEERING_V6.md) là bộ hồ sơ chính. Chúng mô tả implementation, lựa chọn thiết kế và kết quả có phạm vi; chưa phải kinh nghiệm vận hành SOC doanh nghiệp.
+Trong quá trình phát triển và phân tích tôi có dùng Codex hỗ trợ code, kiểm thử và soạn thảo. Tôi giữ thông tin này cùng credit của dataset công khai để phân biệt công cụ hỗ trợ với nguồn bằng chứng. Những mô tả ở ngôi “tôi” nói về lựa chọn và cách tổ chức dự án; chúng không khẳng định mọi dòng code được tự viết độc lập. Tôi chưa dùng hồ sơ này để nhận đã xử lý incident cho doanh nghiệp hoặc đã có kinh nghiệm trực SOC.
 
-Phát triển và phân tích ban đầu có hỗ trợ Codex. Public acquisition authors được credit trong catalog/case. Constructed inputs/collector diagnostics/inventory đều có nhãn; native collection là finite run có ngày, raw records giữ riêng tư. Góc nhìn người làm dự án không đồng nghĩa tự tay độc lập viết mọi module hoặc đã xử lý commercial incident.
+Các tài liệu chính là [báo cáo](PROJECT_REPORT_VI.md), [quyết định thiết kế](DESIGN_DECISIONS_VI.md), [runbook](OPERATIONS.md), [nghiệm thu](ACCEPTANCE.md) và thiết kế [v6](ENGINEERING_V6.md)/[v6.1](ENGINEERING_V61.md). Tám case giữ dữ liệu nguồn, quan sát, giả thuyết, quyết định và yêu cầu bổ sung. Bảy bản tiếng Anh trước đây vẫn giữ cạnh bản tiếng Việt để đối chiếu khi cần.
 
-SQLite và native Loki/LogQL là executed query paths; Sigma condition được parse; KQL/SPL chưa chạy trên target platforms. Benchmark/working-set/evaluation giữ đúng unit và giới hạn. Graph holdout có F1 thấp hơn baseline, chưa được xóa hoặc thay bằng training score.
+Public samples thuộc tác giả được ghi ở catalog/case. Các scenario tự dựng, owner/approval giả lập và collector diagnostics đều được đánh dấu. Lần native collection có số lượng/thời điểm và raw log giữ riêng; không gọi fixture là thu thập host thật.
 
-Readiness đọc current state, exact/time-valid source context và verified acquisition/audit. Missing telemetry chưa compromise/sensor-disabled verdict. Owner/reviewer khai báo chưa authenticated authority; proposed handoff chưa gửi ticket hoặc containment.
+SQLite và Loki/LogQL là query paths đã chạy. Sigma condition đã parse; KQL/SPL giữ làm tham chiếu vì chưa chạy trên hai nền tảng đó. Holdout graph F1 thấp hơn baseline vẫn được công bố. Kết quả RAM/benchmark ghi phạm vi phép đo, không phải năng lực xử lý fleet.
 
-Source/policy/UI/runbooks/case/evidence đã bàn giao theo local scope. Enterprise fleet/IAM/HA/retention automation, continuous packet sensor, containment và field accuracy/endurance chưa được nhận là kết quả. Tested release commit tách rõ các attestation/docs được ghi sau CI.
+Owner/reviewer là nhãn khai báo, chưa là danh tính được xác thực. Readiness không đổi verdict hay gửi ticket. Hash giúp đối chiếu byte với anchor, không chứng minh người gửi có thẩm quyền. Enterprise IAM/HA/retention tự động, continuous packet sensor và containment chưa triển khai.
+
+Một hồ sơ có code và screenshot chưa thay cho khả năng giải thích hệ thống. Khi mô tả đóng góp cá nhân, chỉ nhận phần thực sự đã đọc, kiểm chứng hoặc trực tiếp thay đổi; không dùng tài liệu để tạo trải nghiệm công việc chưa có.

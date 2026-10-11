@@ -1,0 +1,61 @@
+{
+  "version": "6.1.0",
+  "validated_at_utc": "2026-10-11T12:39:33.632012+00:00",
+  "results": [
+    {
+      "python": "3.11.5",
+      "tests": 170,
+      "seconds": 36.212,
+      "exit_code": 0,
+      "skipped": 0
+    },
+    {
+      "python": "3.12.14",
+      "tests": 170,
+      "seconds": 35.866,
+      "exit_code": 0,
+      "skipped": 0
+    }
+  ],
+  "new_verifier_tests": 19,
+  "source_hashes": {
+    "soclab/__init__.py": "94092640ec9ab1e8c877a4e843c81875c35be53f252579ac063e643d13d52da0",
+    "soclab/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "soclab/cli.py": "365720b874980905faf100fc5a731b9eb5885e3da2d0884b5dade992d1d018b8",
+    "soclab/collector.py": "06eb8c75be26e14ba70cebb8292b55780e1ea689de931e14bc1aa2359e9442ac",
+    "soclab/context.py": "d8b286d8a0f6a1e461b4673518b6a61004c07abb0b21e38742d7cfc76affad92",
+    "soclab/corpus.py": "3e97a5810c2883b23ea11c9cd8ab66036eeaba875ad0f3ccbbc60d666e922fc9",
+    "soclab/correlation.py": "221e06a5422a3056fed6ed0b9000752ecf1bfeefdb3920df0c669acd2c61cc07",
+    "soclab/detections.py": "83c688c997780813c2c4af171c2d658a3ebef5dfe330b8d28938aee1e61e76c9",
+    "soclab/events.py": "fde2f3ba2bd805c4924856808101fd36d89c02b068682bd5e2eaf998b06f4754",
+    "soclab/forensics.py": "4599ba7e9dee3b5f1e066b2a178ee769719d32e0abad93bf49b50a08b963b2c5",
+    "soclab/hunting.py": "fe01b8444e54c3d566409b3a9e5e3f6867ef3ba634fc3a0aa7047f1221820b15",
+    "soclab/investigation.py": "98b8d0f3ff39518afca988c69c253dc9e1fda31b64c40a95d34e03412f7567b5",
+    "soclab/live.py": "eef13e7a4ac8a03f9ba6bb764271dce6871deb0732418db225b58be2b2936507",
+    "soclab/liveweb.py": "f058a5fb31fa970ac38bdb4254151fb9ddd637d71e0b31dd762ce4d08251be75",
+    "soclab/loki.py": "c4c845983e851c7be182f6cae53f000d4629e03393598f38f08a21c9a0a2c058",
+    "soclab/network.py": "c270f4baa7137fa3f864fe718f5f22febcc4b545c8bb7f7bfb9527a0d16ab6a1",
+    "soclab/network_report.py": "4c629e50cf3d44d9422544b8719b43f1394fc86866e890b9cc5a24a57746e59f",
+    "soclab/operations.py": "f3bbfbf09e44c603554c9fa509e7bec198dfac3a32138bf5a7ebbe187de5fb78",
+    "soclab/query.py": "278cf0b623db8b866f49aa0211424a1ad997b31ce195f22194a3b4e391ea3dab",
+    "soclab/report.py": "f6ef5ca0ae3561bcd904a8123158c36a9949aa36c37f2d480130ed5bb0bb0995",
+    "soclab/service_readiness.py": "e491a0320bfdd7c201e74dee01f9e4fd054a5ec11a3bbe43480454832c749997",
+    "soclab/service_report.py": "4a5b87a8b2878205ae49b08d73649b1c8288b97b65509425a26c9c4eddb104cf",
+    "soclab/service_verify.py": "a41fc4d7e2ad701c3328377ce627735ae4c6d1e75e9a839f82bddcb2b9db50e0",
+    "soclab/store.py": "9b29155b72fe392f0d8ec5fd5d485d599f964293b3490b48534b297ca8974ad9",
+    "soclab/webapp.py": "dd0ba1da8212e7625f7bcf0420eaa225edde848064d313576bc426854dd17669",
+    "tests/test_extended.py": "872ad4fb06e2d175c4ae121ce882c0424e6de30e97a0f7a4397443f15adfff1d",
+    "tests/test_forensics.py": "15f765adbae0a8acaf179963c6160a4879b73f5dd904138bdfb32ea173aa89a4",
+    "tests/test_hunting.py": "9bff1f8b3df47235148b06606d2e4661edf759be860412d5825275388e5bd21b",
+    "tests/test_investigation.py": "3a822033e9f06b4eaec1f7b24b7889cc31ee6b3bc591941e110fc93efa069cc5",
+    "tests/test_live.py": "6ab4f47af57a6b8541d8a287142515b2b744ab92d6f4951e12e19332023c3a2c",
+    "tests/test_loki.py": "a28f0f99291abeab92d69096db12b1932fbb4ee83068ca4c1998adbbe2e6b7e8",
+    "tests/test_network.py": "b008a72360faad6082f079789957b74a56ab1f64ca03e2b810b380cd9fb67eb5",
+    "tests/test_operations.py": "a26394a76a2358f93e0b80e919ca2b6383477e3c1a63d2246351c1e072c41218",
+    "tests/test_pipeline.py": "02b285b8848543df87435b48014136f7120b8dd6e77000b101dea5556e7630d3",
+    "tests/test_quality_review.py": "f2d59390ad4c1cd4ef2ea3cbb6b46ee0e592b2c43a2b05cd7f1c62cedff7e046",
+    "tests/test_service_readiness.py": "b047def20fb204da003626c9dc1cd0cc28897abeb67ebe56c1281b64a8e3986e",
+    "tests/test_service_verify.py": "913cf95e80bbe7c326b35e540b4ade5772dc44958570bce5845d69a630cc8324"
+  },
+  "scope": "Hai full-suite local run trên Windows; không gán CI v6.0 cho code mới. Symlink test thực sự chạy và không skip."
+}

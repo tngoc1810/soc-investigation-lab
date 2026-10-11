@@ -106,9 +106,15 @@ def main(argv=None) -> int:
     p.add_argument('--out', type=Path, required=True, help='Thư mục báo cáo mới, không ghi đè')
     p.add_argument('--as-of', help='Mốc đánh giá ISO có timezone; mặc định thời gian UTC hiện tại')
     p.add_argument('--window-seconds', type=int, default=3600, help='Cửa sổ event, mặc định 3.600 giây')
+    p = sub.add_parser('verify-readiness', help='Kiểm gói bàn giao với SHA-256 manifest đã giữ độc lập; không mở HTML')
+    p.add_argument('--bundle', type=Path, required=True)
+    p.add_argument('--manifest-sha256', required=True, help='Digest đã giữ qua kênh riêng trước khi nhận gói')
     args = parser.parse_args(argv)
     try:
-        if args.command == 'readiness':
+        if args.command == 'verify-readiness':
+            from .service_verify import verify_bundle
+            print(json.dumps(verify_bundle(args.bundle, manifest_sha256=args.manifest_sha256), ensure_ascii=False, indent=2))
+        elif args.command == 'readiness':
             from datetime import datetime, timezone
             from .service_readiness import write_bundle
             result = write_bundle(args.workspace, args.profile, args.out, as_of=args.as_of or datetime.now(timezone.utc).isoformat(), window_seconds=args.window_seconds)

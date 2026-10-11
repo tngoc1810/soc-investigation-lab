@@ -1,4 +1,4 @@
-# Hồ sơ nghiệm thu v6.0.0
+# Hồ sơ nghiệm thu v6.0 và nâng cấp v6.1
 
 Tôi nghiệm thu theo ba mức: chức năng đã triển khai, phép chạy có artifact và phần ngoài phạm vi. Version/name tính năng không thay thế kết quả thực thi. [Báo cáo](PROJECT_REPORT_VI.md) ghi reasoning; [validation có ngày](VALIDATION.md) giữ lịch sử từng engine.
 
@@ -66,3 +66,21 @@ Source/policy/catalog/deployment lock, tám case report, tiếng Việt README/r
 [Bản phát hành v6](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v6.0.0) trỏ tested commit; source fingerprint `63f7c18b1789478b77bfa202037444a7b98c931be3d61ec848c53268ea374272`. Context/assessment CI khớp local; snapshot digest độc lập vì audit giữ thời gian thực của từng run. Release digest, download và internal manifest được kiểm riêng sau khi publish.
 
 [Release verification](../evidence/service/release-validation.json) đã hoàn tất: tag target, asset digest, downloaded bytes và exact 299-file manifest đúng. Bộ tải lại được chạy trong thư mục mới: CLI, 124 evidence checksums của bundle và service pipeline đều pass. Attestation sau publish được giữ riêng trong inventory hiện tại của repo.
+
+## Nghiệm thu v6.1 — ngày 11/10/2026
+
+Thay đổi gồm verifier gói bàn giao, tích hợp CLI/validator/CI, bảy case tiếng Việt có bản gốc giữ riêng, quyết định thiết kế và runbook nhận báo cáo. Code detection/collector không đổi policy.
+
+| Phép kiểm local | Kết quả |
+| --- | --- |
+| Python 3.11.5 | 170 test pass, 36,212 giây |
+| Python 3.12.14 | 170 test pass, 35,866 giây |
+| Verifier regressions | 19 test mới; không có test skip trong hai lần chạy local |
+| Readiness mới từ fixture | 2 asset, 12 event, 5 requirement, 4 cần review, 2 active alert; verifier tích hợp pass |
+| Bundle v6 được giữ | CLI exit 0; ba report file/manifest/HTML/Markdown khớp; acquisition không được nhận là đã kiểm lại |
+| Bốn bản sao bị sửa | CLI exit 2 cho HTML đổi, toàn bộ reseal, biên bản reseal lệch JSON và file thừa |
+| Giữ artifact cũ | Bốn file bundle v6 không đổi sau kiểm; 125 evidence snapshots lịch sử giữ nguyên |
+
+[Pipeline](../evidence/handoff/pipeline-validation.json), [CLI acceptance](../evidence/handoff/cli-validation.json), [test attestation](../evidence/handoff/test-validation.json) và [full output](../evidence/handoff/test-results.txt) ghi input, thời gian, code hashes và kết quả. Đây là nghiệm thu local của v6.1; run bảy job v6.0 phía trên không được dùng làm bằng chứng CI của code v6.1.
+
+Manifest digest của bundle đã giữ là `7cec40b06c4e378cda911ddf8f61a9ed36324437f9ad58b49e092b3df8134691`. Phép acceptance có anchor cố định trong repo, chưa chứng minh một kênh bàn giao bên ngoài có xác thực. Verifier không tái kiểm raw acquisition, không xác thực reviewer và cần filesystem ổn định trong lúc đọc.

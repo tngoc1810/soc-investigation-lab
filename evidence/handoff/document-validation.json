@@ -1,0 +1,33 @@
+{
+  "version": "6.1.0",
+  "validated_at_utc": "2026-10-11T12:39:34.942980+00:00",
+  "files": {
+    "README.md": "af3b50d897df66e78e3050bf09ca11d5f6c925a7631a78f2ed9b9849300a2483",
+    "docs/PROJECT_REPORT_VI.md": "c17930549f504cfffc36deee0a3d6f5a99650ff2e342d2159d81ef09fd9b8aec",
+    "docs/ARCHITECTURE.md": "451e6808792459d1463ab97ba15ada8bc6f5a1ec8f9691a49b773f5cb79a2de4",
+    "docs/OPERATIONS.md": "d14ca361b21a449ddcf028cb35599fd45ad69e28c19ea7653528bb72680654c2",
+    "docs/ACCEPTANCE.md": "eadebdc84e567e44989cc0e8da93c68dea2bc0938adab81fab8dac1c56e1a471",
+    "docs/START_HERE_VI.md": "5350eacf6868fb359c5958287dc06274b44535f2ecd89aa89b4cb3be3890fcb6",
+    "docs/PORTFOLIO_NOTES.md": "0b02b38baca4a6e72cf09bf0faed6704e546942ee006a13050e0bc27875934b6",
+    "docs/ENGINEERING_V6.md": "0a25dfc11710b7708dfa8e9c8d454329fad0f0beb468b3436abedf921b3caed9",
+    "docs/ENGINEERING_V61.md": "ca563e357fece0a30a3151f6cf373439036fea264968b47b7c949cd132c9fa97",
+    "docs/DESIGN_DECISIONS_VI.md": "631537346a26701b39823098c67a8bef4d9c5b2fcf9bd5cda985d0e8e38d3579",
+    "evidence/service/README.md": "26393fe676657c9686608367aa5d0cc3802cf0fee6abc7bd5f8e28811381f9c0",
+    "evidence/handoff/README.md": "ebb2dd07a195664b183f33c0245d02bfd1857d927bb450e2b8ff9d4ae3c16735",
+    "cases/001-mshta-scheduled-task/report.md": "31f4096a350b7344583fa37336e50190622d35c8e2b2ff2173be2d15eebc5817",
+    "cases/002-authentication/report.md": "25de86253190db7bc461a3c80fededa3aca1a79a2013299482d4b520af00d848",
+    "cases/003-powershell-string/report.md": "a8202c7354d8f6177579208cf13e9aab6b11d3eb8be5c6965b8ebcaa4457c3e5",
+    "cases/004-context-tuning/report.md": "95edb9a3b6fd13f21348bc68d524c235b9ee18ce49bf2990dc6957f39530b1aa",
+    "cases/005-multisource-chain/report.md": "713d3950e8c534f09670775cb1b062598d0baed4544fddf203a3131cf27a94a0",
+    "cases/006-public-network/report.md": "f55c975f49deeb56a6ae0c6e39f611c9c7874ad1115079f2df9b3e5abd9d0ae7",
+    "cases/007-network-context/report.md": "ec2aa28e5093f8f6f13fd290a375ad846f0c4d8ab908b74f2d5cc7f502931692",
+    "cases/008-telemetry-readiness/report.md": "4b497c98a7919151186fea6583fb0103248eec2d359e38a8222e749e529a32ad"
+  },
+  "local_links_verified": 211,
+  "cli_commands_parsed_without_execution": 22,
+  "powershell_ast": {
+    "status": "passed",
+    "blocks_checked": 24
+  },
+  "scope": "20 hồ sơ chính/case hiện tại theo danh sách files; local file existence/UTF-8/CLI grammar. Không kiểm URL remote, fragment headings hoặc kết quả chạy operational; AST chỉ parse fenced PowerShell blocks, không execute."
+}

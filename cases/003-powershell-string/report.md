@@ -1,43 +1,33 @@
-# CASE-003 — Download-and-execute text that may only be a string
+# CASE-003 — Text có IEX chưa đủ để kết luận downloader đã chạy
 
-The first event looks alarming in a keyword search: it contains IEX, Net.WebClient and downloadString. Reading the whole ScriptBlockText changes the assessment. The expression is enclosed in double quotes, and the accompanying module log shows Out-Default receiving that text as its input object.
+Điểm khiến tôi giữ verdict mở là dấu ngoặc kép quanh toàn bộ biểu thức `IEX(New-Object Net.WebClient).downloadString(...)`. Keyword search thấy dấu hiệu download/evaluate, nhưng record 4103 đi kèm có `Out-Default` nhận chính text ấy. Bằng chứng nghiêng về việc in ra một string; file chưa chứng minh có download hoặc thực thi nội dung tải về.
 
-The supported conclusion is that suspicious-looking text was logged, with evidence pointing toward a literal being printed. This file does not establish a network download or execution of downloaded content. I would hold a live incident determination pending the full runspace and endpoint/network context rather than classify this as a confirmed downloader.
+## Nguồn và context
 
-## Collection
+File `ID4103-4104-Payload download via PowerShell.evtx` nằm trong [sample cố định](https://github.com/Yamato-Security/hayabusa-sample-evtx/tree/0845333ecb4afcf64c55c6e10946383f168f308c/EVTX-to-MITRE-Attack/TA0002-Execution/T1059.001-PowerShell), có credit gốc [JPCERT/CC](https://github.com/JPCERTCC/EVTX-to-MITRE-Attack). SHA-256: `76da739520ecfb51c0bc93a5856ff45c0cd5e038114826fee30790f92fce0fca`.
 
-Source: [pinned EVTX-to-MITRE-Attack sample](https://github.com/Yamato-Security/hayabusa-sample-evtx/tree/0845333ecb4afcf64c55c6e10946383f168f308c/EVTX-to-MITRE-Attack/TA0002-Execution/T1059.001-PowerShell). Original credit: [JPCERT/CC EVTX-to-MITRE-Attack](https://github.com/JPCERTCC/EVTX-to-MITRE-Attack).
+Host `fs03vuln.offsec.lan`. Ba record cùng System time 24/01/2022 20:11:11.361955 UTC, gồm hai 4104 và một 4103. ContextInfo ghi ConsoleHost, Windows PowerShell 4.0 và `OFFSEC\admmig`; đó là context lịch sử, không phải user vận hành repo này.
 
-- File: ID4103-4104-Payload download via PowerShell.evtx.
-- EVTX SHA-256: 76da739520ecfb51c0bc93a5856ff45c0cd5e038114826fee30790f92fce0fca.
-- Host: fs03vuln.offsec.lan.
-- Three records share System time 2022-01-24 20:11:11.361955 UTC: two 4104 script-block records and one 4103 module record.
-- ContextInfo reports ConsoleHost, Windows PowerShell 4.0 and OFFSEC\admmig. This is supplied historical context, not the account running this portfolio.
+## Tôi đọc các record cùng nhau
 
-PowerShell script-block logging records script text in 4104 when configured. Content may include string literals, so a matching token is not proof that the corresponding operation was invoked. [Microsoft logging documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging?view=powershell-5.1)
-
-## Evidence review
-
-| Source line / record | Content | Assessment |
+| Dòng / record | Nội dung | Nhận định |
 | --- | --- | --- |
-| 1 / 83421, 4104 | A double-quoted string containing IEX(New-Object Net.WebClient).downloadString(...) | WIN-009 correctly finds the text pattern; the outer quoting matters |
-| 2 / 83422, 4103 | CommandInvocation(Out-Default) and InputObject equal to the same quoted expression | Supports output of text, rather than evidence of a download invocation |
-| 3 / 83423, 4104 | ScriptBlockText is prompt | No download behavior shown by this record |
+| 1 / 83421, 4104 | String trong double quotes chứa IEX/WebClient/downloadString | WIN-009 khớp text; quoting ảnh hưởng cách diễn giải |
+| 2 / 83422, 4103 | CommandInvocation(Out-Default), InputObject bằng biểu thức trên | Hỗ trợ giả thuyết text được xuất ra |
+| 3 / 83423, 4104 | ScriptBlockText là prompt | Chưa có download trong record này |
 
-The URL inside the string references a PNG on a public image host. That is an observation, not a reputation decision. The historical URL was not visited or downloaded. All three records share a System timestamp; their record order is collection order, not proof of precise execution timing.
+URL trong string trỏ ảnh PNG trên image host công khai. Tôi giữ đây là text quan sát được, không truy cập URL hay gán reputation. Timestamp bằng nhau không chứng minh thứ tự thực thi chính xác. Hai 4104 có ScriptBlockId khác nhau; context user/runspace của 4103 không tự động xác thực identity của mọi 4104 gần đó.
 
-The script-block IDs differ between the two 4104 records. The 4103 ContextInfo provides a runspace and user, but the exporter does not magically associate every nearby 4104 with that identity. Full runspace/session context would make that attribution stronger.
+Theo [Microsoft về PowerShell logging](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging?view=powershell-5.1), log có script text. Việc một token tồn tại trong text không chứng minh phương thức tương ứng đã được gọi.
 
-## Detection and a safe semantic check
+## Kiểm tra cú pháp và giới hạn
 
-WIN-009 looks for download text and evaluate text in a 4104 ScriptBlockText. One record matches. This is intentionally a review lead, not an AST-aware determination of execution. Quoted examples, tutorials and authorized workflows can all match.
+WIN-009 vẫn giữ một finding. Tôi giữ both quoted-data và executable-text fixtures vì substring detection chưa giải quyết được ngữ nghĩa. Chạy AST parser giúp phân biệt node cú pháp; bản thân một command/member AST vẫn chưa chứng minh thực thi.
 
-For a local semantic check, scripts/check_literal.ps1 parses an inert equivalent with the reserved example.invalid domain and reports its AST node types. It also prints the literal. No network expression is evaluated. The resulting transcript demonstrates why the same words can exist as data, but it does not retroactively prove every operation in the historical sample.
+`scripts/check_literal.ps1` dùng biểu thức inert với `example.invalid`, parse node và in string, không evaluate network expression. Phép kiểm giải thích vì sao cùng từ khóa có thể xuất hiện như dữ liệu; không thay thế nguồn của sample lịch sử. Pipeline forensics còn giữ MessageNumber/MessageTotal, thiếu fragment hoặc conflict thay vì ghép tùy ý.
 
-The safe check and detection tests retain both an executable-text fixture and the quoted-data fixture. Both still generate a lead: a regex or substring rule alone cannot settle their intent. Fragmented 4104 blocks are another limitation; a download and evaluation split across messages may evade this single-record rule.
+## Quyết định của tôi
 
-## Decision
+Tôi chưa xác nhận incident downloader. Cần original script, đầy đủ message parts, runspace/session logs, process creation và network telemetry để xác minh hoạt động thực tế. Ba record chưa đủ để khẳng định cả session benign. Riêng keyword match không phải căn cứ thực hiện containment.
 
-Hold the live incident verdict and request additional context. The evidence favors literal output, but the three-record sample is too narrow to establish the whole session was benign. Request the original script, complete 4104 message parts, relevant runspace/session logs, process creation and network telemetry. In a real ticket, explicitly state that no download or payload execution has been confirmed.
-
-No containment is justified solely by the keyword match in this collection. If additional evidence establishes execution or another malicious action, reassess severity and scope. The main lesson is to read syntax and neighboring evidence before turning an alert name into an incident narrative.
+Case này thể hiện sự khác nhau giữa detection text và kết luận hành vi. [Runbook](../../docs/OPERATIONS.md), [forensics](../../docs/POWERSHELL_FORENSICS.md) và [bản tiếng Anh đã lưu](report.en.md) giữ đường tái lập/phạm vi gốc.
