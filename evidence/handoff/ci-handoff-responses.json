@@ -1,0 +1,40 @@
+{
+  "version": "6.1.0",
+  "validated_at_utc": "2026-10-11T12:39:59.361458+00:00",
+  "retained_manifest_sha256": "7cec40b06c4e378cda911ddf8f61a9ed36324437f9ad58b49e092b3df8134691",
+  "original_bundle_unchanged": true,
+  "accepted": {
+    "exit_code": 0,
+    "stdout": "{\n  \"format\": \"soclab-service-readiness-v1\",\n  \"manifest_sha256\": \"7cec40b06c4e378cda911ddf8f61a9ed36324437f9ad58b49e092b3df8134691\",\n  \"files_verified\": 3,\n  \"rendered_documents_match\": true,\n  \"summary\": {\n    \"assets\": 2,\n    \"selected_events\": 12,\n    \"unmapped_hosts\": 1,\n    \"telemetry_checks\": 5,\n    \"checks_needing_review\": 4,\n    \"active_alerts\": 2\n  },\n  \"source_acquisition_rechecked\": false,\n  \"scope\": \"Đối chiếu byte và biểu diễn với manifest giữ độc lập; không xác thực người gửi, không đọc lại acquisition hoặc mở HTML. Filesystem phải ổn định trong lúc kiểm.\"\n}\n",
+    "stderr": ""
+  },
+  "rejected": {
+    "changed_html": {
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "soclab: Byte báo cáo không khớp manifest: index.html\n"
+    },
+    "whole_bundle_resealed": {
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "soclab: Manifest khác SHA-256 đã giữ độc lập\n"
+    },
+    "handoff_resealed": {
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "soclab: Biên bản không khớp JSON hoặc renderer đang dùng\n"
+    },
+    "extra_file": {
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "soclab: Gói có file thiếu, file thừa hoặc tên không hợp lệ\n"
+    }
+  },
+  "source_hashes": {
+    "soclab/service_verify.py": "a41fc4d7e2ad701c3328377ce627735ae4c6d1e75e9a839f82bddcb2b9db50e0",
+    "soclab/service_report.py": "4a5b87a8b2878205ae49b08d73649b1c8288b97b65509425a26c9c4eddb104cf",
+    "soclab/cli.py": "365720b874980905faf100fc5a731b9eb5885e3da2d0884b5dade992d1d018b8",
+    "scripts/validate_handoff.py": "36d41ecd298ad6ddc01e9fc6894d63aded6ac2bfbc5abdc0632143d723672406"
+  },
+  "scope": "CLI chạy thật trên public constructed v6 bundle và bốn bản sao kiểm lỗi; không thu host thật, không mở HTML hoặc gọi mạng. Anchor là digest artifact đã giữ trong repo, chưa chứng minh kênh truyền có xác thực."
+}

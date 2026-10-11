@@ -4,7 +4,7 @@ Tôi xây dựng SOC Investigation & Operations quanh một câu hỏi: khi có 
 
 **Phiên bản 6.1.0 — cập nhật ngày 11/10/2026.** Core dùng Python standard library, SQLite và PowerShell; Loki/Grafana native là backend tùy chọn. Tôi chọn phạm vi một workstation để triển khai trên máy 8 GB RAM mà không cần Docker hoặc VM.
 
-[Báo cáo dự án đầy đủ](docs/PROJECT_REPORT_VI.md) · [Kiến trúc](docs/ARCHITECTURE.md) · [Vận hành](docs/OPERATIONS.md) · [Nghiệm thu](docs/ACCEPTANCE.md) · [Thiết kế v6](docs/ENGINEERING_V6.md) · [Quyết định thiết kế](docs/DESIGN_DECISIONS_VI.md) · [Kiểm gói bàn giao v6.1](docs/ENGINEERING_V61.md) · [Bản phát hành v6](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v6.0.0)
+[Báo cáo dự án đầy đủ](docs/PROJECT_REPORT_VI.md) · [Kiến trúc](docs/ARCHITECTURE.md) · [Vận hành](docs/OPERATIONS.md) · [Nghiệm thu](docs/ACCEPTANCE.md) · [Thiết kế v6](docs/ENGINEERING_V6.md) · [Quyết định thiết kế](docs/DESIGN_DECISIONS_VI.md) · [Kiểm gói bàn giao v6.1](docs/ENGINEERING_V61.md) · [Bản phát hành v6.1](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v6.1.0)
 
 ## Bài toán tôi giải quyết
 
@@ -135,3 +135,5 @@ python -m soclab verify-readiness --bundle evidence/service/report --manifest-sh
 Lệnh không mở HTML, không gọi mạng, không ghi workspace và không thay cho việc xác minh acquisition. Với báo cáo khác, dùng digest của đúng manifest đã nhận qua kênh tin cậy. [Thiết kế và giới hạn](docs/ENGINEERING_V61.md) mô tả trust boundary và các test từ chối gói đã sửa.
 
 v6.1 pass **170 test trên local Python 3.11.5 và 3.12.14**, gồm 19 test mới. CLI thật chấp nhận bundle đã giữ và từ chối bốn bản sao bị sửa. [Bằng chứng mới](evidence/handoff/README.md) giữ full output và code hashes. Các số 151 test/bảy job phía trên thuộc v6.0 đã phát hành; [nghiệm thu](docs/ACCEPTANCE.md) ghi kết quả theo từng phiên bản.
+
+[Bảy job CI v6.1](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/38140112524) đều pass trên commit `92ebf1c85feb981177f05cb95a0cd1d413045029`. Logs/artifact tải lại đã kiểm digest, inventory và source identity; [hồ sơ nghiệm thu](docs/ACCEPTANCE.md) giữ kết quả cụ thể.

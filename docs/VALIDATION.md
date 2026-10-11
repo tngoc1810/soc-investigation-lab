@@ -1,3 +1,15 @@
+# Validation theo phiên bản
+
+## 11/10/2026 — v6.1: kiểm gói bàn giao và hồ sơ tiếng Việt
+
+Tested commit `92ebf1c85feb981177f05cb95a0cd1d413045029`; [run 38140112524](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/38140112524) pass bảy job. Bốn downloaded matrix logs xác nhận 170 test mỗi suite. Hai local suite Python 3.11.5/3.12.14 cũng pass 170, không skip. CLI thật accept retained v6 bundle và reject bốn bản sao sửa riêng; 19 verifier regressions mới.
+
+Ba downloaded artifact có exact digest/inventory; source hashes khớp tested Git blobs. Actual Loki 19 UID sau outage/restart, public decoder 81 tuple/40 DNS/hai HTTP request. Handoff/readiness artifact giữ đúng giới hạn: không kiểm lại acquisition ở phía nhận; context/summary khớp local, snapshot time độc lập. [Bằng chứng v6.1](../evidence/handoff/README.md), [thiết kế](ENGINEERING_V61.md), [nghiệm thu](ACCEPTANCE.md).
+
+Đợt này chuyển bảy case sang tiếng Việt, giữ bản tiếng Anh riêng, bổ sung quyết định thiết kế và runbook nhận báo cáo. Không có native incident hoặc containment mới. Các hồ sơ lịch sử bên dưới giữ nguyên phạm vi từng release.
+
+---
+
 # Bản ghi kiểm chứng — cập nhật 09/10/2026
 
 ## Phiên bản 6 — Service readiness, chất lượng dữ liệu và hồ sơ tiếng Việt (09/10/2026)

@@ -1,6 +1,6 @@
 # Kiến trúc và quyết định thiết kế
 
-Tôi triển khai v6.0.0 theo phạm vi một workstation. Windows acquisition, investigation, durable delivery, case review, packet analysis và service readiness có input/output riêng; cùng giữ nguyên tắc truy lại bằng chứng và phân biệt observation/assessment/decision. [Báo cáo](PROJECT_REPORT_VI.md) ghi lý do điều tra; [runbook](OPERATIONS.md) định nghĩa thao tác vận hành.
+Tôi triển khai v6.1.0 theo phạm vi một workstation. Windows acquisition, investigation, durable delivery, case review, packet analysis và service readiness có input/output riêng; cùng giữ nguyên tắc truy lại bằng chứng và phân biệt observation/assessment/decision. [Báo cáo](PROJECT_REPORT_VI.md) ghi lý do điều tra; [runbook](OPERATIONS.md) định nghĩa thao tác vận hành.
 
 ## Thành phần và ownership
 
@@ -108,3 +108,10 @@ Loopback ports: historical 8765, live 8766, network 8767, service 8768 theo runb
 Capacity guards: operational100.000 stored events/10.000 non-delivered rows/512 MiB admission; batch500 record/16.000.000 bytes; graph100.000 events; network32 MiB/50.000 packets/2.000 flows/128 KiB stream; network scope128 KiB; service50.000 events/64 MiB archive/256 KiB profile. Đây là reject policy, không measured throughput/peak RAM. Private hold accumulation cũng cần retention/workspace decision.
 
 HA, fleet IAM, retention automation, independent signatures, external intelligence, continuous network sensor, containment và production endurance chưa triển khai. [Nghiệm thu](ACCEPTANCE.md) ghi phạm vi đã chạy và các kết quả yếu hơn baseline.
+## Kiểm gói đã bàn giao ở v6.1
+
+`service_verify.py` nằm sau bước xuất readiness: nó nhận thư mục bốn file và manifest digest được người nhận giữ riêng. Verifier đối chiếu byte/inventory, identifiers, phần tổng quan có thể kiểm và render lại HTML/Markdown từ JSON. Nó không đọc operational database, không tạo report mới và không sửa acquisition.
+
+Ranh giới tin cậy là anchor được cung cấp và filesystem ổn định trong lúc đọc. Nếu người nhận tự lấy hash từ chính manifest đã bị sửa thì chưa có bảo vệ so với whole-bundle reseal. Quyền người gửi/reviewer chưa được xác thực. Cờ producer đã kiểm archive trong JSON không được coi là một lần kiểm archive mới; output ghi `source_acquisition_rechecked=false`.
+
+[Thiết kế v6.1](ENGINEERING_V61.md) ghi bounded reads, fixed filenames, reparse-point rejection, strict JSON và giới hạn active-count cho unmapped host. [Runbook](OPERATIONS.md) ghi cách nhận gói và xử lý chênh lệch.

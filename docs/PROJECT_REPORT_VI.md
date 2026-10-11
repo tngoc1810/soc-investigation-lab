@@ -441,3 +441,19 @@ Tôi bổ sung `verify-readiness`, bắt buộc nhận manifest digest đã gi�
 Tôi không gán bước này thành xác thực acquisition. Lệnh không có archive hoặc database để kiểm lại; số selected event chỉ được kiểm kiểu/giới hạn, không tự tái đếm toàn bộ event. Unmapped alert IDs không có state nên chỉ cung cấp giới hạn cho active count. Hash giữ riêng chỉ có giá trị khi bản tham chiếu đáng tin cậy; không thay thế chữ ký số hay xác minh người gửi.
 
 Đợt biên tập này chuyển bảy case cũ thành tiếng Việt, giữ bản tiếng Anh cạnh file hiện tại. Số liệu, source hash, timeline, kết quả bất lợi và giới hạn không bị sửa để làm câu chuyện đẹp hơn. [Quyết định thiết kế](DESIGN_DECISIONS_VI.md) trình bày lý do chọn implementation và những phương án còn thiếu; [thiết kế v6.1](ENGINEERING_V61.md) giữ contract kiểm gói bàn giao.
+
+## CI v6.1 và artifact được đối chiếu
+
+Commit `92ebf1c85feb981177f05cb95a0cd1d413045029` pass [bảy job CI trong run 38140112524](https://github.com/tngoc1810/soc-investigation-lab/actions/runs/38140112524). Log tải về xác nhận bốn matrix suite có 170 test; Windows còn rebuild public EVTX/graph/operations, Linux và Windows đều chạy CLI handoff và kiểm hồ sơ.
+
+Tôi tải ba artifact ZIP, kiểm GitHub digest, exact inventory và source hashes so với tested Git blobs. Independent handoff artifact giữ original bundle không đổi, CLI accept exit 0 và bốn bản sao bị sửa exit 2. Readiness từ workspace mới có context/summary/missing fields khớp local, snapshot hash giữ audit time của từng run nên khác nhau.
+
+Các đường xử lý cũ cũng được kiểm lại: native Loki trả 19 unique operational UID sau outage/fresh-process recovery; public decoder đối chiếu 81 tuple, 40 DNS message và hai HTTP request. Chúng là phép kiểm có phạm vi với controlled input, không phải thêm incident doanh nghiệp.
+
+[CI record](../evidence/handoff/ci-validation.json), [artifact verification](../evidence/handoff/ci-artifact-validation.json) và [full responses](../evidence/handoff/README.md) giữ kết quả. Engine fingerprint: `f509ecfeefc0509bf6bc243e3e1f626b5d70dee67f2755c81604377581bccb5b`. Các attestation/tài liệu ghi sau CI không đổi engine đã kiểm.
+
+## Bản phát hành đã tải lại
+
+[v6.1.0](https://github.com/tngoc1810/soc-investigation-lab/releases/tag/v6.1.0) trỏ tested commit `92ebf1c85feb981177f05cb95a0cd1d413045029`. ZIP bàn giao có 327 file, 2.664.234 byte, SHA-256 `567e0613a69fcf52db91957fc00ebabe288c35616e04039b5454db8dd7e51618`. Tôi kiểm GitHub asset digest, downloaded bytes, exact internal manifest và engine bytes so với tested source.
+
+Bộ tải lại được giải nén vào thư mục mới: core CLI, 138 evidence entries trong bundle, readiness pipeline và handoff CLI đều pass; bốn bản sao bị sửa có exit 2. [Release attestation](../evidence/handoff/release-validation.json) được ghi sau publish vào repo nên không nằm trong byte ZIP đã tải. Repo hiện giữ thêm attestation đó; các tài liệu/bằng chứng ghi sau CI không thay engine của tag.
